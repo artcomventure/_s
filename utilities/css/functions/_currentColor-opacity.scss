@@ -1,0 +1,6 @@
+/**
+ * @param {float} $opacity (0-1)
+ */
+@function currentColor-opacity( $opacity ) {
+  @return color-mix(in srgb, currentColor #{$opacity * 100%}, transparent);
+}

@@ -1,0 +1,175 @@
+@import "../utilities/css/normalize";
+
+// TODO: import fonts
+//@import "https://use.typekit.net/..."; // extern
+//@import "/wp-content/themes/_s/media/fonts/...";  // intern
+
+html, body {}
+body {}
+
+// ---
+// typography
+
+%copy {
+  color: $font-color-text;
+  font-family: $font-family-base;
+  font-weight: 400;
+  //font-size: fluid(rem(16px), rem(20px));
+  //line-height: fluid(rem(26px), rem(28px));
+  //letter-spacing: fluid(0px, -.2px);
+}
+
+body,
+button,
+input,
+select,
+optgroup,
+textarea,
+figcaption {
+  @extend %copy;
+}
+
+// ---
+// headings
+
+%heading {
+  font-family: $font-family-heading;
+  font-weight: 700;
+
+  @include mobile {
+    //hyphens: auto;
+    //-webkit-hyphens: auto; // Safari
+  }
+}
+
+%h1 {
+  @extend %heading;
+
+  //font-size: fluid(rem(28px), rem(36px));
+  //line-height: fluid(rem(40px), rem(45px));
+  //letter-spacing: 0;
+}
+
+h1, .h1 {
+  @extend %h1;
+}
+
+%h2 {
+  @extend %heading;
+
+  //font-size: fluid(rem(28px), rem(36px));
+  //line-height: fluid(rem(40px), rem(45px));
+  //letter-spacing: 0;
+}
+
+h2, .h2 {
+  @extend %h2;
+}
+
+%h3 {
+  @extend %heading;
+
+  //font-size: fluid(1.8rem, 2.2rem);
+  //line-height: fluid(2.1rem, 3.6rem);
+  //letter-spacing: fluid(.18px, 0px);
+}
+
+h3, .h3 {
+  @extend %h3;
+}
+
+%h4 {
+  @extend %heading;
+
+  //font-size: fluid(1.5rem, 1.6rem);
+  //line-height: 1.8rem;
+  //letter-spacing: fluid(.9px, .48px);
+}
+
+h4, .h4 {
+  @extend %h4;
+}
+
+%h5 {
+  @extend %heading;
+
+  //font-size: fluid(1.5rem, 1.6rem);
+  //line-height: 1.8rem;
+  //letter-spacing: fluid(.9px, .48px);
+}
+
+h5, .h5 {
+  @extend %h4;
+}
+
+%h6 {
+  @extend %heading;
+
+  //font-size: fluid(1.5rem, 1.6rem);
+  //line-height: 1.8rem;
+  //letter-spacing: fluid(.9px, .48px);
+}
+
+h6, .h6 {
+  @extend %h4;
+}
+
+// ---
+// links
+
+%link {
+  color: $font-color-link;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+  outline: 0;
+
+  #primary & {
+    text-decoration: underline;
+    text-underline-offset: .14em;
+    text-decoration-color: currentColor;
+  }
+
+  &:hover {
+    color: $font-color-link-hover;
+  }
+
+  &:active, &.active {
+    color: $font-color-link-active;
+  }
+
+  &[href=""] {
+    pointer-events: none;
+  }
+
+  &[href^="#"],
+  &[href^="tel:"] {
+    text-decoration: none !important;
+  }
+
+  &[href*=".pdf"],
+  .download a {
+    @include mobile {
+      position: relative;
+      display: block;
+    }
+
+    @include icon-after(download) {
+      text-decoration: none;
+      font-size: 1.6875em;
+      vertical-align: middle;
+
+      @include mobile {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate3d(-50%, 50%, 0);
+        margin: 0;
+        padding-top: 2em;
+      }
+    }
+  }
+}
+
+a, .link {
+  @extend %link;
+}

@@ -1,0 +1,47 @@
+// Pseudo icons.
+
+%icon {
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  text-decoration: inherit;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-rendering: auto;
+  vertical-align: middle;
+}
+
+@mixin icon($icon: "", $font: '') {
+  @if $font == '' and variable_exists( 'Icont' ) and map-get($Icont, $icon) {
+    $font: Icont;
+    $icon: map-get($Icont, $icon);
+  }
+
+  @extend %icon;
+  content: $icon !important;
+  font-family: $font !important;
+  @content;
+}
+
+@mixin icon-before($icon: "", $font: '') {
+  &:before {
+    @include icon($icon, $font);
+    margin-right: 0.42em;
+    @content;
+  }
+}
+
+@mixin icon-after($icon: "", $font: '') {
+  &:after {
+    @include icon($icon, $font);
+    margin-left: 0.42em;
+    @content;
+  }
+}

@@ -1,0 +1,32 @@
+/**
+ * Don't let the admin bar interfere with the layout.
+ */
+
+html[lang] {
+  margin-top: 0 !important;
+}
+
+#wpadminbar {
+  position: fixed !important;
+  transition-property: transform, opacity;
+  transition-duration: .2s;
+  transform: translateY(-65%);
+  opacity: .1;
+
+  > * {
+    visibility: hidden;
+  }
+
+  &:hover {
+    transform: translateY(0);
+    opacity: 1;
+
+    > * {
+      visibility: visible;
+    }
+  }
+
+  a:after {
+    display: none;
+  }
+}

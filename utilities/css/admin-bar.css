@@ -1,0 +1,1 @@
+html[lang]{margin-top:0 !important}#wpadminbar{position:fixed !important;transition-property:transform, opacity;transition-duration:.2s;transform:translateY(-65%);opacity:.1}#wpadminbar>*{visibility:hidden}#wpadminbar:hover{transform:translateY(0);opacity:1}#wpadminbar:hover>*{visibility:visible}#wpadminbar a:after{display:none}

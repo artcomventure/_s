@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "watch": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "build": "node-sass . -o . --output-style compressed"
+  }
+}

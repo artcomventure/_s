@@ -1,0 +1,41 @@
+// Default WP styles.
+
+// do not show the outline on the skip link target
+#primary[tabindex="-1"]:focus {
+  outline: 0;
+}
+
+.updated:not(.published) {
+  display: none;
+}
+
+// ---
+// Buttons.
+
+.wp-block-buttons {
+  display: flex;
+}
+
+// ---
+// Smileys.
+
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+  border: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+// make sure logo link wraps around logo image
+.custom-logo-link {
+  display: block;
+  line-height: 0;
+
+  ~ * {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+}
+

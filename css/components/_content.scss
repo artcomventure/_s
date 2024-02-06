@@ -1,0 +1,24 @@
+// ---
+// Block layout
+
+.entry-content > * {
+  isolation: isolate;
+
+  &, &.alignfull > * {
+    @extend %container-content;
+
+    @each $name, $breakpoint in $breakpoints {
+      &.width-#{$name} {
+        @extend %width-#{$name};
+      }
+
+      &.container-#{$name} {
+        @extend %container-#{$name};
+      }
+    }
+
+    &.alignwide {
+      @extend %container-xxl;
+    }
+  }
+}

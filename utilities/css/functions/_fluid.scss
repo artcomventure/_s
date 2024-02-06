@@ -1,0 +1,27 @@
+/**
+ * Calculated `clamp()` values to match `$desktop`/`$mobile` screen width.
+ * Absolute units (px, rem) only!
+ */
+
+@function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
+  @if unit($min) != unit($max) {
+    @warn 'Min and max values for fluid function must have the same unit. $max (#{$max}) is used.';
+    @return $max;
+  }
+
+  @if unit($min) != px and unit($min) != rem {
+    @warn 'Unit must be of type px or rem. $max (#{$max}) is used.';
+    @return $max;
+  }
+
+  $lower: breakpoint($lower);
+  $upper: breakpoint($upper);
+
+  @if unit($min) == rem {
+    // convert to rem
+    $lower: $lower / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
+    $upper: $upper / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
+  }
+
+  @return clamp(min($min, $max), calc(#{$min} + #{strip-unit($max) - strip-unit($min)} * (100vw - #{$lower}) / #{strip-unit($upper - $lower)}), max($min, $max));
+}

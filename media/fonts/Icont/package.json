@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "generate": "fantasticon icons -o . --name Icont --prefix icont --normalize true --asset-types scss && node-sass ./Icont.scss > ./font.css --output-style compressed"
+  }
+}

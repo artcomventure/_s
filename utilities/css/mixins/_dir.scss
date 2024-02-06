@@ -1,0 +1,12 @@
+@mixin is_ltr() {
+  html[dir="ltr"] &,
+  html:not([dir]) & {
+    @content
+  }
+}
+
+@mixin is_rtl() {
+  html[dir="rtl"] & {
+    @content
+  }
+}

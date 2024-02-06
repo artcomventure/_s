@@ -1,0 +1,147 @@
+// Maybe get numeric breakpoints by key from `$breakpoints`.
+
+@function breakpoint ( $breakpoint ) {
+  // try to get breakpoint by key (`$breakpoint`) from `$breakpoints`
+  @if variable-exists( breakpoints ) and map-get( $breakpoints, $breakpoint ) {
+    $breakpoint: map-get($breakpoints, $breakpoint);
+  }
+
+  // check if `$breakpoint` is numeric
+  @if type-of( $breakpoint ) == 'number' {
+    @return $breakpoint;
+  }
+
+  @return false;
+}
+
+// ---
+// Media queries.
+
+@mixin media-breakpoint-up( $breakpoint ) {
+  $breakpoint: breakpoint($breakpoint);
+
+  @if $breakpoint {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-between($min, $max) {
+  $min: breakpoint($min);
+  $max: breakpoint($max);
+
+  @if $min and $max {
+    @media (min-width: $min) and (max-width: $max - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-down( $breakpoint ) {
+  $breakpoint: breakpoint($breakpoint);
+
+  @if $breakpoint {
+    @media (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+// ---
+// Media query shorthands.
+
+@mixin desktop {
+  $breakpoint: breakpoint(desktop);
+
+  @if $breakpoint {
+    @include media-breakpoint-up($breakpoint) {
+      @content
+    }
+  }
+}
+
+@mixin not-desktop {
+  $breakpoint: breakpoint(desktop);
+
+  @if $breakpoint {
+    @include media-breakpoint-down($breakpoint) {
+      @content
+    }
+  }
+}
+
+@mixin tablet {
+  $mobile: breakpoint(mobile);
+  $desktop: breakpoint(desktop);
+
+  @if $mobile and $desktop {
+    @include media-breakpoint-between($mobile, $desktop) {
+      @content
+    }
+  }
+}
+
+@mixin not-tablet {
+  $mobile: breakpoint(mobile);
+
+  @if $mobile {
+    @media (max-width: $mobile - 1px) {
+      @content
+    }
+  }
+
+  $desktop: breakpoint(desktop);
+
+  @if $desktop {
+    @media (min-width: $desktop) {
+      @content
+    }
+  }
+}
+
+@mixin mobile {
+  @include media-breakpoint-down(breakpoint(mobile)) {
+    @content
+  }
+}
+
+@mixin not-mobile {
+  @include media-breakpoint-up(breakpoint(mobile)) {
+    @content
+  }
+}
+
+// ---
+// Container queries.
+
+@mixin container-breakpoint-up( $breakpoint ) {
+  $breakpoint: breakpoint($breakpoint);
+
+  @if $breakpoint {
+    @container (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin container-breakpoint-between($min, $max) {
+  $min: breakpoint($min);
+  $max: breakpoint($max);
+
+  @if $min and $max {
+    @container (min-width: $min) and (max-width: $max - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin container-breakpoint-down( $breakpoint ) {
+  $breakpoint: breakpoint($breakpoint);
+
+  @if $breakpoint {
+    @container (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@import "../../../css/variables";
+@import "../../css/base";
+
+@import "../../../css/elements";
+@import "../../../css/components/forms";
+@import "../../../css/utilities";
+@import "../../../css/components/blocks";
+
+body {
+  //@include vars;
+  @extend %copy;
+}
+
+.hide-desktop,
+.hide-tablet,
+.hide-mobile {
+  display: inherit !important;
+  opacity: .35;
+  transition: opacity .2s;
+
+  &.is-selected {
+    opacity: 1;
+  }
+}
+
+.is-root-container,
+.edit-post-visual-editor__post-title-wrapper {
+  @extend %container;
+}
+
+.is-root-container {
+  > div[data-align="full"] {
+    margin-right: fluid(-$spacing-min, -$spacing-max);
+    margin-left: fluid(-$spacing-min, -$spacing-max);
+    width: 100%;
+  }
+
+  > section {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  &.block-editor-block-list__layout > .alignfull {
+    @extend %container;
+    margin-right: fluid(-$spacing-min, -$spacing-max) !important;
+    margin-left: fluid(-$spacing-min, -$spacing-max) !important;
+    width: 100% !important;
+
+    > * {
+      margin-right: auto;
+      margin-left: auto;
+
+      &:not([class*="width-"]) {
+        max-width: var(--width-lg);
+      }
+    }
+  }
+
+  .wp-block-button__link {
+    @extend %button;
+  }
+}

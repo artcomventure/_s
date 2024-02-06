@@ -1,0 +1,9 @@
+// Hide scrollbars but keep functionality.
+// @see https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
+
+@mixin scrollWithoutBar($dir: x) {
+  overflow-#{$dir}: scroll;
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

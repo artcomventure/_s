@@ -1,0 +1,11 @@
+/**
+ * Convert decimal number to hexadecimal one.
+ */
+
+@function dec2hex($dec) {
+  $hex: "0123456789abcdef";
+  $first: (($dec - $dec % 16) / 16) + 1;
+  $second: ($dec % 16)+1;
+
+  @return str-slice($hex, $first, $first) + str-slice($hex, $second, $second)
+}

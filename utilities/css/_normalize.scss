@@ -1,0 +1,124 @@
+@import "../../node_modules/normalize.css/normalize";
+
+// ---
+// correct element displays
+
+output {
+  display: inline-block;
+}
+
+[disabled] {
+  pointer-events: none;
+}
+
+// Inherit box-sizing to more easily change it's value on a component level.
+// @link http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  outline: 0;
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  // with this font size definition
+  // 1rem is set to 10px
+  font-size: $rpx * 100% / 16px;
+}
+
+// ---
+// copy
+
+address {
+  font-style: normal;
+}
+
+blockquote {
+  > :first-child { margin-top: 0; }
+  > p:last-of-type { margin-bottom: 0; }
+}
+
+[data-href] {
+  cursor: pointer;
+}
+
+// ---
+// lists
+
+ul,
+ol {
+  margin: 0;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+  counter-reset: li;
+
+  li {
+    display: flex;
+    align-items: center;
+
+    counter-increment: li;
+
+    &:before {
+      content: counter(li) ". ";
+    }
+  }
+}
+
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+}
+
+// ---
+// media
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+img {
+  height: auto; // make sure images are scaled correctly
+  max-width: 100%; // adhere to container width
+  text-indent: -9999px; // hide alt
+}
+
+figure {
+  margin: 0;
+  line-height: 0;
+  width: auto;
+
+  @at-root figcaption {
+    width: 100%;
+  }
+}
+
+// ---
+// table
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}

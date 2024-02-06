@@ -1,0 +1,9 @@
+// Convert `px` value to type `rem`.
+
+@function rem( $size ) {
+  @if unit($size) == px {
+    $size: $size / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
+  }
+
+  @return $size;
+}

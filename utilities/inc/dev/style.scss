@@ -1,0 +1,99 @@
+#dev-info-panel {
+    position: fixed;
+    z-index: 11;
+    right: 0;
+    bottom: 0;
+
+    display: grid;
+    justify-items: end;
+    margin-right: .2em;
+
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1;
+
+    color: #fff;
+    fill: #fff;
+
+    > * {
+        display: flex;
+        gap: .2em;
+
+        > span {
+            background-color: rgba(#000,.8);
+            padding: .5em;
+            border-radius: .24em;
+            margin-bottom: .2em;
+            display: block;
+            white-space: nowrap;
+            transition: background-color .2s ease-in-out;
+        }
+
+        &.hidden {
+            clip: rect(1px, 1px, 1px, 1px);
+            clip-path: inset(50%);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute !important;
+            width: 1px;
+            word-wrap: normal !important;
+        }
+    }
+
+    //clip-path: circle( 20px at calc(100% - 30px) calc(100% - 30px) );
+    //transition: clip-path .5s ease-in-out;
+    //
+    //&:before {
+    //    content: "";
+    //    color: #fff;
+    //    position: absolute;
+    //    inset: 0;
+    //    background-color: #000;
+    //    transition: background-color .5s ease-in-out;
+    //    transition-delay: .2s;
+    //    pointer-events: none;
+    //}
+    //
+    //&:after {
+    //    content: "i";
+    //    font-family: serif;
+    //    font-style: italic;
+    //    font-size: 30px;
+    //    font-weight: bold;
+    //    color: #fff;
+    //    position: absolute;
+    //    right: 26px;
+    //    bottom: 14px;
+    //    pointer-events: none;
+    //    opacity: 1;
+    //    transition: opacity .2s .3s ease-in-out;
+    //}
+    //
+    //&:hover {
+    //    clip-path: circle( 200% at 100% 100% );
+    //
+    //    &:before {
+    //        transition-delay: 0s;
+    //        transition-duration: .2s;
+    //        background-color: transparent;
+    //    }
+    //
+    //    &:after {
+    //        transition-delay: 0s;
+    //        transition-duration: .5s;
+    //        opacity: 0;
+    //    }
+    //}
+}
+
+#copy-to-clipboard {
+    grid-row: 1;
+    cursor: pointer;
+
+    svg {
+        position: relative;
+        top: .15em;
+    }
+}

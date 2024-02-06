@@ -1,0 +1,102 @@
+%button {
+  display: inline-block;
+  border-radius: 5px !important;
+  padding: .8rem 6.6rem;
+  text-shadow: none;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none !important;
+
+  transition: all .3s ease-out;
+
+  color: inherit;
+  border: 1px solid currentColor;
+  background-color: transparent;
+
+  &:hover, &.active {
+    color: #fff;
+    border-color: var(--color-royal-red);
+    background-color: var(--color-royal-red);
+  }
+
+  .is-style-outline & {
+    @each $name, $color in $colors {
+      &.has-#{$name}-color {
+        &:hover,
+        &.active {
+          border-color: var(--color-#{$name});
+          background-color: var(--color-#{$name});
+
+          @if lightness($color) >= 60 {
+            color: $font-color-text !important;
+          }
+        }
+      }
+    }
+  }
+
+  .is-style-fill & {
+    @each $name, $color in $colors {
+      &.has-#{$name}-background-color {
+        border-color: var(--color-#{$name});
+
+        @if lightness($color) < 60 {
+          color: #fff !important;
+        }
+        @else {
+          color: $font-color-text !important;
+        }
+
+        &:hover,
+        &.active {
+          color: var(--color-#{$name}) !important;
+          border-color: currentColor !important;
+          background-color: transparent !important;
+        }
+      }
+    }
+  }
+}
+
+button, .button, .wp-block-button__link, input[type="submit"] {
+  #page & {
+    @extend %button;
+  }
+}
+
+.form-item {
+  position: relative;
+}
+
+label {
+  text-align: left;
+
+  .required &:after {
+    content: "*";
+  }
+}
+
+input,
+textarea,
+select {
+  font-size: rem(16px);
+  padding: .71875em;
+  background-color: #fff;
+  border: 1px solid currentColor;
+  border-radius: .3125em;
+  box-sizing: border-box;
+  width: 100%;
+
+  &, &::placeholder {
+  }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+}
+
+textarea {
+  resize: vertical;
+}

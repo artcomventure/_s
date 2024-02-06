@@ -1,0 +1,57 @@
+// ---
+// Colors.
+
+$black: #000000;
+$white: #FFFFFF;
+
+$colors: (
+    'text': $black
+);
+
+$font-color-text: var(--color-text);
+$font-color-heading: $font-color-text;
+$font-color-link: inherit;
+$font-color-link-hover: $font-color-text;
+$font-color-link-active: $font-color-text;
+
+// ---
+// Typography.
+
+$rpx: 10px; // rem
+
+$font-family-base: sans-serif;
+$font-family-heading: serif;
+
+// ...
+
+$spacing-min: 36px;
+$spacing-max: 130px;
+
+$breakpoints: (
+    xs: 664px,
+    sm: 782px,
+    md: 1030px,
+    lg: 1100px,
+    xl: 1660px,
+    xxl: 1920px
+);
+
+$breakpoints: map-merge($breakpoints, (
+    mobile: breakpoint(sm),
+    desktop: breakpoint(xl),
+
+    // make same setting in `theme.json`
+    content: breakpoint(lg), // default
+    wide: breakpoint(xl)
+));
+
+// Create icons map.
+// Do order icons by name (asc) to be in sync with icon font.
+// Get content via `map-get($Icont, ICON);`
+
+@import "../utilities/css/functions/dec2hex";
+
+$Icont: ();
+@each $icon in () {
+  $Icont: map-merge($Icont, ($icon: unquote("\"#{\f1+dec2hex(length($Icont) + 1)}\"")));
+}

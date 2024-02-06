@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "watch": "babel . -d . --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+    "build": "babel . -d . --out-file-extension .min.js --no-comments --ignore=./**/*.min.js --presets=@babel/preset-env,babel-preset-minify"
+  }
+}

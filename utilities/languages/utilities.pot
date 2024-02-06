@@ -1,0 +1,35 @@
+# Copyright (C) 2022 artcom venture GmbH
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Utilities 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/carsch\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-08-05T09:32:19+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: utilities\n"
+
+#: inc/utilities/inc/404.php:17
+msgid "404 not found error"
+msgstr ""
+
+#: inc/utilities/inc/404.php:23
+msgid "Leave blank to redirect to front page."
+msgstr ""
+
+#: inc/utilities/inc/customizer.php:19
+msgid "Logo in footer"
+msgstr ""
+
+#: inc/utilities/inc/pages-for-.php:25
+msgid "Page for …"
+msgstr ""
+
+#: inc/utilities/inc/pages-for-.php:65
+msgid "Pages for …"
+msgstr ""

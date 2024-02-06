@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "settings": {
+    "color" : {
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "palette": []
+    },
+    "layout": {
+      "contentSize": "1100px",
+      "wideSize": "1660px"
+    },
+    "typography": {
+      "fluid": true,
+      "fontSizes": [],
+      "fontFamilies": [],
+      "fontWeight": false,
+      "textTransform": false,
+      "textDecoration": false,
+      "customFontSize": false,
+      "dropCap": false,
+      "fontStyle": false,
+      "letterSpacing": false,
+      "lineHeight": false
+    }
+  }
+}
