@@ -30,13 +30,13 @@
   "scripts": {
     "browser-sync": "browser-sync http://localhost --files **/*.css,**/*.min.js,**/*.php --no-open",
 
-    "watch": "npm run theme:watch & npm run utilities:watch & npm run browser-sync",
-    "build": "npm run theme:build & npm run utilities:build",
+    "watch": "npm run theme:watch & npm run browser-sync",
+    "build": "npm run theme:build",
 
-    "i18n:pot": "npm run theme:i18n:pot && (npm run utilities:i18n:pot)",
-    "i18n:po": "npm run theme:i18n:po && (npm run utilities:i18n:po)",
-    "i18n:mo": "npm run theme:i18n:po && (npm run utilities:i18n:po)",
-    "i18n:json": "npm run theme:i18n:json && (& npm run utilities:i18n:json)",
+    "i18n:pot": "npm run theme:i18n:pot",
+    "i18n:po": "npm run theme:i18n:po",
+    "i18n:mo": "npm run theme:i18n:po",
+    "i18n:json": "npm run theme:i18n:json",
 
     "theme:watch": "npm run theme:watch:scss & npm run theme:watch:js",
     "theme:watch:scss": "node-sass css/ -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
@@ -48,13 +48,6 @@
     "theme:i18n:po": "wp i18n update-po languages/_s.pot languages",
     "theme:i18n:mo": "wp i18n make-mo languages languages",
     "theme:i18n:json": "wp i18n make-json languages/ --no-purge",
-
-    "utilities:watch": "cd utilities && npm run watch",
-    "utilities:build": "cd utilities && npm run build",
-    "utilities:i18n:pot": "cd utilities && npm run i18n:pot",
-    "utilities:i18n:po": "cd utilities && npm run i18n:po",
-    "utilities:i18n:mo": "cd utilities && npm run i18n:mo",
-    "utilities:i18n:json": "cd utilities && npm run i18n:json",
 
     "icont:generate": "cd media/fonts/Icont && npm run generate"
   },

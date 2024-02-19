@@ -5,21 +5,18 @@
 
     if ( typeof Pjax === 'undefined' ) return;
 
-    // don't _pjax_ links to WP backend and _download links_
-    Pjax.prototype.getElements = function() {
-        return document.querySelectorAll( 'a[href]:not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]), form[action]' );
-    }
-
     // elements to be updated
     window.pjax = new Pjax( {
-        selectors: [
+        // don't _pjax_ links to WP backend and _download links_
+        elements: Alter.do( 'pjax-elements', 'a[href]:not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]), form[action]' ),
+        selectors: Alter.do( 'pjax-selectors', [
             'title',
             '#masthead',
             '#primary',
             '#colophon',
             '#wpadminbar'
-        ],
-        switches: {
+        ] ),
+        switches: Alter.do( 'pjax-switches', {
             '#primary': function( oldEl, newEl, options ) {
                 const $html = document.createElement( 'html' );
                 $html.innerHTML = options.request.responseText;
@@ -35,10 +32,10 @@
                 oldEl.replaceWith( newEl );
                 this.onSwitch();
             }
-        },
-        scrollTo: false,
-        cacheBust: false,
-        scrollRestoration: false
+        } ),
+        scrollTo: Alter.do( 'pjax-scrollTo', false ),
+        cacheBust: Alter.do( 'pjax-cacheBust', false ),
+        scrollRestoration: Alter.do( 'pjax-scrollRestoration', false )
     } );
 
     // delay for transition
