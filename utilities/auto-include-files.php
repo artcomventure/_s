@@ -2,8 +2,8 @@
 
 /**
  * Auto-include of all PHP files of a given directory-`$path`.
- * Default `$path` is the utilities' `/inc` folder.
  *
+ * Usage:
  * `auto_include_files( PATH )`
  *
  * Lookup:
@@ -12,8 +12,7 @@
  *
  * @param string $path
  */
-function auto_include_files( string $path = '' ): void {
-	if ( !$path ) $path = $path = UTILITIES_DIRECTORY . '/inc';
+function auto_include_files( string $path ): void {
 	if ( !is_dir( $path ) ) return;
 
 	if ( $inc = opendir( $path ) ) {

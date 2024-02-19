@@ -23,6 +23,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 // auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
+auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/shortcodes' );
 // auto include theme's /inc files
