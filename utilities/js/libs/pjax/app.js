@@ -20,10 +20,6 @@
             '#wpadminbar'
         ],
         switches: {
-            '#masthead': function( oldEl, newEl, options ) {
-                oldEl.replaceWith( $header = newEl );
-                this.onSwitch();
-            },
             '#primary': function( oldEl, newEl, options ) {
                 const $html = document.createElement( 'html' );
                 $html.innerHTML = options.request.responseText;

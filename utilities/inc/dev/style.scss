@@ -42,6 +42,15 @@
         }
     }
 
+    &.show-all .hidden {
+        clip: inherit;
+        clip-path: none;
+        width: auto;
+        height: auto;
+        margin: 0;
+        position: static !important;
+    }
+
     //clip-path: circle( 20px at calc(100% - 30px) calc(100% - 30px) );
     //transition: clip-path .5s ease-in-out;
     //

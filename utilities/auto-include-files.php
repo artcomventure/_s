@@ -2,22 +2,18 @@
 
 /**
  * Auto-include of all PHP files of a given directory-`$path`.
- * Default `$path` is the theme's `/inc/` directory.
+ * Default `$path` is the utilities' `/inc` folder.
  *
- * Version: 1.0.1
+ * `auto_include_files( PATH )`
  *
- * `{$path}/FILE.php`
- * `{$path}/DIR/DIR.php`
- *
- * TODO: theme vs child theme
+ * Lookup:
+ * `{PATH}/FILE.php`
+ * `{PATH}/DIR/DIR.php`
  *
  * @param string $path
  */
-
-// auto-include $path's files
-function auto_include_files( $path = '' ) {
-	// themes ´inc´ folder is default
-	if ( !$path ) $path = $path = get_template_directory() . '/inc';
+function auto_include_files( string $path = '' ): void {
+	if ( !$path ) $path = $path = UTILITIES_DIRECTORY . '/inc';
 	if ( !is_dir( $path ) ) return;
 
 	if ( $inc = opendir( $path ) ) {
@@ -44,6 +40,3 @@ function auto_include_files( $path = '' ) {
 		closedir( $inc );
 	}
 }
-
-// initial auto-include `/inc/` files
-auto_include_files();

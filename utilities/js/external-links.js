@@ -5,7 +5,7 @@ Behaviours.add( 'links:external', $context => {
     // regexp for internal link
     const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
 
-    Array.prototype.forEach.call( $context.querySelectorAll( 'a, [data-href]' ), function ( $link ) {
+    [].forEach.call( $context.querySelectorAll( 'a, [data-href]' ), function ( $link ) {
         if ( $link.closest( '[data-href]' ) )
             $link.addEventListener( 'click', function ( e ) {
                 e.stopPropagation();

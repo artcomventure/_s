@@ -9,7 +9,7 @@ add_action( 'after_setup_theme', function() {
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'behaviours', UTILITIES_DIRECTORY_URI . '/js/behaviours.js', [], '2.0.0', true );
+	wp_register_script( 'behaviours', UTILITIES_DIRECTORY_URI . '/js/behaviours.js', ['alter'], '2.0.0', true );
 	wp_register_script( 'alter', UTILITIES_DIRECTORY_URI . '/js/alter.js', [], '1.0.0', true );
 
 	wp_enqueue_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours'], false, true );
@@ -21,8 +21,10 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_enqueue_script( 'css-breakpoints', UTILITIES_DIRECTORY_URI . '/js/BREAKPOINTS.js', [], false, true );
 } );
 
-// auto include /inc files
+// auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );
-auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/shortcodes' );
+// auto include theme's /inc files
+// TODO: theme vs child theme
+auto_include_files( get_template_directory() . '/inc' );

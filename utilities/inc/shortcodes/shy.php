@@ -30,3 +30,8 @@ add_filter( 'document_title_parts', function ( $title ) {
 	return array_map( 'strip_shortcodes', $title );
 } );
 
+// Yoast
+add_filter( 'wpseo_title', function( $title, $presentation ) {
+	return strip_shortcodes( $title );
+}, 10, 2 );
+
