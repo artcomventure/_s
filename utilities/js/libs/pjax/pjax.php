@@ -13,6 +13,9 @@ add_action( 'wp_enqueue_scripts', function() {
 add_action( 'wp_enqueue_scripts', function() {
 	if ( wp_script_is('pjax', 'queue' ) ) {
 		wp_enqueue_style( 'pjax', PJAX_DIRECTORY_URI . '/style.css' );
+		if ( $hex = get_background_color() ) {
+			wp_add_inline_style( 'pjax', "body.custom-background #pjax-transition { background-color: #{$hex}; }" );
+		}
 		wp_enqueue_script( 'pjax' );
 	}
 }, 1982 );

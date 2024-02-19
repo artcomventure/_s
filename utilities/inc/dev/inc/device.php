@@ -25,7 +25,7 @@ add_action( 'dev-info-panel', function() {
     else if ( preg_match( '/(tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|playbook|silk|(puffin(?!.*(IP|AP|WP))))/i', $ua ) )
         $device = __( 'Tablet', 'dev' );
     // ... or phone
-    else if ( preg_match('/pixel ([^\)+])/i', $ua, $matches ) ) $device = device . php__('Pixel', 'dev') . $matches[1];
+    else if ( preg_match('/pixel ([^\)+])/i', $ua, $matches ) ) $device = __('Pixel', 'dev') . $matches[1];
     else if ( preg_match('/ipod/i', $ua ) ) $device = __( 'iPod', 'dev' );
     else if ( preg_match('/iphone/i', $ua ) ) $device = __( 'iPhone', 'dev' );
     else if ( preg_match('/blackberry/i', $ua ) ) $device = __( 'Blackberry', 'dev' );
