@@ -18,7 +18,7 @@ Behaviours.add( 'custom-width', ( $context ) => {
         let width = ($element.className.match( /(^| )width-(\d+)($| )/ )||[])[2];
         if ( !width ) return;
 
-        $element.style.maxWidth = `${width}px`;
+        $element.style.width = `${width}px`;
     } );
 
 } );

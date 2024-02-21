@@ -58,7 +58,8 @@
   box-sizing: content-box;
   padding-right: fluid($spacing-min, $spacing-max);
   padding-left: fluid($spacing-min, $spacing-max);
-  width: calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)});
+  width: 100%;
+  max-width: calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)});
   margin-right: auto;
   margin-left: auto;
 }
@@ -70,7 +71,7 @@
 @each $name, $breakpoint in $breakpoints {
   %container-#{$name} {
     @extend %container;
-    max-width: calc(var(--width-#{$name}) - #{fluid($spacing-min * 2, $spacing-max * 2)});
+    width: var(--width-#{$name});
   }
 
   .container-#{$name} {
@@ -78,7 +79,8 @@
   }
 
   %width-#{$name} {
-    max-width: var(--width-#{$name});
+    max-width: 100%;
+    width: var(--width-#{$name});
   }
 
   .width-#{$name} {
@@ -87,7 +89,7 @@
 }
 
 %alignwide {
-  @extend %width-xxl;
+  @extend %width-wide;
 }
 
 .alignwide {

@@ -37,8 +37,8 @@ $breakpoints: (
 );
 
 $breakpoints: map-merge($breakpoints, (
-    mobile: breakpoint(sm),
-    desktop: breakpoint(xl),
+    mobile: map-get($breakpoints, sm),
+    desktop: map-get($breakpoints, xl),
 
     // make same setting in `theme.json`
     content: breakpoint(lg), // default
