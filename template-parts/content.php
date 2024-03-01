@@ -7,27 +7,24 @@
  * @package _s
  */
 
+global $more;
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
+	<?php // don't include header if `<h1>` title block is already added to content
+	if ( !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
+        <header class="entry-header">
+			<?php $titletag = is_singular( get_post_type() ) && $more ? 'h1' : 'h2';
+			the_post_title( '<' . $titletag . ' class="entry-title">', '</' . $titletag . '>' ); ?>
 
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				_s_posted_on();
-				_s_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
-	</header><!-- .entry-header -->
+            <?php if ( 'post' === get_post_type() ) : ?>
+                <div class="entry-meta">
+                    <?php _s_posted_on();
+                    _s_posted_by(); ?>
+                </div><!-- .entry-meta -->
+	        <?php endif; ?>
+        </header><!-- .entry-header -->
+	<?php endif; ?>
 
 	<?php _s_post_thumbnail(); ?>
 

@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.1.0 - 2024-02-13
+## 1.2.0 - 2024-03-01
+**Added**
+
+* `hasH1()` check in content template.
+* Hide title indicator ('!TITLE').
+
+## 1.1.0 - 2024-03-01
 **Added**
 
 * DE (+ formal) translations.
@@ -8,7 +14,7 @@
 
 **Fixed**
 
-* Apply disable search/post option in templates.
+* Apply search/post option (en-/disable) in templates.
 
 ## 1.0.2 - 2024-02-13
 **Fixed**

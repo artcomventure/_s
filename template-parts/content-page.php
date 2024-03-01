@@ -7,12 +7,17 @@
  * @package _s
  */
 
+global $more;
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+	<?php // don't include header if `<h1>` title block is already added to content
+	if ( !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
+        <header class="entry-header">
+			<?php $titletag = is_singular( 'page' ) && $more ? 'h1' : 'h2';
+			the_post_title( '<' . $titletag . ' class="entry-title">', '</' . $titletag . '>' ); ?>
+        </header><!-- .entry-header -->
+	<?php endif; ?>
 
 	<?php _s_post_thumbnail(); ?>
 

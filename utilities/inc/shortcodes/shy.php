@@ -26,8 +26,8 @@ add_filter( 'the_title', 'do_shortcode' );
 
 // remove _shy_ from document `<title>`
 // TODO: only remove shy shortcode
-add_filter( 'document_title_parts', function ( $title ) {
-	return array_map( 'strip_shortcodes', $title );
+add_filter( 'document_title_parts', function( $title ) {
+	return $title['title'] = strip_shortcodes( $title['title'] );
 } );
 
 // Yoast
