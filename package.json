@@ -30,11 +30,11 @@
   "scripts": {
     "browser-sync": "browser-sync http://localhost --files **/*.css,**/*.min.js,**/*.php --no-open",
 
-    "watch": "npm run theme:watch:scss & npm run theme:watch:js & npm run browser-sync",
+    "watch": "npm run watch:scss & npm run watch:js & npm run browser-sync",
     "watch:scss": "node-sass css/ -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
     "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
 
-    "build": "npm run theme:build:scss & npm run theme:build:js",
+    "build": "npm run build:scss & npm run build:js",
     "build:scss": "node-sass css/style.scss -o . --output-style compressed",
     "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
 
