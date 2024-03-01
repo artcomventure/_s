@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2 - 2024-03-01
+**Added**
+
+* (formal) utilities translations.
+
 ## 1.2.1 - 2024-03-01
 **Fixed**
 
