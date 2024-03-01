@@ -17,7 +17,11 @@ function remove_hide_title_indicator( string $title ): string {
 add_filter( 'the_title', 'remove_hide_title_indicator' );
 
 add_filter( 'document_title_parts', function ( $title ) {
-	return $title['title'] = remove_hide_title_indicator( $title['title'] );
+	if ( !is_array( $title ) ) $title = remove_hide_title_indicator( $title );
+	else if ( isset( $title['title'] ) ) $title['title'] = remove_hide_title_indicator( $title['title'] );
+	else $title = array_map( 'remove_hide_title_indicator', $title );
+
+	return $title;
 } );
 
 // ---

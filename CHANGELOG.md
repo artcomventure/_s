@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.1 - 2024-03-01
+**Fixed**
+
+* `shy` shortcode `document_title_parts` filter error.
+* `document_title_parts` filter type error.
+
+**Changed**
+
+* Enable body class for _all_ post types.
+
 ## 1.2.0 - 2024-03-01
 **Added**
 

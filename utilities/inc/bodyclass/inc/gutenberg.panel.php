@@ -4,14 +4,22 @@
  * Enqueue gutenberg block styles and scripts.
  */
 add_action( 'init', function() {
-	register_post_meta( 'page', "_bodyclass", array(
-		'show_in_rest' => true,
-		'single' => true,
-		'type' => 'string',
-		'auth_callback' => function () {
-			return current_user_can('edit_posts' );
-		}
-	) );
+	// enable for all public post type with custom fields support
+	foreach ( array_intersect_key(
+		get_post_types( array( 'public' => TRUE ), 'objects' ),
+		array_flip( get_post_types_by_support( array( 'custom-fields' ) ) )
+	) as $post_type ) register_post_meta(
+		$post_type->name,
+		'_bodyclass',
+		array(
+			'show_in_rest'  => true,
+			'single' => true,
+			'type' => 'string',
+			'auth_callback' => function () {
+				return current_user_can('edit_posts' );
+			}
+		)
+	);
 
 	// automatically load dependencies and version
 	$asset_file = include( BODYCLASS_DIRECTORY . '/build/panel.asset.php' );
