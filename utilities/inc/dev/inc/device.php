@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Page is shown on mobile device.
- */
-add_filter( 'body_class', function( $classes ) {
-	if ( wp_is_mobile() ) {
-		$classes[] = 'mobile';
-	}
-
-	return $classes;
-} );
-
-/**
  * Device dev panel info.
  */
 add_action( 'dev-info-panel', function() {

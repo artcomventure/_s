@@ -1,16 +1,16 @@
 <?php
 
+/**
+ * Add extra body classes.
+ */
 add_filter( 'body_class', function ( $classes ) {
-    // Only pages
-    if ( !is_page() )
-        return $classes;
+	// Page is shown on mobile device.
+	if ( wp_is_mobile() ) {
+		$classes[] = 'mobile';
+	}
 
-    $bodyclass = get_post_meta(get_the_ID(), '_bodyclass', 1);
-
-    if ( !$bodyclass )
-        return $classes;
-
-    array_push($classes, $bodyclass);
+	// add custom body classes
+	$classes[] = get_post_meta( get_the_ID(), '_bodyclass', true );
 
     return $classes;
 } );

@@ -6,10 +6,10 @@
     "build": "npm run build:scss & npm run copy:build & npm run screen-size:build & npm run url:build",
     "build:scss": "node-sass style.scss -o . --output-style compressed",
 
-    "i18n:pot": "wp i18n make-pot languages/dev.pot --domain=dev --subtract=../../../../languages/acvwp.pot --package-name=Dev",
+    "i18n:pot": "wp i18n make-pot . languages/dev.pot --domain=dev --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Dev",
     "i18n:po": "wp i18n update-po languages/dev.pot languages",
     "i18n:mo": "wp i18n make-mo languages languages",
-    "i18n:json": "wp i18n make-json languages --no-purge",
+    "i18n:json": "wp i18n make-json languages/ --no-purge",
 
     "copy:watch": "cd inc/copy && npm run watch",
     "copy:build": "cd inc/copy && npm run build",

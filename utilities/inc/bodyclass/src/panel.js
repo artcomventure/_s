@@ -10,8 +10,8 @@ const BodyclassSettings = ( { setState, updateMeta, ...props } ) => {
     return (
         <>
             <TextControl
-                label={ __( 'Class name', 'bodyclass' ) }
-                help={ __( 'This class will be added to the <body> tag', 'bodyclass' ) }
+                label={ __( 'Extra <body> class(es)', 'bodyclass' ) }
+                help={ __( 'Separate multiple classes with spaces.' ) }
                 value={ props._bodyclass }
                 onChange={ ( state ) => {
                     updateMeta( '_bodyclass', state )
@@ -41,7 +41,7 @@ const BodyclassControl = compose( [
 const BodyclassPanel = () => {
     return (
         <PluginDocumentSettingPanel
-            title={__('Page class', 'bodyclass')}
+            title={__('Page Class', 'bodyclass')}
             className="edit-bodyclass-panel">
             <BodyclassControl />
         </PluginDocumentSettingPanel>

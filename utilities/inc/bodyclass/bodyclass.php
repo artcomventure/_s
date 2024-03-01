@@ -4,5 +4,4 @@ define( 'BODYCLASS_DIRECTORY', dirname( __FILE__ ) );
 define( 'BODYCLASS_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/bodyclass' );
 
 // auto include /inc files
-if ( function_exists( 'auto_include_files' ) )
-    auto_include_files( BODYCLASS_DIRECTORY . '/inc' );
+auto_include_files( BODYCLASS_DIRECTORY . '/inc' );

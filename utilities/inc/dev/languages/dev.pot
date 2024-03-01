@@ -7,60 +7,60 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-24T06:04:19+00:00\n"
+"POT-Creation-Date: 2024-03-01T08:32:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: dev\n"
 
-#: inc/device.php:7
+#: inc/device.php:10
 msgid "PC/Laptop"
 msgstr ""
 
-#: inc/device.php:23
+#: inc/device.php:26
 msgid "iPad"
 msgstr ""
 
-#: inc/device.php:24
+#: inc/device.php:27
 msgid "Kindle"
 msgstr ""
 
-#: inc/device.php:26
+#: inc/device.php:29
 msgid "Tablet"
 msgstr ""
 
-#: inc/device.php:28
+#: inc/device.php:31
 msgid "Pixel"
 msgstr ""
 
-#: inc/device.php:29
+#: inc/device.php:32
 msgid "iPod"
 msgstr ""
 
-#: inc/device.php:30
+#: inc/device.php:33
 msgid "iPhone"
 msgstr ""
 
-#: inc/device.php:31
+#: inc/device.php:34
 msgid "Blackberry"
 msgstr ""
 
-#: inc/device.php:33
+#: inc/device.php:36
 msgid "Phone"
 msgstr ""
 
-#: inc/device.php:73
+#: inc/device.php:76
 msgid "Browser"
 msgstr ""
 
-#: inc/device.php:74
+#: inc/device.php:77
 msgid "%s v%s"
 msgstr ""
 
-#: inc/device.php:78
+#: inc/device.php:81
 msgid "OS"
 msgstr ""
 
-#: inc/device.php:82
+#: inc/device.php:85
 msgid "Device assumption"
 msgstr ""
 
@@ -76,21 +76,18 @@ msgstr ""
 msgid "Hash: %s"
 msgstr ""
 
-#: inc/copy/app.js:23
-#: inc/copy/app.min.js:23
+#: inc/copy/app.js:18
 msgid "Info copied to clipboard and ready to paste."
 msgstr ""
 
 #: inc/screen-size/app.js:16
-#: inc/screen-size/app.min.js:16
 msgid "Screen size"
 msgstr ""
 
 #: inc/screen-size/app.js:31
-#: inc/screen-size/app.min.js:31
 msgid "Breakpoint range"
 msgstr ""
 
-#: inc/url/app.js:12
+#: inc/url/app.js:13
 msgid "URL"
 msgstr ""

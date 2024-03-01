@@ -8,8 +8,8 @@
     "build:wp": "wp-scripts build src/panel.js",
     "build:css": "node-sass css -o css/ --output-style compressed",
 
-    "i18n:pot": "wp i18n make-pot ../.. languages/bodyclass.pot --domain=bodyclass --exclude=src,node_modules --subtract=../../languages/acvwp.pot --package-name=Bodyclass",
-    "i18n:po": "wp i18n update-po languages/acvwp.pot languages",
+    "i18n:pot": "wp i18n make-pot . languages/bodyclass.pot --domain=bodyclass --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Bodyclass",
+    "i18n:po": "wp i18n update-po languages/bodyclass.pot languages",
     "i18n:mo": "wp i18n make-mo languages languages",
     "i18n:json": "wp i18n make-json languages/ --no-purge"
   }

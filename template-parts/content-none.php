@@ -31,21 +31,19 @@
 				esc_url( admin_url( 'post-new.php' ) )
 			);
 
-		elseif ( is_search() ) :
+		elseif ( is_search() && !get_option('disable_search' ) ) :
 			?>
 
 			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', '_s' ); ?></p>
-			<?php
-			get_search_form();
+			<?php get_search_form();
 
-		else :
-			?>
+		else :?>
 
-			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', '_s' ); ?></p>
-			<?php
-			get_search_form();
+			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for.', '_s' );
+                if ( !get_option('disable_search' ) ) esc_html_e( 'Perhaps searching can help.', '_s' ); ?></p>
 
-		endif;
-		?>
+            <?php if ( !get_option('disable_search' ) ) get_search_form();
+
+		endif; ?>
 	</div><!-- .page-content -->
 </section><!-- .no-results -->

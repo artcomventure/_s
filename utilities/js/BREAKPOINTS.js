@@ -23,4 +23,8 @@
         BREAKPOINTS[size] = parseInt( value );
     } )
 
+    // is mobile device
+    const isMobileDevice = document.body.classList.contains( 'mobile' );
+    window.isMobileDevice = () => isMobileDevice;
+
 })();
