@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.3 - 2024-03-04
+**Changed**
+
+* WORDPRESS_DEBUG default value to 1 aka true).
+
 ## 1.2.2 - 2024-03-01
 **Added**
 
