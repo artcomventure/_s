@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.4 - 2024-03-05
+**Fixed**
+
+* Editor styles.
+
 ## 1.2.3 - 2024-03-04
 **Changed**
 

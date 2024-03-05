@@ -3,7 +3,7 @@ Theme Name: _s
 Author: artcom venture GmbH
 Author URI: https://www.artcom-venture.de
 Description: I'm the next, most awesome, WordPress theme out there.
-Version: 1.2.3
+Version: 1.2.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: _s
@@ -17,16 +17,6 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 
 @import "variables";
 @import "../utilities/css/base"; // function and mixins
-
-@mixin vars {
-  @each $name, $color in $colors {
-    --color-#{$name}: #{$color};
-  }
-
-  @each $name, $breakpoint in $breakpoints {
-    --width-#{$name}: #{$breakpoint};
-  }
-}
 
 %vars {
   @include vars;
