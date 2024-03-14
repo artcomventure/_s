@@ -16,6 +16,3 @@ function bloginfo_shortcode( $attr = [] ) {
 	return get_bloginfo( $atts['show'], $atts['filter'] );
 }
 
-// enable shortcodes for titles
-add_filter( 'the_title', 'do_shortcode' );
-

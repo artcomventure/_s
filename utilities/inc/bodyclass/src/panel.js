@@ -9,6 +9,15 @@ const BodyclassSettings = ( { setState, updateMeta, ...props } ) => {
 
     return (
         <>
+          <TextControl
+            label={ __( 'Extra <html> class(es)', 'bodyclass' ) }
+            help={ __( 'Separate multiple classes with spaces.' ) }
+            value={ props._htmlclass }
+            onChange={ ( state ) => {
+              updateMeta( '_htmlclass', state )
+              setState()
+            } }
+          />
             <TextControl
                 label={ __( 'Extra <body> class(es)', 'bodyclass' ) }
                 help={ __( 'Separate multiple classes with spaces.' ) }
@@ -25,6 +34,7 @@ const BodyclassSettings = ( { setState, updateMeta, ...props } ) => {
 const BodyclassControl = compose( [
     withState(),
     withSelect( () => ( {
+        _htmlclass: select( 'core/editor' ).getEditedPostAttribute( 'meta' )['_htmlclass']||'',
         _bodyclass: select( 'core/editor' ).getEditedPostAttribute( 'meta' )['_bodyclass']||'',
     } ) ),
     withDispatch( ( dispatch ) => ( {

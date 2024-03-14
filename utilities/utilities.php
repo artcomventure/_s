@@ -8,6 +8,9 @@ add_action( 'after_setup_theme', function() {
 	load_theme_textdomain( 'utilities', UTILITIES_DIRECTORY . '/languages' );
 } );
 
+// enable shortcodes for titles
+add_filter( 'the_title', 'do_shortcode' );
+
 add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'behaviours', UTILITIES_DIRECTORY_URI . '/js/behaviours.js', ['alter'], '2.0.0', true );
 	wp_register_script( 'alter', UTILITIES_DIRECTORY_URI . '/js/alter.js', [], '1.0.0', true );

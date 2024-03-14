@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "watch": "npm run watch:js & npm run watch:scss",
+    "watch:js": "wp-scripts start app.js",
+    "watch:scss": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+
+    "build": "npm run build:js & npm run build:scss",
+    "build:js": "wp-scripts build app.js",
+    "build:scss": "node-sass . -o . --output-style compressed"
+  }
+}

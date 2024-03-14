@@ -8,18 +8,20 @@ add_action( 'init', function() {
 	foreach ( array_intersect_key(
 		get_post_types( array( 'public' => TRUE ), 'objects' ),
 		array_flip( get_post_types_by_support( array( 'custom-fields' ) ) )
-	) as $post_type ) register_post_meta(
-		$post_type->name,
-		'_bodyclass',
-		array(
-			'show_in_rest'  => true,
-			'single' => true,
-			'type' => 'string',
-			'auth_callback' => function () {
-				return current_user_can('edit_posts' );
-			}
-		)
-	);
+	) as $post_type ) foreach ( ['_htmlclass', '_bodyclass'] as $meta_key ) {
+		register_post_meta(
+			$post_type->name,
+			$meta_key,
+			array(
+				'show_in_rest'  => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => function () {
+					return current_user_can('edit_posts' );
+				}
+			)
+		);
+	}
 
 	// automatically load dependencies and version
 	$asset_file = include( BODYCLASS_DIRECTORY . '/build/panel.asset.php' );

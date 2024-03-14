@@ -18,3 +18,7 @@ msgstr "Zusätzliche <body>-Klasse(n)"
 #: build/panel.js:1
 msgid "Page Class"
 msgstr "Seiten-Klassen"
+
+#: build/panel.js:1
+msgid "Extra <html> class(es)"
+msgstr "Zusätzliche <html>-Klasse(n)"

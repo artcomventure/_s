@@ -1,7 +1,7 @@
-# mysql
+# mysql container
 alias importDB="mysql -u root -ppassword PROJECT_NAME < /var/www/html/docker/db.sql"
 
-# wordpress
+# wordpress container
 alias stage2dev="wp search-replace 'STAGE_URL' 'DEV_URL' --allow-root"
 alias live2dev="wp search-replace 'LIVE_URL' 'DEV_URL' --allow-root"
 
@@ -15,3 +15,8 @@ alias live2dev="wp search-replace 'LIVE_URL' 'DEV_URL' --allow-root"
 # Update plugin language packs: `wp language plugin update --all --allow-root`
 # Update themes: `wp theme update --all --allow-root`
 # Update theme language packs: `wp language theme update --all --allow-root`
+
+# Docker error handling:
+# ---
+# changes in settings: `docker-compose up --build -d`
+# network not found: `docker-compose up --force-recreate`

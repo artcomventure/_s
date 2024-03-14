@@ -21,9 +21,6 @@ function shy_shortcode() {
 add_shortcode( 'shy', 'shy_shortcode' );
 add_shortcode( '-', 'shy_shortcode' );
 
-// enable shortcodes for titles
-add_filter( 'the_title', 'do_shortcode' );
-
 // remove _shy_ from document `<title>`
 // TODO: only remove shy shortcode
 add_filter( 'document_title_parts', function ( $title ) {

@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.4.0 - 2024-03-14
+**Added**
+
+* All gsap plugins.
+* [lottie-web](https://github.com/airbnb/lottie-web).
+
+## 1.3.0 - 2024-03-13
+**Added**
+
+* [Air Datepicker](https://air-datepicker.com/).
+* \<html> class input to posts (BE).
+* Color helper function.
+* Docker error handling tips.
+
+**Fixed**
+
+* Minor bugs.
+
 ## 1.2.4 - 2024-03-05
 **Fixed**
 
