@@ -1,9 +1,14 @@
 # Changelog
 
+## 1.5.0 - 2024-03-15
+**Added**
+
+* Gutenberg accordion block.
+
 ## 1.4.1 - 2024-03-15
 **Fixed**
 
-* TYPEKIT_FONTS
+* TYPEKIT_FONTS in `/media/fonts/fonts.php`.
 
 ## 1.4.0 - 2024-03-14
 **Added**

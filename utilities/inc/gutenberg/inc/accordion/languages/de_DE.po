@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Accordion 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-10-11T07:36:15+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: accordion\n"
+
+#: build/block.js:1
+msgid "Multiple"
+msgstr "Mehrfach"
+
+#: build/block.js:1
+msgid "Allow multiple items to be opened at once."
+msgstr "Erlaube das gleichzeitige Öffnen mehrerer Elemente."
+
+#: build/block.js:1
+msgid "All collapsible"
+msgstr "Alle zusammenklappbar"
+
+#: build/block.js:1
+msgid "Current behaviour:"
+msgstr "Aktuelles Verhalten:"
+
+#: build/block.js:1
+msgid "allow to collapse all items."
+msgstr "alle Elemente können zusammengeklappt werden."
+
+#: build/block.js:1
+msgid "at least one item will be always open."
+msgstr "mindestens ein Element ist immer offen."
+
+#: build/block.js:1
+msgid "Loading behavior"
+msgstr "Verhalten beim Laden"
+
+#: build/block.js:1
+msgid "Open all"
+msgstr "Alle öffnen"
+
+#: build/block.js:1
+msgid "All items are open when loading."
+msgstr "Alle Elemente sind beim Laden geöffnet."
+
+#: build/block.js:1
+msgid "Open first item"
+msgstr "Erstes Element öffnen"
+
+#: build/block.js:1
+msgid "Open first item when loading."
+msgstr "Beim Laden ist das erste Element geöffnet."
+
+#: build/block.js:1
+msgid "Accordion"
+msgstr "Akkordeon"
+
+#: build/block.js:1
+msgid "Collapsible content."
+msgstr "Zusammenklappbarer Inhalt."
+
+#: build/block.js:1
+msgid "Item"
+msgstr "Element"
+
+#: build/block.js:1
+msgid "Content"
+msgstr "Inhalt"

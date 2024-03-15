@@ -14,9 +14,10 @@ add_action( 'wp_enqueue_scripts', function() {
 } );
 
 /**
- * Add Icont font to gutenberg.
+ * Add fonts to gutenberg.
  */
 add_action( 'after_setup_theme', function() {
-	add_editor_style(  './media/fonts/Icont/font.css' );
 	if ( TYPEKIT_FONTS ) add_editor_style(  TYPEKIT_FONTS );
+	// relative path from `functions.php`
+	add_editor_style(  './media/fonts/Icont/font.css' );
 }, 11 );

@@ -1,9 +1,17 @@
 {
   "scripts": {
-    "watch": "wp-scripts start & npm run watch:scss",
-    "watch:scss": "node-sass . -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "watch": "npm run gutenberg:watch & npm run accordion:watch",
+    "build": "npm run gutenberg:build & npm run accordion:build",
 
-    "build": "wp-scripts build & npm run build:scss",
-    "build:scss": "node-sass . -o ./ --output-style compressed"
+    "gutenberg:watch": "npm run gutenberg:watch:js & npm run gutenberg:watch:scss",
+    "gutenberg:watch:js": "wp-scripts start",
+    "gutenberg:watch:scss": "node-sass . -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "gutenberg:build": "npm run gutenberg:build:js & npm run gutenberg:build:scss",
+    "gutenberg:build:js": "wp-scripts build",
+    "gutenberg:build:scss": "node-sass . -o ./ --output-style compressed",
+
+    "accordion:watch": "cd inc/accordion && npm run watch",
+    "accordion:build": "cd inc/accordion && npm run build",
+    "accordion:i18n:json": "cd inc/accordion && npm run i18n:json"
   }
 }
