@@ -3,7 +3,7 @@
 define( 'FONTS_DIRECTORY', dirname( __FILE__ ) );
 define( 'FONTS_DIRECTORY_URI', get_template_directory_uri() . '/media/fonts' );
 
-define( 'TYPEKIT_FONTS', add_filter( 'typekit-font-url' ) );
+define( 'TYPEKIT_FONTS', apply_filters( 'typekit-font-url', '' ) );
 
 /**
  * Enqueue fonts.

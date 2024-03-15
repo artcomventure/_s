@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 - 2024-03-15
+**Fixed**
+
+* TYPEKIT_FONTS
+
 ## 1.4.0 - 2024-03-14
 **Added**
 
