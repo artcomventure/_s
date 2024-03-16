@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.5.1 - 2024-03-16
+**Changed**
+
+* Children default `.alignfull` block layout (in `_content.scss`).
+
+**Fixed**
+
+* `content` and `wide` CSS `$breakpoints` (in `_variables.scss`).
+* Editor style compilation on theme changes (in `THEME/_package.json`).
+
 ## 1.5.0 - 2024-03-15
 **Added**
 

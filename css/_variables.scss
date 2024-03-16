@@ -41,8 +41,8 @@ $breakpoints: map-merge($breakpoints, (
     desktop: map-get($breakpoints, xl),
 
     // make same setting in `theme.json`
-    content: breakpoint(lg), // default
-    wide: breakpoint(xl)
+    content: map-get($breakpoints, lg), // default
+    wide: map-get($breakpoints, xl)
 ));
 
 // Create icons map.

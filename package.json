@@ -1,6 +1,6 @@
 {
   "name": "_s",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "I'm the next, most awesome, WordPress theme out there.",
   "author": "artcom venture GmbH",
   "license": "GPL-2.0-or-later",
@@ -31,11 +31,11 @@
     "browser-sync": "browser-sync http://localhost --files **/*.css,**/*.min.js,**/*.php --no-open",
 
     "watch": "npm run watch:scss & npm run watch:js & npm run browser-sync",
-    "watch:scss": "node-sass css/ -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "watch:scss": "node-sass css/ -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w & (cd utilities/inc/gutenberg && npm run gutenberg:watch:scss)",
     "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
 
     "build": "npm run build:scss & npm run build:js",
-    "build:scss": "node-sass css/style.scss -o . --output-style compressed",
+    "build:scss": "node-sass css/style.scss -o . --output-style compressed & (cd utilities/inc/gutenberg && npm run gutenberg:build:scss)",
     "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
 
     "i18n:pot": "wp i18n make-pot . languages/_s.pot --exclude=src,node_modules,**/*.min.*",

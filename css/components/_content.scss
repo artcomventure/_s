@@ -1,10 +1,15 @@
 // ---
 // Block layout
 
-.entry-content > * {
-  isolation: isolate;
+.entry-content {
+  > * {
+    // all z-index elements only refers to this element
+    isolation: isolate;
+  }
 
-  &, &.alignfull > * {
+  > *,
+  .alignfull > *,
+  .swiper.alignfull > .swiper-wrapper > * {
     @extend %container-content;
 
     @each $name, $breakpoint in $breakpoints {
@@ -20,5 +25,11 @@
     &.alignwide {
       @extend %container-wide;
     }
+  }
+
+  .swiper.alignfull > .swiper-wrapper {
+    padding: 0;
+    width: 100%;
+    max-width: none;
   }
 }
