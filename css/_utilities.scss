@@ -71,7 +71,7 @@
 @each $name, $breakpoint in $breakpoints {
   %container-#{$name} {
     @extend %container;
-    width: var(--width-#{$name});
+    width: MIN(var(--width-#{$name}), 100%);
   }
 
   .container-#{$name} {
@@ -80,7 +80,7 @@
 
   %width-#{$name} {
     max-width: 100%;
-    width: var(--width-#{$name});
+    width: MIN(var(--width-#{$name}), 100%);
   }
 
   .width-#{$name} {

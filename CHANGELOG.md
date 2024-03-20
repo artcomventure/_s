@@ -1,13 +1,23 @@
 # Changelog
 
-## 1.5.1 - 2024-03-16
-**Changed**
+## 1.6.0 - 2024-03-20
+**Added**
 
-* Children default `.alignfull` block layout (in `_content.scss`).
+* Introduce js helper functions (`THEME/utilities/js/helpers.js`).
 
 **Fixed**
 
-* `content` and `wide` CSS `$breakpoints` (in `_variables.scss`).
+* Block layout width (in `THEME/css/_utilities.scss`).
+* Hide title check for "!" at first position (in `THEME/utilities/inc/hide-title.php`).
+
+## 1.5.1 - 2024-03-16
+**Changed**
+
+* Children default `.alignfull` block layout (in `THEME/css/components/_content.scss`).
+
+**Fixed**
+
+* `content` and `wide` CSS `$breakpoints` (in `THEME/css/_variables.scss`).
 * Editor style compilation on theme changes (in `THEME/_package.json`).
 
 ## 1.5.0 - 2024-03-15
@@ -18,7 +28,7 @@
 ## 1.4.1 - 2024-03-15
 **Fixed**
 
-* TYPEKIT_FONTS in `/media/fonts/fonts.php`.
+* TYPEKIT_FONTS in `THEME/media/fonts/fonts.php`.
 
 ## 1.4.0 - 2024-03-14
 **Added**

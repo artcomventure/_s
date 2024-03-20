@@ -19,7 +19,9 @@ add_filter( 'the_title', 'remove_hide_title_indicator' );
 add_filter( 'document_title_parts', function ( $title ) {
 	if ( !is_array( $title ) ) $title = remove_hide_title_indicator( $title );
 	else if ( isset( $title['title'] ) ) $title['title'] = remove_hide_title_indicator( $title['title'] );
-	else $title = array_map( 'remove_hide_title_indicator', $title );
+	else $title = array_map( 'remove_hide_title_indicator', array_map( function( $part ) {
+		return $part ?: ''; // mustn't be `null`
+	}, $title ) );
 
 	return $title;
 } );
@@ -63,7 +65,7 @@ add_filter( 'wpseo_title', 'remove_hide_title_indicator' );
  * To actually hide the title add corresponding CSS.
  */
 add_filter( 'post_class', function( $classes, $post_id ) {
-	if ( ($post = get_post( $post_id )) && $post->post_title[0] == '!' )
+	if ( ($post = get_post( $post_id )) && $post->post_title && $post->post_title[0] == '!' )
 		$classes[] = 'hide-entry-title';
 
 	return $classes;

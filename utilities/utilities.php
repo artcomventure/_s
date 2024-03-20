@@ -15,6 +15,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'behaviours', UTILITIES_DIRECTORY_URI . '/js/behaviours.js', ['alter'], '2.0.0', true );
 	wp_register_script( 'alter', UTILITIES_DIRECTORY_URI . '/js/alter.js', [], '1.0.0', true );
 
+	wp_enqueue_script( 'helpers', UTILITIES_DIRECTORY_URI . '/js/helpers.js', [], false, true );
 	wp_enqueue_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours'], false, true );
 	wp_enqueue_script( 'inline-svg', UTILITIES_DIRECTORY_URI . '/js/inline-svg.js', ['behaviours'], false, true );
 	wp_enqueue_script( 'custom-width', UTILITIES_DIRECTORY_URI . '/js/custom-width.js', ['behaviours'], false, true );
