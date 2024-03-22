@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.7.0 - 2024-03-22
+**Changed**
+
+* Put former `THEME/css/_utilities.scss` styles in `THEME/utilities/css/_misc.scss`.
+
+**Fixed**
+
+* Inline SVG `preserveAspectRatio` (in `THEME/utilities/js/inline-svg.js`).
+* Variable call (in `THEME/utilities/css/_misc.scss`).
+
 ## 1.6.0 - 2024-03-20
 **Added**
 

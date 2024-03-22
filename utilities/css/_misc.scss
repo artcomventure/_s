@@ -1,0 +1,206 @@
+// ---
+// Container and widths.
+
+%container {
+  box-sizing: content-box;
+  padding-right: fluid($spacing-min, $spacing-max);
+  padding-left: fluid($spacing-min, $spacing-max);
+  width: 100%;
+  max-width: calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)});
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container {
+  @extend %container;
+}
+
+@each $name, $breakpoint in $breakpoints {
+  %container-#{$name} {
+    @extend %container;
+    width: MIN(var(--width-#{$name}), 100%);
+  }
+
+  .container-#{$name} {
+    @extend %container-#{$name};
+  }
+
+  %width-#{$name} {
+    max-width: 100%;
+    width: MIN(var(--width-#{$name}), 100%);
+  }
+
+  .width-#{$name} {
+    @extend %width-#{$name};
+  }
+}
+
+// ---
+// Colors.
+
+@each $name, $color in $colors {
+  %color-#{$name} {
+    color: var(--color-#{$name});
+
+    svg {
+      fill: currentColor;
+    }
+
+    @at-root svg#{&} {
+      fill: currentColor;
+    }
+  }
+
+  .has-#{$name}-color,
+  .color-#{$name} {
+    @extend %color-#{$name};
+  }
+
+  %bgcolor-#{$name} {
+    background-color: var(--color-#{unquote($name)});
+
+    // auto light color on dark backgrounds
+    @if lightness($color) < 60 {
+      color: var(--color-light, #fff);
+    }
+  }
+
+  .has-#{$name}-background-color,
+  .bgcolor-#{$name} {
+    @extend %bgcolor-#{$name};
+  }
+
+  svg.has-#{$name}-color {
+    fill: var(--color-#{$name})
+  }
+}
+
+// ---
+// Make sure logo link wraps around logo image.
+
+.custom-logo-link {
+  display: block;
+  line-height: 0;
+
+  // by default we hide `.site-title` and `.site-description`
+  ~ * {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+}
+
+// ---
+// _Breakpoint hides_.
+
+.hide {
+  &-mobile {
+    @include mobile {
+      display: none !important;
+    }
+  }
+
+  &-tablet {
+    @include tablet {
+      display: none !important;
+    }
+  }
+
+  &-desktop {
+    @include desktop {
+      display: none !important;
+    }
+  }
+}
+
+// ---
+// _No list_ lists.
+
+%list-unstyled {
+  list-style: none;
+  padding-right: 0;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+// ---
+// The following are kind of default WP styles.
+
+// do not show the outline on the skip link target
+#primary[tabindex="-1"]:focus {
+  outline: 0;
+}
+
+// hide updated date
+.updated:not(.published) {
+  display: none;
+}
+
+// ---
+// Screen reader.
+
+.screen-reader-text,
+.sr-only {
+  @include sr-only;
+}
+
+.sr-only-focusable {
+  @include sr-only(true);
+}
+
+.list-unstyled {
+  @extend %list-unstyled;
+}
+
+// ---
+// Alignments.
+
+.align {
+  &right {
+    margin-right: initial;
+    margin-left: auto !important;
+
+    @at-root svg#{&} {
+      display: block;
+    }
+  }
+
+  &center {
+    clear: inherit;
+    margin-right: auto;
+    margin-left: auto;
+
+    @at-root svg#{&} {
+      display: block;
+    }
+  }
+
+  &left {
+    margin-right: auto;
+    margin-left: initial;
+
+    @at-root svg#{&} {
+      display: block;
+    }
+  }
+}
+
+%alignwide {
+  @extend %width-wide;
+}
+
+.alignwide {
+  @extend %alignwide;
+}
+
+// ---
+// Smileys.
+
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+  border: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+

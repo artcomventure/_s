@@ -9,10 +9,10 @@
 
     "utilities:watch": "npm run utilities:watch:scss & npm run utilities:watch:js",
     "utilities:watch:scss": "node-sass css -o css --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "utilities:watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
+    "utilities:watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js,js/**/module/**/*.js --presets=@babel/preset-env --watch",
     "utilities:build": "npm run utilities:build:scss & npm run utilities:build:js",
     "utilities:build:scss": "node-sass css -o css --output-style compressed",
-    "utilities:build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+    "utilities:build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js,js/**/module/**/*.js --presets=@babel/preset-env,babel-preset-minify",
     "utilities:i18n:pot": "wp i18n make-pot . languages/utilities.pot --domain=utilities --exclude=src,node_modules,**/*.min.* --subtract=../languages/_s.pot --package-name=Utilities",
     "utilities:i18n:po": "wp i18n update-po languages/utilities.pot languages",
     "utilities:i18n:mo": "wp i18n make-mo languages languages",

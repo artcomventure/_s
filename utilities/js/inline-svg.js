@@ -23,7 +23,7 @@ Behaviours.add( 'media:inline-svg', function( $context ) {
                     else $svg.setAttribute( attribute.name, attribute.value );
                 } );
 
-                $svg.setAttribute( 'preserveAspectRatio', 'xMidYMid slice' );
+                $svg.setAttribute( 'preserveAspectRatio', 'xMidYMid' );
 
                 $svg.classList.remove( 'inline-svg', 'lazyload', 'lazyloading' );
 
