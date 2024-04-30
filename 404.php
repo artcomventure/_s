@@ -10,24 +10,34 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+    <main id="primary" class="site-main">
+	    <?php if ( $not_found = get_404_page() ) :
 
-		<section class="error-404 not-found">
-			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', '_s' ); ?></h1>
-			</header><!-- .page-header -->
+		    $not_found = new WP_Query( 'page_id=' . $not_found );
 
-			<div class="page-content">
-				<p><?php esc_html_e( 'It looks like nothing was found at this location.', '_s' );
-                if ( !get_option( 'disable_posts' ) ) printf(
-                        esc_html( __( 'Maybe try one of the links below%s?', '_s' ) ),
-                        !get_option('disable_search' ) ? ' ' . __( 'or a search', '_s' ) : ''
-                )?></p>
+		    while ( $not_found->have_posts() ) : $not_found->the_post();
+			    get_template_part( 'template-parts/content', '404' );
+		    endwhile;
 
-					<?php if ( !get_option('disable_search' ) ) get_search_form();
+		    // restore original post data
+		    wp_reset_postdata();
+	    else: ?>
+            <section class="error-404 not-found">
+                <header class="page-header">
+                    <h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', '_s' ); ?></h1>
+                </header><!-- .page-header -->
 
-					if ( !get_option( 'disable_posts' ) ) :
-					    the_widget( 'WP_Widget_Recent_Posts' ); ?>
+                <div class="page-content">
+                    <p><?php esc_html_e( 'It looks like nothing was found at this location.', '_s' );
+                        if ( !get_option( 'disable_posts' ) ) printf(
+                            esc_html( __( 'Maybe try one of the links below%s?', '_s' ) ),
+                            !get_option('disable_search' ) ? ' ' . __( 'or a search', '_s' ) : ''
+                        )?></p>
+
+                    <?php if ( !get_option('disable_search' ) ) get_search_form();
+
+                    if ( !get_option( 'disable_posts' ) ) :
+                        the_widget( 'WP_Widget_Recent_Posts' ); ?>
 
                         <div class="widget widget_categories">
                             <h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', '_s' ); ?></h2>
@@ -49,10 +59,10 @@ get_header();
                         the_widget( 'WP_Widget_Tag_Cloud' );
                     endif; ?>
 
-			</div><!-- .page-content -->
-		</section><!-- .error-404 -->
-
-	</main><!-- #main -->
+                </div><!-- .page-content -->
+            <?php endif; ?>
+        </section>
+    </main><!-- #main -->
 
 <?php
 get_footer();

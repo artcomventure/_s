@@ -1,0 +1,24 @@
+/**
+ * RGBA hexadecimal notation.
+ *
+ * @param {hex color} $hex (#rgb or #rrggbb)
+ * @param {float} $opacity (0-1)
+ *
+ * @return #rrggbbaa
+ */
+
+@import "./dec2hex";
+@function hex( $hex, $opacity ) {
+  $hex: "" + $hex; // make string
+
+  // convert 3 digit hex code to 6
+  @if str-length($hex) == 4 {
+    $r: str-slice($hex, 2, 2);
+    $g: str-slice($hex, 3, 3);
+    $b: str-slice($hex, 4, 4);
+
+    $hex: "#" + $r + $r + $g + $g + $b + $b;
+  }
+
+  @return unquote($hex + dec2hex(round($opacity * 255)));
+}

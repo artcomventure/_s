@@ -28,7 +28,7 @@
           border-color: var(--color-#{$name});
           background-color: var(--color-#{$name});
 
-          @if lightness($color) >= 60 {
+          @if type-of($color) == color and lightness($color) >= 60 {
             color: $font-color-text !important;
           }
         }
@@ -41,7 +41,7 @@
       &.has-#{$name}-background-color {
         border-color: var(--color-#{$name});
 
-        @if lightness($color) < 60 {
+        @if type-of($color) == color and lightness($color) < 60 {
           color: #fff !important;
         }
         @else {

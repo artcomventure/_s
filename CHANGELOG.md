@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.7.1 - 2024-04-30
+**Fixed**
+
+* Custom 404 page (in `THEME/404.php`).
+* Minor SCSS issues.
+
+**Changed**
+
+* Put _default_ CSS into utilities (`THEME/css/components/_blocks.scss` and `THEME/css/components/_content.scss` to `THEME/utilities/css/_misc.scss`)
+
+**Added**
+
+* RGBA hexadecimal notation (in `THEME/utilities/css/functions/_hexAlpha.scss`).
+
 ## 1.7.0 - 2024-03-22
 **Changed**
 

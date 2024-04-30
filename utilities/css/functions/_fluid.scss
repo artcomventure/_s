@@ -3,6 +3,8 @@
  * Absolute units (px, rem) only!
  */
 
+@import "./strip-unit";
+
 @function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
   @if unit($min) != unit($max) {
     @warn 'Min and max values for fluid function must have the same unit. $max (#{$max}) is used.';

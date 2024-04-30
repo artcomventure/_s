@@ -35,6 +35,81 @@
   }
 }
 
+.pin-spacer {
+  max-width: none !important;
+}
+
+// ---
+// Block layout
+
+.entry-content {
+  > * {
+    // all z-index elements only refers to this element
+    isolation: isolate;
+  }
+
+  > *,
+  .alignfull > *,
+  .swiper.alignfull > .swiper-wrapper > * {
+    @extend %container-content;
+
+    @each $name, $breakpoint in $breakpoints {
+      &.width-#{$name} {
+        @extend %width-#{$name};
+      }
+
+      &.container-#{$name} {
+        @extend %container-#{$name};
+      }
+    }
+
+    &.alignwide {
+      @extend %container-wide;
+    }
+  }
+
+  .swiper.alignfull > .swiper-wrapper {
+    padding: 0;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+// ---
+// Gallery.
+
+.gallery {
+  margin-bottom: 1.5em;
+  display: grid;
+  grid-gap: 1.5em;
+
+  &-item {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  // loops to enumerate the classes for gallery columns
+  @for $i from 2 through 9 {
+    &-columns-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+
+  &-caption {
+    display: block;
+  }
+}
+
+// ---
+// Buttons.
+
+.wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+}
+
 // ---
 // Colors.
 
@@ -60,7 +135,7 @@
     background-color: var(--color-#{unquote($name)});
 
     // auto light color on dark backgrounds
-    @if lightness($color) < 60 {
+    @if type-of($color) == color and lightness($color) < 60 {
       color: var(--color-light, #fff);
     }
   }
@@ -122,6 +197,10 @@
   margin-bottom: 0;
 }
 
+.list-unstyled {
+  @extend %list-unstyled;
+}
+
 // ---
 // The following are kind of default WP styles.
 
@@ -145,10 +224,6 @@
 
 .sr-only-focusable {
   @include sr-only(true);
-}
-
-.list-unstyled {
-  @extend %list-unstyled;
 }
 
 // ---
