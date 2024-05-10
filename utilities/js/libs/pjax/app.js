@@ -8,7 +8,7 @@
     // elements to be updated
     window.pjax = new Pjax( {
         // don't _pjax_ links to WP backend and _download links_
-        elements: Alter.do( 'pjax-elements', 'a[href]:not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]), form[action]' ),
+        elements: Alter.do( 'pjax-elements', 'a[href]:not(.no-pjax):not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]):not([href$=".jpg"]):not([href$=".gif"]):not([href$=".png"]):not([href$=".webp"]), form[action]' ),
         selectors: Alter.do( 'pjax-selectors', [
             'title',
             '#masthead',
@@ -23,8 +23,24 @@
                 const $body = $html.querySelector( 'body' );
 
                 // switch html attributes
-                document.getElementsByTagName( 'html' )[0].setAttribute( 'dir', $body.classList.contains( 'rtl' ) ? 'rtl' : 'ltr' );
-                document.getElementsByTagName( 'html' )[0].setAttribute( 'lang', $body.getAttribute( 'data-lang' ) );
+                ['lang', 'dir', 'class'].forEach( attribute => {
+                    let value = options.request.responseText.match( new RegExp( `<html.*${attribute}="([^"]*)"` ) );
+                    value = value ? value[1] : '';
+
+                    if ( value === '' ) {
+                        return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
+                    }
+
+                    switch ( attribute ) {
+                        default:
+                            document.getElementsByTagName( 'html' )[0].setAttribute( attribute, value );
+                            break;
+
+                        case 'class':
+                            document.getElementsByTagName( 'html' )[0].className = value;
+                            break;
+                    }
+                } );
 
                 // switch body classes
                 document.body.className = $body.className;
@@ -79,6 +95,10 @@
                 if ( !player.paused ) player.pause();
                 player.remove();
             } );
+
+            // destroy all gsap ScrollTrigger
+            if ( typeof ScrollTrigger !== 'undefined' )
+                ScrollTrigger.killAll();
 
             // jump to top
             window.scrollTo({

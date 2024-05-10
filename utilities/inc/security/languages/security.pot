@@ -1,0 +1,157 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Security\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-05-08T17:57:25+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: security\n"
+
+#: inc/db-table-prefix.php:10
+msgid "DB table prefix"
+msgstr ""
+
+#: inc/db-table-prefix.php:14
+msgid "Your database table prefix is <code>%s</code>"
+msgstr ""
+
+#: inc/db-table-prefix.php:17
+msgid "Your database table prefix is WordPress' default <code>wp_</code>"
+msgstr ""
+
+#: inc/db-table-prefix.php:19
+msgid "To prevent SQL injections (or at least make it more difficult) the database table prefix should not be WordPress' default <code>wp_</code> prefix. We recommend using the %s plugin to change that. Once changed you can deactivate and uninstall the plugin again."
+msgstr ""
+
+#: inc/login-url.php:8
+msgid "Login URL"
+msgstr ""
+
+#: inc/login-url.php:15
+msgid "Your login url is <code>%s</code>"
+msgstr ""
+
+#: inc/login-url.php:18
+msgid "Your login url is WordPress' default <code>/wp-login.php</code>."
+msgstr ""
+
+#: inc/login-url.php:20
+msgid "Since the login page is publicly accessible it should be an unpredictable url. The default login url <code>/wp-login.php</code> is very predictable and exposes your site to hackers attempting to guess usernames and passwords.%s"
+msgstr ""
+
+#: inc/login-url.php:21
+msgid "We recommend using the %s plugin to change it."
+msgstr ""
+
+#: inc/rest-api.php:18
+msgid "You are not allowed to make REST-API requests to this route."
+msgstr ""
+
+#: inc/rest-api.php:32
+msgid "Rest-API"
+msgstr ""
+
+#: inc/rest-api.php:35
+msgid "Critical endpoints are disabled for non-authenticated users: %s"
+msgstr ""
+
+#: inc/rest-api.php:38
+msgid "Some REST-API endpoints contains vulnerable data (e.g. usernames) of your site which hackers can use to start their attacks."
+msgstr ""
+
+#: inc/update.php:12
+msgid "No updates available"
+msgstr ""
+
+#: inc/update.php:12
+msgid "Updates available"
+msgstr ""
+
+#: inc/update.php:17
+msgid "%s available. <a href='%s'>Make the updates promptly</a>."
+msgstr ""
+
+#: inc/update.php:20
+msgid "There is a new version of WordPress available. <b>Please immediately <a href='%s'>run updates</a>!</b>"
+msgstr ""
+
+#: inc/update.php:23
+msgid "There are no updates available."
+msgstr ""
+
+#: inc/update.php:25
+msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date."
+msgstr ""
+
+#: inc/usernames.php:11
+msgid "Username"
+msgstr ""
+
+#: inc/usernames.php:15
+msgid "There is an user with login name <code><a href='%s'>%s</a></code>%s"
+msgstr ""
+
+#: inc/usernames.php:18
+msgid "and also with the role <code>administrator</code>"
+msgstr ""
+
+#: inc/usernames.php:20
+msgid "There is no account with the username <code>admin</code>."
+msgstr ""
+
+#: inc/usernames.php:22
+msgid "Since generic WordPress usernames like <code>admin</code> are easier to guess, they pose a significant risk for your website.%s"
+msgstr ""
+
+#: inc/usernames.php:24
+msgid "Create new administrator user and delete the <i>old</i> one"
+msgstr ""
+
+#: inc/usernames.php:25
+msgid "... or change <code>user_login</code> directly in the database"
+msgstr ""
+
+#: inc/xmlrpc.php:23
+msgid "XML-RPC"
+msgstr ""
+
+#: inc/xmlrpc.php:26
+msgid "The XML-RPC-API is either not reachable or disabled."
+msgstr ""
+
+#: inc/xmlrpc.php:27
+msgid "It's best to disable it altogether since it's replaced by the REST-API."
+msgstr ""
+
+#: inc/xmlrpc.php:29
+msgid "The <code>xmlrpc.php</code> introduces security vulnerabilities and can be the target for attacks. Since it has been replaced by the REST-API it is best to disable it."
+msgstr ""
+
+#: security.php:22
+msgid "Security"
+msgstr ""
+
+#: security.php:24
+msgid "To secure<sup>1</sup> your site from hackers, malicious attackers and automated bots and prevent DDoS- and brute-force-attacks, here are some points that should be met:"
+msgstr ""
+
+#: security.php:91
+msgid "Further recommendations"
+msgstr ""
+
+#: security.php:104
+msgid "Have a look at WordPress' <a href='%s'>site health</a> section"
+msgstr ""
+
+#: security.php:109
+msgid "We encourage you to use a 2-factor-authentication and recommend the %s plugin"
+msgstr ""
+
+#: security.php:115
+msgid "<sup>1</sup> There will never be an absolute security but these points will help to keep it as secure as possible."
+msgstr ""

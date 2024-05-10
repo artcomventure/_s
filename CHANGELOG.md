@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.8.0 - 2024-05-10
+**Added**
+
+* Security checks (in `THEME/utilities/inc/security`).
+* Images and `no-pjax` class to exclude from pjax redirect (in `THEME/utilities/js/libs/pjax/app.js`).
+
+**Fixed**
+
+* Set html attributes after pjax redirect.
+* _Kill_ all gsap ScrollTriggers on pjax redirect (in `THEME/utilities/js/libs/pjax/app.js`).
+
 ## 1.7.1 - 2024-04-30
 **Fixed**
 

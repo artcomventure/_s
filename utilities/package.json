@@ -1,10 +1,10 @@
 {
   "scripts": {
-    "watch": "npm run utilities:watch & npm run bodyclass:watch & npm run gutenberg:watch & npm run dev:watch & npm run autosize:watch & npm run air-datepicker:watch & npm run custom-select:watch & npm run pjax:watch & npm run post-edit-link:watch",
-    "build": "npm run utilities:build & npm run bodyclass:build & npm run gutenberg:build & npm run dev:build & npm run autosize:build & npm run air-datepicker:build & npm run custom-select:build & npm run pjax:build & npm run post-edit-link:build",
-    "i18n:pot": "npm run utilities:i18n:pot & npm run dev:i18n:pot & npm run bodyclass:i18n:pot",
-    "i18n:po": "npm run utilities:i18n:po & npm run dev:i18n:po & npm run bodyclass:i18n:po",
-    "i18n:mo": "npm run utilities:i18n:mo & npm run dev:i18n:mo & npm run bodyclass:i18n:mo",
+    "watch": "npm run utilities:watch & npm run bodyclass:watch & npm run gutenberg:watch & npm run dev:watch & npm run autosize:watch & npm run air-datepicker:watch & npm run custom-select:watch & npm run pjax:watch & npm run post-edit-link:watch & npm run security:watch",
+    "build": "npm run utilities:build & npm run bodyclass:build & npm run gutenberg:build & npm run dev:build & npm run autosize:build & npm run air-datepicker:build & npm run custom-select:build & npm run pjax:build & npm run post-edit-link:build & npm run security:build",
+    "i18n:pot": "npm run utilities:i18n:pot & npm run dev:i18n:pot & npm run bodyclass:i18n:pot & npm run security:i18n:pot",
+    "i18n:po": "npm run utilities:i18n:po & npm run dev:i18n:po & npm run bodyclass:i18n:po & npm run security:i18n:po",
+    "i18n:mo": "npm run utilities:i18n:mo & npm run dev:i18n:mo & npm run bodyclass:i18n:mo & npm run security:i18n:mo",
     "i18n:json": "npm run utilities:i18n:json & npm run dev:i18n:json & npm run bodyclass:i18n:json",
 
     "utilities:watch": "npm run utilities:watch:scss & npm run utilities:watch:js",
@@ -48,7 +48,13 @@
     "gutenberg:build": "cd inc/gutenberg && npm run build",
 
     "post-edit-link:watch": "cd inc/post-edit-link && npm run watch",
-    "post-edit-link:build": "cd inc/post-edit-link && npm run build"
+    "post-edit-link:build": "cd inc/post-edit-link && npm run build",
+
+    "security:watch": "cd inc/security && npm run watch",
+    "security:build": "cd inc/security && npm run build",
+    "security:i18n:pot": "cd inc/security && npm run i18n:pot",
+    "security:i18n:po": "cd inc/security && npm run i18n:po",
+    "security:i18n:mo": "cd inc/security && npm run i18n:mo"
   },
   "dependencies": {
     "air-datepicker": "^3.5.0",

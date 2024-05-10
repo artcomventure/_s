@@ -1,0 +1,88 @@
+@import "../../css/mixins/pseudons";
+
+#security_widget {
+
+  .inside .postbox {
+    margin-top: -1px;
+    margin-bottom: 0;
+
+    &-header > h3 {
+      padding: 8px 12px;
+      margin: 0;
+      font-weight: 600;
+      line-height: 1.4;
+
+      @include icon-before("\f534", dashicons) {
+        margin-top: -.2em;
+      }
+    }
+
+    &.failed {
+      .postbox-header > h3 {
+        color: #d63638;
+      }
+
+      &.closed .postbox-header > h3:before {
+        animation: fade 2s infinite;
+
+        @keyframes fade {
+          0%, 100% { opacity: 1; }
+          50% { opacity: .2; }
+        }
+      }
+
+      // randomize animation
+      @for $i from 2 through 10 {
+        &:nth-child(#{$i}) .postbox-header > h3:before {
+          animation-duration: random(1000)/1000 + 1 + s; // 1-2 seconds
+          animation-delay: random(2000)/1000 + s; // 0-2 seconds
+        }
+      }
+    }
+
+    &.warning .postbox-header > h3 {
+      color: #dba617;
+    }
+
+    &.passed .postbox-header > h3 {
+      color: #61c653;
+
+      &:before {
+        content: "\f147" !important;
+      }
+    }
+
+    &:last-of-type .postbox-header > h3 {
+      color: #646970;
+      font-weight: 500;
+
+      &:before {
+        content: none !important;
+      }
+    }
+  }
+
+  .info {
+    font-weight: 600;
+  }
+
+  .description {
+    font-style: italic;
+  }
+
+  ul, code {
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  ul {
+    list-style: initial;
+    padding-left: 1em;
+
+    &:first-child:last-child {
+      &, li:last-child {
+        margin: 0;
+      }
+    }
+  }
+}
