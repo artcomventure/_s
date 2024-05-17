@@ -25,10 +25,15 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_enqueue_script( 'css-breakpoints', UTILITIES_DIRECTORY_URI . '/js/BREAKPOINTS.js', [], false, true );
 } );
 
+add_action( 'admin_enqueue_scripts', function() {
+	wp_enqueue_style( 'utilities-admin', UTILITIES_DIRECTORY_URI . '/css/admin.css' );
+} );
+
 // auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
 auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );
+auto_include_files( UTILITIES_DIRECTORY . '/inc/plugins' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/shortcodes' );
 // auto include theme's /inc files
 // TODO: theme vs child theme

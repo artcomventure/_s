@@ -113,6 +113,11 @@ add_action( 'wp_dashboard_setup', function() {
             <li>
 				<?php printf( __( "We encourage you to use a 2-factor-authentication and recommend the %s plugin", 'security' ), '<a href="https://de.wordpress.org/plugins/wordfence-login-security/" target="_blank">Wordfence Login Security</a>' ) ?>
             </li>
+            <?php if ( !isset($checks['spam']) ) : ?>
+                <li>
+                    <?php _e( "Secure your contact forms with some kind of SPAM protection", 'security' ); ?>
+                </li>
+            <?php endif; ?>
           </ul>
         </div>
       </div>

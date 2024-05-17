@@ -1,0 +1,56 @@
+input[type="checkbox"].on-off {
+  display: none;
+
+  &:has(+ label) + label {
+    display: block;
+    position: relative;
+
+    &:before, &:after {
+      content: "";
+      transition: all .2s ease-in-out;
+    }
+
+    &:before {
+      background-color: #fff;
+      border: 1px solid #1e1e1e;
+      border-radius: 9px;
+      box-sizing: border-box;
+      display: inline-block;
+      height: 18px;
+      vertical-align: top;
+      width: 36px;
+      margin-right: .5em;
+    }
+
+    &:after {
+      background-color: #1e1e1e;
+      border: 5px solid #1e1e1e;
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: block;
+      height: 12px;
+      left: 3px;
+      position: absolute;
+      top: 3px;
+      width: 12px;
+    }
+  }
+
+  // plugins table
+  @at-root .wp-list-table.plugins & + label ~ * {
+    display: none;
+  }
+
+  &:checked + label {
+    &:before {
+      background-color: #007cba;
+      border-color: transparent;
+    }
+
+    &:after {
+      background-color: #fff;
+      border-color: #fff;
+      left: 21px;
+    }
+  }
+}

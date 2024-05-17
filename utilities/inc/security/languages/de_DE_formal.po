@@ -19,10 +19,6 @@ msgstr "DB-Tabellenpräfix"
 msgid "Your database table prefix is <code>%s</code>"
 msgstr "Der Datenbank-Tabellenpräfix lautet <code>%s</code>"
 
-#: inc/db-table-prefix.php:17
-msgid "Your database table prefix is WordPress' default <code>wp_</code>."
-msgstr "Der Datenbank-Tabellenpräfix ist der Standard-WordPress Präfix <code>%s</code>"
-
 #: inc/db-table-prefix.php:19
 msgid "To prevent SQL injections (or at least make it more difficult) the database table prefix should not be WordPress' default <code>wp_</code> prefix. We recommend using the %s plugin to change that. Once changed you can deactivate and uninstall the plugin again."
 msgstr "Um SQL-Injections zu verhindern (oder zumindest zu erschweren), sollte der Datenbank-Tabellenpräfix nicht der Standardpräfix <code>wp_</code> von WordPress sein. Wir empfehlen die Verwendung des %s-Plugins, um dies zu ändern. Nach der Änderung können Sie das Plugin wieder deaktivieren und deinstallieren."
@@ -63,29 +59,29 @@ msgstr "Kritische Endpunkte sind für nicht authentifizierte Benutzer deaktivier
 msgid "Some REST-API endpoints contains vulnerable data (e.g. usernames) of your site which hackers can use to start their attacks."
 msgstr "Einige REST-API-Endpunkte enthalten sensible Daten (z.B. Benutzernamen) Ihrer Website, die Hacker zum Start ihrer Angriffe verwenden können."
 
-#: inc/update.php:12
+#: inc/update.php:11
 msgid "No updates available"
 msgstr "Keine Updates verfügbar"
 
-#: inc/update.php:12
+#: inc/update.php:11
 msgid "Updates available"
 msgstr "Updates verfügbar"
 
-#: inc/update.php:17
-msgid "%s available. <a href='%s'>Make the updates promptly</a>."
-msgstr "%s verfügbar. <a href='%s'>Führen Sie die Aktualisierungen zeitnah durch</a>."
+#: inc/update.php:18
+msgid "Updates available. <a href='%s'>Make the updates promptly</a>."
+msgstr "Updates verfügbar. <a href='%s'>Führen Sie die Aktualisierungen zeitnah durch</a>."
 
 #: inc/update.php:20
 msgid "There is a new version of WordPress available. <b>Please immediately <a href='%s'>run updates</a>!</b>"
 msgstr "Es ist eine neue Version von WordPress verfügbar. <b>Bitte umgehend <a href='%s'>Updates durchführen</a>!</b>"
 
-#: inc/update.php:23
+#: inc/update.php:15
 msgid "There are no updates available."
 msgstr "Es sind keine Updates verfügbar."
 
-#: inc/update.php:25
-msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date."
-msgstr "Viele Updates enthalten Sicherheitsfixes. Daher ist es wichtig, WordPress selbst und alle Plugins immer auf dem neuesten Stand zu halten."
+#: inc/update.php:23
+msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s"
+msgstr "Viele Updates enthalten Sicherheitsfixes. Daher ist es wichtig, WordPress selbst und alle Plugins immer auf dem neuesten Stand zu halten.%s"
 
 #: inc/usernames.php:11
 msgid "Username"
@@ -131,26 +127,74 @@ msgstr "Am besten deaktivieren Sie es ganz, da es durch die REST-API ersetzt wir
 msgid "The <code>xmlrpc.php</code> introduces security vulnerabilities and can be the target for attacks. Since it has been replaced by the REST-API it is best to disable it."
 msgstr "Die <code>xmlrpc.php</code> führt zu Sicherheitslücken und kann das Ziel von Angriffen sein. Da es durch die REST-API ersetzt wurde, ist es am besten, es zu deaktivieren."
 
-#: security.php:22
+#: security.php:27
 msgid "Security"
 msgstr "Sicherheit"
 
-#: security.php:24
+#: security.php:29
 msgid "To secure<sup>1</sup> your site from hackers, malicious attackers and automated bots and prevent DDoS- and brute-force-attacks, here are some points that should be met:"
 msgstr "Um Ihre Website vor Hackern, böswilligen Angreifern und automatisierten Bots zu schützen<sup>1</sup> und DDoS- und Brute-Force-Angriffe zu verhindern, sollten folgende Punkte beachtet werden:"
 
-#: security.php:91
+#: security.php:96
 msgid "Further recommendations"
 msgstr "Weitere Empfehlungen"
 
-#: security.php:104
+#: security.php:109
 msgid "Have a look at WordPress' <a href='%s'>site health</a> section"
 msgstr "Schauen Sie sich den Abschnitt <a href='%s'>Zustand der Website</a> von WordPress an"
 
-#: security.php:109
+#: security.php:114
 msgid "We encourage you to use a 2-factor-authentication and recommend the %s plugin"
 msgstr "Wir empfehlen Ihnen die Verwendung einer 2-Faktor-Authentifizierung und empfehlen das Plugin %s"
 
-#: security.php:115
+#: security.php:125
 msgid "<sup>1</sup> There will never be an absolute security but these points will help to keep it as secure as possible."
 msgstr "<sup>1</sup> Es wird nie eine absolute Sicherheit geben, aber diese Punkte werden dazu beitragen, Ihre Website so sicher wie möglich zu halten."
+
+#: inc/db-table-prefix.php:17
+msgid "Your database table prefix is WordPress' default <code>wp_</code>"
+msgstr "Der Datenbank-Tabellenpräfix ist WordPress' Standardpräfix <code>%s</code>"
+
+#: inc/file-mods.php:13
+msgid "File modifications"
+msgstr "Dateiänderungen"
+
+#: inc/file-mods.php:16
+msgid "No file modifications via backend are allowed"
+msgstr "Es sind keine Dateiänderungen über das Backend zulässig"
+
+#: inc/file-mods.php:18
+msgid "File modifications via backend are allowed.%s"
+msgstr "Dateiänderungen über das Backend sind erlaubt.%s"
+
+#: inc/file-mods.php:19
+msgid "But in the development environment it always is. Please check on <i>stage</i> and <i>live</i>!"
+msgstr "Aber in der Entwicklungsumgebung ist es immer so. Bitte prüfen Sie <i>Stage</i> und <i>Live</i>!"
+
+#: inc/file-mods.php:21
+msgid "Actions like un/installing plugins/themes, downloading language packs, using the file editors, etc. should only be possible in the development environment. Because if an intruder gains backend access, they would be able to modify the codebase."
+msgstr "Aktionen wie das De-/Installieren von Plugins/Themes, das Herunterladen von Sprachpaketen, die Verwendung der Dateieditoren usw. sollten nur in der Entwicklungsumgebung möglich sein. Denn wenn ein Eindringling Zugriff auf das Backend erhält, könnte er die Codebasis ändern."
+
+#: inc/spam.php:35
+msgid "SPAM protection"
+msgstr "Spamschutz"
+
+#: inc/spam.php:39
+msgid "We've detected you've installed the CF7 plugin and some sort of SPAM protection%s."
+msgstr "Wir haben festgestellt, dass Sie das CF7-Plugin und eine Art SPAM-Schutz%s installiert haben."
+
+#: inc/spam.php:43
+msgid "There are CF7 forms without any protection%s"
+msgstr "Es gibt CF7-Formulare ohne Schutz%s"
+
+#: inc/spam.php:47
+msgid "It's important to prevent form spam because its impact ranges from annoyance to potential security risks by malicious links. Your reputation, the reputation of your client and the one of <i>your server</i> is at risk.%s"
+msgstr "Es ist wichtig, Formular-Spam zu verhindern, da seine Auswirkungen von Belästigung bis hin zu potenziellen Sicherheitsrisiken durch bösartige Links reichen. Ihr Ruf, der Ihres Kunden und der <i>Ihres Servers</i> ist gefährdet.%s"
+
+#: inc/spam.php:50
+msgid "We recommend using the %s plugin."
+msgstr "Wir empfehlen die Verwendung des %s-Plugins."
+
+#: security.php:118
+msgid "Secure your contact forms with some kind of SPAM protection"
+msgstr "Sichern Sie Ihre Kontaktformulare mit einer Art SPAM-Schutz"

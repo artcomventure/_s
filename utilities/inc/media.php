@@ -1,6 +1,9 @@
 <?php
 
-// allow additional image mime types
+/**
+ * Allow additional image mime types.
+ */
+
 add_filter( 'upload_mimes', function( $mimes ){
 	$mimes['svg'] = 'image/svg+xml';
 	$mimes['vcf'] = 'text/vcard';
@@ -26,7 +29,22 @@ add_filter( 'wp_check_filetype_and_ext', function( $checked, $file, $filename, $
 	return $checked;
 }, 10, 4 );
 
-// force `figcaption` to be added
+/**
+ * Add a default image alt (attachment title).
+ */
+add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment ) {
+	// don't override existing alt text
+	if ( empty( $attr['alt'] ) ) {
+		$attr['alt'] = get_the_title( $attachment );
+	}
+
+	return $attr;
+}, 10, 2 );
+
+/**
+ * Force `figcaption` to be added.
+ */
+
 add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_setting( 'force_figcaption', array(
 		'type' => 'option',
@@ -59,7 +77,9 @@ add_filter( 'render_block', function( $block_content, $block ) {
 	return $block_content;
 }, 10, 2 );
 
-// add image size dimension to name
+/**
+ * Add image size dimension to (BE) name.
+ */
 add_filter( 'image_size_names_choose', function( $size_names ) {
 	$subsizes = wp_get_registered_image_subsizes();
 
@@ -90,7 +110,9 @@ add_filter( 'image_size_names_choose', function( $size_names ) {
 	return $size_names;
 }, 0 );
 
-// crop WP's changeable image sizes if width and height are given
+/**
+ * Crop WP's changeable image sizes if width and height are given.
+ */
 add_action( 'admin_init', 'maybe_crop_media', 100 );
 add_action( 'init', 'maybe_crop_media', 100 );
 function maybe_crop_media() {

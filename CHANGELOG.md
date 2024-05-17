@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.1 - 2024-05-17
+**Added**
+
+* SPAM and file modification security checks (in `THEME/utilities/inc/security/inc`).
+
 ## 1.8.0 - 2024-05-10
 **Added**
 
