@@ -4,10 +4,10 @@
  * Dashboard's security widget entry.
  */
 add_filter( 'security_checks', function( $checks ) {
-	$status = (function() {
-		if ( get_core_updates( array( 'dismissed' => false ) ) ) return false;
-		if ( get_site_transient( 'update_plugins' ) || get_site_transient( 'update_themes' ) ) return 'warning';
-		return wp_get_translation_updates() ? 'warning' : '';
+	$updates = wp_get_update_data();
+	$status = (function() use ( $updates ) {
+		if ( $updates['counts']['wordpress'] ) return false;
+		return !$updates['counts']['total'] ?: 'warning';
 	})();
 
 	$checks['update'] = [
