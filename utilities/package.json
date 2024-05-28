@@ -52,9 +52,9 @@
 
     "security:watch": "cd inc/security && npm run watch",
     "security:build": "cd inc/security && npm run build",
-    "security:i18n:pot": "cd inc/security && npm run i18n:pot",
-    "security:i18n:po": "cd inc/security && npm run i18n:po",
-    "security:i18n:mo": "cd inc/security && npm run i18n:mo"
+    "security:i18n:pot": "cd inc/security && npm run security:i18n:pot",
+    "security:i18n:po": "cd inc/security && npm run security:i18n:po",
+    "security:i18n:mo": "cd inc/security && npm run security:i18n:mo"
   },
   "dependencies": {
     "air-datepicker": "^3.5.0",

@@ -70,7 +70,7 @@
     font-style: italic;
   }
 
-  ul, code {
+  .info ul, code {
     font-weight: 400;
     font-style: normal;
   }
@@ -78,6 +78,10 @@
   ul {
     list-style: initial;
     padding-left: 1em;
+
+    li {
+      margin-bottom: 0;
+    }
 
     &:first-child:last-child {
       &, li:last-child {

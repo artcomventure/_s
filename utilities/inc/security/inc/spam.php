@@ -20,7 +20,7 @@ add_filter( 'security_checks', function ( $checks ) {
 				$manager = WPCF7_FormTagsManager::get_instance();
 				$form_tags = $manager->scan( $form->get_properties()['form'] );
 				if ( !array_filter( (array) $form_tags, function( $form_tag ) {
-					return in_array( $form_tag->basetype, ['quiz', 'honeypot'] );
+					return in_array( $form_tag->basetype, ['quiz', 'honeypot', 'cf7ic'] );
 				} ) ) $unsecure_forms[] = '<a href="' . add_query_arg( [
 						'page' => 'wpcf7',
 						'post' => $post->ID,

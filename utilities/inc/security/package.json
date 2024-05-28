@@ -1,10 +1,16 @@
 {
   "scripts": {
-    "watch": "node-sass ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build": "node-sass ./ -o ./ --output-style compressed",
+    "watch": "npm run security:watch & npm run updates:watch",
+    "build": "npm run security:build & npm run updates:build",
 
-    "i18n:pot": "wp i18n make-pot . languages/security.pot --domain=security --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Security",
-    "i18n:po": "wp i18n update-po languages/security.pot languages",
-    "i18n:mo": "wp i18n make-mo languages languages"
+    "security:watch": "node-sass ./style.scss -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "security:build": "node-sass ./style.scss -o ./ --output-style compressed",
+
+    "security:i18n:pot": "wp i18n make-pot ./ languages/security.pot --domain=security --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Security",
+    "security:i18n:po": "wp i18n update-po languages/security.pot languages",
+    "security:i18n:mo": "wp i18n make-mo languages languages",
+
+    "updates:watch": "cd inc/updates && npm run watch",
+    "updates:build": "cd inc/updates && npm run build"
   }
 }

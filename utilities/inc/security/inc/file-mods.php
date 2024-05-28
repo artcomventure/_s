@@ -4,7 +4,7 @@
  * Prevent file modifications via backend.
  */
 add_filter( 'file_mod_allowed', function( $disallow_file_mods, $context ) {
-	if ( !isDev() ) return false;
+	if ( !isLocal() ) return false;
 	return $disallow_file_mods;
 }, 10, 2 );
 

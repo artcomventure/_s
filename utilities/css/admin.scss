@@ -36,11 +36,6 @@ input[type="checkbox"].on-off {
     }
   }
 
-  // plugins table
-  @at-root .wp-list-table.plugins & + label ~ * {
-    display: none;
-  }
-
   &:checked + label {
     &:before {
       background-color: #007cba;

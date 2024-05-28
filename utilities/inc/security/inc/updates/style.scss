@@ -1,0 +1,5 @@
+// plugins table
+.wp-list-table.plugins input[type="checkbox"].on-off + label ~ * {
+  // hide automatic updates option
+  display: none;
+}

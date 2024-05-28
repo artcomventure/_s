@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.2 - 2024-05-28
+**Added**
+
+* Check for accounts with identical login name and display name ((in `THEME/utilities/inc/security/inc/usernames.php`)).
+* Disable updates (in `THEME/utilities/inc/security/inc/updates`).
+
 ## 1.8.1 - 2024-05-17
 **Added**
 

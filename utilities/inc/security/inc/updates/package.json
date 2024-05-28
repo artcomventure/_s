@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "watch": "npm run watch:scss & npm run watch:js",
+    "watch:scss": "node-sass ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+
+    "build": "npm run build:scss & npm run build:js",
+    "build:scss": "node-sass ./ -o ./ --output-style compressed",
+    "build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=./*.min.js --presets=@babel/preset-env,babel-preset-minify"
+  }
+}
