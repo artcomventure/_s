@@ -8,7 +8,7 @@ Config see `.env`.
 ## Getting started
 
 - [Install Docker](https://www.docker.com/get-started/)
-- Add IP and host name `127.0.0.1 DEV_URL_WITHOUT_SCHEMA` to your hosts file
+- Add IP and host name `127.0.0.1 {HOST from .env}` to your hosts file
   - macOS: `/etc/hosts`
   - Microsoft: `WINDOWS/system32/drivers/hosts`
 
@@ -16,7 +16,7 @@ Config see `.env`.
 
 - `$ cd /path/to/project/docker`
 - `$ docker-compose up -d`
-- Open DEV_URL
+- Open {DEV_URL from .env}
 
 ## Import sql
 

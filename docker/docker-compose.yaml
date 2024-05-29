@@ -4,6 +4,11 @@
 services:
 
   mysql:
+    env_file:
+      - path: .env
+        required: true
+      - path: local.env
+        required: false
     image: mariadb:${MARIADB_VERSION}
     container_name: ${PROJECT}-mysql
     ports:
@@ -19,7 +24,34 @@ services:
     networks:
       - wordpress
 
+  nginx:
+    env_file:
+      - path: .env
+        required: true
+      - path: local.env
+        required: false
+    image: nginx:${NGINX_VERSION}
+    container_name: ${PROJECT}-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../:/var/www/html
+    environment:
+      HOST: ${HOST}
+      STAGE_URL: ${STAGE_URL}
+      LIVE_URL: ${LIVE_URL}
+    networks:
+      - wordpress
+
   wordpress:
+    env_file:
+      - path: .env
+        required: true
+      - path: local.env
+        required: false
 #   image: wordpress:php${PHP_VERSION}
     container_name: ${PROJECT}-wordpress
     build:
@@ -37,24 +69,16 @@ services:
       WORDPRESS_DB_NAME: ${PROJECT}
       WORDPRESS_TABLE_PREFIX: ${ABBR:-wp}_
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
+      DEV_URL: ${DEV_URL}
+      STAGE_URL: ${STAGE_URL}
+      LIVE_URL: ${LIVE_URL}
     volumes:
       - ../:/var/www/html
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./.bashrc:/root/.bashrc
-    networks:
-      - wordpress
-
-  nginx:
-    image: nginx:${NGINX_VERSION}
-    container_name: ${PROJECT}-nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: unless-stopped
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ../:/var/www/html
+    extra_hosts:
+      - ${HOST}:172.17.0.1
     networks:
       - wordpress
 

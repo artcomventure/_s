@@ -16,14 +16,13 @@ Installation
 
 #### Docker DEV Environment (optional)
 
-Move the docker folder to the root of the Wordpress installation and do a six-step find and replace on the settings to get docker to work.
+Move the docker folder to the root of the WordPress installation and set project's parameters in the `.env` file.
 
-1. Search for `PROJECT_NAME` and replace it with the current project name.
-2. (optional) Search for `PROJECT_ABBR` and replace it with the project's abbreviation. This is used as DB table prefix. Default is `wp`.
-3. Search for `DEV_URL_WITHOUT_SCHEMA` and replace it with the project's dev URL without `https://`. This should be the live URL with `dev.` instead of `www.`: dev.project.de
-4. Search for `DEV_URL` and replace it with the project's dev URL: http://dev.project.de
-5. (optional) Search for `STAGE_URL` and replace it with the project's stage URL.
-6. Search for `LIVE_URL` and replace it with the project's live URL.
+1. Replace `PROJECT_NAME` with the current project name.
+2. Replace `PROJECT_ABBR` with the project's abbreviation. This is used as DB table prefix. Default is `wp`.
+3. Replace `DEV_URL_WITHOUT_SCHEMA` with the project's dev URL without `http://`. This should be the live URL with `dev.` instead of `www.`: dev.project.de
+4. Replace `STAGE_URL_WITH_SCHEMA` with the project's stage URL.
+5. Replace `LIVE_URL_WITH_SCHEMA` with the project's live URL.
 
 For further Docker installation see docker/README.md
 
