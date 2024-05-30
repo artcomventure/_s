@@ -4,23 +4,19 @@ define( 'DEV_DIRECTORY', dirname( __FILE__ ) );
 define( 'DEV_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/dev' );
 
 function isLocal() {
-    return strpos( $_SERVER['SERVER_NAME'] ?? '', 'dev.' ) === 0;
+	return apply_filters( 'is-local', wp_get_environment_type() === 'local' );
 }
 
 function isStage() {
-    return strpos( $_SERVER['SERVER_NAME'] ?? '', 'stage.' ) === 0;
-}
-
-function isQa() {
-    return strpos( $_SERVER['SERVER_NAME'] ?? '', 'qa.' ) === 0;
+	return apply_filters( 'is-stage', str_starts_with( $_SERVER['SERVER_NAME'] ?? '', 'stage.' ) );
 }
 
 function isDev() {
-    return isLocal() || isStage() || isQa();
+	return apply_filters( 'is-dev', isLocal() || isStage() );
 }
 
 function isLive() {
-    return !isDev();
+	return apply_filters( 'is-live', !isDev() );
 }
 
 if ( isLive() ) return;
