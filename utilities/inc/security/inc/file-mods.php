@@ -11,7 +11,7 @@ add_filter( 'file_mod_allowed', function( $disallow_file_mods, $context ) {
 add_filter( 'security_checks', function ( $checks ) {
 	$checks['file_mods'] = [
 		'title'       => __( 'File modifications', 'security' ),
-		'status'      => $status = (isDev() ? 'warning' : !wp_is_file_mod_allowed( 'capability_update_core' )),
+		'status'      => $status = (isLocal() ? 'warning' : !wp_is_file_mod_allowed( 'capability_update_core' )),
 		'info'        => $status === true
 			? __( 'No file modifications via backend are allowed.', 'security' )
 			: sprintf(

@@ -145,7 +145,7 @@ msgstr "<sup>1</sup> Es wird nie eine absolute Sicherheit geben, aber diese Punk
 
 #: inc/db-table-prefix.php:17
 msgid "Your database table prefix is WordPress' default <code>wp_</code>"
-msgstr "Der Datenbank-Tabellenpräfix ist WordPress' Standardpräfix <code>%s</code>"
+msgstr "Der Datenbank-Tabellenpräfix ist WordPress' Standardpräfix <code>wp_</code>"
 
 #: inc/file-mods.php:13
 msgid "File modifications"

@@ -60,6 +60,7 @@
     "air-datepicker": "^3.5.0",
     "autosize": "^6.0.1",
     "custom-select": "^1.1.15",
+    "formbouncerjs": "^1.4.6",
     "gsap": "^3.12.5",
     "lottie-web": "^5.12.2",
     "pjax": "^0.2.8"

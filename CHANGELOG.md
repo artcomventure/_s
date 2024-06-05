@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.9.0 - 2024-06-05
+**Added**
+
+* Custom form validation (in `THEME/utilities/js/libs/bouncer.min.js`).
+
+**Fixed**
+
+* `file-mods.php` security check.
+* .gitignore
+* t9n
+
 ## 1.8.3 - 2024-05-29
 **Changed**
 
