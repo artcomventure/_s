@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-28T07:41:38+00:00\n"
+"POT-Creation-Date: 2024-06-07T14:23:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: security\n"
@@ -104,63 +104,71 @@ msgstr ""
 msgid "We recommend using the %s plugin."
 msgstr ""
 
-#: inc/updates/updates.php:14
+#: inc/updates/updates.php:22
 msgid "No updates available"
 msgstr ""
 
-#: inc/updates/updates.php:14
+#: inc/updates/updates.php:22
 msgid "Updates available"
 msgstr ""
 
-#: inc/updates/updates.php:18
+#: inc/updates/updates.php:25
+msgid "There is a new version of WordPress available."
+msgstr ""
+
+#: inc/updates/updates.php:28
 msgid "There are no updates available."
 msgstr ""
 
-#: inc/updates/updates.php:21
-msgid "Updates available. <a href='%s'>Make the updates promptly</a>."
+#: inc/updates/updates.php:32
+msgid "Updates available."
 msgstr ""
 
-#: inc/updates/updates.php:23
-msgid "There is a new version of WordPress available. <b>Please immediately <a href='%s'>run updates</a>!</b>"
+#: inc/updates/updates.php:38
+msgid "Please immediately run updates"
 msgstr ""
 
-#: inc/updates/updates.php:26
+#: inc/updates/updates.php:40
+msgid "Please notify the site administrator!"
+msgstr ""
+
+#: inc/updates/updates.php:46
 msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s"
 msgstr ""
 
-#: inc/updates/updates.php:81
+#: inc/updates/updates.php:101
 msgid "Disable updates"
 msgstr ""
 
-#: inc/updates/updates.php:136
+#: inc/updates/updates.php:156
 msgid "Updates"
 msgstr ""
 
-#: inc/usernames.php:12
+#: inc/usernames.php:13
 msgid "There is a user with login name <code><a href='%s'>%s</a></code>%s"
 msgstr ""
 
-#: inc/usernames.php:15
+#: inc/usernames.php:16
 msgid "and also with the role <code>administrator</code>"
 msgstr ""
 
-#: inc/usernames.php:17
+#: inc/usernames.php:18
 msgid "Create new administrator user and delete the <i>old</i> one"
 msgstr ""
 
-#: inc/usernames.php:18
+#: inc/usernames.php:19
 msgid "... or change <code>user_login</code> directly in the database"
 msgstr ""
 
-#: inc/usernames.php:32
+#: inc/usernames.php:30
 msgid "There are accounts with identical login name and display name:%s"
 msgstr ""
 
-#: inc/usernames.php:40
+#: inc/usernames.php:38
 msgid "Usernames"
 msgstr ""
 
-#: inc/usernames.php:44
+#: inc/usernames.php:41
 msgid "Since generic WordPress usernames like <code>admin</code> are easier to guess, they pose a significant risk for your website. Also avoid accounts with identical login name and display name."
 msgstr ""
 

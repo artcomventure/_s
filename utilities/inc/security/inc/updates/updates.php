@@ -4,23 +4,43 @@
  * Dashboard's security widget entry.
  */
 add_filter( 'security_checks', function( $checks ) {
-	$updates = wp_get_update_data();
-	$status = (function() use ( $updates ) {
-		if ( $updates['counts']['wordpress'] ) return false;
-		return !$updates['counts']['total'] ?: 'warning';
+	$status = (function() {
+		if ( ($core = get_preferred_from_update_core()) && $core->response === 'upgrade' ) {
+			return false;
+		}
+
+		$plugins = get_site_transient( 'update_plugins' );
+		$themes = get_site_transient( 'update_themes' );
+		if ( !empty( $plugins->response ) || !empty( $themes->response ) || wp_get_translation_updates() ) {
+			return 'warning';
+		}
+
+		return true;
 	})();
 
 	$checks['update'] = [
 		'title' => $status === true ? __( 'No updates available', 'security' ) : __( 'Updates available', 'security' ),
 		'status' => $status,
 		'info' => (function() use ( $status ) {
-			if ( $status === true )
-				return __( 'There are no updates available.', 'security' );
+			$info = __( "There is a new version of WordPress available.", 'security' );
 
-			if ( $status == 'warning' )
-				return sprintf( __( "Updates available. <a href='%s'>Make the updates promptly</a>.", 'security' ), admin_url( 'plugins.php' ) );
+			if ( $status === true ) {
+				$info = __( 'There are no updates available.', 'security' );
+			}
+			else {
+				if ( $status == 'warning' ) {
+					$info = __( "Updates available.", 'security' );
+				}
 
-			return sprintf( __( "There is a new version of WordPress available. <b>Please immediately <a href='%s'>run updates</a>!</b>", 'security' ), admin_url( 'update-core.php' ) );
+				$info .= ' ';
+
+				if ( wp_is_file_mod_allowed( 'capability_update_core' ) ) {
+					$info .= '<a href="' . admin_url( 'update-core.php' ) . '">' . __( "Please immediately run updates", 'security' ) . '</a>.';
+				}
+				else $info .= __( "Please notify the site administrator!", 'security' );
+			}
+
+			return $info;
 		})(),
 		'description' => sprintf(
 			__( 'Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s', 'security' ),

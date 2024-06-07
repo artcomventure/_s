@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.2 - 2024-06-07
+**Fixed**
+
+* Security updates check (in `THEME/utilities/inc/security/inc/updates/updates.php`).
+
 ## 1.9.1 - 2024-06-07
 **Added**
 

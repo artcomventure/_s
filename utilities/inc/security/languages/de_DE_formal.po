@@ -59,47 +59,39 @@ msgstr "Kritische Endpunkte sind für nicht authentifizierte Benutzer deaktivier
 msgid "Some REST-API endpoints contains vulnerable data (e.g. usernames) of your site which hackers can use to start their attacks."
 msgstr "Einige REST-API-Endpunkte enthalten sensible Daten (z.B. Benutzernamen) Ihrer Website, die Hacker zum Start ihrer Angriffe verwenden können."
 
-#: inc/updates/updates.php:14
+#: inc/updates/updates.php:22
 msgid "No updates available"
 msgstr "Keine Updates verfügbar"
 
-#: inc/updates/updates.php:14
+#: inc/updates/updates.php:22
 msgid "Updates available"
 msgstr "Updates verfügbar"
 
-#: inc/updates/updates.php:21
-msgid "Updates available. <a href='%s'>Make the updates promptly</a>."
-msgstr "Updates verfügbar. <a href='%s'>Führen Sie die Aktualisierungen zeitnah durch</a>."
-
-#: inc/updates/updates.php:23
-msgid "There is a new version of WordPress available. <b>Please immediately <a href='%s'>run updates</a>!</b>"
-msgstr "Es ist eine neue Version von WordPress verfügbar. <b>Bitte umgehend <a href='%s'>Updates durchführen</a>!</b>"
-
-#: inc/updates/updates.php:18
+#: inc/updates/updates.php:28
 msgid "There are no updates available."
 msgstr "Es sind keine Updates verfügbar."
 
-#: inc/updates/updates.php:26
+#: inc/updates/updates.php:46
 msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s"
 msgstr "Viele Updates enthalten Sicherheitsfixes. Daher ist es wichtig, WordPress selbst und alle Plugins immer auf dem neuesten Stand zu halten.%s"
 
-#: inc/usernames.php:40
+#: inc/usernames.php:38
 msgid "Usernames"
 msgstr "Benutzernamen"
 
-#: inc/usernames.php:12
+#: inc/usernames.php:13
 msgid "There is a user with login name <code><a href='%s'>%s</a></code>%s"
 msgstr "Es gibt einen Benutzer mit dem Login-Namen <code><a href='%s'>%s</a></code>%s"
 
-#: inc/usernames.php:15
+#: inc/usernames.php:16
 msgid "and also with the role <code>administrator</code>"
 msgstr "der auch noch die Rolle <code>administrator</code> hat."
 
-#: inc/usernames.php:17
+#: inc/usernames.php:18
 msgid "Create new administrator user and delete the <i>old</i> one"
 msgstr "Erstellen Sie einen neuen Administratorbenutzer und löschen Sie den <i>alten</i>"
 
-#: inc/usernames.php:18
+#: inc/usernames.php:19
 msgid "... or change <code>user_login</code> directly in the database"
 msgstr "... oder ändern Sie <code>user_login</code> direkt in der Datenbank"
 
@@ -191,18 +183,34 @@ msgstr "Sichern Sie Ihre Kontaktformulare mit einer Art SPAM-Schutz"
 msgid "No file modifications via backend are allowed."
 msgstr "Es sind keine Dateiänderungen über das Backend zulässig."
 
-#: inc/updates/updates.php:81
+#: inc/updates/updates.php:101
 msgid "Disable updates"
 msgstr "Updates deaktivieren"
 
-#: inc/updates/updates.php:136
+#: inc/updates/updates.php:156
 msgid "Updates"
 msgstr "Aktualisierungen"
 
-#: inc/usernames.php:44
+#: inc/usernames.php:41
 msgid "Since generic WordPress usernames like <code>admin</code> are easier to guess, they pose a significant risk for your website. Also avoid accounts with identical login name and display name."
 msgstr "Generische WordPress-Benutzernamen wie <code>admin</code> sind leichter zu erraten und stellen sie ein erhebliches Risiko für Ihre Website dar. Vermeiden Sie außerdem Konten mit identischem Anmeldenamen und Anzeigenamen."
 
-#: inc/usernames.php:32
+#: inc/usernames.php:30
 msgid "There are accounts with identical login name and display name:%s"
 msgstr "Es gibt Konten mit identischem Anmeldenamen und Anzeigenamen:%s"
+
+#: inc/updates/updates.php:25
+msgid "There is a new version of WordPress available."
+msgstr "Es ist eine neue Version von WordPress verfügbar."
+
+#: inc/updates/updates.php:32
+msgid "Updates available."
+msgstr "Updates verfügbar."
+
+#: inc/updates/updates.php:38
+msgid "Please immediately run updates"
+msgstr "Bitte umgehend Updates durchführen"
+
+#: inc/updates/updates.php:40
+msgid "Please notify the site administrator!"
+msgstr "Bitte informieren Sie den Administrator!"
