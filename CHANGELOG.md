@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.1 - 2024-06-07
+**Added**
+
+* `loader` mixin with parameters (in `THEME/utilities/css/mixins/loader.scss`).
+
 ## 1.9.0 - 2024-06-05
 **Added**
 
