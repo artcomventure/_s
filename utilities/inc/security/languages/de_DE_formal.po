@@ -214,3 +214,7 @@ msgstr "Bitte umgehend Updates durchführen"
 #: inc/updates/updates.php:40
 msgid "Please notify the site administrator!"
 msgstr "Bitte informieren Sie den Administrator!"
+
+#: inc/updates/updates.php:47
+msgid "These actions are only possible in the development environment!"
+msgstr "Diese Aktionen sind nur in der Entwicklungsumgebung möglich!"

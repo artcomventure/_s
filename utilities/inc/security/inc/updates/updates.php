@@ -44,7 +44,7 @@ add_filter( 'security_checks', function( $checks ) {
 		})(),
 		'description' => sprintf(
 			__( 'Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s', 'security' ),
-			!wp_is_file_mod_allowed( 'capability_update_core' ) ? '<b>' . __( 'These actions are only possible in the development environment!' ) . '</b>' : ''
+			!wp_is_file_mod_allowed( 'capability_update_core' ) ? '<b>' . __( 'These actions are only possible in the development environment!', 'security' ) . '</b>' : ''
 		)
 	];
 

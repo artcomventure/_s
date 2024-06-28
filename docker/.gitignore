@@ -1,3 +1,4 @@
 *.sql
 ?*.env
 docker-compose.*.yaml
+profiler/*

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.3 - 2024-06-28
+**Added**
+
+* xDebug profiler (in `THEME/docker/xdebug.ini`).
+
 ## 1.9.2 - 2024-06-07
 **Fixed**
 
