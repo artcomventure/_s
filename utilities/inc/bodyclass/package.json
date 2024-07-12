@@ -1,12 +1,7 @@
 {
   "scripts": {
-    "watch": "npm run watch:wp & npm run watch:css",
-    "watch:wp": "wp-scripts start src/panel.js",
-    "watch:css": "node-sass css -o css/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-
-    "build": "npm run build:wp & npm run build:css",
-    "build:wp": "wp-scripts build src/panel.js",
-    "build:css": "node-sass css -o css/ --output-style compressed",
+    "watch": "wp-scripts start src/panel.js",
+    "build": "wp-scripts build src/panel.js",
 
     "i18n:pot": "wp i18n make-pot . languages/bodyclass.pot --domain=bodyclass --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Bodyclass",
     "i18n:po": "wp i18n update-po languages/bodyclass.pot languages",

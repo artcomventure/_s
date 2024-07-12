@@ -1,11 +1,11 @@
 {
   "scripts": {
-    "watch": "npm run utilities:watch & npm run bodyclass:watch & npm run gutenberg:watch & npm run dev:watch & npm run autosize:watch & npm run air-datepicker:watch & npm run custom-select:watch & npm run pjax:watch & npm run post-edit-link:watch & npm run security:watch",
-    "build": "npm run utilities:build & npm run bodyclass:build & npm run gutenberg:build & npm run dev:build & npm run autosize:build & npm run air-datepicker:build & npm run custom-select:build & npm run pjax:build & npm run post-edit-link:build & npm run security:build",
-    "i18n:pot": "npm run utilities:i18n:pot & npm run dev:i18n:pot & npm run bodyclass:i18n:pot & npm run security:i18n:pot",
-    "i18n:po": "npm run utilities:i18n:po & npm run dev:i18n:po & npm run bodyclass:i18n:po & npm run security:i18n:po",
-    "i18n:mo": "npm run utilities:i18n:mo & npm run dev:i18n:mo & npm run bodyclass:i18n:mo & npm run security:i18n:mo",
-    "i18n:json": "npm run utilities:i18n:json & npm run dev:i18n:json & npm run bodyclass:i18n:json",
+    "watch": "npm-run-all --parallel *:watch",
+    "build": "npm-run-all --parallel *:build",
+    "i18n:pot": "npm-run-all --parallel *:i18n:pot",
+    "i18n:po": "npm-run-all --parallel *:i18n:po",
+    "i18n:mo": "npm-run-all --parallel *:i18n:mo",
+    "i18n:json": "npm-run-all --parallel *:i18n:json",
 
     "utilities:watch": "npm run utilities:watch:scss & npm run utilities:watch:js",
     "utilities:watch:scss": "node-sass css -o css --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
@@ -19,16 +19,10 @@
     "utilities:i18n:json": "wp i18n make-json languages --no-purge",
 
     "air-datepicker:watch": "cd js/libs/air-datepicker && npm run watch",
-
     "air-datepicker:build": "cd js/libs/air-datepicker && npm run build",
+
     "autosize:watch": "cd js/libs/autosize && npm run watch",
     "autosize:build": "cd js/libs/autosize && npm run build",
-
-    "custom-select:watch": "cd js/libs/custom-select && npm run watch",
-    "custom-select:build": "cd js/libs/custom-select && npm run build",
-
-    "pjax:watch": "cd js/libs/pjax && npm run watch",
-    "pjax:build": "cd js/libs/pjax && npm run build",
 
     "bodyclass:watch": "cd inc/bodyclass && npm run watch",
     "bodyclass:build": "cd inc/bodyclass && npm run build",
@@ -36,6 +30,9 @@
     "bodyclass:i18n:po": "cd inc/bodyclass && npm run i18n:po",
     "bodyclass:i18n:mo": "cd inc/bodyclass && npm run i18n:mo",
     "bodyclass:i18n:json": "cd inc/bodyclass && npm run i18n:json",
+
+    "custom-select:watch": "cd js/libs/custom-select && npm run watch",
+    "custom-select:build": "cd js/libs/custom-select && npm run build",
 
     "dev:watch": "cd inc/dev && npm run watch",
     "dev:build": "cd inc/dev && npm run build",
@@ -46,6 +43,9 @@
 
     "gutenberg:watch": "cd inc/gutenberg && npm run watch",
     "gutenberg:build": "cd inc/gutenberg && npm run build",
+
+    "pjax:watch": "cd js/libs/pjax && npm run watch",
+    "pjax:build": "cd js/libs/pjax && npm run build",
 
     "post-edit-link:watch": "cd inc/post-edit-link && npm run watch",
     "post-edit-link:build": "cd inc/post-edit-link && npm run build",

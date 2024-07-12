@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.4 - 2024-07-12
+**Added**
+
+* Filter for security widget (in `THEME/utilities/inc/security/security.php`).
+* `npm-run-all` node module to run multiple npm scripts.
+
 ## 1.9.3 - 2024-06-28
 **Added**
 

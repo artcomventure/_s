@@ -20,7 +20,7 @@ add_action( 'admin_enqueue_scripts', function() {
  * Add dashboard widget for security alerts.
  */
 add_action( 'wp_dashboard_setup', function() {
-	if ( !user_has_role( 'administrator' ) ) {
+	if ( !apply_filters( 'security_widget', user_has_role( 'administrator' ) ) ) {
 		return;
 	}
 

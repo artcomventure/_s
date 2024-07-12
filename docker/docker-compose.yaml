@@ -39,10 +39,6 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/templates/default.conf.template
       - ../:/var/www/html
-    environment:
-      HOST: ${HOST}
-      STAGE_URL: ${STAGE_URL}
-      LIVE_URL: ${LIVE_URL}
     networks:
       - wordpress
 
@@ -52,7 +48,6 @@ services:
         required: true
       - path: local.env
         required: false
-#   image: wordpress:php${PHP_VERSION}
     container_name: ${PROJECT}-wordpress
     build:
       context: .
@@ -70,9 +65,6 @@ services:
       WORDPRESS_TABLE_PREFIX: ${ABBR:-wp}_
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
       WP_ENVIRONMENT_TYPE: local
-      DEV_URL: ${DEV_URL}
-      STAGE_URL: ${STAGE_URL}
-      LIVE_URL: ${LIVE_URL}
     volumes:
       - ../:/var/www/html
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
