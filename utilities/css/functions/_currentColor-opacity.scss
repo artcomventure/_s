@@ -1,4 +1,10 @@
 /**
+ * Apply opacity to `currentColor`.
+ *
+ * ```
+ * background-color: currentColor-opacity(.5);
+ * ```
+ *
  * @param {float} $opacity (0-1)
  */
 @function currentColor-opacity( $opacity ) {

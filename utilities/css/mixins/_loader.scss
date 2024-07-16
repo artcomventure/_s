@@ -1,10 +1,11 @@
 /**
- * Usage:
+ * Pseudo element (after) loading animation.
  *
- * `@include loader;`
- * `@include loader( $size: SIZE, $border: BORDER );`
- * `@include loader( $color: COLOR );`
- * ...
+ * ```
+ * @include loader;
+ * @include loader( SIZE, COLOR, BORDER );
+ * @include loader( $color: COLOR );
+ * ```
  */
 
 @mixin loader( $size: 45px, $color: currentColor, $border: '' ) {

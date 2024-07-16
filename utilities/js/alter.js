@@ -5,8 +5,8 @@
  * Let variables be altered.
  *
  * ```
- * Alter.add( 'hook', variable => variable), 10 ); // add callback
- * variable = Alter.do( 'hook', variable, param1, param2, ... ); // let alter
+ * Alter.add( 'hook', ( variable, param1, param2, ... ) => variable), 10 ); // add callback
+ * const variable = Alter.do( 'hook', variable, param1, param2, ... ); // let alter
  * ```
  *
  * Copyright 2023, Stefan Käsche

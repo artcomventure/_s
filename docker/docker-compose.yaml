@@ -7,7 +7,7 @@ services:
     env_file:
       - path: .env
         required: true
-      - path: local.env
+      - path: .env.local
         required: false
     image: mariadb:${MARIADB_VERSION}
     container_name: ${PROJECT}-mysql
@@ -18,9 +18,10 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
       MYSQL_DATABASE: ${PROJECT}
     volumes:
-      - ../:/var/www/html
+      - ${WORDPRESS_ROOT}:/var/www/html
       - db:/var/lib/mysql
       - ./.bashrc:/root/.bashrc
+      - ./:/var/www/html/docker
     networks:
       - wordpress
 
@@ -28,7 +29,7 @@ services:
     env_file:
       - path: .env
         required: true
-      - path: local.env
+      - path: .env.local
         required: false
     image: nginx:${NGINX_VERSION}
     container_name: ${PROJECT}-nginx
@@ -38,7 +39,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/templates/default.conf.template
-      - ../:/var/www/html
+      - ${WORDPRESS_ROOT}:/var/www/html
     networks:
       - wordpress
 
@@ -46,7 +47,7 @@ services:
     env_file:
       - path: .env
         required: true
-      - path: local.env
+      - path: .env.local
         required: false
     container_name: ${PROJECT}-wordpress
     build:
@@ -66,7 +67,7 @@ services:
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
       WP_ENVIRONMENT_TYPE: local
     volumes:
-      - ../:/var/www/html
+      - ${WORDPRESS_ROOT}:/var/www/html
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./.bashrc:/root/.bashrc

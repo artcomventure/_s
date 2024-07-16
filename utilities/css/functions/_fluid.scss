@@ -1,6 +1,24 @@
 /**
- * Calculated `clamp()` values to match `$desktop`/`$mobile` screen width.
- * Absolute units (px, rem) only!
+ * Calculate `clamp()` values to adjust _size_ (limited to `$min`/`$max`) between `$lower` and `$upper` screen widths.
+ *
+ * !!! Absolute units (px, rem) only !!!
+ *
+ * ```
+ * // use default lower and upper screen widths
+ * padding-left: fluid(30px, 60px)
+ *
+ * // use specific lower and upper screen widths
+ * padding-left: fluid(30px, 60px, 300px, 900px)
+ * ```
+ *
+ * `$min` value for `$lower` and narrower screen width.
+ * `$max` value for `$upper` and wider screen width.
+ * All values in between are _calculated_.
+ *
+ * @param {numeric} $min
+ * @param {numeric} $max
+ * @param {numeric} $lower (optional)
+ * @param {numeric} $upper (optional)
  */
 
 @import "./strip-unit";

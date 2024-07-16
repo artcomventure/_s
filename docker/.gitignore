@@ -1,4 +1,4 @@
 *.sql
-?*.env
+.env.local
 docker-compose.*.yaml
 profiler/*

@@ -1,11 +1,15 @@
-@mixin is_ltr() {
+/**
+ * Wrap CSS especially for ltr or rtl direction.
+ */
+
+@mixin ltr() {
   html[dir="ltr"] &,
   html:not([dir]) & {
     @content
   }
 }
 
-@mixin is_rtl() {
+@mixin rtl() {
   html[dir="rtl"] & {
     @content
   }

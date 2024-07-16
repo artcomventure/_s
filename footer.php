@@ -12,7 +12,12 @@
 ?>
 
 	<footer id="colophon" class="site-footer">
-
+		<?php printf( __( '&copy; %d %s', '_s' ), date( 'Y' ), get_bloginfo( 'name' ) ) ?>
+		<?php wp_nav_menu( [
+			'theme_location' => 'footer',
+			'container'      => false,
+			'menu_id'        => 'footer-menu',
+		] ); ?>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

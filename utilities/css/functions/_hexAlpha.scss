@@ -1,5 +1,9 @@
 /**
- * RGBA hexadecimal notation.
+ * Hexadecimal RGBA notation.
+ *
+ * ```
+ * color: hexa(#f00, .5);
+ * ```
  *
  * @param {hex color} $hex (#rgb or #rrggbb)
  * @param {float} $opacity (0-1)
@@ -8,7 +12,7 @@
  */
 
 @import "./dec2hex";
-@function hex( $hex, $opacity ) {
+@function hexa( $hex, $opacity ) {
   $hex: "" + $hex; // make string
 
   // convert 3 digit hex code to 6

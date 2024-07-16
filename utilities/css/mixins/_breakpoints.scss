@@ -1,4 +1,10 @@
-// Maybe get numeric breakpoints by key from `$breakpoints`.
+/**
+ * Get numeric breakpoints by key from `$breakpoints`.
+ *
+ * ```
+ * width: breakpoint(sm); // will return `$breakpoints.sm` value
+ * ```
+ */
 
 @function breakpoint ( $breakpoint ) {
   // try to get breakpoint by key (`$breakpoint`) from `$breakpoints`

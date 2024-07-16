@@ -4,7 +4,7 @@
  *
  * ```
  * Behaviours.add( '[group:[group:]]name', ( $context, settings ) => {}, 10 ); // add behaviour
- * Behaviours.attach( '[group:[group:]]name' ); // ...
+ * Behaviours.attach( '[group:[group:]]name' ); // call callbacks
  * ```
  *
  * Copyright 2023, Stefan Käsche

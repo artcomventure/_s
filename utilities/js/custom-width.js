@@ -1,6 +1,16 @@
-// ---
-// Custom widths.
-// Sometimes widths aren't _normalized_ so this ís a way to apply them dynamically within the backend.
+/**
+ * Custom widths from classes.
+ *
+ * Sometimes widths aren't _normalized_ so this ís a way to apply them dynamically within the backend.
+ *
+ * ```
+ * <element class="container-600">
+ * // output: <element class="container width-600" style="width: 600px">
+ *
+ * <element class="width-600">
+ * // output: <element class="width-600" style="width: 600px">
+ * ```
+ */
 
 Behaviours.add( 'custom-width', ( $context ) => {
 
@@ -18,7 +28,7 @@ Behaviours.add( 'custom-width', ( $context ) => {
         let width = ($element.className.match( /(^| )width-(\d+)($| )/ )||[])[2];
         if ( !width ) return;
 
-        $element.style.width = `${width}px`;
+        $element.style.width = `min(${width}px, 100%)`;
     } );
 
 } );

@@ -16,7 +16,7 @@
 
     const CSS = getComputedStyle( document.documentElement );
 
-    ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'mobile', 'desktop'].forEach( size => {
+    ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl', 'mobile', 'desktop', 'content', 'wide'].forEach( size => {
         const value = CSS.getPropertyValue(`--width-${size}`);
         if ( !value ) return;
 

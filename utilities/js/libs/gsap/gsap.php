@@ -1,6 +1,6 @@
 <?php
 
-define( 'GSAP_VERSION', dirname( __FILE__ ) );
+define( 'GSAP_VERSION', '3.12.5' );
 
 /**
  * Register gsap and it's plugins.
@@ -25,10 +25,10 @@ add_action( 'wp_enqueue_scripts', function() {
 	];
 
 	foreach ( $plugins as $plugin ) {
-		wp_register_script( "gsap-{$plugin}", LIBS_DIRECTORY_URI . "/gsap/{$plugin}.min.js", array( 'gsap' ), GSAP_VERSION, true );
+		wp_register_script( "gsap-$plugin", LIBS_DIRECTORY_URI . "/gsap/$plugin.min.js", array( 'gsap' ), GSAP_VERSION, true );
 	}
 
 	wp_register_script( 'gsap-all', false, array_map( function( $plugin ) {
-		return "gsap-{$plugin}";
+		return "gsap-$plugin";
 	}, $plugins ), GSAP_VERSION, true );
 } );

@@ -1,5 +1,11 @@
-// ---
-// Replace SVG image with actual SVG code.
+/**
+ * Replace SVG image with actual SVG code.
+ *
+ * ```
+ * <img src="path/to/image.svg" />
+ * // output: <svg>...</svg>
+ * ```
+ */
 
 Behaviours.add( 'media:inline-svg', function( $context ) {
 

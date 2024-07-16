@@ -147,3 +147,4 @@ add_action( 'wp_enqueue_scripts', '_s_scripts' );
 
 // auto-include theme's /inc/ files see utilities/auto-include-files.php
 require_once get_template_directory() . '/utilities/utilities.php';
+auto_include_files( get_template_directory() . '/media/fonts' );

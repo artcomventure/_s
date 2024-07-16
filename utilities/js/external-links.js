@@ -1,5 +1,8 @@
-// ---
-// - pen external links in new window
+/**
+ * Open external links in new window.
+ *
+ * Also add link UX to none `<a>` elements by setting `data-href` attribute.
+ */
 
 Behaviours.add( 'links:external', $context => {
     // regexp for internal link

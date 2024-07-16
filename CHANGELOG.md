@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.9.5 - 2024-07-16
+**Added**
+
+* Utilities docs.
+* `WORDPRESS_ROOT` parameter (in `/docker`).
+
+**Fixed**
+
+* Custom width setter (in `THEME/utilities/js/custom-width.js`).
+* Add `content` and `wide` to `BREAKPOINTS.js` (in `THEME/utilities/js/BREAKPOINTS.js`).
+* Default `#masthead` and  `#colophon`
+
 ## 1.9.4 - 2024-07-12
 **Added**
 
