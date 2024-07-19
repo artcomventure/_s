@@ -49,9 +49,12 @@
                 this.onSwitch();
             }
         } ),
-        scrollTo: Alter.do( 'pjax-scrollTo', false ),
         cacheBust: Alter.do( 'pjax-cacheBust', false ),
-        scrollRestoration: Alter.do( 'pjax-scrollRestoration', false )
+        currentUrlFullReload: Alter.do( 'pjax-currentUrlFullReload', false ),
+        debug: Alter.do( 'pjax-debug', false ),
+        history: Alter.do( 'pjax-history', true ),
+        scrollRestoration: Alter.do( 'pjax-scrollRestoration', false ),
+        scrollTo: Alter.do( 'pjax-scrollTo', false ),
     } );
 
     // delay for transition

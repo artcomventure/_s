@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.9.6 - 2024-07-19
+**Added**
+
+* Pjax options (in `THEME/utilities/js/libs/pjax/app.js`).
+* Pjax BE setting (in `THEME/utilities/js/libs/pjax/pjax.php`).
+
+**Fixed**
+
+* Enqueue `THEME/utilities/js/behaviours.js` by default (in `THEME/functions.php`).
+
 ## 1.9.5 - 2024-07-16
 **Added**
 

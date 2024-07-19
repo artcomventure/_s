@@ -66,6 +66,11 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 
 `_s` comes packed with a bunch of CSS, JS and PHP helpers. For further information see files itself.
 
+> [!CAUTION]
+> **Never ever change anything in the utilities folder!**
+> This folder is used cross-project and should be updated from time to time. All changes would be overridden.
+> Please contact the _administrator_ if you discover problems or have ideas for improvement.
+
 #### CSS
 
 ##### `/utilities/css/functions/`
