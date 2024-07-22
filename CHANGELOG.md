@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.7 - 2024-07-19
+**Added**
+
+* Display logo through `[bloginfo logo]` shortcode (in `THEME/utilities/inc/shortcodes/bloginfo.php`).
+
 ## 1.9.6 - 2024-07-19
 **Added**
 

@@ -13,6 +13,10 @@ function bloginfo_shortcode( $attr = [] ) {
 		'filter' => 'display'
 	), $attr, 'bloginfo' );
 
+	if ( $atts['show'] == 'logo' ) {
+		return get_custom_logo();
+	}
+
 	return get_bloginfo( $atts['show'], $atts['filter'] );
 }
 

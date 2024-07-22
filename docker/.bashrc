@@ -1,5 +1,5 @@
 # mysql container
-alias importDB="mysql -u root -p${DB_PASSWORD:-password} ${MYSQL_DATABASE} < /var/www/html/docker/db.sql"
+alias importDB="mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /var/www/html/docker/db.sql"
 
 # wordpress container
 alias stage2dev="wp search-replace '${STAGE_URL}' '${DEV_URL}' --allow-root"
