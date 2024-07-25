@@ -1,7 +1,7 @@
 /**
  * Calculate `clamp()` values to adjust _size_ (limited to `$min`/`$max`) between `$lower` and `$upper` screen widths.
  *
- * !!! Absolute units (px, rem) only !!!
+ * !!! Same unit for $min and $max only !!!
  *
  * ```
  * // use default lower and upper screen widths
@@ -9,6 +9,9 @@
  *
  * // use specific lower and upper screen widths
  * padding-left: fluid(30px, 60px, 300px, 900px)
+ *
+ * // use specific upper screen width
+ * padding-left: fluid(30px, 60px, $upper: 900px)
  * ```
  *
  * `$min` value for `$lower` and narrower screen width.
@@ -25,23 +28,24 @@
 
 @function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
   @if unit($min) != unit($max) {
-    @warn 'Min and max values for fluid function must have the same unit. $max (#{$max}) is used.';
-    @return $max;
-  }
-
-  @if unit($min) != px and unit($min) != rem {
-    @warn 'Unit must be of type px or rem. $max (#{$max}) is used.';
+    @warn '$min and $max values must have the same unit.';
     @return $max;
   }
 
   $lower: breakpoint($lower);
-  $upper: breakpoint($upper);
-
-  @if unit($min) == rem {
-    // convert to rem
-    $lower: $lower / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
-    $upper: $upper / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
+  @if unit($lower) != px {
+    @warn 'Unit of lower screen boundary must be of type px or rem.';
+    @return $max;
   }
 
-  @return clamp(min($min, $max), calc(#{$min} + #{strip-unit($max) - strip-unit($min)} * (100vw - #{$lower}) / #{strip-unit($upper - $lower)}), max($min, $max));
+  $upper: breakpoint($upper);
+  @if unit($upper) != px {
+    @warn 'Unit of upper screen boundary must be of type px or rem.';
+    @return $max;
+  }
+
+  $lower: strip-unit($lower);
+  $upper: strip-unit($upper);
+
+  @return clamp(min($min, $max), calc(#{$min} + #{$max - $min} * (var(--rootWidth) - #{$lower}) / #{$upper - $lower}), max($min, $max));
 }

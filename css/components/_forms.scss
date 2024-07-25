@@ -60,7 +60,7 @@
 }
 
 button, .button, .wp-block-button__link, input[type="submit"] {
-  #page & {
+  .site & {
     @extend %button;
   }
 }

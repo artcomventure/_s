@@ -1,6 +1,6 @@
 {
   "name": "_s",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "I'm the next, most awesome, WordPress theme out there.",
   "author": "artcom venture GmbH",
   "license": "GPL-2.0-or-later",
@@ -31,18 +31,24 @@
   "scripts": {
     "browser-sync": "browser-sync http://localhost --files **/*.css,**/*.min.js,**/*.php --no-open",
 
-    "watch": "npm run watch:scss & npm run watch:js & npm run browser-sync",
-    "watch:scss": "node-sass css/ -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w & (cd utilities/inc/gutenberg && npm run gutenberg:watch:scss)",
-    "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
+    "watch": "npm-run-all --parallel *:watch & npm run browser-sync",
+    "build": "npm-run-all --parallel *:build",
 
-    "build": "npm run build:scss & npm run build:js",
-    "build:scss": "node-sass css/style.scss -o . --output-style compressed & (cd utilities/inc/gutenberg && npm run gutenberg:build:scss)",
-    "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+    "theme:watch": "npm run theme:watch:scss & npm run theme:watch:js",
+    "theme:watch:scss": "node-sass css/style.scss -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "theme:watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
 
-    "i18n:pot": "wp i18n make-pot . languages/_s.pot --exclude=src,node_modules,**/*.min.*",
-    "i18n:po": "wp i18n update-po languages/_s.pot languages",
-    "i18n:mo": "wp i18n make-mo languages languages",
-    "i18n:json": "wp i18n make-json languages --no-purge",
+    "theme:build": "npm run theme:build:scss & npm run theme:build:js",
+    "theme:build:scss": "node-sass css/style.scss -o ./ --output-style compressed",
+    "theme:build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+
+    "theme:i18n:pot": "wp i18n make-pot . languages/_s.pot --exclude=src,node_modules,**/*.min.*",
+    "theme:i18n:po": "wp i18n update-po languages/_s.pot languages",
+    "theme:i18n:mo": "wp i18n make-mo languages languages",
+    "theme:i18n:json": "wp i18n make-json languages --no-purge",
+
+    "editor:watch": "node-sass css/editor-style.scss -o css/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "editor:build": "node-sass css/editor-style.scss -o css/ --output-style compressed",
 
     "icont:generate": "cd media/fonts/Icont && npm run generate"
   },

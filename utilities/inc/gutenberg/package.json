@@ -3,12 +3,8 @@
     "watch": "npm run gutenberg:watch & npm run accordion:watch",
     "build": "npm run gutenberg:build & npm run accordion:build",
 
-    "gutenberg:watch": "npm run gutenberg:watch:js & npm run gutenberg:watch:scss",
-    "gutenberg:watch:js": "wp-scripts start",
-    "gutenberg:watch:scss": "node-sass . -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "gutenberg:build": "npm run gutenberg:build:js & npm run gutenberg:build:scss",
-    "gutenberg:build:js": "wp-scripts build",
-    "gutenberg:build:scss": "node-sass . -o ./ --output-style compressed",
+    "gutenberg:watch": "wp-scripts start",
+    "gutenberg:build": "wp-scripts build",
 
     "accordion:watch": "cd inc/accordion && npm run watch",
     "accordion:build": "cd inc/accordion && npm run build",

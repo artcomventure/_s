@@ -1,8 +1,4 @@
 /**
- * A collection of helper functions.
- */
-
-/**
  * Get background color class name (`has-{COLOR NAME}-background-color`) of given `$element`.
  *
  * @param $element

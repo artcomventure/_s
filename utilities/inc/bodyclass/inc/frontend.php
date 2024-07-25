@@ -66,3 +66,15 @@ add_filter( 'body_class', function ( $classes ) {
 
     return array_filter( $classes );
 } );
+
+/**
+ * Add extra post classes.
+ */
+add_filter( 'post_class', function( $classes, $css_class, $post_id ) {
+	// add custom article classes
+	if ( $article_class = get_post_meta( $post_id, '_articleclass', true ) ) {
+		$classes = array_merge( $classes, preg_split( '#\s+#', $article_class ) );
+	}
+
+    return array_filter( $classes );
+}, 10, 3 );

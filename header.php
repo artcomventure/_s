@@ -31,7 +31,7 @@
 
 			$ttag = is_front_page() ? 'h1' : 'p'; ?>
             <<?php echo $ttag ?> class="site-title">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
             </<?php echo $ttag ?>>
 
             <?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>

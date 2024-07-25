@@ -62,9 +62,7 @@
     position: relative;
 
     [data-type="accordion/item-content"],
-    .block-editor-block-list__layout > :first-child {
-      font-size: var(--wp--preset--font-size--small);
-    }
+    .block-editor-block-list__layout > :first-child {}
   }
 
   > .block-editor-inner-blocks > .block-editor-block-list__layout {

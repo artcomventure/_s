@@ -107,8 +107,15 @@ img {
 
 figure {
   margin: 0;
-  line-height: 0;
   width: auto;
+
+  &.wp-block-figure, &.post-thumbnail {
+    line-height: 0;
+
+    figcaption {
+      @extend %copy;
+    }
+  }
 
   @at-root figcaption {
     width: 100%;

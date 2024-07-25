@@ -22,3 +22,7 @@ msgstr "Seiten-Klassen"
 #: build/panel.js:1
 msgid "Extra <html> class(es)"
 msgstr "Zusätzliche <html>-Klasse(n)"
+
+#: build/panel.js:1
+msgid "Extra <article> class(es)"
+msgstr "Zusätzliche <article>-Klasse(n)"

@@ -6,7 +6,7 @@ define( 'GUTENBERG_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/gutenberg' );
 add_action( 'after_setup_theme', function() {
 	add_theme_support( 'editor-styles' );
 	// relative path from `functions.php`
-	add_editor_style(  './utilities/inc/gutenberg/editor-style.css' );
+	add_editor_style(  './css/editor-style.css' );
 }, 11 );
 
 // add `?ver=FILEMTIME` to editor-style.css

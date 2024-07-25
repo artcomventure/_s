@@ -126,6 +126,16 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 | post-edit-link    | Add post edit link to title.                                   |
 | security          | Security features. See BE dashboard.                           |
 
+## WordPress
+
+1. Remove example post.
+2. Disallow comments in `/wp-admin/options-discussion.php`.
+3. Set permalink structure to **Post name** in `/wp-admin/options-permalink.php`.
+4. Clear sidebar widgets in `/wp-admin/widgets.php`.
+5. Create 2 menus. One for main menu (navigation) and one for footer. See `/wp-admin/nav-menus.php`.
+
+Find further theme settings (Pjax, ...) in customizer. 
+
 ---
 
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)

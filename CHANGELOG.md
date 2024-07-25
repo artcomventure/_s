@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.9.8 - 2024-07-25
+**Changed**
+
+* `editor-styles.scss` from utilities to theme.
+* Icon font detached from `<i>`-tag.
+* SCSS `fluid` function now works with all units.
+* Support numeric input in `BREAKPOINTS.js` up/down methods.
+
+**Added**
+
+* Preload woff2 fonts (in `THEME/media/fonts/fonts.php`).
+* bodyclass Gutenberg extension now with input for article.
+* Docs for first setup steps _in_ WordPress.
+
 ## 1.9.7 - 2024-07-19
 **Added**
 

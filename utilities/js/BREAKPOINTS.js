@@ -5,9 +5,13 @@
 
     const $html = document.documentElement;
 
+    new ResizeObserver( entries => {
+        $html.style.setProperty( '--rootWidth', `${$html.clientWidth}` );
+    } ).observe( $html );
+
     window.BREAKPOINTS = {
-        up: size => BREAKPOINTS[size] && ($html.clientWidth >= BREAKPOINTS[size]),
-        down: size => BREAKPOINTS[size] && ($html.clientWidth < BREAKPOINTS[size]),
+        up: size => $html.clientWidth >= (BREAKPOINTS[size] || size),
+        down: size => $html.clientWidth < (BREAKPOINTS[size] || size),
 
         isMobile: () => BREAKPOINTS.down( 'mobile' ),
         isTablet: () => BREAKPOINTS.up( 'mobile' ) && BREAKPOINTS.down( 'desktop' ),

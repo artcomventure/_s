@@ -8,7 +8,7 @@ add_action( 'init', function() {
 	foreach ( array_intersect_key(
 		get_post_types( array( 'public' => TRUE ), 'objects' ),
 		array_flip( get_post_types_by_support( array( 'custom-fields' ) ) )
-	) as $post_type ) foreach ( ['_htmlclass', '_bodyclass'] as $meta_key ) {
+	) as $post_type ) foreach ( ['_htmlclass', '_bodyclass', '_articleclass'] as $meta_key ) {
 		register_post_meta(
 			$post_type->name,
 			$meta_key,

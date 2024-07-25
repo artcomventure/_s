@@ -15,4 +15,12 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
     if ( color ) $sheet.innerHTML += "\n" + `.editor-styles-wrapper { background-color: #${color}; }`;
 
     document.body.appendChild( $sheet );
-} )
+} );
+
+(function setClientWidthProperty() {
+    const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
+    if ( $editorStylesWrapper ) new ResizeObserver( entries => {
+        $editorStylesWrapper.style.setProperty( '--rootWidth', `${$editorStylesWrapper.clientWidth}` );
+    } ).observe( $editorStylesWrapper );
+    else window.requestAnimationFrame( setClientWidthProperty )
+})();

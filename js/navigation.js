@@ -4,8 +4,8 @@
  * Handles toggling the navigation menu for small screens and enables TAB key
  * navigation support for dropdown menus.
  */
-( function() {
-	const $siteNavigation = document.getElementById( 'site-navigation' );
+Behavioiurs.add( 'navigation', $context => {
+	const $siteNavigation = $context.querySelector( '#site-navigation' );
 	if ( ! $siteNavigation ) return;
 
 	const $button = $siteNavigation.getElementsByTagName( 'button' )[ 0 ];
@@ -13,7 +13,7 @@
 
 	const $menu = $siteNavigation.getElementsByTagName( 'ul' )[ 0 ];
 	if ( 'undefined' === typeof $menu ) {
-		button.style.display = 'none';
+		$button.style.display = 'none';
 		return;
 	}
 
@@ -86,4 +86,4 @@
 			$menuItem.classList.toggle( 'focus' );
 		}
 	}
-}() );
+} );
