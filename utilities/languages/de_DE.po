@@ -64,3 +64,11 @@ msgstr "Pjax aktivieren"
 #: js/libs/pjax/pjax.php:35
 msgid "Load page content using AJAX without reloading your page's layout."
 msgstr "Lade den Inhalt der Seiten mit AJAX, ohne das Layout Ihrer Seite neu zu laden."
+
+#: inc/security/security.php:138
+msgid "Loosen security"
+msgstr "Sicherheitsmaßnahmen lockern"
+
+#: inc/security/security.php:139
+msgid "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!"
+msgstr "Diese Funktion sollte immer deaktiviert bleiben! Es gibt jedoch Fälle, in denen sie vorübergehend aktiviert werden muss. Verwenden Sie dies mit Vorsicht!"

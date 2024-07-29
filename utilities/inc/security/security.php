@@ -5,7 +5,7 @@ define( 'SECURITY_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/security' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-    load_theme_textdomain( 'security', SECURITY_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'security', SECURITY_DIRECTORY . '/languages' );
 } );
 
 add_action( 'admin_enqueue_scripts', function() {
@@ -26,7 +26,7 @@ add_action( 'wp_dashboard_setup', function() {
 
 	wp_add_dashboard_widget( "security_widget", __( 'Security', 'security' ), function() {
 
-    echo wpautop( __( 'To secure<sup>1</sup> your site from hackers, malicious attackers and automated bots and prevent DDoS- and brute-force-attacks, here are some points that should be met:', 'security' ) );
+		echo wpautop( __( 'To secure<sup>1</sup> your site from hackers, malicious attackers and automated bots and prevent DDoS- and brute-force-attacks, here are some points that should be met:', 'security' ) );
 
 		$checks = apply_filters( 'security_checks', [] );
 		uasort( $checks, function( $a, $b ) {
@@ -126,6 +126,21 @@ add_action( 'wp_dashboard_setup', function() {
 
   } );
 } );
+
+// enable/disable loosen security
+add_action( 'customize_register', function( $wp_customize ) {
+	$wp_customize->add_setting( 'loose_security', array(
+		'type' => 'option',
+		'capability' => 'manage_options',
+	) );
+
+	$wp_customize->add_control( 'loose_security', array(
+		'label' => __( 'Loosen security', 'utilities' ),
+		'description' => __( "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!", 'utilities' ),
+		'section' => 'utilities',
+		'type' => 'checkbox'
+	) );
+}, 8 );
 
 // auto include /inc files
 auto_include_files( dirname( __FILE__ ) . '/inc' );

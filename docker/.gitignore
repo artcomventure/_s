@@ -1,4 +1,4 @@
 *.sql
 .env.local
 docker-compose.*.yaml
-profiler/*
+profiler/cachegrind.out.*

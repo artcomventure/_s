@@ -15,6 +15,8 @@
 function auto_include_files( string $path ): void {
 	if ( !is_dir( $path ) ) return;
 
+	$path = rtrim( $path, '/' );
+
 	if ( $inc = opendir( $path ) ) {
 		while ( ($file = readdir( $inc )) !== false ) {
 			// ignore files/folders which starts with '_'

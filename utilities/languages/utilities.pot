@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-17T06:54:20+00:00\n"
+"POT-Creation-Date: 2024-07-27T14:25:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: utilities\n"
@@ -54,6 +54,14 @@ msgstr ""
 
 #: inc/remove-post-ui.php:12
 msgid "Remove post UI from backend. Post menu page will be removed once there are no posts anymore."
+msgstr ""
+
+#: inc/security/security.php:138
+msgid "Loosen security"
+msgstr ""
+
+#: inc/security/security.php:139
+msgid "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!"
 msgstr ""
 
 #: js/libs/pjax/pjax.php:34

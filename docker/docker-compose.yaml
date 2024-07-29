@@ -64,7 +64,6 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-password}
       WORDPRESS_DB_NAME: ${PROJECT}
       WORDPRESS_TABLE_PREFIX: ${ABBR:-wp}_
-      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-1}
       WP_ENVIRONMENT_TYPE: local
     volumes:
       - ${WORDPRESS_ROOT}:/var/www/html

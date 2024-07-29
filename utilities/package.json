@@ -24,13 +24,6 @@
     "autosize:watch": "cd js/libs/autosize && npm run watch",
     "autosize:build": "cd js/libs/autosize && npm run build",
 
-    "bodyclass:watch": "cd inc/bodyclass && npm run watch",
-    "bodyclass:build": "cd inc/bodyclass && npm run build",
-    "bodyclass:i18n:pot": "cd inc/bodyclass && npm run i18n:pot",
-    "bodyclass:i18n:po": "cd inc/bodyclass && npm run i18n:po",
-    "bodyclass:i18n:mo": "cd inc/bodyclass && npm run i18n:mo",
-    "bodyclass:i18n:json": "cd inc/bodyclass && npm run i18n:json",
-
     "custom-select:watch": "cd js/libs/custom-select && npm run watch",
     "custom-select:build": "cd js/libs/custom-select && npm run build",
 

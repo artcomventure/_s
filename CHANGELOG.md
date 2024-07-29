@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.9.9 - 2024-07-29
+**Added**
+
+* `profiler` folder (in `THEME/docker/`).
+* Dev layout display (in `THEME/utilities/inc/dev/inc/screen-size/app.js`).
+* _Loosen Security_ theme setting (in `THEME/utilities/inc/security`).
+
+**Changed**
+
+* Moved `bodyclass` extension from `THEME/utilities/inc` to `THEME/utilities/inc/gutenberg/inc`.
+
+**Fixed**
+
+* Make `WORDPRESS_DEBUG` .env parameter overridable via `docker/.env.local`.
+* `auto_include_files` script (in `THEME/utilities/auto-include-files.php`).
+
 ## 1.9.8 - 2024-07-25
 **Changed**
 

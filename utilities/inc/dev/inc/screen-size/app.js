@@ -30,6 +30,11 @@
                 } )
                 data.push( `<span title="${wp.i18n.__( 'Breakpoint range', 'dev' )}">${range || display( breakpoints[breakpoints.length - 1] ) + ' - ' + window.innerWidth}</span>` );
             }
+
+            let layout = wp.i18n.__( 'Tablet', 'dev' );
+            if ( BREAKPOINTS.isMobile() ) layout = wp.i18n.__( 'Mobile', 'dev' );
+            else if ( BREAKPOINTS.isDesktop() ) layout = wp.i18n.__( 'Desktop', 'dev' );
+            data.push( `<span title="${wp.i18n.__( 'Layout', 'dev' )}">${layout}</span>` );
         }
 
         $info.innerHTML = data.join( '' );
