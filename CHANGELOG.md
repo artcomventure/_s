@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.10 - 2024-07-30
+**Fixed**
+
+* Immediately set `--rootWidth` (in `THEME/header.php`).
+
 ## 1.9.9 - 2024-07-29
 **Added**
 

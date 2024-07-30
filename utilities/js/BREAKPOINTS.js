@@ -5,6 +5,7 @@
 
     const $html = document.documentElement;
 
+    // `--rootWidth` is initially set in `THEME/header.php`
     new ResizeObserver( entries => {
         $html.style.setProperty( '--rootWidth', `${$html.clientWidth}` );
     } ).observe( $html );
