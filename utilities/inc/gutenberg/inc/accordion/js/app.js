@@ -27,13 +27,13 @@ function accordion( $context ) {
 
         const expand = ( $item ) => {
             $item.setAttribute( 'aria-expanded', 'true' );
-            $item.dispatchEvent( new CustomEvent( 'accordion-item-expand' ) );
+            $item.dispatchEvent( new CustomEvent( 'accordion-item-expand', { bubbles: true } ) );
             return true;
         }
 
         const collapse = ( $item ) => {
             $item.setAttribute( 'aria-expanded', 'false' );
-            $item.dispatchEvent( new CustomEvent( 'accordion-item-collapse' ) );
+            $item.dispatchEvent( new CustomEvent( 'accordion-item-collapse', { bubbles: true } ) );
             return true;
         }
 
@@ -86,7 +86,7 @@ function accordion( $context ) {
             else if ( $accordion.classList.contains( 'open-first' ) )
                 !$accordion.classList.remove( 'open-first' ) && expand( $accordion.children[0] );
 
-            $accordion.dispatchEvent( new CustomEvent( 'accordion-init' ) );
+            $accordion.dispatchEvent( new CustomEvent( 'accordion-init', { bubbles: true } ) );
         } );
     } );
 

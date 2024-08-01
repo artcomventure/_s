@@ -40,7 +40,7 @@ add_action( 'wp_head', function() {
 
 			if ( !str_ends_with( $file, '.woff2' ) ) continue;
 
-			echo "\n" . '<link rel="preload" href="' . FONTS_DIRECTORY_URI . '/' . $folder . '/' . $file . '" as="font" type="font/woff2">';
+			echo "\n" . '<link rel="preload" href="' . FONTS_DIRECTORY_URI . '/' . $folder . '/' . $file . '" as="font" type="font/woff2" crossorigin>';
 		}
 	}
 

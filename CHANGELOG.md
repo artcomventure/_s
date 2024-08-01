@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.9.11 - 2024-08-02
+**Fixed**
+
+* Preload fonts (in `THEME/media/fonts/fonts.php`).
+
+**Changed**
+
+* Bubble custom accordion events (in `THEME/utilities/inc/gutenberg/inc/accordion/js/app.js`). 
+
 ## 1.9.10 - 2024-07-30
 **Fixed**
 
