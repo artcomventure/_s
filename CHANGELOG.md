@@ -17,6 +17,13 @@
 * Preload fonts (in `THEME/media/fonts/fonts.php`).
 * editor styles `cache_suffix` (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
 
+## 1.9.12 - 2024-08-05
+**Added**
+
+**Added**
+
+* Custom-Select BE setting (in `THEME/utilities/js/libs/custom-select/custom-select.php`).
+
 ## 1.9.11 - 2024-08-02
 **Fixed**
 
