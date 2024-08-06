@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "watch": "wp-scripts start src/attribute.js & npm run watch:scss & npm run watch:js",
+    "build": "wp-scripts build src/attribute.js & npm run build:scss & npm run build:js",
+
+    "watch:scss": "node-sass --include-path scss ./css/ -o ./css/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "build:scss": "node-sass ./css/ -o ./css/ --output-style compressed",
+
+    "watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=**/*.min.js --presets=@babel/preset-env --watch",
+    "build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=*.min.js --presets=@babel/preset-env,babel-preset-minify",
+
+    "i18n:pot": "wp i18n make-pot . languages/data-href.pot --domain=data-href --exclude=src,node_modules,**/*.min.* --subtract=../../../../../languages/_s.pot --package-name=data-href",
+    "i18n:po": "wp i18n update-po languages/data-href.pot languages",
+    "i18n:mo": "wp i18n make-mo languages languages",
+    "i18n:json": "wp i18n make-json languages/ --no-purge"
+  }
+}

@@ -154,3 +154,8 @@ h6, .h6 {
 a, .link {
   @extend %link;
 }
+
+.site :focus-visible {
+  outline: 2px dashed var(--color-error);
+  outline-offset: .28em;
+}

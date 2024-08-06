@@ -1,0 +1,35 @@
+.data-href-settings {
+  &, .block-editor-link-control__search-item {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0;
+  }
+
+  .block-editor-link-control {
+    min-width: auto;
+
+    &__field {
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    &__search-results {
+      padding: 0;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 12px;
+    font-style: normal;
+    color: rgb(117, 117, 117);
+  }
+}

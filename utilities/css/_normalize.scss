@@ -18,7 +18,6 @@ output {
 *::before,
 *::after {
   box-sizing: inherit;
-  outline: 0;
 
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -43,10 +42,6 @@ address {
 blockquote {
   > :first-child { margin-top: 0; }
   > p:last-of-type { margin-bottom: 0; }
-}
-
-[data-href] {
-  cursor: pointer;
 }
 
 // ---

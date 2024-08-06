@@ -10,6 +10,9 @@
     "accordion:build": "cd inc/accordion && npm run build",
 
     "bodyclass:watch": "cd inc/bodyclass && npm run watch",
-    "bodyclass:build": "cd inc/bodyclass && npm run build"
+    "bodyclass:build": "cd inc/bodyclass && npm run build",
+
+    "data-href:watch": "cd inc/data-href && npm run watch",
+    "data-href:build": "cd inc/data-href && npm run build"
   }
 }

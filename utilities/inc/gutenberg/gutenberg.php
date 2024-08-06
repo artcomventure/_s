@@ -11,7 +11,7 @@ add_action( 'after_setup_theme', function() {
 
 // add `?ver=FILEMTIME` to editor-style.css
 add_filter( 'tiny_mce_before_init', function( $mce_init ) {
-	$mce_init['cache_suffix'] = 'ver=' . filemtime(GUTENBERG_DIRECTORY . '/editor-style.css');
+	$mce_init['cache_suffix'] = 'ver=' . filemtime(get_template_directory() . '/css/editor-style.css');
 	return $mce_init;
 } );
 
