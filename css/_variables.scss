@@ -4,10 +4,16 @@
 $black: #000000;
 $white: #FFFFFF;
 
+$success: #61c653;
+$error: #ec695e;
+
 $colors: (
     'black': $black,
     'white': $white,
-    'text': $black
+    'text': $black,
+
+    'success': $success,
+    'error': $error,
 );
 
 $font-color-text: var(--color-text);

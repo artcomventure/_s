@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.10.0 - 2024-08-06
+**Added**
+
+* `[data-href]` Gutenberg input (in `THEME/utilities/gutenberg/inc/data-href/`).
+* success/error default colors (in `THEME/css/_variables.scss`).
+* Don't _Pjax_ zip files (in `THEME/utilities/js/libs/pjax/app.js`).
+
+**Changed**
+
+* Default `:focus-visible` accessibility styling (in `THEME/css/_elements.scss`).
+
+**Fixed**
+
+* Typo (in `THEME/js/navigation.js`).
+* Preload fonts (in `THEME/media/fonts/fonts.php`).
+* editor styles `cache_suffix` (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+
 ## 1.9.12 - 2024-08-05
 **Added**
 

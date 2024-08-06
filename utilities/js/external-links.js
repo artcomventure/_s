@@ -8,30 +8,26 @@ Behaviours.add( 'links:external', $context => {
     // regexp for internal link
     const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
 
-    [].forEach.call( $context.querySelectorAll( 'a, [data-href]' ), function ( $link ) {
-        if ( $link.closest( '[data-href]' ) )
-            $link.addEventListener( 'click', function ( e ) {
+    let $links = [].slice.call( $context.querySelectorAll( 'a, [data-href]' ) );
+    if ( !!$context.hasAttribute && $context.hasAttribute( 'data-href' ) || $context.tagName === 'A' ) $links.unshift( $context );
+
+    $links.forEach( $link => {
+        if ( $link.closest( '[data-href]' ) || $link.closest( 'a' ) )
+            $link.addEventListener( 'click', e => {
                 e.stopPropagation();
             }, false );
 
-        if ( $link.tagName === 'A' ) {
-            // internal
-            if ( regexp.test( $link.href ) ) return;
+        // internal!? ... nothing to do
+        if ( regexp.test( $link.href || $link.getAttribute( 'data-href' ) ) ) return;
 
-            if ( !$link.hasAttribute( 'rel' ) )
-                $link.setAttribute( 'rel', 'noopener noreferrer' );
-        }
-        else {
-            // let fake links ([data-href]) behave like their `<a>`
-            const dataHref = $link.getAttribute( 'data-href' );
-            if ( dataHref ) $link.addEventListener( 'click', function () {
-                window.open( dataHref, $link.getAttribute( 'target') || '_self' );
-            }, false );
+        // ---
+        // external
 
-            if ( regexp.test( $link.getAttribute( 'data-href' ) ) ) return;
+        if ( $link.tagName === 'A' && !$link.hasAttribute( 'rel' ) ) {
+            $link.setAttribute( 'rel', 'noopener noreferrer' );
         }
 
-        // open external links in new window
+        // open in new window
         if ( !$link.getAttribute( 'target' ) )
             $link.setAttribute( 'target', '_blank' );
     } );

@@ -4,7 +4,7 @@
  * Handles toggling the navigation menu for small screens and enables TAB key
  * navigation support for dropdown menus.
  */
-Behavioiurs.add( 'navigation', $context => {
+Behaviours.add( 'navigation', $context => {
 	const $siteNavigation = $context.querySelector( '#site-navigation' );
 	if ( ! $siteNavigation ) return;
 
