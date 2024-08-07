@@ -72,3 +72,15 @@ msgstr "Sicherheitsmaßnahmen lockern"
 #: inc/security/security.php:139
 msgid "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!"
 msgstr "Diese Funktion sollte immer deaktiviert bleiben! Es gibt jedoch Fälle, in denen sie vorübergehend aktiviert werden muss. Verwenden Sie dies mit Vorsicht!"
+
+#: js/libs/custom-select/custom-select.php:32
+msgid "Enable custom-select.js"
+msgstr "Aktiviere custom-select.js"
+
+#: js/libs/custom-select/custom-select.php:33
+msgid "Replacing and enhancing the native <code>select</code> (dropdown) element."
+msgstr "Ersetzen und Verbessern des nativen <code>select</code> (Dropdown) elements."
+
+#: js/libs/custom-select/custom-select.php:45
+msgid "CSS selectors for <code>select</code> fields to apply custom-select.js to. Leave blank to apply to all. Each selector in a new line."
+msgstr "CSS-Selektoren für <code>select</code>-Felder, auf die custom-select.js angewendet werden soll. Leer lassen, um auf alle anzuwenden. Jeder Selektor in einer neuen Zeile."

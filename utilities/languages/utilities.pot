@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-27T14:25:18+00:00\n"
+"POT-Creation-Date: 2024-08-07T06:17:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: utilities\n"
@@ -62,6 +62,18 @@ msgstr ""
 
 #: inc/security/security.php:139
 msgid "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!"
+msgstr ""
+
+#: js/libs/custom-select/custom-select.php:32
+msgid "Enable custom-select.js"
+msgstr ""
+
+#: js/libs/custom-select/custom-select.php:33
+msgid "Replacing and enhancing the native HTML <code>select</code> (dropdown) element."
+msgstr ""
+
+#: js/libs/custom-select/custom-select.php:45
+msgid "CSS selectors for <code>select</code> fields to apply custom-select.js to. Leave blank to apply to all. Each selector in a new line."
 msgstr ""
 
 #: js/libs/pjax/pjax.php:34

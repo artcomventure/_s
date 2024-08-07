@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.10.1 - 2024-08-07
+**Added**
+
+* `[data-href]` placeholder (in `THEME/utilities/gutenberg/inc/data-href/app.js`).
+* Custom select translations (in `THEME/utilities/`)
+
 ## 1.10.0 - 2024-08-06
 **Added**
 
@@ -18,8 +24,6 @@
 * editor styles `cache_suffix` (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
 
 ## 1.9.12 - 2024-08-05
-**Added**
-
 **Added**
 
 * Custom-Select BE setting (in `THEME/utilities/js/libs/custom-select/custom-select.php`).
