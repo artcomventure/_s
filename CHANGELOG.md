@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.2 - 2024-08-07
+**Added**
+
+* Theme screenshot (in `THEME/screenshot.png|psd`).
+
 ## 1.10.1 - 2024-08-07
 **Added**
 
