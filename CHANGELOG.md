@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0 - 2024-08-08
+**Added**
+
+* Setting for hiding blocks (in `THEME/inc/gutenberg/inc/hide`).
+* `[data-href]` _open in new window_ setting (in `THEME/inc/gutenberg/inc/data-href`).
+* Default colors (in `THEME/theme.json`).
+
 ## 1.10.2 - 2024-08-07
 **Added**
 

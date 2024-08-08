@@ -4,7 +4,23 @@
     "color" : {
       "defaultGradients": false,
       "defaultPalette": false,
-      "palette": []
+      "palette": [{
+        "name": "Black",
+        "slug": "black",
+        "color": "#000000"
+      }, {
+        "name": "White",
+        "slug": "White",
+        "color": "#FFFFFF"
+      }, {
+        "name": "Success",
+        "slug": "success",
+        "color": "#61c653"
+      }, {
+        "name": "Error",
+        "slug": "error",
+        "color": "#ec695e"
+      }]
     },
     "layout": {
       "contentSize": "1100px",

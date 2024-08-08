@@ -42,6 +42,10 @@
 // ---
 // Block layout
 
+.entry-header {
+  @extend %container-content;
+}
+
 .entry-content {
   > * {
     // all z-index elements only refers to this element
@@ -158,34 +162,14 @@
   line-height: 0;
 
   // by default we hide `.site-title` and `.site-description`
-  ~ * {
+  ~ .site-title,
+  ~ .site-description {
     position: absolute;
     clip: rect(1px, 1px, 1px, 1px);
   }
 }
 
-// ---
-// _Breakpoint hides_.
-
-.hide {
-  &-mobile {
-    @include mobile {
-      display: none !important;
-    }
-  }
-
-  &-tablet {
-    @include tablet {
-      display: none !important;
-    }
-  }
-
-  &-desktop {
-    @include desktop {
-      display: none !important;
-    }
-  }
-}
+@import "../inc/gutenberg/inc/hide/css/style";
 
 // ---
 // _No list_ lists.

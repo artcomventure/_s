@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: hide\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-08T06:05:51+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: hide\n"
+
+#: build/index.js:1
+msgid "Hide on mobile"
+msgstr "mobil ausblenden"
+
+#: build/index.js:1
+msgid "Hide on tablet"
+msgstr "auf Tablet ausblenden"
+
+#: build/index.js:1
+msgid "Hide on desktop"
+msgstr "auf Desktop ausblenden"
+
+#: build/index.js:1
+msgid "This settings only account for screen size not devices!"
+msgstr "Diese Einstellungen berücksichtigen nur die Bildschirmgröße, nicht die Geräte!"
+
+#: build/index.js:1
+msgid "%dpx width and narrower"
+msgstr "%dpx Breite und schmaler"
+
+#: build/index.js:1
+msgid "between %dpx and %dpx width"
+msgstr "zwischen %dpx und %dpx Breite"
+
+#: build/index.js:1
+msgid "%dpx width and wider"
+msgstr "%dpx Breite und breiter"

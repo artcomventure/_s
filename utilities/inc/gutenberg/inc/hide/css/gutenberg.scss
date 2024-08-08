@@ -1,0 +1,19 @@
+.hide-settings {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+
+  p {
+    margin-bottom: 0;
+    font-size: 12px;
+    font-style: normal;
+    color: rgb(117, 117, 117);
+  }
+
+  .components-toggle-control {
+    margin: 0 0 1em;
+
+    p {
+      margin-top: .28em;
+    }
+  }
+}

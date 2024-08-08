@@ -47,24 +47,26 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         const {
             name,
             attributes,
-            setAttributes
+            setAttributes,
+            isSelected
         } = props;
 
         const {
             link,
+            opensInNewTab
         } = attributes;
 
         return (
             <Fragment>
-                <BlockEdit { ...props } />
-                { (!allowedBlocks.length || allowedBlocks.includes( name )) &&
+                <BlockEdit {...props} />
+                // add allowedBlocks restriction
+                { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) &&
                     <InspectorAdvancedControls>
                         <PanelBody className="data-href-settings">
                             <label>{ __( 'Link', 'data-href' ) }</label>
                             <LinkControl
                                 key="data-href"
                                 value={ link }
-                                settings={ [] }
                                 onChange={ ( link ) => setAttributes( { link } ) }
                                 onRemove={ () => setAttributes( { link: {} } ) }
                             />
@@ -97,7 +99,7 @@ function applyAttribute( extraProps, blockType, attributes ) {
         extraProps['data-href'] = link.url;
         extraProps['role'] = 'link';
         extraProps['tabindex'] = 0;
-        // extraProps['_target'] = '';
+        if ( !!link.opensInNewTab ) extraProps['target'] = '_blank';
     }
 
     return extraProps;

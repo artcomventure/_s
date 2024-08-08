@@ -13,6 +13,9 @@
     "bodyclass:build": "cd inc/bodyclass && npm run build",
 
     "data-href:watch": "cd inc/data-href && npm run watch",
-    "data-href:build": "cd inc/data-href && npm run build"
+    "data-href:build": "cd inc/data-href && npm run build",
+
+    "hide:watch": "cd inc/hide && npm run watch",
+    "hide:build": "cd inc/hide && npm run build"
   }
 }

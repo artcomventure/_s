@@ -21,6 +21,11 @@ Behaviours.add( 'links:data-href', $context => {
             else if ( !isNaN( match[1] ) ) dataHref = $a[match[1] * 1 - 1];
             // no found
             else dataHref = '';
+
+            // in this case `dataHref` is still the found `<a>` in `[data-href]`
+            if ( dataHref && dataHref.hasAttribute( 'target' ) ) {
+                $link.setAttribute( 'target', dataHref.getAttribute( 'target' ) );
+            }
         }
 
         // no fake link ... remove all attributes

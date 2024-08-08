@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Utilities Gutenberg hide blocks\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-08T07:10:06+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: hide\n"
+
+#: build/index.js:1
+msgid "Hide on mobile"
+msgstr ""
+
+#: build/index.js:1
+msgid "%dpx width and narrower"
+msgstr ""
+
+#: build/index.js:1
+msgid "Hide on tablet"
+msgstr ""
+
+#: build/index.js:1
+msgid "between %dpx and %dpx width"
+msgstr ""
+
+#: build/index.js:1
+msgid "Hide on desktop"
+msgstr ""
+
+#: build/index.js:1
+msgid "%dpx width and wider"
+msgstr ""
+
+#: build/index.js:1
+msgid "This settings only account for screen size not devices!"
+msgstr ""

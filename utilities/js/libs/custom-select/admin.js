@@ -1,6 +1,6 @@
 wp.customize.bind( 'ready', function(){
 
-    const $customSelectCssSelectors = document.querySelector( '#customize-control-custom-select-css-selectors' );
+    const $customSelectCssSelectors = document.getElementById( 'customize-control-custom-select-css-selectors' );
     if ( !$customSelectCssSelectors ) return;
 
     $customSelectCssSelectors.style.width = 'auto';
@@ -10,7 +10,6 @@ wp.customize.bind( 'ready', function(){
     if ( !$customSelect ) return;
 
     function toggleCssSelectors() {
-        console.log( $customSelect.checked ? 'block' : 'none' );
         $customSelectCssSelectors.style.display = $customSelect.checked ? 'block' : 'none';
     }
 
