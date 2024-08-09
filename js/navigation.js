@@ -5,9 +5,11 @@
  * navigation support for dropdown menus.
  */
 Behaviours.add( 'navigation', $context => {
+
 	const $siteNavigation = $context.querySelector( '#site-navigation' );
 	if ( ! $siteNavigation ) return;
 
+	// toggle button
 	const $button = $siteNavigation.getElementsByTagName( 'button' )[ 0 ];
 	if ( 'undefined' === typeof $button ) return;
 
@@ -21,7 +23,7 @@ Behaviours.add( 'navigation', $context => {
 		$menu.classList.add( 'nav-menu' );
 	}
 
-	// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
+	// toggle the .toggled class and the aria-expanded value each time the button is clicked
 	$button.addEventListener( 'click', function() {
 		$siteNavigation.classList.toggle( 'toggled' );
 
@@ -32,7 +34,7 @@ Behaviours.add( 'navigation', $context => {
 		}
 	} );
 
-	// Remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation.
+	// remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation
 	document.addEventListener( 'click', function( event ) {
 		const isClickInside = $siteNavigation.contains( event.target );
 
@@ -42,19 +44,22 @@ Behaviours.add( 'navigation', $context => {
 		}
 	} );
 
-	// Get all the link elements within the menu.
+	// get all the link elements within the menu
 	const $links = $menu.getElementsByTagName( 'a' );
 
-	// Get all the link elements with children within the menu.
+	// get all the link elements with children within the menu
 	const $linksWithChildren = $menu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
 
-	// Toggle focus each time a menu link is focused or blurred.
 	for ( const $link of $links ) {
+		if ( $link.closest( '.wp-block-button' ) )
+			$link.classList.add( 'wp-block-button__link' );
+
+		// toggle focus each time a menu link is focused or blurred.
 		$link.addEventListener( 'focus', toggleFocus, true );
 		$link.addEventListener( 'blur', toggleFocus, true );
 	}
 
-	// Toggle focus each time a menu link with children receive a touch event.
+	// toggle focus each time a menu link with children receive a touch event
 	for ( const $link of $linksWithChildren ) {
 		$link.addEventListener( 'touchstart', toggleFocus, false );
 	}

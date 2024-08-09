@@ -31,6 +31,7 @@ figcaption {
 %heading {
   font-family: $font-family-heading;
   font-weight: 700;
+  color: var(--color-heading);
 
   @include mobile {
     //hyphens: auto;
@@ -117,16 +118,15 @@ h6, .h6 {
   color: $font-color-link;
   text-decoration: none;
   transition: all .2s ease-in-out;
-  outline: 0;
+  transition-property: color, text-underline-offset, text-decoration;
 
-  .site-main & {
-    text-decoration: underline;
-    text-underline-offset: .14em;
-    text-decoration-color: currentColor;
-  }
+  text-underline-offset: .14em;
+  text-decoration-color: transparent;
 
   &:hover {
+    text-underline-offset: .4em;
     color: $font-color-link-hover;
+    text-decoration-color: currentColor;
   }
 
   &:active, &.active {

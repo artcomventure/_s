@@ -120,11 +120,19 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 
 | `/utilities/inc/` | What does it do                                                |
 |-------------------|----------------------------------------------------------------|
-| bodyclass         | Add Gutenberg setting to add html/body classes.                |
 | dev               | Frontend info panel for development.                           |
 | image-orientation | Add orientation class (landscape, square, portrait) to images. |
 | post-edit-link    | Add post edit link to title.                                   |
 | security          | Security features. See BE dashboard.                           |
+
+#### Gutenberg
+
+| Extension | What does it do                                     |
+|-----------|-----------------------------------------------------|
+| accordion | Block.                                              |
+| bodyclass | Setting to add html/body/article classes.           |
+| data-href | Link any element. Accessibility ready.              |
+| hide      | Hide elements for mobile/table/desktop screen size. |
 
 ## WordPress
 

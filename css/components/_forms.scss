@@ -1,58 +1,58 @@
 %button {
   display: inline-block;
-  border-radius: 5px !important;
+  border-radius: 5px;
   padding: .8rem 6.6rem;
   text-shadow: none;
   text-align: center;
   cursor: pointer;
   position: relative;
   text-decoration: none !important;
+  white-space: nowrap;
 
   transition: all .3s ease-out;
+  transition-property: color, background-color, opacity, border-color;
 
   color: inherit;
   border: 1px solid currentColor;
-  background-color: transparent;
 
-  &:hover, &.active {
-    color: #fff;
-    border-color: var(--color-royal-red);
-    background-color: var(--color-royal-red);
-  }
+  &, // default state
+  .is-style-fill & {
+    @extend %bgcolor-black;
 
-  .is-style-outline & {
+    &:hover, &.active {
+      @extend %color-black;
+      background-color: transparent;
+      border-color: currentColor;
+    }
+
     @each $name, $color in $colors {
-      &.has-#{$name}-color {
-        &:hover,
-        &.active {
-          border-color: var(--color-#{$name});
-          background-color: var(--color-#{$name});
+      &.has-#{$name}-background-color {
+        @extend %bgcolor-#{$name};
 
-          @if type-of($color) == color and lightness($color) >= 60 {
-            color: $font-color-text !important;
-          }
+        &:hover, &.active {
+          @extend %color-#{$name};
+          background-color: transparent;
+          border-color: currentColor;
         }
       }
     }
   }
 
-  .is-style-fill & {
+  .is-style-outline & {
+    background-color: transparent;
+    border-color: currentColor;
+    @extend %color-black;
+
+    &:hover, &.active {
+      @extend %bgcolor-black;
+      border-color: transparent;
+    }
+
     @each $name, $color in $colors {
-      &.has-#{$name}-background-color {
-        border-color: var(--color-#{$name});
-
-        @if type-of($color) == color and lightness($color) < 60 {
-          color: #fff !important;
-        }
-        @else {
-          color: $font-color-text !important;
-        }
-
-        &:hover,
-        &.active {
-          color: var(--color-#{$name}) !important;
-          border-color: currentColor !important;
-          background-color: transparent !important;
+      &.has-#{$name}-color {
+        @extend %color-#{$name};
+        &:hover, &.active {
+          @extend %bgcolor-#{$name};
         }
       }
     }

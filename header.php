@@ -29,14 +29,15 @@
         <div class="site-branding">
 			<?php the_custom_logo();
 
-			$ttag = is_front_page() ? 'h1' : 'p'; ?>
-            <<?php echo $ttag ?> class="site-title">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
-            </<?php echo $ttag ?>>
+			if ( !has_custom_logo() || display_header_text() ) { ?>
+                <p class="site-title">
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
+                </p>
 
-            <?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>
-                <p class="site-description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-            <?php endif; ?>
+				<?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>
+                    <p class="site-description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+				<?php endif;
+			} ?>
         </div><!-- .site-branding -->
 
 		<?php if ( $navigation = wp_nav_menu( [

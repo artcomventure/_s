@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.11.1 - 2024-08-09
+**Changed**
+
+* Default button style (in `THEME/css/components/_form.scss`).
+* Default link style (in `THEME/css/_elements.scss`).
+* Optional display header text (in `THEME/header.php`).
+
+**Added**
+
+* `$lightness-threshold` SCSS variable (in `THEME/css/_variables.scss`).
+* Inline svg accessibility (in `THEME/utilities/js/inline-svg.js`).
+
 ## 1.11.0 - 2024-08-08
 **Added**
 

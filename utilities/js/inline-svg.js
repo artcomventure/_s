@@ -20,15 +20,19 @@ Behaviours.add( 'media:inline-svg', function( $context ) {
 
                 // take over _all_ attributes
                 [].forEach.call( $image.attributes, function( attribute ) {
-                    // igmore _these_ attributes
+                    // ignore _these_ attributes
                     if ( ['src'].indexOf( attribute.name ) >= 0 ) return;
                     // set classNames
                     else if ( attribute.name === 'class' )
                         $image.classList.forEach( ( className ) => $svg.classList.add( className ) );
+                    else if ( attribute.name === 'alt' ) {
+                        $svg.setAttribute( 'aria-label', attribute.value );
+                    }
                     // set all other attributes
                     else $svg.setAttribute( attribute.name, attribute.value );
                 } );
 
+                $svg.setAttribute( 'role', 'img' );
                 $svg.setAttribute( 'preserveAspectRatio', 'xMidYMid' );
 
                 $svg.classList.remove( 'inline-svg', 'lazyload', 'lazyloading' );

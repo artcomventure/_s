@@ -11,6 +11,7 @@ $colors: (
     'black': $black,
     'white': $white,
     'text': $black,
+    'heading': $black,
 
     'success': $success,
     'error': $error,
@@ -21,6 +22,9 @@ $font-color-heading: $font-color-text;
 $font-color-link: inherit;
 $font-color-link-hover: $font-color-text;
 $font-color-link-active: $font-color-text;
+
+// from this value (0-100) onwards, colours are considered as _light_
+$lightness-threshold: 60;
 
 // ---
 // Typography.

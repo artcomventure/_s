@@ -81,7 +81,6 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         return (
             <Fragment>
                 <BlockEdit {...props} />
-                // add allowedBlocks restriction
                 { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) &&
                     <InspectorAdvancedControls>
                         <PanelBody className="hide-settings">
