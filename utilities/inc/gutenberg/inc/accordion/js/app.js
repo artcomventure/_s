@@ -60,6 +60,12 @@ function accordion( $context ) {
         [].forEach.call( $accordion.children, function( $item ) {
             if ( !$item.hasAttribute( 'aria-expanded' ) ) collapse( $item );
 
+            // a11y
+            if ( !$item.firstElementChild.hasAttribute( 'role' ) ) {
+                $item.firstElementChild.setAttribute( 'role', 'button' );
+                $item.firstElementChild.setAttribute( 'tabindex', 0 );
+            }
+
             $item.firstElementChild.addEventListener( 'click', function( e ) {
                 // close all other items
                 if ( !multiple() ) [].filter.call( $accordion.children, function( $child ) {
@@ -70,6 +76,11 @@ function accordion( $context ) {
 
                 [].forEach.call( $accordion.children, setMaxHeight );
             }, { passive: true } );
+
+            $item.firstElementChild.addEventListener( 'keydown', e => {
+                if ( e.key !== 'Enter' ) return;
+                e.target.dispatchEvent( new Event( 'click' ) );
+            } )
 
             const accordionItemResizeObserver = new ResizeObserver(items => {
                 items.forEach( function( item, i ) {

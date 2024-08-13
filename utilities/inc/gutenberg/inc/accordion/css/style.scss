@@ -7,8 +7,7 @@
   > * {
     position: relative;
     box-sizing: content-box;
-    border-bottom: 2px solid currentColor;
-    overflow: hidden;
+    border-bottom: 2pX solid currentColor;
     transition: max-height var(--transition-duration) var(--transition-timing-function);
     max-height: 0;
 
@@ -46,6 +45,7 @@
 
     &[aria-expanded="false"] > .wp-block-accordion-item-content  {
       opacity: 0;
+      pointer-events: none;
     }
 
     &[aria-expanded="false"] > :first-child:after {

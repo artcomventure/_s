@@ -4,6 +4,7 @@
 **Added**
 
 * JS translations to accordion (in `THEME/utilities/inc/gutenberg/inc/accordion`).
+* Accordion a11y (in `THEME/utilities/inc/gutenberg/inc/accordion`).
 * Pjax support to data-href (in `THEME/utilities/inc/gutenberg/inc/data-href`).
 
 **Fixed**
