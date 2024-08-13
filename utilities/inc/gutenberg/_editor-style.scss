@@ -29,6 +29,8 @@ body {
 }
 
 .is-root-container {
+  overflow-x: hidden;
+
   > div[data-align="full"] {
     margin-right: fluid(-$spacing-min, -$spacing-max);
     margin-left: fluid(-$spacing-min, -$spacing-max);

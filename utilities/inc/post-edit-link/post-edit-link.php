@@ -83,3 +83,10 @@ function the_post_title( $before = '', $after = '', $echo = true ) {
         return $title;
     }
 }
+
+// Gutenberg styles
+add_action( 'after_setup_theme', function() {
+	add_theme_support( 'editor-styles' );
+	// relative path from `functions.php`
+	add_editor_style(  './utilities/inc/post-edit-link/style.css' );
+}, 11 );

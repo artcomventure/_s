@@ -5,9 +5,6 @@
  */
 
 Behaviours.add( 'links:external', $context => {
-    // regexp for internal link
-    const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
-
     let $links = [].slice.call( $context.querySelectorAll( 'a, [data-href]' ) );
     if ( !!$context.hasAttribute && $context.hasAttribute( 'data-href' ) || $context.tagName === 'A' ) $links.unshift( $context );
 
@@ -18,7 +15,7 @@ Behaviours.add( 'links:external', $context => {
             }, false );
 
         // internal!? ... nothing to do
-        if ( regexp.test( $link.href || $link.getAttribute( 'data-href' ) ) ) return;
+        if ( isInternalUrl( $link.href || $link.getAttribute( 'data-href' ) ) ) return;
 
         // ---
         // external

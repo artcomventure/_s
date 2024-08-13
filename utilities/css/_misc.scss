@@ -42,11 +42,13 @@
 // ---
 // Block layout
 
-.entry-header {
+.site-header,
+.site-footer,
+.full-view > .entry-header {
   @extend %container-content;
 }
 
-.entry-content {
+.full-view > .entry-content {
   > * {
     // all z-index elements only refers to this element
     isolation: isolate;

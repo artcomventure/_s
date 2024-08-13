@@ -51,7 +51,7 @@ function allow_accordion_block( $allowed_blocks ) {
 
 // change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`
 add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {
-	if ( $domain == 'accordion' ) {
+	if ( $domain == 'accordion' && $handle == 'accordion-be-js' ) {
 		$md5 = md5('build/block.js');
 		$file = preg_replace( '/\/(' . $domain . '-[^-]+)-.+\.json$/', "/$1-{$md5}.json", $file );
 	}

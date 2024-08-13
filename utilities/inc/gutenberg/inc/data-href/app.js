@@ -45,7 +45,9 @@ Behaviours.add( 'links:data-href', $context => {
         // redirect
 
         $link.addEventListener( 'click', e => {
-            window.open( dataHref, $link.getAttribute( 'target') || '_self' );
+            if ( typeof pjax !== 'undefined' && isInternalUrl( dataHref ) )
+                pjax.loadUrl( dataHref );
+            else window.open( dataHref, $link.getAttribute( 'target') || '_self' );
         }, false );
 
         $link.addEventListener( 'keydown', e => {

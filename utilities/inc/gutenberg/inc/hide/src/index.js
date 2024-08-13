@@ -69,14 +69,17 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
             hideOnDesktop,
         } = attributes;
 
-        const CSS = getComputedStyle( document.querySelector( '.editor-styles-wrapper' ) );
         const BREAKPOINTS = {};
-        ['mobile', 'desktop'].forEach( size => {
-            const value = CSS.getPropertyValue(`--width-${size}`);
-            if ( !value ) return;
+        const $wrapper = document.querySelector( '.editor-styles-wrapper' );
+        if ( $wrapper ) {
+            const CSS = getComputedStyle( $wrapper );
+            ['mobile', 'desktop'].forEach( size => {
+                const value = CSS.getPropertyValue(`--width-${size}`);
+                if ( !value ) return;
 
-            BREAKPOINTS[size] = parseInt( value );
-        } );
+                BREAKPOINTS[size] = parseInt( value );
+            } );
+        }
 
         return (
             <Fragment>
@@ -84,21 +87,24 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
                 { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) &&
                     <InspectorAdvancedControls>
                         <PanelBody className="hide-settings">
-                            { !!BREAKPOINTS.mobile && <ToggleControl
+                            { <ToggleControl
                                 label={ __( 'Hide on mobile', 'hide' ) }
-                                help={ sprintf( __( '%dpx width and narrower', 'hide' ), BREAKPOINTS.mobile ) }
+                                help={ !!BREAKPOINTS.mobile
+                                    ? sprintf( __( '%dpx width and narrower', 'hide' ), BREAKPOINTS.mobile ) : '' }
                                 checked={ hideOnMobile }
                                 onChange={ hideOnMobile => setAttributes( { hideOnMobile } ) }
                             /> }
-                            { !!BREAKPOINTS.mobile && !!BREAKPOINTS.desktop && <ToggleControl
+                            { <ToggleControl
                                 label={ __( 'Hide on tablet', 'hide' ) }
-                                help={ sprintf( __( 'between %dpx and %dpx width', 'hide' ), BREAKPOINTS.mobile, BREAKPOINTS.desktop ) }
+                                help={ (!!BREAKPOINTS.mobile && !!BREAKPOINTS.desktop)
+                                    ? sprintf( __( 'between %dpx and %dpx width', 'hide' ), BREAKPOINTS.mobile, BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnTablet }
                                 onChange={ hideOnTablet => setAttributes( { hideOnTablet } ) }
                             /> }
-                            { !!BREAKPOINTS.desktop && <ToggleControl
+                            { <ToggleControl
                                 label={ __( 'Hide on desktop', 'hide' ) }
-                                help={ sprintf( __( '%dpx width and wider', 'hide' ), BREAKPOINTS.desktop ) }
+                                help={ !!BREAKPOINTS.desktop
+                                    ? sprintf( __( '%dpx width and wider', 'hide' ), BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnDesktop }
                                 onChange={ hideOnDesktop => setAttributes( { hideOnDesktop } ) }
                             /> }

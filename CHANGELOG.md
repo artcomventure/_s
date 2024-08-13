@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.11.2 - 2024-08-13
+**Added**
+
+* JS translations to accordion (in `THEME/utilities/inc/gutenberg/inc/accordion`).
+* Pjax support to data-href (in `THEME/utilities/inc/gutenberg/inc/data-href`).
+
+**Fixed**
+
+* Gutenberg `BREAKPOINTS` (in `THEME/utilities/inc/gutenberg/inc/hide`).
+
 ## 1.11.1 - 2024-08-09
 **Changed**
 

@@ -7,6 +7,10 @@ define( 'HIDE_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/hide' );
  * Enqueue gutenberg block styles and scripts.
  */
 add_action( 'init', function() {
+	global $pagenow;
+	// TODO: not compatible with widgets editor :/
+	if ( $pagenow == 'widgets.php' ) return;
+
 	// automatically load dependencies and version
 	$asset_file = include( HIDE_DIRECTORY . '/build/index.asset.php' );
 

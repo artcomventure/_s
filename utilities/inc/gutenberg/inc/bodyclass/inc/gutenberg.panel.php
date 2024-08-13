@@ -44,7 +44,7 @@ add_action( 'init', function() {
 add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {
 	if ( $domain == 'bodyclass' && $handle == 'bodyclass-panel-js' ) {
 		$md5 = md5('build/panel.js');
-		$file = preg_replace( '/\/' . $domain . '-([^-]+)-.+\.json$/', "/$1-{$md5}.json", $file );
+		$file = preg_replace( '/\/' . $domain . '-([^-]+)-.+\.json$/', "/$1-$md5.json", $file );
 	}
 
 	return $file;

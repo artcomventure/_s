@@ -114,12 +114,17 @@
 
     // Pjax request finished
     document.addEventListener('pjax:complete', function( e ) {
+        document.documentElement.style.overflow = '';
+
         // fade in page (hide overlay)
         window.requestAnimationFrame( () => {
             $overlay.style.pointerEvents = 'none';
             document.body.removeAttribute( 'data-pjax-transition' );
 
             setTimeout( () => {
+                // next redirect is already in action
+                if ( document.body.hasAttribute( 'data-pjax-transition' ) ) return;
+
                 // prevent overlay to be rendered when it's not visible
                 $overlay.style.display = 'none';
 
