@@ -34,6 +34,26 @@ add_action( 'init', function() {
 	) );
 } );
 
+// add attributes to all block registries
+add_filter( 'register_block_type_args', function( $args ) {
+	$args['attributes'] += [
+		'hideOnMobile' => [
+			'type'    => 'boolean',
+			'default' => false,
+		],
+		'hideOnTablet' => [
+			'type'    => 'boolean',
+			'default' => false,
+		],
+		'hideOnDesktop' => [
+			'type'    => 'boolean',
+			'default' => false,
+		]
+	];
+
+	return $args;
+} );
+
 // change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`
 add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {
 	if ( $domain == 'hide' && $handle == 'hide-be-js' ) {

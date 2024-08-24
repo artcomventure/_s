@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.12.0 - 2024-08-24
+**Added**
+
+* Accessibility feature (in `THEME/utilities/inc/accessibility`).
+* Post teaser Block (in `THEME/utilities/inc/gutenberg/inc/teaser-list`).
+* Image block aspect ratio (in `THEME/utilities/inc/gutenberg/inc/aspect-ratio`).
+* Video _handling_ (in `THEME/utilities/inc/video`).
+
+**Changed**
+
+* Templates (in `THEME/inc/template-tags.php` and `THEME/template-parts`);
+* Remove core patterns (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+* Enable responsive embeds support (in `THEME/functions.php`).
+
+**Various**
+
+* Bug fixes.
+
 ## 1.11.2 - 2024-08-13
 **Added**
 

@@ -2,8 +2,7 @@ import { dispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 // remove template panel
-if ( dispatch( 'core/edit-post') )
-    dispatch( 'core/edit-post').removeEditorPanel( 'template' );
+dispatch( 'core/editor').removeEditorPanel( 'template' );
 
 apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
     const $sheet = document.createElement('style' );

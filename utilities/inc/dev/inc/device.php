@@ -57,14 +57,14 @@ add_action( 'dev-info-panel', function() {
     }
 
     // get the version number
-    $pattern = '#(?<browser>' . join('|', ['Version', $ub, 'other']) .
+    $pattern = '#(?<browser>' . join('|', ['Version', $ub ?? '', 'other']) .
         ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
 
     if ( preg_match_all( $pattern, $ua, $matches ) ) {
         if ( count($matches['browser']) > 1 ) {
             // we will have two since we are not using 'other' argument yet
             // see if version is before or after the name
-            if ( strripos( $ua,'Version' ) < strripos( $ua, $ub ) )
+            if ( strripos( $ua,'Version' ) < strripos( $ua, $ub ?? '' ) )
                 $browser['version'] = $matches['version'][0];
             else $browser['version']= $matches['version'][1];
         }

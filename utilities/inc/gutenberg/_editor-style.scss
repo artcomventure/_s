@@ -5,10 +5,15 @@
 @import "../../../css/components/forms";
 @import "../../../utilities/css/misc";
 @import "../../../css/components/blocks";
+@import "../../../css/components/posts";
 
 body {
   @include vars;
   @extend %copy;
+}
+
+button {
+  box-sizing: border-box;
 }
 
 .hide-desktop,

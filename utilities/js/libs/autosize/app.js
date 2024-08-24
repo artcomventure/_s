@@ -1,10 +1,22 @@
 (function() {
 
+    // `autosize.js` checks horizontal resize only :/
+    // not enough with our `fluid` calculations
+    const resizeObserver = new ResizeObserver( entries => {
+        entries.forEach( entry => {
+            if ( !entry.target.parentElement )
+                return resizeObserver.unobserve( entry.target );
+
+            autosize.update( entry.target );
+        } )
+    } )
+
     // attach textarea autosize
-    const attachAutosize = ( $context ) => {
+    const attachAutoHeight = ( $context ) => {
         if ( typeof autosize !== 'function' ) return;
 
         $context = $context || document;
+        if ( typeof $context.querySelectorAll !== 'function' ) return;
 
         let $textareas = $context.querySelectorAll( 'textarea' );
         if ( !$textareas.length && $context.nodeName === 'TEXTAREA' )
@@ -13,13 +25,13 @@
         [].forEach.call( $textareas, $textarea => {
             $textarea.style.resize = 'none';
             autosize( $textarea );
+            resizeObserver.observe( $textarea );
         } )
     }
 
     // auto width of text input
     const attachAutoWidth = ( $context ) => {
         $context = $context || document;
-
         if ( typeof $context.querySelectorAll !== 'function' ) return;
 
         let $inputs = $context.querySelectorAll( 'input.autowidth' );
@@ -34,12 +46,12 @@
     }
 
     // on page load
-    attachAutosize() && attachAutoWidth();
+    attachAutoHeight() && attachAutoWidth();
 
     // on ajax load
     new MutationObserver(function ( entries ) {
         entries.forEach( ( entry) => {
-            entry.addedNodes.forEach( attachAutosize );
+            entry.addedNodes.forEach( attachAutoHeight );
             entry.addedNodes.forEach( attachAutoWidth );
         } );
     } ).observe( document.documentElement, {

@@ -59,7 +59,7 @@
   }
 }
 
-button, .button, .wp-block-button__link, input[type="submit"] {
+.wp-block-button__link, .wp-element-button, input[type="submit"] {
   .site & {
     @extend %button;
   }

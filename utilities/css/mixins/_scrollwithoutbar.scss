@@ -2,8 +2,9 @@
 // @see https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
 
 @mixin scrollWithoutBar($dir: x) {
-  overflow-#{$dir}: scroll;
+  overflow-#{$dir}: auto;
   &::-webkit-scrollbar { display: none; }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  position: relative; /* Chrome!? */
 }

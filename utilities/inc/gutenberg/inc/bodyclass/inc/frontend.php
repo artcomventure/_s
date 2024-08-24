@@ -56,7 +56,7 @@ function html_class( $css_class = '' ) {
 add_filter( 'body_class', function ( $classes ) {
 	// Page is shown on mobile device.
 	if ( wp_is_mobile() ) {
-		$classes[] = 'mobile';
+		$classes[] = 'mobile-device';
 	}
 
 	// add custom body classes

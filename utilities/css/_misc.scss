@@ -1,3 +1,13 @@
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &-main {
+    flex-grow: 1;
+  }
+}
+
 // ---
 // Container and widths.
 
@@ -60,10 +70,7 @@
     @extend %container-content;
 
     @each $name, $breakpoint in $breakpoints {
-      &.width-#{$name} {
-        @extend %width-#{$name};
-      }
-
+      &.width-#{$name},
       &.container-#{$name} {
         @extend %container-#{$name};
       }
@@ -108,12 +115,41 @@
 }
 
 // ---
+// Grid.
+
+[data-type="teaser-list/block"],
+.wp-block-group-is-layout-grid {
+  > div {
+    display: grid;
+    gap: 1em;
+
+    > .wp-element-button {
+      grid-column: 1/-1;
+    }
+  }
+
+  @for $i from 2 through 9 {
+    &[data-grid="#{$i}"] > div {
+      grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+    }
+  }
+
+  @include mobile {
+    &[data-grid] > div { grid-template-columns: 1fr; }
+  }
+}
+
+// ---
 // Buttons.
 
 .wp-block-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: .5em;
+}
+
+button, .wp-block-button__link, .wp-element-button, [type="submit"] {
+  cursor: pointer;
 }
 
 // ---
@@ -142,11 +178,22 @@
   %bgcolor-#{$name} {
     background-color: var(--color-#{unquote($name)});
 
+    svg {
+      fill: currentColor;
+    }
+
     // auto light color on dark backgrounds
-    @if type-of($color) == color and lightness($color) < $lightness-threshold {
-      --color-text: var(--color-light, #fff);
-      --color-heading: var(--color-light, #fff);
-      color: var(--color-light, #fff);
+    @if type-of($color) == color {
+      @if lightness($color) < $lightness-threshold {
+        --color-text: var(--color-light, #fff);
+        --color-heading: var(--color-light, #fff);
+        color: var(--color-light, #fff);
+      }
+      @else {
+        --color-text: inherit;
+        --color-heading: inherit;
+        color: inherit;
+      }
     }
   }
 

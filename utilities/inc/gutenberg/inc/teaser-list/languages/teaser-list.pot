@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Teaser List\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-21T12:06:53+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: teaser-list\n"
+
+#: build/block.js:1
+msgid "Teaser List"
+msgstr ""
+
+#: build/block.js:1
+msgid "Number of posts"
+msgstr ""
+
+#: build/block.js:1
+msgid "Sort by"
+msgstr ""
+
+#: build/block.js:1
+msgid "random"
+msgstr ""
+
+#: build/block.js:1
+msgid "Add grid of post teasers."
+msgstr ""

@@ -1,4 +1,13 @@
 /**
+ * Make sure `global-styles` are removed.
+ * See `THEME/inc/gutenberg/gutenberg.php` "remove _unneeded_ CSS"
+ */
+(function() {
+  const $globalStyles = document.getElementById( 'global-styles-inline-css' );
+  if ( $globalStyles ) $globalStyles.remove();
+})();
+
+/**
  * Set heights as property.
  *
  * @usage: `var(--{ELEMENT_ID}-height)`

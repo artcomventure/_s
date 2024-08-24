@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 import { Fragment } from '@wordpress/element';
-import { InspectorAdvancedControls, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
+import { InspectorAdvancedControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import { createHigherOrderComponent } from '@wordpress/compose';
 
@@ -9,39 +9,37 @@ import classnames from 'classnames';
 
 // restrict to specific block names
 const allowedBlocks = [];
+const disallowedBlocks = ['core/shortcode'];
 
 /**
  * Add custom attribute for mobile visibility.
  *
- * @param {Object} settings Settings for the block.
+ * @param {Object} settings
+ * @param {String} name
  *
- * @return {Object} settings Modified settings.
+ * @return {Object} modified settings
  */
-function addAttributes( settings ) {
-
+function addAttributes( settings, name ) {
     // check if object exists for old Gutenberg version compatibility
     // add allowedBlocks restriction
-    if ( typeof settings.attributes !== 'undefined'
-        && (!allowedBlocks.length || allowedBlocks.includes( settings.name ))
-    ) settings.attributes = Object.assign( settings.attributes,
-        {
+    if ( (!allowedBlocks.length || allowedBlocks.includes( name )) && !disallowedBlocks.includes( name ) ) settings = {
+        ...settings,
+        attributes: {
+            ...settings.attributes,
             hideOnMobile: {
                 type: 'boolean',
                 default: false,
-            }
-        },
-        {
+            },
             hideOnTablet: {
                 type: 'boolean',
                 default: false,
-            }
-        }, {
+            },
             hideOnDesktop: {
                 type: 'boolean',
                 default: false,
             }
-        }
-    );
+        },
+    };
 
     return settings;
 }
@@ -84,30 +82,30 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         return (
             <Fragment>
                 <BlockEdit {...props} />
-                { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) &&
+                { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) && !disallowedBlocks.includes( name ) &&
                     <InspectorAdvancedControls>
                         <PanelBody className="hide-settings">
-                            { <ToggleControl
+                            <ToggleControl
                                 label={ __( 'Hide on mobile', 'hide' ) }
                                 help={ !!BREAKPOINTS.mobile
                                     ? sprintf( __( '%dpx width and narrower', 'hide' ), BREAKPOINTS.mobile ) : '' }
                                 checked={ hideOnMobile }
                                 onChange={ hideOnMobile => setAttributes( { hideOnMobile } ) }
-                            /> }
-                            { <ToggleControl
+                            />
+                            <ToggleControl
                                 label={ __( 'Hide on tablet', 'hide' ) }
                                 help={ (!!BREAKPOINTS.mobile && !!BREAKPOINTS.desktop)
                                     ? sprintf( __( 'between %dpx and %dpx width', 'hide' ), BREAKPOINTS.mobile, BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnTablet }
                                 onChange={ hideOnTablet => setAttributes( { hideOnTablet } ) }
-                            /> }
-                            { <ToggleControl
+                            />
+                            <ToggleControl
                                 label={ __( 'Hide on desktop', 'hide' ) }
                                 help={ !!BREAKPOINTS.desktop
                                     ? sprintf( __( '%dpx width and wider', 'hide' ), BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnDesktop }
                                 onChange={ hideOnDesktop => setAttributes( { hideOnDesktop } ) }
-                            /> }
+                            />
                             <p>{ __( 'This settings only account for screen size not devices!', 'hide' ) }</p>
                         </PanelBody>
                     </InspectorAdvancedControls>
@@ -135,7 +133,7 @@ function applyHideClasses( extraProps, blockType, attributes ) {
     } = attributes;
 
     // allowedBlocks restriction
-    if ( !allowedBlocks.length || allowedBlocks.includes( blockType.name ) ) {
+    if ( (!allowedBlocks.length || allowedBlocks.includes( blockType.name )) && !disallowedBlocks.includes( blockType.name ) ) {
         // add class(es)
         if ( hideOnMobile ) extraProps.className = classnames( extraProps.className, 'hide-mobile' );
         if ( hideOnTablet ) extraProps.className = classnames( extraProps.className, 'hide-tablet' );

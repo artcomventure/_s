@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "watch": "wp-scripts start src/block.js & npm-run-all --parallel watch:*",
+    "build": "wp-scripts build src/block.js & npm-run-all --parallel build:*",
+
+    "watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=**/*.min.js --presets=@babel/preset-env --watch",
+    "build:build": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+
+    "i18n:pot": "wp i18n make-pot . languages/teaser-list.pot --domain=teaser-list --exclude=src,node_modules,**/*.min.* --subtract=../../languages/bowel.pot --package-name='Teaser List'",
+    "i18n:po": "wp i18n update-po languages/teaser-list.pot languages",
+    "i18n:mo": "wp i18n make-mo languages",
+    "i18n:json": "wp i18n make-json languages --no-purge"
+  }
+}

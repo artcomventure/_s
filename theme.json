@@ -13,6 +13,10 @@
         "slug": "White",
         "color": "#FFFFFF"
       }, {
+        "name": "Transparent",
+        "slug": "transparent",
+        "color": "transparent"
+      }, {
         "name": "Success",
         "slug": "success",
         "color": "#61c653"
@@ -38,6 +42,9 @@
       "fontStyle": false,
       "letterSpacing": false,
       "lineHeight": false
+    },
+    "dimensions": {
+      "defaultAspectRatios": false
     }
   }
 }

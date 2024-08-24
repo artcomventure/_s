@@ -2,56 +2,60 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: _s 1.0.0\n"
+"Project-Id-Version: _s 1.11.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-01T08:24:09+00:00\n"
+"POT-Creation-Date: 2024-08-24T08:24:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: _s\n"
 
 #. Theme Name of the theme
+#: style.css
 msgid "_s"
 msgstr ""
 
 #. Description of the theme
+#: style.css
 msgid "I'm the next, most awesome, WordPress theme out there."
 msgstr ""
 
 #. Author of the theme
+#: style.css
 msgid "artcom venture GmbH"
 msgstr ""
 
 #. Author URI of the theme
+#: style.css
 msgid "https://www.artcom-venture.de"
 msgstr ""
 
-#: 404.php:17
+#: 404.php:27
 msgid "Oops! That page can&rsquo;t be found."
 msgstr ""
 
-#: 404.php:21
+#: 404.php:31
 msgid "It looks like nothing was found at this location."
 msgstr ""
 
-#: 404.php:23
+#: 404.php:33
 msgid "Maybe try one of the links below%s?"
 msgstr ""
 
-#: 404.php:24
+#: 404.php:34
 msgid "or a search"
 msgstr ""
 
-#: 404.php:33
+#: 404.php:43
 msgid "Most Used Categories"
 msgstr ""
 
 #. translators: %1$s: smiley
-#: 404.php:46
+#: 404.php:56
 msgid "Try looking in the monthly archives. %1$s"
 msgstr ""
 
@@ -72,6 +76,10 @@ msgstr[1] ""
 msgid "Comments are closed."
 msgstr ""
 
+#: footer.php:15
+msgid "&copy; %d %s"
+msgstr ""
+
 #: functions.php:47
 msgid "Navigation"
 msgstr ""
@@ -80,11 +88,11 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:124
 msgid "Sidebar"
 msgstr ""
 
-#: functions.php:123
+#: functions.php:126
 msgid "Add widgets here."
 msgstr ""
 
@@ -92,8 +100,8 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
-#: header.php:49
-msgid "Primary Menu"
+#: header.php:50
+msgid "Menu"
 msgstr ""
 
 #. translators: %s: post date.
@@ -136,7 +144,6 @@ msgstr ""
 
 #. translators: %s: Name of current post. Only visible to screen readers
 #: inc/template-tags.php:100
-#: template-parts/content-page.php:39
 msgid "Edit<span class=\"screen-reader-text\"> %s</span>"
 msgstr ""
 
@@ -174,12 +181,36 @@ msgstr ""
 msgid "Perhaps searching can help."
 msgstr ""
 
-#: template-parts/content-page.php:25
-#: template-parts/content.php:53
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content.php:35
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: template-parts/content.php:43
 msgid "Pages:"
 msgstr ""
 
-#. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:40
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+#: theme.json
+msgctxt "Color name"
+msgid "Black"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Transparent"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Success"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Error"
 msgstr ""

@@ -5,9 +5,13 @@ define( 'GUTENBERG_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/gutenberg' );
 
 add_action( 'after_setup_theme', function() {
 	add_theme_support( 'editor-styles' );
+	add_theme_support( 'align-wide' );
+	// more settings see `THEME/theme.json`
+	// https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
+
 	// relative path from `functions.php`
 	add_editor_style(  './css/editor-style.css' );
-}, 11 );
+} );
 
 // add `?ver=FILEMTIME` to editor-style.css
 add_filter( 'tiny_mce_before_init', function( $mce_init ) {
@@ -15,11 +19,16 @@ add_filter( 'tiny_mce_before_init', function( $mce_init ) {
 	return $mce_init;
 } );
 
-add_action( 'after_setup_theme', function() {
-    add_theme_support( 'align-wide' );
+// remove _unneeded_ CSS
+add_action( 'wp_enqueue_scripts', function() {
+	wp_dequeue_style( 'global-styles' );
+	// for some reason _sometimes_ this doesn't work with `global-styles-inline-css
+	// it's removed in `THEME/utilities/js/helpers.js`
+} );
 
-	// more settings see `THEME/theme.json`
-	// https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
+// remove all core patterns
+add_action( 'after_setup_theme', function() {
+	remove_theme_support('core-block-patterns' );
 } );
 
 // block editor

@@ -124,42 +124,29 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 			return;
 		}
 
-		if ( is_singular() ) :
-			?>
+        global $more;
 
-			<figure class="post-thumbnail">
-				<?php the_post_thumbnail(); ?>
+		if ( is_singular() && $more ) : ?>
+
+			<figure class="wp-block-imagepost-thumbnail">
+				<?php the_post_thumbnail();
+
+                if ( $caption = get_the_post_thumbnail_caption() )
+                    echo "<figcaption>$caption</figcaption>"; ?>
 			</figure><!-- .post-thumbnail -->
 
 		<?php else : ?>
 
-			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
-				<?php
-					the_post_thumbnail(
-						'post-thumbnail',
-						array(
-							'alt' => the_title_attribute(
-								array(
-									'echo' => false,
-								)
-							),
-						)
-					);
-				?>
-			</a>
+			<figure class="wp-block-imagepost-thumbnail" data-href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+				<?php the_post_thumbnail(
+                    'post-thumbnail',
+                    ['alt' => the_title_attribute( ['echo' => false] )]
+                );
 
-			<?php
-		endif; // End is_singular().
-	}
-endif;
+                if ( $caption = get_the_post_thumbnail_caption() )
+					echo "<figcaption>$caption</figcaption>"; ?>
+			</figure>
 
-if ( ! function_exists( 'wp_body_open' ) ) :
-	/**
-	 * Shim for sites older than 5.2.
-	 *
-	 * @link https://core.trac.wordpress.org/ticket/12563
-	 */
-	function wp_body_open() {
-		do_action( 'wp_body_open' );
+		<?php endif; // End is_singular().
 	}
 endif;

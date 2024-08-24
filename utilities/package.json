@@ -18,6 +18,9 @@
     "utilities:i18n:mo": "wp i18n make-mo languages languages",
     "utilities:i18n:json": "wp i18n make-json languages --no-purge",
 
+    "accessibility:watch": "cd inc/accessibility && npm run watch",
+    "accessibility:build": "cd inc/accessibility && npm run build",
+
     "air-datepicker:watch": "cd js/libs/air-datepicker && npm run watch",
     "air-datepicker:build": "cd js/libs/air-datepicker && npm run build",
 
@@ -47,7 +50,10 @@
     "security:build": "cd inc/security && npm run build",
     "security:i18n:pot": "cd inc/security && npm run security:i18n:pot",
     "security:i18n:po": "cd inc/security && npm run security:i18n:po",
-    "security:i18n:mo": "cd inc/security && npm run security:i18n:mo"
+    "security:i18n:mo": "cd inc/security && npm run security:i18n:mo",
+
+    "video:watch": "cd inc/video && npm run watch",
+    "video:build": "cd inc/video && npm run build"
   },
   "dependencies": {
     "air-datepicker": "^3.5.0",

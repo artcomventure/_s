@@ -1,7 +1,6 @@
 <?php
 
 add_filter( 'get_custom_logo_image_attributes', 'add_inline_svg_class', 10, 2 );
-//add_filter( 'get_footer_logo_image_attributes', 'add_inline_svg_class', 10, 2 );
 function add_inline_svg_class( $attr, $attachment ) {
 	if ( $attachment = get_attached_file( $attachment->ID ?? $attachment ) ) {
 		// svg logo as inline svg
@@ -9,6 +8,8 @@ function add_inline_svg_class( $attr, $attachment ) {
 			if ( ! isset( $attr['class'] ) ) $attr['class'] = '';
 			$attr['class'] = trim( $attr['class'] . ' inline-svg' );
 		}
+
+		$attr['role'] = 'img';
 
 		// accessibility
 		if ( empty($attr['aria-label']) )

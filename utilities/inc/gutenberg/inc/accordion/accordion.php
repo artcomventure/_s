@@ -4,8 +4,8 @@ define( 'ACCORDION_DIRECTORY', dirname( __FILE__ ) );
 define( 'ACCORDION_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/accordion' );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_style('accordion-style', ACCORDION_DIRECTORY_URI . '/css/style.css', array(), filemtime(ACCORDION_DIRECTORY . '/css/style.css') );
-	wp_enqueue_script('accordion-app', ACCORDION_DIRECTORY_URI . '/js/app.js', array(), filemtime(ACCORDION_DIRECTORY . '/js/app.js'), true );
+	wp_enqueue_style('accordion-style', ACCORDION_DIRECTORY_URI . '/css/style.css' );
+	wp_enqueue_script('accordion-app', ACCORDION_DIRECTORY_URI . '/js/app.js', [], false, true );
 } );
 
 /**

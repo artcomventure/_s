@@ -66,6 +66,9 @@ function _s_setup() {
 		)
 	);
 
+	// Apply aspect ratio responsive styles to embed blocks.
+	add_theme_support( 'responsive-embeds' );
+
 	// Set up the WordPress core custom background feature.
 	add_theme_support(
 		'custom-background',

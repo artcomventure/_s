@@ -9,15 +9,17 @@ Behaviours.add( 'links:data-href', $context => {
     $links.forEach( $link => {
         let dataHref = $link.getAttribute( 'data-href' );
 
+        // links in data-href
+        let $a = $link.querySelectorAll( 'a' );
+
         // replace placeholder with href of `<a>` inside `[data-href]`s element
         // format: `a:first`, `a:NUMBER` or `a:last`
         const match = dataHref.match( /a:(first|\d+|last)/ );
         if ( match ) {
-            let $a = [].slice.call( $link.querySelectorAll( 'a' ) );
             // FYI: no need to get link's `href` attributes right away.
             // `toString()` function will handle that.
-            if ( match[1] === 'first' ) dataHref = $a.shift();
-            else if ( match[1] === 'last' ) dataHref = $a.pop();
+            if ( match[1] === 'first' ) dataHref = $a[0];
+            else if ( match[1] === 'last' ) dataHref = $a[a.length - 1];
             else if ( !isNaN( match[1] ) ) dataHref = $a[match[1] * 1 - 1];
             // no found
             else dataHref = '';
@@ -33,6 +35,12 @@ Behaviours.add( 'links:data-href', $context => {
             .forEach( attribute => $link.removeAttribute( attribute ) );
 
         $link.setAttribute( 'data-Href', dataHref );
+
+        // don't access same link inside
+        $a.forEach( $a => {
+            if ( $a.href !== dataHref.toString() ) return;
+            $a.setAttribute( 'tabindex', -1 );
+        } )
 
         // make sure _link_ is accessible
         if ( !$link.hasAttribute( 'tabindex' ) )

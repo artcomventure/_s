@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Aspect ratio\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-16T06:14:05+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: aspect-ratio\n"
+
+#: build/index.js:283
+#: build/index.js:165
+msgid "Set focal point"
+msgstr "Fokuspunkt setzen"
+
+#: build/index.js:417
+#: build/index.js:326
+msgid "Manually"
+msgstr "Manuell"

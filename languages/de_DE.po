@@ -12,43 +12,47 @@ msgstr ""
 "Language: \n"
 
 #. Theme Name of the theme
+#: style.css
 msgid "_s"
 msgstr "_s"
 
 #. Description of the theme
+#: style.css
 msgid "I'm the next, most awesome, WordPress theme out there."
 msgstr "Ich bin das nächste, tollste WordPress-Theme da draußen."
 
 #. Author of the theme
+#: style.css
 msgid "artcom venture GmbH"
 msgstr "artcom venture GmbH"
 
 #. Author URI of the theme
+#: style.css
 msgid "https://www.artcom-venture.de"
 msgstr "https://www.artcom-venture.de"
 
-#: 404.php:17
+#: 404.php:27
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "Hoppla! Diese Seite kann nicht gefunden werden."
 
-#: 404.php:21
+#: 404.php:31
 msgid "It looks like nothing was found at this location."
 msgstr "Es sieht so aus, als ob an dieser Stelle nichts gefunden wurde."
 
-#: 404.php:23
+#: 404.php:33
 msgid "Maybe try one of the links below%s?"
 msgstr "Versuche es vielleicht mit einem der untenstehenden Links%s?"
 
-#: 404.php:24
+#: 404.php:34
 msgid "or a search"
 msgstr "oder einer Suche"
 
-#: 404.php:33
+#: 404.php:43
 msgid "Most Used Categories"
 msgstr "Meist genutzte Kategorien"
 
 #. translators: %1$s: smiley
-#: 404.php:46
+#: 404.php:56
 msgid "Try looking in the monthly archives. %1$s"
 msgstr "Versuche in den monatlichen Archiven nachzusehen. %1$s"
 
@@ -77,21 +81,17 @@ msgstr "Navigation"
 msgid "Footer"
 msgstr "Fussbereich"
 
-#: functions.php:121
+#: functions.php:124
 msgid "Sidebar"
 msgstr "Seitenleiste"
 
-#: functions.php:123
+#: functions.php:126
 msgid "Add widgets here."
 msgstr "Füge hier Widgets hinzu."
 
 #: header.php:26
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
-
-#: header.php:49
-msgid "Primary Menu"
-msgstr "Hauptmenü"
 
 #. translators: %s: post date.
 #: inc/template-tags.php:30
@@ -133,7 +133,6 @@ msgstr "Hinterlasse einen Kommentar<span class=\"screen-reader-text\"> zu %s</sp
 
 #. translators: %s: Name of current post. Only visible to screen readers
 #: inc/template-tags.php:100
-#: template-parts/content-page.php:39
 msgid "Edit<span class=\"screen-reader-text\"> %s</span>"
 msgstr "<span class=\"screen-reader-text\">%s </span>bearbeiten"
 
@@ -171,12 +170,44 @@ msgstr "Anscheinend können wir nicht finden, was Du suchst."
 msgid "Perhaps searching can help."
 msgstr "Vielleicht hilft die Suche weiter."
 
-#: template-parts/content-page.php:25
-#: template-parts/content.php:53
+#: template-parts/content.php:43
 msgid "Pages:"
 msgstr "Seiten:"
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:40
+#: template-parts/content.php:35
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\" </span>weiterlesen"
+
+#: footer.php:15
+msgid "&copy; %d %s"
+msgstr "&copy; %d %s"
+
+#: header.php:50
+msgid "Menu"
+msgstr "Menü"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Black"
+msgstr "Schwarz"
+
+#: theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr "Weiß"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Transparent"
+msgstr "Transparent"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Success"
+msgstr "Erfolg"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Error"
+msgstr "Fehler"

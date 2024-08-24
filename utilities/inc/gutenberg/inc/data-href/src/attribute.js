@@ -10,6 +10,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 
 // restrict to specific block names
 const allowedBlocks = [];
+const disallowedBlocks = ['core/shortcode'];
 
 /**
  * Add custom `data-href` attribute.
@@ -24,6 +25,7 @@ function addAttribute( settings ) {
     // add allowedBlocks restriction
     if ( typeof settings.attributes !== 'undefined'
         && (!allowedBlocks.length || allowedBlocks.includes( settings.name ))
+        && !disallowedBlocks.includes( settings.name )
     ) settings.attributes = Object.assign( settings.attributes, {
         link:{
             type: 'object',
@@ -59,7 +61,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         return (
             <Fragment>
                 <BlockEdit {...props} />
-                { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) &&
+                { isSelected && (!allowedBlocks.length || allowedBlocks.includes( name )) && !disallowedBlocks.includes( name ) &&
                     <InspectorAdvancedControls>
                         <PanelBody className="data-href-settings">
                             <label>{ __( 'Link', 'data-href' ) }</label>
@@ -94,7 +96,7 @@ function applyAttribute( extraProps, blockType, attributes ) {
 
     // check if attribute exists for old Gutenberg version compatibility
     // add allowedBlocks restriction
-    if ( typeof link !== 'undefined' && link.url && (!allowedBlocks.length || allowedBlocks.includes( blockType.name )) ) {
+    if ( typeof link !== 'undefined' && link.url && (!allowedBlocks.length || allowedBlocks.includes( blockType.name )) && !disallowedBlocks.includes( blockType.name ) ) {
         extraProps['data-href'] = link.url;
         extraProps['role'] = 'link';
         extraProps['tabindex'] = 0;

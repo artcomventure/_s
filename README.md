@@ -124,15 +124,18 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 | image-orientation | Add orientation class (landscape, square, portrait) to images. |
 | post-edit-link    | Add post edit link to title.                                   |
 | security          | Security features. See BE dashboard.                           |
+| video             | Extend `embed_oembed_html`.                                    |
 
 #### Gutenberg
 
-| Extension | What does it do                                     |
-|-----------|-----------------------------------------------------|
-| accordion | Block.                                              |
-| bodyclass | Setting to add html/body/article classes.           |
-| data-href | Link any element. Accessibility ready.              |
-| hide      | Hide elements for mobile/table/desktop screen size. |
+| Extension    | What does it do                                     |
+|--------------|-----------------------------------------------------|
+| accordion    | Block.                                              |
+| aspect-ratio | Dynamic aspect ratio for images.                    |
+| bodyclass    | Setting to add html/body/article classes.           |
+| data-href    | Link any element. Accessibility ready.              |
+| hide         | Hide elements for mobile/table/desktop screen size. |
+| teaser-list  | Block for post teaser grid.                         |
 
 ## WordPress
 

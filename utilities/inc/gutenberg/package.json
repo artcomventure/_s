@@ -9,6 +9,9 @@
     "accordion:watch": "cd inc/accordion && npm run watch",
     "accordion:build": "cd inc/accordion && npm run build",
 
+    "aspect-ratio:watch": "cd inc/aspect-ratio && npm run watch",
+    "aspect-ratio:build": "cd inc/aspect-ratio && npm run build",
+
     "bodyclass:watch": "cd inc/bodyclass && npm run watch",
     "bodyclass:build": "cd inc/bodyclass && npm run build",
 
@@ -16,6 +19,9 @@
     "data-href:build": "cd inc/data-href && npm run build",
 
     "hide:watch": "cd inc/hide && npm run watch",
-    "hide:build": "cd inc/hide && npm run build"
+    "hide:build": "cd inc/hide && npm run build",
+
+    "teaser-list:watch": "cd inc/teaser-list && npm run watch",
+    "teaser-list:build": "cd inc/teaser-list && npm run build"
   }
 }
