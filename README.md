@@ -137,7 +137,7 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 | hide         | Hide elements for mobile/table/desktop screen size. |
 | teaser-list  | Block for post teaser grid.                         |
 
-## WordPress
+### WordPress
 
 1. Remove example post.
 2. Disallow comments in `/wp-admin/options-discussion.php`.

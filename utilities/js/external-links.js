@@ -9,9 +9,12 @@ Behaviours.add( 'links:external', $context => {
     if ( !!$context.hasAttribute && $context.hasAttribute( 'data-href' ) || $context.tagName === 'A' ) $links.unshift( $context );
 
     $links.forEach( $link => {
-        if ( $link.closest( '[data-href]' ) || $link.closest( 'a' ) )
+        const isChildOfDataHref = $link.parentElement.closest( '[data-href]' );
+        const isChildOfA = $link.parentElement.closest( 'a' );
+        if ( isChildOfDataHref || isChildOfA )
             $link.addEventListener( 'click', e => {
                 e.stopPropagation();
+                if ( isChildOfA ) e.preventDefault();
             }, false );
 
         // internal!? ... nothing to do

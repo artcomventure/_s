@@ -102,6 +102,7 @@ img {
   height: auto; // make sure images are scaled correctly
   max-width: 100%; // adhere to container width
   text-indent: -9999px; // hide alt
+  object-fit: cover;
 }
 
 figure {

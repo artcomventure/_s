@@ -15,7 +15,15 @@ global $more;
 	if ( !$more || !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
         <header class="entry-header">
 			<?php $titletag = $args['title_tag'] ?? is_singular( get_post_type() ) && $more ? 'h1' : 'h2';
-			the_post_title( '<' . $titletag . ' class="entry-title">', '</' . $titletag . '>' ); ?>
+
+			$before = "<$titletag class=\"entry-title\">";
+			$after = "</$titletag>";
+			if ( !$more ) {
+				$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+				$after = "</a>$after";
+			}
+
+			the_post_title( $before, $after ); ?>
 
             <?php if ( 'post' === get_post_type() ) : ?>
                 <div class="entry-meta">

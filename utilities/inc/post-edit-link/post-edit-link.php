@@ -36,11 +36,16 @@ function get_post_edit_link( $post = 0 ) {
 	$post = get_post( $post );
 
 	ob_start();
-    edit_post_link( '<span>' . get_post_type_object( get_post_type( $post ) )->labels->edit_item . '</span>', '', '', $post->ID );
-    $edit_link = ob_get_contents();
-    ob_end_clean();
+	// within this function (in `get_edit_post_link()`) it's checked if the current user can edit posts
+	// this can't be checked on ajax requests :/
+	// therefor the `$edit_link` will be empty
+	edit_post_link( '<span>' . get_post_type_object( get_post_type( $post ) )->labels->edit_item . '</span>', '', '', $post->ID );
+	$edit_link = ob_get_clean();
+	// switch `a` to `span[data-href]`
+	$edit_link = preg_replace( '/^<a /', '<span data-href="' . get_edit_post_link( $post->ID ) . '" tabindex="-1" ', $edit_link );
+	$edit_link = preg_replace( '/<\/a>$/', '</span>', $edit_link );
 
-    return $edit_link ?: '';
+	return $edit_link ?: '';
 }
 
 // custom `[get]_the_post_title()` functions to force edit link
@@ -54,10 +59,11 @@ function get_post_edit_link( $post = 0 ) {
  * @return string
  */
 function get_the_post_title( $post = 0 ) {
-    $title = get_the_title( $post );
-    $title .= get_post_edit_link( $post );
+	$title = get_the_title( $post );
+	if ( strpos( $title, 'post-edit-link' ) === false )
+		$title .= get_post_edit_link( $post );
 
-    return $title;
+	return $title;
 }
 
 /**
@@ -70,19 +76,19 @@ function get_the_post_title( $post = 0 ) {
  * @return string|void
  */
 function the_post_title( $before = '', $after = '', $echo = true ) {
-    $title = get_the_post_title();
+	$title = get_the_post_title();
 
-    if ( strlen( $title ) == 0 ) {
-        return;
-    }
+	if ( strlen( $title ) == 0 ) {
+		return;
+	}
 
-    $title = $before . $title . $after;
+	$title = $before . $title . $after;
 
-    if ( $echo ) {
-        echo $title;
-    } else {
-        return $title;
-    }
+	if ( $echo ) {
+		echo $title;
+	} else {
+		return $title;
+	}
 }
 
 // Gutenberg styles

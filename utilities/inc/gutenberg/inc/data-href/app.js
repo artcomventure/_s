@@ -53,9 +53,15 @@ Behaviours.add( 'links:data-href', $context => {
         // redirect
 
         $link.addEventListener( 'click', e => {
-            if ( typeof pjax !== 'undefined' && isInternalUrl( dataHref ) )
-                pjax.loadUrl( dataHref );
-            else window.open( dataHref, $link.getAttribute( 'target') || '_self' );
+            if ( typeof pjax !== 'undefined' && isInternalUrl( dataHref ) ) {
+                const $tmp = document.createElement( 'div' );
+                $tmp.innerHTML = `<a href="${dataHref}"></a>`;
+                // _pjax-valid_ URL!?
+                if ( $tmp.querySelector( pjax.options.elements ) )
+                    return pjax.loadUrl( dataHref );
+            }
+
+            window.open( dataHref, $link.getAttribute( 'target') || '_self' );
         }, false );
 
         $link.addEventListener( 'keydown', e => {
