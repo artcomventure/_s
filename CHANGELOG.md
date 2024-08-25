@@ -7,6 +7,7 @@
 * Post teaser Block (in `THEME/utilities/inc/gutenberg/inc/teaser-list`).
 * Image block aspect ratio (in `THEME/utilities/inc/gutenberg/inc/aspect-ratio`).
 * Video _handling_ (in `THEME/utilities/inc/video`).
+* Placeholder images (in `THEME/media`).
 
 **Changed**
 
