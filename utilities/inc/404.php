@@ -6,10 +6,13 @@ function get_404_page() {
 
 // No 404 … redirect to home
 add_action( 'template_redirect', function () {
-    if ( is_404() && !get_404_page() ) {
-        wp_redirect( home_url() );
-        exit();
-    }
+	if ( is_404() ) {
+		if ( $post_id = get_404_page() )
+			wp_redirect( get_permalink( $post_id ) );
+		else wp_redirect( home_url() );
+
+		exit();
+	}
 } );
 
 // register 404 page setting

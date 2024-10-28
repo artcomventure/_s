@@ -25,30 +25,32 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', '_s' ); ?></a>
 
-	<header id="masthead" class="site-header"><div>
-        <div class="site-branding">
-			<?php the_custom_logo();
+	<header id="masthead" class="site-header">
+        <div class="site-header--content">
+            <div class="site-branding">
+                <?php the_custom_logo();
 
-			if ( !has_custom_logo() || display_header_text() ) { ?>
-                <p class="site-title">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
-                </p>
+                if ( !has_custom_logo() || display_header_text() ) { ?>
+                    <p class="site-title">
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
+                    </p>
 
-				<?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>
-                    <p class="site-description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-				<?php endif;
-			} ?>
-        </div><!-- .site-branding -->
+                    <?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>
+                        <p class="site-description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+                    <?php endif;
+                } ?>
+            </div><!-- .site-branding -->
 
-		<?php if ( $navigation = wp_nav_menu( [
-			'theme_location' => 'navigation',
-			'container'      => false,
-			'menu_id'        => 'navigation',
-			'echo'           => false
-		] ) ) : ?>
-            <nav id="site-navigation" class="main-navigation">
-                <button class="menu-toggle" aria-controls="navigation" aria-expanded="false"><?php esc_html_e( 'Menu', '_s' ); ?></button>
-				<?php echo $navigation; ?>
-            </nav><!-- #site-navigation -->
-		<?php endif; ?>
-    </div></header><!-- #masthead -->
+	        <?php if ( $navigation = wp_nav_menu( [
+		        'theme_location' => 'navigation',
+		        'container'      => false,
+		        'menu_id'        => 'navigation',
+		        'echo'           => false
+	        ] ) ) : ?>
+                <nav id="site-navigation" class="main-navigation">
+                    <button class="menu-toggle" aria-controls="navigation" aria-expanded="false"><?php esc_html_e( 'Menu', '_s' ); ?></button>
+			        <?php echo $navigation; ?>
+                </nav><!-- #site-navigation -->
+	        <?php endif; ?>
+        </div><!-- .header-content -->
+    </header><!-- #masthead -->

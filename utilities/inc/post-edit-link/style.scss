@@ -37,7 +37,7 @@
 
   @if variable-exists(font-color-link-hover) {
     &:hover:after {
-      background-color: if(type-of($font-color-link-hover) == color, $font-color-link-hover, lighten(#000, 35%)) !important;
+      background-color: lighten(#000, 35%) !important;
     }
   }
 

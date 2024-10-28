@@ -132,9 +132,11 @@ add_filter( 'handle_bulk_actions-plugins', function( $sendback, $action, $plugin
  * Eventually remove plugins update notification (BE and CLI).
  */
 add_filter( 'site_transient_update_plugins', function( $value ) {
-	if ( !wp_is_file_mod_allowed( 'capability_update_core' ) ) $value->response = [];
-	else foreach ( (array) get_site_option( 'disable_update_plugins', [] ) as $plugin_file ) {
-		unset( $value->response[$plugin_file] );
+	if ( $value ) {
+		if ( !wp_is_file_mod_allowed( 'capability_update_core' ) ) $value->response = [];
+		else foreach ( (array) get_site_option( 'disable_update_plugins', [] ) as $plugin_file ) {
+			unset( $value->response[$plugin_file] );
+		}
 	}
 
 	return $value;
@@ -144,7 +146,10 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
  * Eventually remove themes update notification (BE and CLI).
  */
 add_filter( 'site_transient_update_themes', function( $value ) {
-	if ( !wp_is_file_mod_allowed( 'capability_update_core' ) ) $value->response = [];
+	if ( $value ) {
+		if ( !wp_is_file_mod_allowed( 'capability_update_core' ) ) $value->response = [];
+	}
+
 	return $value;
 } );
 

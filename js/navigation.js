@@ -24,23 +24,17 @@ Behaviours.add( 'navigation', $context => {
 	}
 
 	// toggle the .toggled class and the aria-expanded value each time the button is clicked
-	$button.addEventListener( 'click', function() {
-		$siteNavigation.classList.toggle( 'toggled' );
-
-		if ( $button.getAttribute( 'aria-expanded' ) === 'true' ) {
-			$button.setAttribute( 'aria-expanded', 'false' );
-		} else {
-			$button.setAttribute( 'aria-expanded', 'true' );
-		}
+	$button.addEventListener( 'click', e => {
+		const expand = e.isTrusted && $button.getAttribute( 'aria-expanded' ) === 'false';
+		$button.setAttribute( 'aria-expanded', expand ? 'true' : 'false' );
+		$siteNavigation.classList[expand ? 'add' : 'remove']( 'toggled' );
+		document.documentElement.style.overflow = expand ? 'hidden' : '';
 	} );
 
 	// remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation
 	document.addEventListener( 'click', function( event ) {
-		const isClickInside = $siteNavigation.contains( event.target );
-
-		if ( ! isClickInside ) {
-			$siteNavigation.classList.remove( 'toggled' );
-			$button.setAttribute( 'aria-expanded', 'false' );
+		if ( !$siteNavigation.contains( event.target ) ) {
+			$button.dispatchEvent( new Event( 'click' ) );
 		}
 	} );
 

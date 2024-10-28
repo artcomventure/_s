@@ -13,14 +13,19 @@
   transition-property: color, background-color, opacity, border-color;
 
   color: inherit;
-  border: 1px solid currentColor;
+  border: 1px solid;
+
+  @if $link-text-decoration-animation == x {
+    &:before { content: none; }
+  }
 
   &, // default state
   .is-style-fill & {
     @extend %bgcolor-black;
+    border-color: transparent;
 
     &:hover, &.active {
-      @extend %color-black;
+      color: $black;
       background-color: transparent;
       border-color: currentColor;
     }

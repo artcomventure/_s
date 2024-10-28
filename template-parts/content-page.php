@@ -10,20 +10,24 @@
 global $more;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
+	<?php echo (!$more && is_post_publicly_viewable()) ? 'data-href="' . get_permalink() . '"' : '' ?>>
 	<?php // don't include header if `<h1>` title block is already added to content
 	if ( !$more || !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
-        <header class="entry-header">
-			<?php $titletag = is_singular( 'page' ) && $more ? 'h1' : 'h2';
+        <header <?php header_class( 'entry-header' ) ?>>
+			<?php $titletag = $args['title_tag'] ?? ($more ? 'h1' : 'h2');
 
 			$before = "<$titletag class=\"entry-title\">";
 			$after = "</$titletag>";
-			if ( !$more ) {
+			if ( !$more && is_post_publicly_viewable() ) {
 				$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
 				$after = "</a>$after";
 			}
 
-			the_post_title( $before, $after );?>
+			the_post_title( $before, $after );
+
+			$titletag = $titletag === 'h1' ? 'h2' : 'h3';
+			the_subtitle( "<$titletag class=\"entry-subtitle\">", "</$titletag>" ); ?>
         </header><!-- .entry-header -->
 	<?php endif; ?>
 

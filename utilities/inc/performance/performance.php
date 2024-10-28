@@ -2,18 +2,19 @@
 
 add_filter( 'get_custom_logo_image_attributes', 'add_inline_svg_class', 10, 2 );
 function add_inline_svg_class( $attr, $attachment ) {
-	if ( $attachment = get_attached_file( $attachment->ID ?? $attachment ) ) {
+	if ( $file = get_attached_file( $attachment->ID ?? $attachment ) ) {
 		// svg logo as inline svg
-		if ( wp_check_filetype( $attachment )['ext'] == 'svg' ) {
+		if ( wp_check_filetype( $file )['ext'] == 'svg' ) {
 			if ( ! isset( $attr['class'] ) ) $attr['class'] = '';
 			$attr['class'] = trim( $attr['class'] . ' inline-svg' );
+
+			$attr['role'] = 'img';
+
+			// accessibility
+			if ( empty($attr['aria-label']) )
+				$attr['aria-label'] = get_post_meta( $attachment->ID ?? $attachment, '_wp_attachment_image_alt', true )
+					?: sprintf( __( 'Logo %s', 'gans' ), get_bloginfo( 'name' ) );
 		}
-
-		$attr['role'] = 'img';
-
-		// accessibility
-		if ( empty($attr['aria-label']) )
-			$attr['aria-label'] = sprintf( __( 'Logo %s', 'gans' ), get_bloginfo( 'name' ) );
 	}
 
 	return $attr;

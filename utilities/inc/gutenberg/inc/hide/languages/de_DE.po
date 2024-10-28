@@ -40,3 +40,11 @@ msgstr "zwischen %dpx und %dpx Breite"
 #: build/index.js:1
 msgid "%dpx width and wider"
 msgstr "%dpx Breite und breiter"
+
+#: build/index.js:1
+msgid "Screen reader only"
+msgstr "Nur Screenreader"
+
+#: build/index.js:1
+msgid "Hidden but visible for screen readers"
+msgstr "Ausgeblendet, aber für Bildschirmleseprogramme sichtbar"

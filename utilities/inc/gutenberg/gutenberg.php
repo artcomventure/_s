@@ -11,6 +11,20 @@ add_action( 'after_setup_theme', function() {
 
 	// relative path from `functions.php`
 	add_editor_style(  './css/editor-style.css' );
+
+	// load post type specific css
+	if ( $cssdir = opendir( get_template_directory() . '/css' ) ) {
+		while ( ($file = readdir( $cssdir )) !== false ) {
+			// check for `editor-POST_TYPE.css`
+			if ( !preg_match( '/^editor-(.+)\.css$/', $file, $match ) ) continue;
+
+			if ( get_current_post_type() == 'event' ) {
+				add_editor_style(  "./css/$file" );
+			}
+		}
+
+		closedir( $cssdir );
+	}
 } );
 
 // add `?ver=FILEMTIME` to editor-style.css

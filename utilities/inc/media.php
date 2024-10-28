@@ -83,11 +83,18 @@ add_filter( 'render_block', function( $block_content, $block ) {
 add_filter( 'image_size_names_choose', function( $size_names ) {
 	$subsizes = wp_get_registered_image_subsizes();
 
+	// add custom sizes to select
+	foreach ( array_keys( $subsizes ) as $name ) {
+		if ( isset($size_names[$name]) ) continue;
+
+		$size_names[$name] = $name;
+	}
+
 	foreach ( $size_names as $name => $label ) {
 		if ( !isset($subsizes[$name]) ) continue;
 
-		$width = $subsizes[$name]['width'] ?: __( 'auto', 'gans' );
-		$height = $subsizes[$name]['height'] ?: __( 'auto', 'gans' );
+		$width = $subsizes[$name]['width'] ?: __( 'auto', 'utilities' );
+		$height = $subsizes[$name]['height'] ?: __( 'auto', 'utilities' );
 
 		$size_names[$name] .= " ({$width} x {$height})";
 	}

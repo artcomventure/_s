@@ -1,1 +1,5 @@
-.site-header {}
+.site-header {
+  .site-header--content {
+    @extend %container-content;
+  }
+}

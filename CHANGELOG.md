@@ -1,10 +1,14 @@
 # Changelog
 
+## 1.13.0 - 2024-010-28
+**Added**
+
+* Post teaser Block (in `THEME/utilities/inc/posts-list`).
+
 ## 1.12.0 - 2024-08-24
 **Added**
 
 * Accessibility feature (in `THEME/utilities/inc/accessibility`).
-* Post teaser Block (in `THEME/utilities/inc/gutenberg/inc/teaser-list`).
 * Image block aspect ratio (in `THEME/utilities/inc/gutenberg/inc/aspect-ratio`).
 * Video _handling_ (in `THEME/utilities/inc/video`).
 * Placeholder images (in `THEME/media`).

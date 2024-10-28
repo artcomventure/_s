@@ -48,6 +48,10 @@ add_filter( 'register_block_type_args', function( $args ) {
 		'hideOnDesktop' => [
 			'type'    => 'boolean',
 			'default' => false,
+		],
+		'srOnly' => [
+			'type'    => 'boolean',
+			'default' => false,
 		]
 	];
 

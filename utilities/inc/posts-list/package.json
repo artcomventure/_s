@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "watch": "npm-run-all --parallel *:watch",
+    "build": "npm-run-all --parallel *:build",
+
+    "posts-list:watch": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=**/build,**/*.min.js --presets=@babel/preset-env --watch",
+    "posts-list:build": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=**/build,**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+
+    "block:watch": "cd inc/block && npm run watch",
+    "block:build": "cd inc/block && npm run build",
+
+    "taxonomy:watch": "cd inc/taxonomy && npm run watch",
+    "taxonomy:build": "cd inc/taxonomy && npm run build",
+
+    "i18n:pot": "wp i18n make-pot . languages/posts-list.pot --domain=posts-list --exclude=inc/block/index.js,node_modules,**/*.min.* --package-name='Posts List'",
+    "i18n:po": "wp i18n update-po languages/posts-list.pot languages",
+    "i18n:mo": "wp i18n make-mo languages",
+    "i18n:json": "wp i18n make-json languages --no-purge"
+  }
+}

@@ -5,4 +5,12 @@
     margin-left: calc(50% - 50vw) !important;
     max-width: 100vw !important;
     width: 100vw !important;
+
+    @each $name, $breakpoint in $breakpoints {
+        &.width-#{$name} {
+            width: MIN(var(--width-#{$name}), 100%) !important;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+    }
 }

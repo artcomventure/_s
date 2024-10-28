@@ -1,5 +1,6 @@
 // ---
 // Colors.
+// !!! Keep this colors in sync with the color palette in `theme.json` !!!
 
 $black: #000000;
 $white: #FFFFFF;
@@ -7,21 +8,19 @@ $white: #FFFFFF;
 $success: #61c653;
 $error: #ec695e;
 
+// !!! Do not use 'accent', 'value', 'text', 'border', 'link', 'icon' or 'inline' as names !!!
+// Could possible interfere with WordPress' CSS :/
 $colors: (
     'black': $black,
     'white': $white,
-    'text': $black,
-    'heading': $black,
+
+    'copy': $black, // default text color
+    'heading': var(--color-copy),
+    'link': var(--color-copy),
 
     'success': $success,
     'error': $error,
 );
-
-$font-color-text: var(--color-text);
-$font-color-heading: $font-color-text;
-$font-color-link: inherit;
-$font-color-link-hover: $font-color-text;
-$font-color-link-active: $font-color-text;
 
 // from this value (0-100) onwards, colours are considered as _light_
 $lightness-threshold: 60;
@@ -34,7 +33,8 @@ $rpx: 10px; // rem
 $font-family-base: sans-serif;
 $font-family-heading: serif;
 
-// ...
+// ---
+// Spacing
 
 $spacing-min: 36px;
 $spacing-max: 130px;
@@ -57,6 +57,7 @@ $breakpoints: map-merge($breakpoints, (
     wide: map-get($breakpoints, xl)
 ));
 
+// ---
 // Create icons map.
 // Do order icons by name (asc) to be in sync with icon font.
 // Get content via `map-get($Icont, ICON);`
@@ -67,3 +68,10 @@ $Icont: ();
 @each $icon in () {
   $Icont: map-merge($Icont, ($icon: unquote("\"#{\f1+dec2hex(length($Icont) + 1)}\"")));
 }
+
+// ---
+// Theme supports
+
+// x = left to right
+// y = up and down
+$link-text-decoration-animation: y;

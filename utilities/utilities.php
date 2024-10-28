@@ -12,29 +12,47 @@ add_action( 'after_setup_theme', function() {
 add_filter( 'the_title', 'do_shortcode' );
 
 add_action( 'wp_head', function() {
-	// set `--rootWidth` (for CSS' fluid calculation)
+	// set css properties
+	// `--rootWidth` ... for CSS' fluid calculation
+	// `--scrollbarWidth` ... to calculate vw right
 	// run it _first_ in `<head>` to immediately set value ?>
-    <script>(function() {
-            function setRootWidth() { document.documentElement.style
-                .setProperty( '--rootWidth', `${document.documentElement.clientWidth}` ); }
-            setRootWidth() || new ResizeObserver( setRootWidth ).observe( document.documentElement )
+    <script>(function() { function setProperties() {
+            document.documentElement.style.setProperty( '--rootWidth', `${document.documentElement.clientWidth}` );
+            document.documentElement.style.setProperty( '--scrollbarWidth', `${window.innerWidth - document.documentElement.clientWidth}px` );
+        } setProperties() || new ResizeObserver( setProperties ).observe( document.documentElement )
         })();</script>
 <?php }, -1 );
 
-add_action( 'wp_enqueue_scripts', function() {
+// make _utilities_ also available in admin area
+add_action( 'admin_enqueue_scripts', 'utilities_register_scripts' );
+function utilities_register_scripts(): void {
 	wp_register_script( 'behaviours', UTILITIES_DIRECTORY_URI . '/js/behaviours.js', ['alter'], '2.0.0', true );
 	wp_register_script( 'alter', UTILITIES_DIRECTORY_URI . '/js/alter.js', [], '1.0.0', true );
 	wp_register_script( 'cache', UTILITIES_DIRECTORY_URI . '/js/cache.js', [], '1.3.1', true );
 	wp_register_script( 'bouncer', UTILITIES_DIRECTORY_URI . '/js/libs/bouncer.min.js', [], '1.4.6', true );
 
-	wp_enqueue_script( 'helpers', UTILITIES_DIRECTORY_URI . '/js/helpers.js', [], false, true );
-	wp_enqueue_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours'], false, true );
-	wp_enqueue_script( 'inline-svg', UTILITIES_DIRECTORY_URI . '/js/inline-svg.js', ['behaviours'], false, true );
-	wp_enqueue_script( 'custom-width', UTILITIES_DIRECTORY_URI . '/js/custom-width.js', ['behaviours'], false, true );
+	wp_register_script( 'helpers', UTILITIES_DIRECTORY_URI . '/js/helpers.js', ['behaviours', 'alter'], false, true );
+	wp_register_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours'], false, true );
+	wp_register_script( 'inline-svg', UTILITIES_DIRECTORY_URI . '/js/inline-svg.js', ['behaviours'], false, true );
+	wp_register_script( 'custom-width', UTILITIES_DIRECTORY_URI . '/js/custom-width.js', ['behaviours'], false, true );
+	wp_register_script( 'in-viewport', UTILITIES_DIRECTORY_URI . '/js/in-viewport.js', [], false, true );
 
-	wp_enqueue_style( 'admin-bar-ux', UTILITIES_DIRECTORY_URI . '/css/admin-bar.css' );
-	wp_enqueue_script( 'css-breakpoints', UTILITIES_DIRECTORY_URI . '/js/BREAKPOINTS.js', [], false, true );
-} );
+	wp_register_style( 'admin-bar-ux', UTILITIES_DIRECTORY_URI . '/css/admin-bar.css' );
+	wp_register_script( 'css-breakpoints', UTILITIES_DIRECTORY_URI . '/js/BREAKPOINTS.js', [], false, true );
+}
+
+add_action( 'wp_enqueue_scripts', function() {
+	utilities_register_scripts();
+
+	wp_enqueue_script( 'helpers' );
+	wp_enqueue_script( 'external-links' );
+	wp_enqueue_script( 'inline-svg' );
+	wp_enqueue_script( 'custom-width' );
+	wp_enqueue_script( 'in-viewport' );
+
+	wp_enqueue_style( 'admin-bar-ux' );
+	wp_enqueue_script( 'css-breakpoints' );
+}, 9 );
 
 add_action( 'admin_enqueue_scripts', function() {
 	wp_enqueue_style( 'utilities-admin', UTILITIES_DIRECTORY_URI . '/css/admin.css' );

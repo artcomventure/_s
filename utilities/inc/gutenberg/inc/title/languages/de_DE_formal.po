@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Subtitle\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-30T07:34:49+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: title\n"
+
+#: build/panel.js:1
+msgid "Hide page title"
+msgstr "Seitentitel ausblenden"
+
+#: build/panel.js:1
+msgid "The title will still be visible for screen readers."
+msgstr "Der Titel ist für Bildschirmleseprogramme weiterhin sichtbar."
+
+#: build/panel.js:1
+msgid "Subtitle"
+msgstr "Untertitel"
+
+#: build/panel.js:1
+msgid "A subtitle is theme dependent and requires implementation in templates. Otherwise it will be ignored."
+msgstr "Ein Untertitel ist themenabhängig und erfordert eine Implementierung in den Templates. Andernfalls wird er ignoriert."
+
+#: build/panel.js:1
+msgid "A double space in title will result in a linebreak on frontend."
+msgstr "Ein doppeltes Leerzeichen im Titel führt zu einem Zeilenumbruch im Frontend."
+
+#: build/panel.js:1
+msgid "If you use a heading block level 1 in the editor the title on top of the page will be removed completely by default."
+msgstr "Wenn Sie im Editor einen Überschriftenblock der Ebene 1 verwenden, wird der Titel oben auf der Seite standardmäßig vollständig entfernt."
+
+#: build/panel.js:1
+msgid "Title settings"
+msgstr "Titeleinstellungen"
+
+#: build/panel.js:1
+msgid "Good to know:"
+msgstr "Gut zu wissen:"

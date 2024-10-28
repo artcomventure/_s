@@ -1,5 +1,7 @@
 import { dispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
+import { addFilter } from '@wordpress/hooks';
+import classnames from "classnames";
 
 // remove template panel
 dispatch( 'core/editor').removeEditorPanel( 'template' );
@@ -16,6 +18,9 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
     document.body.appendChild( $sheet );
 } );
 
+/**
+ * Set client width property to get fluid to work properly.
+ */
 (function setClientWidthProperty() {
     const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
     if ( $editorStylesWrapper ) new ResizeObserver( entries => {

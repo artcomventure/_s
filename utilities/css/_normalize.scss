@@ -109,14 +109,23 @@ figure {
   margin: 0;
   width: auto;
 
-  &.wp-block-figure, &.post-thumbnail {
+  &.wp-block-figure,
+  &.post-thumbnail, &.wp-block-image {
     line-height: 0;
   }
+}
 
-  @at-root figcaption {
-    @extend %copy;
-    width: 100%;
-  }
+%figcaption {
+  @extend %copy;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 !important;
+  padding: 1em 0 0;
+  text-align: left;
+}
+
+figcaption {
+  @extend %figcaption;
 }
 
 // ---

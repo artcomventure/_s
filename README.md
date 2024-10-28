@@ -27,19 +27,18 @@ For further Docker installation see docker/README.md
 
 ### Theme
 
-Change the theme's name "_s" to something else (like, say, `next-awesome-theme`), and then you'll need to do a five-step find and replace on the name in all the templates.
+Change the theme's name "_s" to something else (like, say, `next-awesome-theme`), and then you'll need to do a six-step find and replace on the name in all the templates.
 
 1. Search for `'_s'` (inside single quotations) to capture the text domain and replace with: `'next-awesome-theme'`.
 2. Search for `_s_` to capture all the functions names and replace with: `megatherium_is_awesome_`.
+3. Search for `Text Name: _s` in `css/style.scss` and replace with: `Text Name: Next Awesome Theme`.
 3. Search for `Text Domain: _s` in `css/style.scss` and replace with: `Text Domain: next-awesome-theme`.
 4. Search for `_s.pot` and replace with: `next-awesome-theme.pot`.
 5. Search for `_s-` to capture prefixed handles and replace with: `next-awesome-theme-`.
 
-Then, update the stylesheet header in `css/style.scss` and rename `_s.pot` from `languages` folder to use the theme's slug.
-
 ## Setup
 
-To start using all the tools that come with `_s`  you need to install the necessary Node.js dependencies:
+To start using all the tools that come with `_s` you need to install the necessary Node.js dependencies:
 
 ```sh
 $ npm install
@@ -56,11 +55,44 @@ $ npm install
 
 ### Icon font
 
-You can easily create your own icon font. Put all your svg icons in `/media/fonts/Icont/icons`
-and run `npm run icont:generate`.
+You can easily create your own icon font.
 
-List all your icons (alphabetical order) in `/css/_variables.scss` to create a map
-to convenient access the content declaration of the icons: e.g. `map-get($Icont, NAME)`;
+#### In short
+Put all your svg icons in `THEME/media/fonts/Icont/icons` and run `npm run icont:generate`.
+
+List all your icons (in alphabetical order) in `/css/_variables.scss` to create a map
+to convenient access the content declaration of the icons: e.g. `map-get($Icont, ICON_NAME)`;
+
+#### Long said
+`THEME/media/fonts/Icont/icons/README.md`
+
+### Debug
+
+Docker WordPress installation comes with xdebug.
+
+Further you can test on your page on mobile device:
+
+#### Stage/Live
+
+1. Enable USB-Debugging on your phone.
+   For Firefox also enable _Remote debugging via USB_ in your phone's Firefox' settings.
+2. Connect your phone to your laptop.
+3. Go to [chrome://inspect#devices](chrome://inspect#devices) on your Chrome (on the laptop) ... or [about:debugging](about:debugging) on your Firefox (on the laptop)
+
+If you open a page on your phone (in the corresponding browser) you can debug the source-code.
+
+#### local
+
+1. Phone and Laptop must be in the same network.
+2. Find your Laptop's IP-address.
+3. Change WordPress-URLs in database to _this_ IP-address (with http:// in front)
+4. Open browser on your phone and enter the IP-address.
+
+> [!CAUTION]
+> Be aware that your IP-address can change when reconnecting to your network!
+> ... so maybe consider always assigning the same IPv4 address to your laptop via router.
+
+For debugging itself follow the steps from [Stage/Live](#stagelive).
 
 ### Utilities
 
@@ -99,10 +131,12 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 |-------------------|-------------------------------------------------------|
 | alter.js          | _Equivalent_ to WP's `apply_filter()`/`add_filter()`. |
 | behaviours.js     | Wrapper for functions to be called grouped.           |
+| BREAKPOINTS.js    | Check widths according to theme's breakpoints.        |
 | cache.js          | Cache values as cookie or in localStorage.            |
 | custom-width.js   | Custom widths from classes.                           |
 | external-links.js | Open external links in new window.                    |
 | helpers.js        | ...                                                   |
+| in-viewport.js    | Check if element is in viewport.                      |
 | inline-svg.js     | Replace SVG image with actual SVG code.               |
 
 ##### `/utilities/js/libs/`
@@ -133,9 +167,11 @@ to convenient access the content declaration of the icons: e.g. `map-get($Icont,
 | accordion    | Block.                                              |
 | aspect-ratio | Dynamic aspect ratio for images.                    |
 | bodyclass    | Setting to add html/body/article classes.           |
+| breakpoint   | Set width classes according to theme's breakpoints. |
 | data-href    | Link any element. Accessibility ready.              |
 | hide         | Hide elements for mobile/table/desktop screen size. |
-| teaser-list  | Block for post teaser grid.                         |
+| posts-list   | Block for post teaser grid.     |
+| title        | Hide Title option. Add Subtitle.                    |
 
 ### WordPress
 

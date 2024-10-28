@@ -103,4 +103,6 @@ function accordion( $context ) {
 
 }
 
-accordion(); // init
+if ( typeof Behaviours !== 'undefined' )
+    Behaviours.add( 'accordions', accordion );
+else accordion();

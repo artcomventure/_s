@@ -2,6 +2,13 @@
 
 /**
  * Wrapper for editing custom _page for_ pages.
+ *
+ * Add custom page like:
+ *
+ * `add_filter( 'pages_for', function( $pages ) {
+ *   $pages[NAME] = LABEL;
+ *   return $pages;
+ * } )`
  */
 
 // readings _pages for_ reading settings

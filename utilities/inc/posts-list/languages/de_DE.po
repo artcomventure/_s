@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Posts List\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-21T11:34:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: posts-list\n"
+
+#: inc/block/build/index.js:1
+msgid "Number of posts"
+msgstr "Anzahl der Beiträge"
+
+#: inc/block/build/index.js:1
+msgid "Filter by"
+msgstr "Filtern nach"
+
+#: inc/block/build/index.js:1
+msgid "Terms are filtered with OR within a taxonomy and with AND between taxonomies."
+msgstr "Die Filterung von Begriffen innerhalb einer Taxonomie erfolgt mit „ODER“ und zwischen Taxonomien mit „UND“."
+
+#: inc/block/build/index.js:1
+msgid "+"
+msgstr "+"
+
+#: inc/block/build/index.js:1
+msgid "-"
+msgstr "-"
+
+#: inc/block/build/index.js:1
+msgid "If there are less results than the setting on \"Number of posts\", the button is not added."
+msgstr "Wenn weniger Ergebnisse vorliegen als die Einstellung unter \"Anzahl der Beiträge\", wird der Button nicht hinzugefügt."
+
+#: inc/block/build/index.js:1
+msgid "Posts List"
+msgstr "Beitrags-Liste"
+
+#: inc/block/build/index.js:1
+msgid "Add grid of posts."
+msgstr "Raster mit Beiträgen hinzufügen."
+
+#: inc/taxonomy/taxonomy.php:11
+msgctxt "taxonomy general name"
+msgid "Lists"
+msgstr "Listen"
+
+#: inc/taxonomy/taxonomy.php:12
+msgctxt "taxonomy singular name"
+msgid "List"
+msgstr "Liste"
+
+#: inc/taxonomy/taxonomy.php:13
+msgid "Search Lists"
+msgstr "Listen durchsuchen"
+
+#: inc/taxonomy/taxonomy.php:14
+msgid "All Lists"
+msgstr "Alle Listen"
+
+#: inc/taxonomy/taxonomy.php:15
+msgid "Edit List"
+msgstr "Liste bearbeiten"
+
+#: inc/taxonomy/taxonomy.php:16
+msgid "Update List"
+msgstr "Liste aktualisieren"
+
+#: inc/taxonomy/taxonomy.php:17
+msgid "Add New List"
+msgstr "Neue Liste hinzufügen"
+
+#: inc/taxonomy/taxonomy.php:18
+msgid "New List Name"
+msgstr "Neuer Listen-Name"
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:18
+msgid "Sort lists"
+msgstr "Listen sortieren"
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:24
+msgid "Post type"
+msgstr "Inhaltstyp"
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:40
+msgid "There is no list defined yet. Please <a href=\"%s\">add list</a> first."
+msgstr "Es ist noch keine Liste definiert. Bitte zuerst eine <a href=\"%s\">Liste hinzufügen</a>."
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:48
+msgid "List to edit"
+msgstr "Zu bearbeitende Liste"
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:58
+msgid "There are no %s in the list %s yet."
+msgstr "Es sind noch keine %s in der Liste."
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:63
+msgid "Save lists"
+msgstr "Listen speichern"
+
+#: inc/taxonomy/inc/dashboard/dashboard.php:90
+msgid "Search for post ..."
+msgstr "Nach Inhalt suchen ..."
+
+#: inc/block/build/index.js:1
+msgid "Group by month"
+msgstr "Nach Monat gruppieren"
+
+#: inc/shortcode.php:85
+msgid "No entries were found."
+msgstr "Keine Einträge gefunden."
+
+#: inc/block/build/index.js:1
+msgid "Theme"
+msgstr "Theme"
+
+#: inc/shortcode.php:63
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d Ergebnis"
+msgstr[1] "%d Ergebnisse"

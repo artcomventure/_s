@@ -2,8 +2,10 @@
 
 add_action( 'dev-info-panel', function() {
 	$gitBasePath = '.git';
-	$git = @file_get_contents( "{$gitBasePath}/HEAD" );
-    if ( !$git ) return;
+	// doesn't work anymore since WP is in a project's subfolder
+	// TODO: most likely add .git to wordpress container volumes
+	if ( !file_exists( "{$gitBasePath}/HEAD" ) ) return;
+	if ( !$git = @file_get_contents( "{$gitBasePath}/HEAD" ) ) return;
 
 	$branch = rtrim( preg_replace("/(.*?\/){2}/", '', $git ) );
 	$head = "{$gitBasePath}/refs/heads/{$branch}";

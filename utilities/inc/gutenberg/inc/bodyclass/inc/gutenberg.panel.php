@@ -4,23 +4,28 @@
  * Enqueue gutenberg block styles and scripts.
  */
 add_action( 'init', function() {
-	// enable for all public post type with custom fields support
-	foreach ( array_intersect_key(
+	$post_types = array_intersect_key(
 		get_post_types( array( 'public' => TRUE ), 'objects' ),
 		array_flip( get_post_types_by_support( array( 'custom-fields' ) ) )
-	) as $post_type ) foreach ( ['_htmlclass', '_bodyclass', '_articleclass'] as $meta_key ) {
-		register_post_meta(
-			$post_type->name,
-			$meta_key,
-			array(
-				'show_in_rest'  => true,
-				'single' => true,
-				'type' => 'string',
-				'auth_callback' => function () {
-					return current_user_can('edit_posts' );
-				}
-			)
-		);
+	);
+
+	if ( !wp_is_json_request() && !in_array( get_current_post_type(), array_keys( $post_types ) ) ) return;
+
+	// enable for all public post type with custom fields support
+	foreach ( $post_types as $post_type )
+		foreach ( ['_htmlclass', '_bodyclass', '_articleclass'] as $meta_key ) {
+			register_post_meta(
+				$post_type->name,
+				$meta_key,
+				array(
+					'show_in_rest'  => true,
+					'single' => true,
+					'type' => 'string',
+					'auth_callback' => function () {
+						return current_user_can('edit_posts' );
+					}
+				)
+			);
 	}
 
 	// automatically load dependencies and version
@@ -38,7 +43,7 @@ add_action( 'init', function() {
 	register_block_type( 'bodyclass/panel', array(
 		'editor_script' => 'bodyclass-panel-js',
 	) );
-} );
+}, 11 );
 
 // change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`
 add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {

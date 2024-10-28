@@ -52,8 +52,6 @@
 // ---
 // Block layout
 
-.site-header,
-.site-footer,
 .full-view > .entry-header {
   @extend %container-content;
 }
@@ -81,10 +79,22 @@
     }
   }
 
-  .swiper.alignfull > .swiper-wrapper {
+  .swiper-wrapper,
+  .wp-block-cover__background, .wp-block-cover__image-background {
     padding: 0;
     width: 100%;
     max-width: none;
+  }
+
+  .alignfull {
+    &.wp-block-image,
+    &.wp-block-video {
+      > * {
+        padding: 0;
+        width: 100%;
+        max-width: none;
+      }
+    }
   }
 }
 
@@ -118,18 +128,12 @@
 // Grid.
 
 [data-type="teaser-list/block"],
-.wp-block-group-is-layout-grid {
-  > div {
-    display: grid;
-    gap: 1em;
-
-    > .wp-element-button {
-      grid-column: 1/-1;
-    }
-  }
+.wp-block-group.is-layout-grid {
+  display: grid;
+  gap: var(--gap, 1em);
 
   @for $i from 2 through 9 {
-    &[data-grid="#{$i}"] > div {
+    &[data-grid="#{$i}"] {
       grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
     }
   }
@@ -137,6 +141,19 @@
   @include mobile {
     &[data-grid] > div { grid-template-columns: 1fr; }
   }
+
+  .wp-element-button.load-more {
+    grid-column: 1/-1;
+  }
+}
+
+// not quite sure why content is wrapped in an extra `div`
+// ... but here we are
+[data-type="teaser-list/block"] > div {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: subgrid;
+  pointer-events: none;
 }
 
 // ---
@@ -157,8 +174,8 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
 
 @each $name, $color in $colors {
   %color-#{$name} {
-    --color-text: var(--color-#{$name});
-    --color-heading: var(--color-#{$name});
+    @if $name != copy { --color-copy: var(--color-#{$name}); }
+    @if $name != heading { --color-heading: var(--color-#{$name}); }
     color: var(--color-#{$name});
 
     svg {
@@ -185,14 +202,14 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
     // auto light color on dark backgrounds
     @if type-of($color) == color {
       @if lightness($color) < $lightness-threshold {
-        --color-text: var(--color-light, #fff);
+        --color-copy: var(--color-light, #fff);
         --color-heading: var(--color-light, #fff);
         color: var(--color-light, #fff);
       }
       @else {
-        --color-text: inherit;
-        --color-heading: inherit;
-        color: inherit;
+        --color-copy: var(--color-black);
+        --color-heading: var(--color-black);
+        color: var(--color-black);
       }
     }
   }

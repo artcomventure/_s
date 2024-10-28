@@ -7,7 +7,7 @@ body {}
 // typography
 
 %copy {
-  color: $font-color-text;
+  color: var(--color-copy);
   font-family: $font-family-base;
   font-weight: 400;
   //font-size: fluid(rem(16px), rem(20px));
@@ -31,7 +31,7 @@ figcaption {
 %heading {
   font-family: $font-family-heading;
   font-weight: 700;
-  color: var(--color-heading);
+  color: var(--color-heading, var(--color-copy));
 
   @include mobile {
     //hyphens: auto;
@@ -114,8 +114,28 @@ h6, .h6 {
 // ---
 // links
 
+%text-decoration-animation-x {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: -.28em;
+    transition: .2s ease-in-out;
+    transition-property: width, color;
+    background-color: currentColor;
+  }
+
+  &:hover:before {
+    width: 100%;
+  }
+}
+
 %link {
-  color: $font-color-link;
+  color: var(--color-link, var(--color-copy));
   text-decoration: none;
   transition: all .2s ease-in-out;
   transition-property: color, text-underline-offset, text-decoration;
@@ -125,12 +145,12 @@ h6, .h6 {
 
   &:hover {
     text-underline-offset: .4em;
-    color: $font-color-link-hover;
+    color: var(--color-link, var(--color-copy));
     text-decoration-color: currentColor;
   }
 
   &:active, &.active {
-    color: $font-color-link-active;
+    color: var(--color-link, var(--color-copy));
   }
 
   &[href=""] {
@@ -149,10 +169,28 @@ h6, .h6 {
       vertical-align: middle;
     }
   }
+
+  .site & {
+    @if $link-text-decoration-animation == y {
+      text-decoration-line: underline;
+    }
+    @else if $link-text-decoration-animation == x {
+      @extend %text-decoration-animation-x;
+    }
+  }
 }
 
 a, .link {
   @extend %link;
+
+  // remove `$link-text-decoration-animation = x`
+  &:has(img:first-child:last-child, svg:first-child:last-child), // linked images
+  //[class*="icont-"] > &, // icon
+  &.custom-logo-link {
+    &:before {
+      content: none;
+    }
+  }
 }
 
 .site :focus-visible {

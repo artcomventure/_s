@@ -119,7 +119,7 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 	 * Wraps the post thumbnail in an anchor element on index views, or a div
 	 * element when on single views.
 	 */
-	function _s_post_thumbnail() {
+	function _s_post_thumbnail( $size = 'post-thumbnail' ) {
 		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
 			return;
 		}
@@ -128,8 +128,8 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 
 		if ( is_singular() && $more ) : ?>
 
-			<figure class="wp-block-imagepost-thumbnail">
-				<?php the_post_thumbnail();
+			<figure class="wp-block-image post-thumbnail">
+				<?php the_post_thumbnail( $size );
 
                 if ( $caption = get_the_post_thumbnail_caption() )
                     echo "<figcaption>$caption</figcaption>"; ?>
@@ -137,9 +137,9 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 
 		<?php else : ?>
 
-			<figure class="wp-block-imagepost-thumbnail" data-href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+			<figure class="wp-block-image post-thumbnail" data-href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
 				<?php the_post_thumbnail(
-                    'post-thumbnail',
+					$size,
                     ['alt' => the_title_attribute( ['echo' => false] )]
                 );
 

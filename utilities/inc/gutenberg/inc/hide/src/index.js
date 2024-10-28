@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 // restrict to specific block names
 const allowedBlocks = [];
-const disallowedBlocks = ['core/shortcode'];
+const disallowedBlocks = ['core/shortcode', 'core/post-title'];
 
 /**
  * Add custom attribute for mobile visibility.
@@ -35,6 +35,10 @@ function addAttributes( settings, name ) {
                 default: false,
             },
             hideOnDesktop: {
+                type: 'boolean',
+                default: false,
+            },
+            srOnly: {
                 type: 'boolean',
                 default: false,
             }
@@ -65,6 +69,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
             hideOnMobile,
             hideOnTablet,
             hideOnDesktop,
+            srOnly,
         } = attributes;
 
         const BREAKPOINTS = {};
@@ -79,6 +84,16 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
             } );
         }
 
+        // check classes and set attributes accordingly
+        if ( props.attributes.className ) {
+            ['Mobile', 'Tablet', 'Desktop'].forEach( device => {
+                const match = props.attributes.className.match( new RegExp( `(?:^| )hide-${device.toLowerCase()}(?: |$)` ) );
+                const attribute = {}
+                attribute[`hideOn${device}`] = !!match
+                setAttributes( attribute )
+            } )
+        }
+
         return (
             <Fragment>
                 <BlockEdit {...props} />
@@ -90,21 +105,51 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
                                 help={ !!BREAKPOINTS.mobile
                                     ? sprintf( __( '%dpx width and narrower', 'hide' ), BREAKPOINTS.mobile ) : '' }
                                 checked={ hideOnMobile }
-                                onChange={ hideOnMobile => setAttributes( { hideOnMobile } ) }
+                                onChange={ hideOnMobile => {
+                                    let className = props.attributes.className || '';
+                                    // toggle class
+                                    if ( hideOnMobile ) className = classnames( className, 'hide-mobile' );
+                                    else className = className.replace( new RegExp( `(?:^| )hide-mobile(?: |$)` ), ' ' ).trim()
+
+                                    setAttributes( { className } )
+                                    setAttributes( { hideOnMobile } )
+                                } }
                             />
                             <ToggleControl
                                 label={ __( 'Hide on tablet', 'hide' ) }
                                 help={ (!!BREAKPOINTS.mobile && !!BREAKPOINTS.desktop)
                                     ? sprintf( __( 'between %dpx and %dpx width', 'hide' ), BREAKPOINTS.mobile, BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnTablet }
-                                onChange={ hideOnTablet => setAttributes( { hideOnTablet } ) }
+                                onChange={ hideOnTablet => {
+                                    let className = props.attributes.className || '';
+                                    // toggle class
+                                    if ( hideOnTablet ) className = classnames( className, 'hide-tablet' );
+                                    else className = className.replace( new RegExp( `(?:^| )hide-tablet(?: |$)` ), ' ' ).trim()
+
+                                    setAttributes( { className } )
+                                    setAttributes( { hideOnTablet } )
+                                } }
                             />
                             <ToggleControl
                                 label={ __( 'Hide on desktop', 'hide' ) }
                                 help={ !!BREAKPOINTS.desktop
                                     ? sprintf( __( '%dpx width and wider', 'hide' ), BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnDesktop }
-                                onChange={ hideOnDesktop => setAttributes( { hideOnDesktop } ) }
+                                onChange={ hideOnDesktop => {
+                                    let className = props.attributes.className || '';
+                                    // toggle class
+                                    if ( hideOnDesktop ) className = classnames( className, 'hide-desktop' );
+                                    else className = className.replace( new RegExp( `(?:^| )hide-desktop(?: |$)` ), ' ' ).trim()
+
+                                    setAttributes( { className } )
+                                    setAttributes( { hideOnDesktop } )
+                                } }
+                            />
+                            <ToggleControl
+                                label={ __( 'Screen reader only', 'hide' ) }
+                                help={ __( 'Hidden but visible for screen readers', 'hide' ) }
+                                checked={ srOnly }
+                                onChange={ srOnly => setAttributes( { srOnly } ) }
                             />
                             <p>{ __( 'This settings only account for screen size not devices!', 'hide' ) }</p>
                         </PanelBody>
@@ -124,20 +169,15 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
  *
  * @return {Object} extraProps Modified block element.
  */
-function applyHideClasses( extraProps, blockType, attributes ) {
+function applySROnlyClass( extraProps, blockType, attributes ) {
 
     const {
-        hideOnMobile,
-        hideOnTablet,
-        hideOnDesktop,
+        srOnly
     } = attributes;
 
     // allowedBlocks restriction
     if ( (!allowedBlocks.length || allowedBlocks.includes( blockType.name )) && !disallowedBlocks.includes( blockType.name ) ) {
-        // add class(es)
-        if ( hideOnMobile ) extraProps.className = classnames( extraProps.className, 'hide-mobile' );
-        if ( hideOnTablet ) extraProps.className = classnames( extraProps.className, 'hide-tablet' );
-        if ( hideOnDesktop ) extraProps.className = classnames( extraProps.className, 'hide-desktop' );
+        if ( srOnly ) extraProps.className = classnames( extraProps.className, 'screen-reader-text' );
     }
 
     return extraProps;
@@ -159,6 +199,6 @@ addFilter(
 
 addFilter(
     'blocks.getSaveContent.extraProps',
-    'utilities/applyHideClasses',
-    applyHideClasses
+    'utilities/applySROnlyClass',
+    applySROnlyClass
 );

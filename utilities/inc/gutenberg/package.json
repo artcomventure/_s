@@ -21,7 +21,7 @@
     "hide:watch": "cd inc/hide && npm run watch",
     "hide:build": "cd inc/hide && npm run build",
 
-    "teaser-list:watch": "cd inc/teaser-list && npm run watch",
-    "teaser-list:build": "cd inc/teaser-list && npm run build"
+    "title:watch": "cd inc/title && npm run watch",
+    "title:build": "cd inc/title && npm run build"
   }
 }

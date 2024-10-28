@@ -8,7 +8,7 @@
     // elements to be updated
     window.pjax = new Pjax( {
         // don't _pjax_ links to WP backend and _download links_
-        elements: Alter.do( 'pjax-elements', 'a[href]:not(.no-pjax):not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]):not([href$=".jpg"]):not([href$=".gif"]):not([href$=".png"]):not([href$=".webp"]):not([href$=".zip"]), form[action]' ),
+        elements: Alter.do( 'pjax-elements', 'a[href]:not(.no-pjax):not([target="_blank"]):not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]):not([href$=".jpg"]):not([href$=".gif"]):not([href$=".png"]):not([href$=".webp"]):not([href$=".zip"]):not([href$=".mp4"]), form[action]' ),
         selectors: Alter.do( 'pjax-selectors', [
             'title',
             '#masthead',

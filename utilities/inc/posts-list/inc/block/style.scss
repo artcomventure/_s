@@ -1,0 +1,80 @@
+// ---
+// Panel
+
+.components-panel__body.posts-list-settings-panel .components-panel__body {
+  margin-right: -16px;
+  margin-left: -16px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 24px;
+
+  > .components-panel__body-title > button {
+    font-weight: 400;
+
+    > svg {
+      order: -1;
+      margin-right: 3px;
+      margin-left: 0;
+      transform: rotateX(180deg);
+    }
+  }
+
+  .components-panel__body {
+    margin-bottom: -16px;
+  }
+}
+
+.components-panel__body.posts-list-filter {
+  .components-checkbox-control { margin-bottom: 8px; }
+  p.description { margin-bottom: 16px; }
+
+  > div > div > div {
+    margin-bottom: 0;
+  }
+
+  .components-base-control__field:has(> .components-toggle-group-control) {
+    display: flex;
+    gap: .5em;
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: center;
+
+    > :last-child {
+      flex-shrink: 0;
+    }
+
+    .components-base-control__label {
+      margin: 0;
+    }
+  }
+
+  .components-toggle-group-control {
+    line-height: 1;
+    min-height: auto;
+    border-color: currentColor;
+
+    button {
+      padding-right: 6px;
+      padding-left: 6px;
+
+      > div {
+        padding-bottom: .2em;
+        display: block;
+        white-space: nowrap;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    > :first-child button + div > div {
+      background-color: green;
+    }
+
+    > :last-child button + div > div {
+      background-color: red;
+    }
+  }
+}

@@ -4,7 +4,7 @@
  * Set file's timestamp as version to automatically _busting_ browser's cache.
  */
 add_action( 'wp_enqueue_scripts', function () {
-	$home_url  = preg_quote( get_home_url(), '/' );
+	$home_url  = preg_quote( get_site_url(), '/' );
 
 	// all css and js files
 	foreach ( array( wp_styles(), wp_scripts() ) as $files ) {

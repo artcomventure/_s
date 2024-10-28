@@ -19,7 +19,11 @@
         // element doesn't exist anymore
         if ( !entry.target.parentElement ) return resizeObserver.unobserve( entry.target );
         // set height property (`id` is mandatory)
-        !!entry.target.id && entry.target.offsetHeight && document.documentElement.style.setProperty( `--${entry.target.id}-height`, entry.target.offsetHeight + 'px' )
+        !!entry.target.id && entry.target.offsetHeight
+        && document.documentElement.style.setProperty(
+            `--${entry.target.id}-height`,
+            Alter.do( 'set-height-property', entry.target.offsetHeight, entry.target ) + 'px'
+        )
       } )
   );
 
@@ -80,3 +84,13 @@ const isInternalUrl = url => {
 const isExternalUrl = url => {
   return !isInternalUrl( url );
 }
+
+/**
+ * Page is shown on mobile device!?
+ *
+ * Class is set in `UTILITIES/inc/gutenberg/inc/bodyclass/inc/frontend.php`.
+ */
+(function() {
+  const isMobileDevice = document.body.classList.contains( 'mobile-device' );
+  window.isMobileDevice = () => isMobileDevice;
+})()

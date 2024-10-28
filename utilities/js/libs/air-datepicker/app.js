@@ -22,19 +22,15 @@ Behaviours.add( 'datepicker', $context => {
       buttons: ['today'],
       onSelect( { date, formattedDate, datepicker } ) {
         $input.dispatchEvent( new CustomEvent( 'airDatepicker:select', {
-          detail: date,
+          detail: { date, formattedDate, datepicker },
           bubbles: true
         } ) )
       }
     }
 
-    options = Alter.do( 'airDatepicker:options', options );
+    options = Alter.do( 'airDatepicker:options', options, $input );
 
     const dp = new AirDatepicker( $input, options );
-
-    $input.addEventListener( 'onSelect', e => {
-      console.log( e );
-    } )
 
     $input.dispatchEvent( new CustomEvent( 'datepicker:init', {
       detail: { dp, options },
