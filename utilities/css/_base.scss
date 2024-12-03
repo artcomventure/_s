@@ -1,9 +1,13 @@
-// functions
+// ---
+// Functions.
+
 @import "functions/currentColor-opacity";
 @import "functions/fluid";
 @import "functions/hexAlpha";
 
-// mixins
+// ---
+// Mixins.
+
 @import "mixins/alignfull";
 @import "mixins/breakpoints";
 @import "mixins/dir";
@@ -13,3 +17,71 @@
 @import "mixins/scrollwithoutbar";
 @import "mixins/sr-only";
 @import "mixins/vars";
+
+// ---
+// Placeholders.
+
+%width {
+  box-sizing: border-box;
+  max-width: MIN(100%, var(--width-max, 100%));
+}
+
+%container {
+  box-sizing: border-box;
+  max-width: MIN(calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)}), var(--width-max, 100%));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@each $name, $breakpoint in $breakpoints {
+  %width-#{$name} {
+    --width-max: var(--width-#{$name});
+    @extend %width;
+  }
+
+  %container-#{$name} {
+    --width-max: var(--width-#{$name});
+    @extend %container;
+  }
+}
+
+@each $name, $color in $colors {
+  %color-#{$name} {
+    @if $name != copy { --color-copy: var(--color-#{$name}); }
+    @if $name != heading { --color-heading: var(--color-#{$name}); }
+    @if $name != link { --color-link: var(--color-#{$name}); }
+    color: var(--color-#{$name});
+
+    svg {
+      fill: currentColor;
+    }
+
+    @at-root svg#{&} {
+      fill: currentColor;
+    }
+  }
+
+  %bgcolor-#{$name} {
+    background-color: var(--color-#{unquote($name)});
+
+    svg {
+      fill: currentColor;
+    }
+
+    // auto light color on dark backgrounds
+    @if type-of($color) == color {
+      @if lightness($color) < $lightness-threshold {
+        --color-copy: var(--color-light, #fff);
+        --color-heading: var(--color-light, #fff);
+        --color-link: var(--color-light, #fff);
+        color: var(--color-light, #fff);
+      }
+      @else {
+        --color-copy: #{map-get($colors, copy)};
+        --color-heading: #{map-get($colors, copy)};
+        --color-link: #{map-get($colors, copy)};
+        color: #{map-get($colors, copy)};
+      }
+    }
+  }
+}

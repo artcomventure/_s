@@ -1,5 +1,5 @@
 .site-footer {
-  .site-footer--content {
+  &--content {
     @extend %container-content;
   }
 }

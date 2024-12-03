@@ -1,13 +1,11 @@
 /**
- * Set `aria-label` with cleaned up text content.
+ * Set `aria-label` with cleaned up text content (screenreader).
  */
 Behaviours.add( 'accessibility:shy', $context => {
 
-    const shy = '­'; // &shy;
-
     // get all elements with "&shy;" in text
     const elements = document.evaluate(
-        `/html/body//*[contains(text(), '${shy}')]`,
+        `//*[contains(., '­')]`,
         document, null, XPathResult.ANY_TYPE, null
     );
 
@@ -23,8 +21,15 @@ Behaviours.add( 'accessibility:shy', $context => {
 
     // clean up text content and set as `aria-label`
     $elements.forEach( $element => {
-        $element.setAttribute(
-            'aria-label', Alter.do( 'accessibility:shy', $element.cloneNode( true ) ).textContent.replace( shy, '' ).trim()
+        // clone element for possible cleanup
+        const $el = $element.cloneNode( true );
+
+        // replace new lines with space
+        $el.innerHTML = $el.innerHTML.replace( /(<br ?\/?>)+/gi, ' ' );
+
+        $element.setAttribute( 'aria-label', Alter.do( 'accessibility:shy', $el )
+            // eventually remove
+            .textContent.replace( /(&shy;|­|&#173;)/gi, '' ).trim()
         )
     } );
 

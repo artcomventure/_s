@@ -1,10 +1,14 @@
 {
   "scripts": {
-    "watch": "npm run watch:scss & npm run copy:watch & npm run screen-size:watch & npm run url:watch",
-    "watch:scss": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "watch": "npm-run-all --parallel *:watch",
+    "build": "npm-run-all --parallel *:build",
 
-    "build": "npm run build:scss & npm run copy:build & npm run screen-size:build & npm run url:build",
-    "build:scss": "node-sass style.scss -o . --output-style compressed",
+    "dev:watch": "npm-run-all --parallel dev:watch:*",
+    "dev:watch:scss": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "dev:watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+    "dev:build": "npm-run-all --parallel dev:build:*",
+    "dev:build:scss": "node-sass style.scss -o . --output-style compressed",
+    "dev:build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=./**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
 
     "i18n:pot": "wp i18n make-pot . languages/dev.pot --domain=dev --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Dev",
     "i18n:po": "wp i18n update-po languages/dev.pot languages",

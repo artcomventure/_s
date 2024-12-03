@@ -98,6 +98,11 @@ function _s_setup() {
 			'flex-height' => true,
 		)
 	);
+
+	/**
+	 * Switch from widgets block editor to classic one.
+	 */
+	remove_theme_support( 'widgets-block-editor' );
 }
 add_action( 'after_setup_theme', '_s_setup' );
 
@@ -137,7 +142,7 @@ add_action( 'widgets_init', '_s_widgets_init' );
  * Enqueue scripts and styles.
  */
 function _s_scripts() {
-	wp_enqueue_style( '_s-style', get_stylesheet_uri(), ['dashicons'] );
+	wp_enqueue_style( '_s-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( '_s-app', get_template_directory_uri() . '/js/app.js', ['behaviours'], false, true );
 	wp_enqueue_script( '_s-navigation', get_template_directory_uri() . '/js/navigation.js', ['behaviours'], false, true );

@@ -129,7 +129,7 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 		if ( is_singular() && $more ) : ?>
 
 			<figure class="wp-block-image post-thumbnail">
-				<?php the_post_thumbnail( $size );
+				<?php the_post_thumbnail( $size, ['fetchpriority' => 'high'] );
 
                 if ( $caption = get_the_post_thumbnail_caption() )
                     echo "<figcaption>$caption</figcaption>"; ?>

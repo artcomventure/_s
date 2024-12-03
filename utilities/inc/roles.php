@@ -26,10 +26,12 @@ function user_has_role( $roles, $user = null ) {
 add_action( 'admin_menu', function() {
 	if ( !user_has_role( 'editor' ) ) return;
 
-	// grant the edit_theme_options capability if they don't have it
-	if ( !current_user_can( 'edit_theme_options' ) ) {
-		$role = get_role( 'editor' );
-		$role->add_cap( 'edit_theme_options' );
+	// grant capabilities if they don't have it
+	foreach ( ['edit_theme_options', 'manage_privacy_options', 'manage_options'] as $cap ) {
+		if ( !current_user_can( $cap ) ) {
+			if ( !isset($role)  ) $role = get_role( 'editor' );
+			$role->add_cap( $cap );
+		}
 	}
 
 	// hide pages

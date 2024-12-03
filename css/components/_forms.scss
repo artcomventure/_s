@@ -12,7 +12,6 @@
   transition: all .3s ease-out;
   transition-property: color, background-color, opacity, border-color;
 
-  color: inherit;
   border: 1px solid;
 
   @if $link-text-decoration-animation == x {
@@ -92,6 +91,7 @@ select {
   border-radius: .3125em;
   box-sizing: border-box;
   width: 100%;
+  display: block;
 
   &, &::placeholder {
   }

@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.13.1 - 2024-11-26
+**Added**
+
+* Default _above-the-fold_ css (in `THEME/css/above-the-fold.scss`).
+* Prioritize files (theme's style.css and featured images).
+* More capabilities for user role editor (in `THEME/utilities/inc/role.php`).
+
+**Changed**
+
+* Improve a11y shy aria-label.
+* Block layout.
+* Enable classic widget editor by default.
+
 ## 1.13.0 - 2024-010-28
 **Added**
 

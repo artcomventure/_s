@@ -34,26 +34,22 @@ button {
 }
 
 .is-root-container {
-  overflow-x: hidden;
+  max-width: none;
 
-  > div[data-align="full"] {
-    margin-right: fluid(-$spacing-min, -$spacing-max);
-    margin-left: fluid(-$spacing-min, -$spacing-max);
-    width: 100%;
-  }
+  &#{&}.block-editor-block-list__layout,
+  .alignfull {
+    > *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+      @extend %container-content;
 
-  &.block-editor-block-list__layout > .alignfull {
-    @extend %container;
-    margin-right: fluid(-$spacing-min, -$spacing-max) !important;
-    margin-left: fluid(-$spacing-min, -$spacing-max) !important;
-    width: 100% !important;
+      &.alignwide {
+        @extend %container-wide;
+      }
 
-    > * {
-      margin-right: auto;
-      margin-left: auto;
-
-      &:not([class*="width-"]) {
-        max-width: var(--width-lg);
+      @each $name, $breakpoint in $breakpoints {
+        &.width-#{$name},
+        &.container-#{$name} {
+          @extend %container-#{$name};
+        }
       }
     }
   }

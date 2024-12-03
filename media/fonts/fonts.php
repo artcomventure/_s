@@ -25,23 +25,23 @@ add_action( 'after_setup_theme', function() {
 /**
  * Preload woff2 fonts.
  */
-add_action( 'wp_head', function() {
-	// _loop_ to get child directories
-	function preload( $dir, $folder ) {
-		$files = opendir( $dir );
-
-		while ( ($file = readdir( $files )) !== false ) {
-			if ( preg_match( '/^\.+$/', $file ) ) continue;
-			if ( is_dir( "$dir/$file" ) ) {
-				preload( "$dir/$file", "$folder/$file" );
-			}
-			else if ( str_ends_with( $file, '.woff2' ) ) {
-				echo "\n" . '<link rel="preload" href="' . FONTS_DIRECTORY_URI . $folder . '/' . $file . '" as="font" type="font/woff2" crossorigin />';
-			}
-		}
-
-		closedir( $files );
-	}
-
-	preload( FONTS_DIRECTORY, '' );
-} );
+//add_action( 'wp_head', function() {
+//	// _loop_ to get child directories
+//	function preload( $dir, $folder ) {
+//		$files = opendir( $dir );
+//
+//		while ( ($file = readdir( $files )) !== false ) {
+//			if ( preg_match( '/^\.+$/', $file ) ) continue;
+//			if ( is_dir( "$dir/$file" ) ) {
+//				preload( "$dir/$file", "$folder/$file" );
+//			}
+//			else if ( str_ends_with( $file, '.woff2' ) ) {
+//				echo "\n" . '<link rel="preload" href="' . FONTS_DIRECTORY_URI . $folder . '/' . $file . '" as="font" type="font/woff2" crossorigin />';
+//			}
+//		}
+//
+//		closedir( $files );
+//	}
+//
+//	preload( FONTS_DIRECTORY, '' );
+//} );

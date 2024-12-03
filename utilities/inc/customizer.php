@@ -13,6 +13,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->remove_section( 'custom_css' );
 	$wp_customize->remove_section( 'header_image' );
 	$wp_customize->remove_section( 'background_image' );
+	$wp_customize->remove_section( 'colors' );
 
 //	if ( !get_bloginfo( 'description', 'display' ) )
 //		$wp_customize->remove_control( 'blogdescription' );

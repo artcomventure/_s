@@ -11,33 +11,13 @@
 // ---
 // Container and widths.
 
-%container {
-  box-sizing: content-box;
-  padding-right: fluid($spacing-min, $spacing-max);
-  padding-left: fluid($spacing-min, $spacing-max);
-  width: 100%;
-  max-width: calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)});
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .container {
   @extend %container;
 }
 
 @each $name, $breakpoint in $breakpoints {
-  %container-#{$name} {
-    @extend %container;
-    width: MIN(var(--width-#{$name}), 100%);
-  }
-
   .container-#{$name} {
     @extend %container-#{$name};
-  }
-
-  %width-#{$name} {
-    max-width: 100%;
-    width: MIN(var(--width-#{$name}), 100%);
   }
 
   .width-#{$name} {
@@ -52,47 +32,29 @@
 // ---
 // Block layout
 
-.full-view > .entry-header {
+.entry-header,
+.entry-content > *,
+.alignfull > * {
   @extend %container-content;
 }
 
-.full-view > .entry-content {
-  > * {
-    // all z-index elements only refers to this element
-    isolation: isolate;
+.alignfull {
+  &, > .swiper-wrapper {
+    max-width: none;
   }
+}
 
-  > *,
-  .alignfull > *,
-  .swiper.alignfull > .swiper-wrapper > * {
-    @extend %container-content;
+.entry-content,
+.alignfull {
+  > * {
+    &.alignwide {
+      @extend %container-wide;
+    }
 
     @each $name, $breakpoint in $breakpoints {
       &.width-#{$name},
       &.container-#{$name} {
         @extend %container-#{$name};
-      }
-    }
-
-    &.alignwide {
-      @extend %container-wide;
-    }
-  }
-
-  .swiper-wrapper,
-  .wp-block-cover__background, .wp-block-cover__image-background {
-    padding: 0;
-    width: 100%;
-    max-width: none;
-  }
-
-  .alignfull {
-    &.wp-block-image,
-    &.wp-block-video {
-      > * {
-        padding: 0;
-        width: 100%;
-        max-width: none;
       }
     }
   }
@@ -173,45 +135,9 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
 // Colors.
 
 @each $name, $color in $colors {
-  %color-#{$name} {
-    @if $name != copy { --color-copy: var(--color-#{$name}); }
-    @if $name != heading { --color-heading: var(--color-#{$name}); }
-    color: var(--color-#{$name});
-
-    svg {
-      fill: currentColor;
-    }
-
-    @at-root svg#{&} {
-      fill: currentColor;
-    }
-  }
-
   .has-#{$name}-color,
   .color-#{$name} {
     @extend %color-#{$name};
-  }
-
-  %bgcolor-#{$name} {
-    background-color: var(--color-#{unquote($name)});
-
-    svg {
-      fill: currentColor;
-    }
-
-    // auto light color on dark backgrounds
-    @if type-of($color) == color {
-      @if lightness($color) < $lightness-threshold {
-        --color-copy: var(--color-light, #fff);
-        --color-heading: var(--color-light, #fff);
-        color: var(--color-light, #fff);
-      }
-      @else {
-        --color-copy: var(--color-black);
-        --color-heading: var(--color-black);
-        color: var(--color-black);
-      }
-    }
   }
 
   .has-#{$name}-background-color,

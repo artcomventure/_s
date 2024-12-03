@@ -99,6 +99,17 @@ function accordion( $context ) {
 
             $accordion.dispatchEvent( new CustomEvent( 'accordion-init', { bubbles: true } ) );
         } );
+
+        // open item by hash
+        if ( location.hash ) {
+            const $item = $accordion.querySelector( `.wp-block-accordion-item${location.hash}` );
+            if ( $item ) {
+                expand( $item )
+
+                const duration = getComputedStyle( $item ).transitionDuration;
+                setTimeout( () => $item.scrollIntoView(), parseFloat( duration ) * (/\ds$/.test( duration ) ? 1000 : 1) )
+            }
+        }
     } );
 
 }
