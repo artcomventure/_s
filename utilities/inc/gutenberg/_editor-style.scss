@@ -1,7 +1,7 @@
 @import "../../../css/variables";
 @import "../../css/base";
 
-@import "../../../css/elements";
+@import "../../../css/typography";
 @import "../../../css/components/forms";
 @import "../../../utilities/css/misc";
 @import "../../../css/components/blocks";
@@ -23,7 +23,8 @@ button {
   opacity: .35;
   transition: opacity .2s;
 
-  &.is-selected {
+  &.is-selected,
+  &:has(.is-selected) {
     opacity: 1;
   }
 }

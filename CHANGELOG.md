@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.2 - 2025-01-21
+**Changed**
+
+* Bug fixes.
+* Accordion a11y (in `THEME/utilities/inc/gutenberg/inc/accordion/js/app.js`).
+* Specific posts for _posts list block_ (in `THEME/utilities/inc/posts-list`).
+
 ## 1.13.1 - 2024-11-26
 **Added**
 

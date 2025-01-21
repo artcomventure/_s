@@ -60,6 +60,15 @@
   }
 }
 
+// no max width in post's teaser view
+.teaser-view {
+  .entry-header,
+  .entry-content > *,
+  .alignfull > * {
+    max-width: none;
+  }
+}
+
 // ---
 // Gallery.
 
@@ -89,8 +98,7 @@
 // ---
 // Grid.
 
-[data-type="teaser-list/block"],
-.wp-block-group.is-layout-grid {
+%posts-grid {
   display: grid;
   gap: var(--gap, 1em);
 
@@ -101,21 +109,40 @@
   }
 
   @include mobile {
-    &[data-grid] > div { grid-template-columns: 1fr; }
+    &[data-grid] { grid-template-columns: 1fr; }
+  }
+}
+
+[data-type="posts-list/block"],
+.wp-block-group.is-layout-grid {
+  @extend %posts-grid;
+}
+
+[data-type="posts-list/block"] > div,
+.wp-block-posts-list-block {
+  > .wp-element-button {
+    grid-column: 1/-1;
+    margin-right: auto;
+    margin-left: auto;
   }
 
-  .wp-element-button.load-more {
+  [data-result-cnt],
+  > .no-entries-message {
     grid-column: 1/-1;
   }
 }
 
 // not quite sure why content is wrapped in an extra `div`
 // ... but here we are
-[data-type="teaser-list/block"] > div {
+[data-type="posts-list/block"] > div {
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: subgrid;
   pointer-events: none;
+
+  > .wp-element-button {
+    grid-column: 1/-1;
+  }
 }
 
 // ---
@@ -169,13 +196,6 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
 
 // ---
 // _No list_ lists.
-
-%list-unstyled {
-  list-style: none;
-  padding-right: 0;
-  padding-left: 0;
-  margin-bottom: 0;
-}
 
 .list-unstyled {
   @extend %list-unstyled;

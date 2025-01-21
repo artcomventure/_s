@@ -111,7 +111,7 @@ msgstr "Nach Inhalt suchen ..."
 msgid "Group by month"
 msgstr "Nach Monat gruppieren"
 
-#: inc/shortcode.php:85
+#: inc/shortcode.php:90
 msgid "No entries were found."
 msgstr "Keine Einträge gefunden."
 
@@ -119,8 +119,20 @@ msgstr "Keine Einträge gefunden."
 msgid "Theme"
 msgstr "Theme"
 
-#: inc/shortcode.php:63
+#: inc/shortcode.php:93
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d Ergebnis"
 msgstr[1] "%d Ergebnisse"
+
+#: inc/block/build/index.js:1
+msgid "Search for %s to tease …"
+msgstr "Nach %s zum Anteasern suchen …"
+
+#: inc/block/build/index.js:1
+msgid "add %s"
+msgstr "%s hinzufügen"
+
+#: inc/block/build/index.js:1
+msgid "Show specific %s"
+msgstr "Konkrete %s anzeigen"

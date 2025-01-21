@@ -6,7 +6,7 @@
   text-align: center;
   cursor: pointer;
   position: relative;
-  text-decoration: none !important;
+  &, a { text-decoration: none !important; }
   white-space: nowrap;
 
   transition: all .3s ease-out;

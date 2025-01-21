@@ -43,19 +43,21 @@ blockquote {
   margin-right: 0;
   margin-left: 0;
 
-  > :first-child {
-    margin-top: 0;
+  > p {
+    &:first-of-type {
+      margin-top: 0;
 
-    &:before {
-      content: "„";
+      &:before {
+        content: "„";
+      }
     }
-  }
 
-  > p:last-of-type {
-    margin-bottom: 0;
+    &:last-of-type {
+      margin-bottom: 0;
 
-    &:after {
-      content: "”";
+      &:after {
+        content: "”";
+      }
     }
   }
 }

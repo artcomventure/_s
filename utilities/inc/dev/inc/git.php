@@ -10,13 +10,17 @@ add_action( 'dev-info-panel', function() {
 	$branch = rtrim( preg_replace("/(.*?\/){2}/", '', $git ) );
 	$head = "{$gitBasePath}/refs/heads/{$branch}";
 
-	$hash = file_get_contents( $head );
-	$time = filemtime( $head ); ?>
+	if ( $hash = @file_get_contents( $head ) )
+		$time = filemtime( $head );
 
-	<div id="git-info" title="<?php printf( __( "Commit from %s o'clock", 'dev' ), wp_date( 'd.m.Y H:i', $time ) ) ?>">
-		<span data-copy="Branch" title="<?php _e( 'Branch', 'dev' ) ?>"><?php echo $branch ?></span>
-        <span data-copy="Commit hash" title="<?php printf( __( 'Hash: %s', 'dev' ), $hash ) ?>"><?php echo substr( $hash, 0, 8 ) ?></span>
-	</div>
+    $gitInfoTitle = isset($time) ? ' title="' . sprintf( __( "Commit from %s o'clock", 'dev' ), wp_date( 'd.m.Y H:i', $time ) ) . '"' : ''?>
+
+    <div id="git-info"<?php echo $gitInfoTitle ?>>
+        <span data-copy="Branch" title="<?php _e( 'Branch', 'dev' ) ?>"><?php echo $branch ?></span>
+		<?php if ( $time ?? false ) : ?>
+            <span data-copy="Commit hash" title="<?php printf( __( 'Hash: %s', 'dev' ), $hash ) ?>"><?php echo substr( $hash, 0, 8 ) ?></span>
+		<?php endif; ?>
+    </div>
 
 	<?php
 }, 11 );

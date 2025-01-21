@@ -9,7 +9,8 @@
             $videos = [$context];
 
         [].forEach.call( $videos, $video => {
-            new MediaElementPlayer( $video, Alter.do( 'mediaelement:options', {
+
+            const options = {
                 stretching: 'responsive',
                 // t9n
                 playText: wp.i18n.__( 'Play', 'mediaelement' ),
@@ -17,7 +18,11 @@
                 fullscreenText: wp.i18n.__( 'Fullscreen', 'mediaelement' ),
                 muteText: wp.i18n.__( 'Mute', 'mediaelement' ),
                 unmuteText: wp.i18n.__( 'Unmute', 'mediaelement' )
-            }, $video ) );
+            }
+
+            if ( !$video.controls ) options['features'] = [];
+
+            new MediaElementPlayer( $video, Alter.do( 'mediaelement:options', options, $video ) );
         } )
     }
 

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls } from '@wordpress/block-editor';
-import { BaseControl, CheckboxControl, Flex, FlexBlock, PanelBody, SelectControl, TextControl, ToggleControl,
+import { BaseControl, Button, CheckboxControl, ComboboxControl, Flex, FlexBlock, FlexItem, Icon, PanelBody, SelectControl, TextControl, ToggleControl,
   __experimentalNumberControl as NumberControl,
   __experimentalToggleGroupControl as ToggleGroupControl,
   __experimentalToggleGroupControlOption as ToggleGroupControlOption
@@ -10,7 +10,7 @@ import { withSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
 import { compose, withState } from '@wordpress/compose';
 import { RawHTML, useEffect } from "@wordpress/element";
-import { postFeaturedImage, redo } from "@wordpress/icons";
+import { arrowDown, arrowUp, close, postFeaturedImage, redo } from "@wordpress/icons";
 
 // object to string
 function encodeObject( object ) {
@@ -43,6 +43,10 @@ const blockAttributes = {
   post_type: {
     type: 'string',
     default: 'post'
+  },
+  post__in: {
+    type: 'array',
+    default: []
   },
   // although this is an object it must be saved as a string
   // ... because Gutenberg has _problems_ with multidimensional objects (thinkingface)
@@ -86,6 +90,10 @@ const cleanUpBlockAttributes = attributes => {
   const attr = { ...attributes };
 
   Object.keys( attr ).map( ( attribute ) => {
+    if ( attribute === 'post__in' ) {
+      attr[attribute] = attr[attribute].filter( post_id => post_id )
+    }
+
     if ( !blockAttributes[attribute]
       || blockAttributes[attribute].default === attr[attribute] // is default value
       || attr[attribute] === '' // is empty
@@ -102,10 +110,11 @@ registerBlockType( 'posts-list/preview', {
   attributes: blockAttributes,
 } );
 
-const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ...props } ) => {
+const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttributes, ...props } ) => {
   const {
     blockId,
     post_type,
+    post__in,
     posts_per_page,
     group_by_month,
     theme,
@@ -125,6 +134,15 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
   const post_type_object = post_types.filter( post_type_object => {
     return post_type_object.slug === post_type
   } )[0] || post_types[0] || {}
+
+  // make sure post__in IDs are available
+  if ( posts.length ) {
+    let postIn = [...post__in]
+    postIn = postIn.filter( post_id => {
+      return !post_id || Object.values( posts ).some( option => option.value === post_id );
+    } )
+    if ( post__in.length !== postIn.length ) setAttributes( { post__in: postIn } )
+  }
 
   const $block = document.getElementById( `block-${props.clientId}` );
   if ( $block ) $block.setAttribute( 'data-grid', attributes.columns );
@@ -146,10 +164,66 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
               onChange={ ( post_type ) => {
                 setAttributes( { post_type } )
                 setAttributes( { filter: '{}' } )
+                setAttributes( { post__in: [] } )
               } }
             />
 
-            { !!Object.keys( taxonomies ).length && (post_type_object.taxonomies || []).length &&
+            { !!posts.length && <BaseControl label={ __( 'Show specific %s', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.name : __( 'Posts' ) ) }>
+              { post__in.map( ( post_id, i ) => <Flex gap={ 0 }>
+                <FlexBlock><ComboboxControl
+                  value={ post_id }
+                  options={ posts }
+                  placeholder={ __( 'Search for %s to tease …', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
+                  onChange={ post_id => {
+                    if ( post_id === null ) post__in.splice( i, 1 )
+                    else post__in[i] = post_id
+
+                    setAttributes( { post__in: [...post__in] } )
+                  } }
+                /></FlexBlock>
+
+                { post__in.length > 1 && <Button size="small" className="order-post" iconSize={ 12 } icon={ arrowDown }
+                  disabled={ post__in.length <= i + 1 }
+                  onClick={ () => {
+                    const postIn = [...post__in]
+                    const post = postIn[i];
+                    postIn.splice( i, 1 );
+                    postIn.splice( i + 1, 0, post );
+                    setAttributes( { post__in: postIn } )
+                  } } /> }
+
+                { post__in.length > 1 && <Button size="small" className="order-post" iconSize={ 12 } icon={ arrowUp }
+                    disabled={ !i }
+                    onClick={ () => {
+                      const postIn = [...post__in]
+                      const post = postIn[i];
+                      postIn.splice( i, 1 );
+                      postIn.splice( i - 1, 0, post );
+                      setAttributes( { post__in: postIn } )
+                    } } /> }
+
+                <Button size="small" className="order-post" iconSize={ 12 } icon={ close }
+                  onClick={ () => {
+                    const postIn = [...post__in]
+                    postIn.splice( i, 1 );
+                    setAttributes( { post__in: postIn } )
+                  } } />
+              </Flex> ) }
+
+              <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={ () => {
+                    const postIn = [...post__in]
+                    postIn.push( 0 )
+                    setAttributes( { post__in: postIn } )
+                  } }
+              >
+                { __( 'add %s', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
+              </Button>
+            </BaseControl> }
+
+            { !post__in.filter( value => value ).length && !!Object.keys( taxonomies ).length && !!(post_type_object.taxonomies || []).length &&
               <PanelBody title={ __( 'Filter by', 'posts-list' ) } className="posts-list-filter"
                          initialOpen={ false } icon={ redo }>
 
@@ -211,7 +285,7 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
 
             <TextControl
               label={ __( 'Theme', 'posts-list' ) }
-              value={ theme }
+              value={ theme !== blockAttributes.theme.default ? theme : '' }
               placeholder={ blockAttributes.theme.default }
               onChange={ ( theme ) => setAttributes( { theme } ) }
             />
@@ -223,7 +297,7 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
               onChange={ group_by_month => setAttributes( { group_by_month } ) }
             />
 
-            <Flex>
+            <BaseControl><Flex>
               <FlexBlock>
                 <NumberControl
                   label={ __( 'Number of posts', 'posts-list' ) }
@@ -244,7 +318,7 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
                   onChange={ ( columns ) => setAttributes( { columns } ) }
                 />
               </FlexBlock> }
-            </Flex>
+            </Flex></BaseControl>
 
             { false && <SelectControl
               label={ __( 'Sort by', 'posts-list' ) }
@@ -272,13 +346,15 @@ const PostsListBlock = ( { post_types, taxonomies, attributes, setAttributes, ..
 
 const PostsListControl = compose( [
   withState(),
-  withSelect( ( select, attributes, props ) => {
+  withSelect( ( select, ownProps, props ) => {
     const {
       getPostTypes,
       getSite,
       getEntityRecords,
       getTaxonomy
     } = select( 'core' );
+
+    const { attributes } = ownProps;
 
     // get `posts_per_page` setting and set as default
     blockAttributes.posts_per_page.default = (getSite() || {}).posts_per_page || 10;
@@ -287,6 +363,20 @@ const PostsListControl = compose( [
     let post_types = (getPostTypes( { per_page: -1 } ) || [])
     // ... which are viewable
     post_types = post_types.filter( post_type => post_type.viewable );
+
+    // get all post of corresponding post type
+    const posts = (getEntityRecords( 'postType', attributes.post_type, {
+      per_page: -1,
+      status : 'publish',
+      orderby: 'title',
+      order: 'asc',
+      exclude: select('core/editor').getCurrentPostId()
+    } )||[]).map( post => {
+      return ( {
+        value: post.id,
+        label: post.title.rendered || post.title.raw || __( 'Untitled' ),
+      } )
+    } )
 
     // load taxonomies with terms
     const taxonomies = {};
@@ -305,6 +395,7 @@ const PostsListControl = compose( [
 
     return {
       post_types,
+      posts,
       taxonomies
     }
   } )
@@ -315,7 +406,7 @@ registerBlockType( 'posts-list/block', {
   description: __( 'Add grid of posts.', 'posts-list' ),
   icon: postFeaturedImage,
   category: 'widgets',
-  keywords: [ __( 'Testimonials', 'testimonial' ) ],
+  keywords: [],
   supports: {
     align: ['wide', 'full'],
     color: { background: true }

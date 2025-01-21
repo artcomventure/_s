@@ -13,7 +13,7 @@ function add_inline_svg_class( $attr, $attachment ) {
 			// accessibility
 			if ( empty($attr['aria-label']) )
 				$attr['aria-label'] = get_post_meta( $attachment->ID ?? $attachment, '_wp_attachment_image_alt', true )
-					?: sprintf( __( 'Logo %s', 'gans' ), get_bloginfo( 'name' ) );
+					?: sprintf( __( 'Logo %s, Link to home page', 'utilities' ), get_bloginfo( 'name' ) );
 		}
 	}
 

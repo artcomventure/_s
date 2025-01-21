@@ -13,19 +13,19 @@ msgstr ""
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: utilities\n"
 
-#: inc/404.php:17
+#: inc/404.php:20
 msgid "404 not found error"
 msgstr "404 nicht gefunden Fehler"
 
-#: inc/404.php:23
+#: inc/404.php:26
 msgid "Leave blank to redirect to front page."
 msgstr "Leer lassen, um zur Startseite weiterzuleiten."
 
-#: inc/pages-for-.php:25
+#: inc/pages-for-.php:32
 msgid "Page for …"
 msgstr "Seite für …"
 
-#: inc/pages-for-.php:58
+#: inc/pages-for-.php:65
 msgid "Pages for …"
 msgstr "Seiten für …"
 
@@ -84,3 +84,12 @@ msgstr "Ersetzen und Verbessern des nativen <code>select</code> (Dropdown) eleme
 #: js/libs/custom-select/custom-select.php:45
 msgid "CSS selectors for <code>select</code> fields to apply custom-select.js to. Leave blank to apply to all. Each selector in a new line."
 msgstr "CSS-Selektoren für <code>select</code>-Felder, auf die custom-select.js angewendet werden soll. Leer lassen, um auf alle anzuwenden. Jeder Selektor in einer neuen Zeile."
+
+#: inc/media.php:96
+#: inc/media.php:97
+msgid "auto"
+msgstr "auto"
+
+#: inc/performance/performance.php:16
+msgid "Logo %s, Link to home page"
+msgstr "Logo %s, Link zur Startseite"

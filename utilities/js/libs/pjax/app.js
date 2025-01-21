@@ -93,7 +93,7 @@
 
         setTimeout( function () {
             // remove MediaElements aka video/audio
-            if ( typeof mejs !== 'undefined' ) Object.keys( mejs.players ).forEach( ( id ) => {
+            if ( typeof mejs !== 'undefined' ) Object.keys( mejs.players || {} ).forEach( ( id ) => {
                 const player = mejs.players[id];
                 if ( !player.paused ) player.pause();
                 player.remove();

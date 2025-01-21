@@ -27,12 +27,16 @@ function accordion( $context ) {
 
         const expand = ( $item ) => {
             $item.setAttribute( 'aria-expanded', 'true' );
+            const $content = $item.querySelector( '.wp-block-accordion-item-content' );
+            if ( $content ) $content.removeAttribute( 'inert' );
             $item.dispatchEvent( new CustomEvent( 'accordion-item-expand', { bubbles: true } ) );
             return true;
         }
 
         const collapse = ( $item ) => {
             $item.setAttribute( 'aria-expanded', 'false' );
+            const $content = $item.querySelector( '.wp-block-accordion-item-content' );
+            if ( $content ) $content.setAttribute( 'inert', '' );
             $item.dispatchEvent( new CustomEvent( 'accordion-item-collapse', { bubbles: true } ) );
             return true;
         }

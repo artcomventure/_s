@@ -30,6 +30,10 @@ add_action( 'init', function() {
 			'type' => 'string',
 			'default' => 'post'
 		],
+		'post__in' => [
+			'type' => 'array',
+			'default' => []
+		],
 		'filter' => [
 			'type' => 'string',
 			'default' => '[]'

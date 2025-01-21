@@ -164,13 +164,13 @@ For debugging itself follow the steps from [Stage/Live](#stagelive).
 
 | Extension    | What does it do                                     |
 |--------------|-----------------------------------------------------|
-| accordion    | Block.                                              |
+| accordion    | Gutenberg Block.                                    |
 | aspect-ratio | Dynamic aspect ratio for images.                    |
 | bodyclass    | Setting to add html/body/article classes.           |
 | breakpoint   | Set width classes according to theme's breakpoints. |
 | data-href    | Link any element. Accessibility ready.              |
 | hide         | Hide elements for mobile/table/desktop screen size. |
-| posts-list   | Block for post teaser grid.     |
+| posts-list   | Block for post teaser grid.                         |
 | title        | Hide Title option. Add Subtitle.                    |
 
 ### WordPress
