@@ -7,7 +7,7 @@ Behaviours.add( 'load-more', $context => {
   }
 
   $blocks.forEach( $block => {
-    const blockId = $block.getAttribute( 'data-id' );
+    const blockId = $block.getAttribute( 'data-uuid' );
 
     $block.addEventListener( 'click', e => {
       const $button = e.target;
@@ -31,7 +31,7 @@ Behaviours.add( 'load-more', $context => {
           const $html = document.implementation.createHTMLDocument();
           $html.documentElement.innerHTML = html;
 
-          const $newBlock = $html.querySelector( `[data-id="${blockId}"]` );
+          const $newBlock = $html.querySelector( `[data-uuid="${blockId}"]` );
           if ( !$newBlock ) return;
 
           // will be added again in next step if present
@@ -39,7 +39,7 @@ Behaviours.add( 'load-more', $context => {
 
           // grep new articles and append to list
           [].forEach.call( $newBlock.children, $child => {
-              if ( $child.hasAttribute( 'data-result-cnt' ) ) return;
+              if ( $child.classList.contains( 'posts-list--do-not-append' ) ) return;
 
               $block.appendChild( $child = $child.cloneNode( true ) );
               Behaviours.attach( $child );

@@ -13,8 +13,8 @@ add_action( 'wp_enqueue_scripts', function() {
 	}
 }, 9 );
 
-// add custom pjax style/script in case pjax is enqueued
 add_action( 'wp_enqueue_scripts', function() {
+	// add custom pjax style/script in case pjax is enqueued
 	if ( wp_script_is('pjax', 'queue' ) ) {
 		wp_enqueue_style( 'pjax', PJAX_DIRECTORY_URI . '/style.css' );
 		if ( $hex = get_background_color() ) {
@@ -22,6 +22,15 @@ add_action( 'wp_enqueue_scripts', function() {
 		}
 	}
 }, 1982 );
+
+add_action( 'wp_footer', function() {
+	// make sure `core-block-supports-inline-css.css` is enqueued
+	if ( !isset( wp_styles()->registered['core-block-supports'] ) ) {
+		wp_register_style( 'core-block-supports', false );
+		wp_add_inline_style( 'core-block-supports', "/* make sure core-block-supports-inline-css is enqueued */" );
+		wp_enqueue_style( 'core-block-supports' );
+	}
+} );
 
 // enable/disable pjax customizer setting
 add_action( 'customize_register', function( $wp_customize ) {

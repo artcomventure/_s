@@ -14,3 +14,13 @@ Behaviours.add( 'media:sliders', () => {
 window.addEventListener( 'swiper:afterInit', e => {
     const swiper = e.detail;
 }, { passive: true } );
+
+// Close CCM widget on privacy policy page.
+Behaviours.add( 'gdpr:privacy-policy', $context => {
+
+    if ( !document.body.classList.contains( 'privacy-policy' ) ) return;
+    if ( typeof CCM === 'undefined' ) return;
+
+    CCM.closeWidget()
+
+} )

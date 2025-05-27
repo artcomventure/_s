@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.14.0 - 2025-04-04
+**Added**
+
+* Heading font sizes (in `THEME/theme.json`).
+* Custom string translations (in `THEME/languages/_s+.pot`).
+* Localizable menus for bogo (in `THEME/utilities/inc/plugins/bogo/inc/localize-menus.php`).
+* _No line break_ text format (in `THEME/utilities/inc/gutenberg/src/index.js`).
+* Validate CF7 email (in `THEME/utilities/inc/plugins/contact-form-7/inc/validate-email`).
+* CF7 mail sent OK redirect (in `THEME/utilities/inc/plugins/contact-form-7/inc/mail-sent-ok-redirect`).
+* AIOSEO breadcrumbs fix for not queryable taxonomies (in `THEME/utilities/inc/plugins/aioseo.php`).
+* Order by setting for posts-list (in `THEME/utilities/inc/posts-list`).
+* Disable auto-updates (in `THEME/utilities/inc/security/inc/updates/updates.php`).
+
+**Fixed**
+* Various CSS.
+* pjax transition (in `THEME/utilities/js/libs/pjax`).
+
 ## 1.13.2 - 2025-01-21
 **Changed**
 

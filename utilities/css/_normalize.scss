@@ -105,6 +105,11 @@ img {
   max-width: 100%; // adhere to container width
   text-indent: -9999px; // hide alt
   object-fit: cover;
+
+  // `cover` can be set via Gutenberg
+  .wp-block-media-text__media & {
+    object-fit: contain;
+  }
 }
 
 figure {

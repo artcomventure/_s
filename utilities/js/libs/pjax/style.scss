@@ -6,7 +6,7 @@
     inset: 0 0 0 0;
     background-color: #fff;
     opacity: 0;
-    transition: opacity 800ms;
+    transition: opacity var(--pjax-transition-duration, 800ms);
     display: grid;
     justify-content: center;
     align-items: center;

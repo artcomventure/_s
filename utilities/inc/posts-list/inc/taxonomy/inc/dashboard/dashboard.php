@@ -15,8 +15,8 @@ add_action( 'admin_enqueue_scripts', function( $pagenow ) {
  */
 add_action( 'wp_dashboard_setup', function() {
 
-	wp_add_dashboard_widget("list-posts-order-widget", __( 'Sort lists', 'posts-list' ), function() {
-        if ( $post_types = apply_filters( 'register_list_taxonomy', [] ) ) { ?>
+	if ( $post_types = apply_filters( 'register_list_taxonomy', [] ) ) {
+	    wp_add_dashboard_widget("list-posts-order-widget", __( 'Sort lists', 'posts-list' ), function() use ( $post_types ) { ?>
             <form action="<?php echo admin_url( 'admin-post.php?action=list-posts-order' ) ?>" method="post">
 	            <?php wp_nonce_field( 'list-posts-order_save', 'list-posts-order_nonce' ); ?>
 
@@ -31,44 +31,44 @@ add_action( 'wp_dashboard_setup', function() {
                 </div>
 
                 <?php foreach ( $post_types as $post_type ) :
-	                $labels = get_post_type_labels( get_post_type_object( $post_type ) );
-	                if ( !$lists = get_terms( [
-		                'taxonomy' => "${post_type}_list",
-		                'hide_empty' => false
-	                ] ) ) {
-                        echo '<p class="description">' . sprintf(
-                            __( 'There is no list defined yet. Please <a href="%s">add list</a> first.', 'posts-list' ),
-                            add_query_arg( ['taxonomy' => "${post_type}_list"], admin_url( 'edit-tags.php' ) )
-                        ) . '</p>';
-                        continue;
-	                } ?>
+	                $labels = get_post_type_labels( get_post_type_object( $post_type ) ); ?>
+	                <div class="list-post-type-wrapper" data-post-type="<?php echo $post_type ?>">
+                        <?php if ( !$lists = get_terms( [
+                            'taxonomy' => "${post_type}_list",
+                            'hide_empty' => false
+                        ] ) ) {
+                            echo '<p class="description">' . sprintf(
+                                __( 'There is no list defined yet. Please <a href="%s">add list</a> first.', 'posts-list' ),
+                                add_query_arg( ['post_type' => $post_type, 'taxonomy' => "${post_type}_list"], admin_url( 'edit-tags.php' ) )
+                            ) . '</p>';
+                        } else { ?>
 
-                    <div class="list-post-type-wrapper" data-post-type="<?php echo $post_type ?>">
-                        <div class="switch-list-wrapper">
-                            <label for="switch-<?php echo $post_type ?>-list"><?php _e( 'List to edit', 'posts-list' ) ?>:</label>
-                            <select id="switch-<?php echo $post_type ?>-list"<?php echo count($lists) < 2 ? ' disabled' : '' ?>>
-			                    <?php foreach ( $lists as $list ) : ?>
-				                    <option value="<?php echo $list->term_id ?>"><?php echo $list->name ?></option>
-			                    <?php endforeach; ?>
-                            </select>
-                        </div>
-
-	                    <?php foreach ( $lists as $list ) : ?>
-                            <div class="posts-list" data-list="<?php echo $list->term_id ?>">
-                                <p class="description"><?php printf( __( 'There are no %s in the list %s yet.', 'posts-list' ), $labels->name, "<i>$list->name</i>" ) ?></p>
-			                    <?php foreach ( get_list_posts( $list ) as $post ) {
-				                    list_post_autocomplete_html( $post, $list );
-			                    } ?>
-                                <button class="button-secondary"><?php _e( 'Add' ) ?></button>
-                                <button type="submit" class="button-primary"><?php _e( 'Save lists', 'posts-list' ) ?></button>
+                            <div class="switch-list-wrapper">
+                                <label for="switch-<?php echo $post_type ?>-list"><?php _e( 'List to edit', 'posts-list' ) ?>:</label>
+                                <select id="switch-<?php echo $post_type ?>-list"<?php echo count($lists) < 2 ? ' disabled' : '' ?>>
+                                    <?php foreach ( $lists as $list ) : ?>
+                                        <option value="<?php echo $list->term_id ?>"><?php echo $list->name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-	                    <?php endforeach; ?>
+
+                            <?php foreach ( $lists as $list ) : ?>
+                                <div class="posts-list" data-list="<?php echo $list->term_id ?>">
+                                    <p class="description"><?php printf( __( 'There are no %s in the list %s yet.', 'posts-list' ), $labels->name, "<i>$list->name</i>" ) ?></p>
+                                    <?php foreach ( get_list_posts( $list ) as $post ) {
+                                        list_post_autocomplete_html( $post, $list );
+                                    } ?>
+                                    <button class="button-secondary"><?php _e( 'Add' ) ?></button>
+                                    <button type="submit" class="button-primary"><?php _e( 'Save lists', 'posts-list' ) ?></button>
+                                </div>
+                            <?php endforeach;
+                        } ?>
                     </div>
                 <?php endforeach; ?>
             </form>
-        <?php } ?>
+        <?php } ) ?>
 
-	<?php } );
+	<?php }
 } );
 
 add_action( 'wp_ajax_add-post-to-list', 'list_post_autocomplete_html' );

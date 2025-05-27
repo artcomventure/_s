@@ -7,16 +7,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-07T14:00:37+00:00\n"
+"POT-Creation-Date: 2025-04-03T14:24:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: posts-list\n"
 
-#: inc/shortcode.php:90
+#: inc/shortcode.php:97
 msgid "No entries were found."
 msgstr ""
 
-#: inc/shortcode.php:93
+#: inc/shortcode.php:108
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
@@ -84,54 +84,79 @@ msgstr ""
 msgid "New List Name"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:456
+#: inc/block/build/index.js:788
+#: inc/block/build/index.js:236
+#: inc/block/build/index.js:547
 msgid "Posts List"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:545
+#: inc/block/build/index.js:310
 msgid "Show specific %s"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:551
+#: inc/block/build/index.js:315
 msgid "Search for %s to tease …"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:610
+#: inc/block/build/index.js:361
 msgid "add %s"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:611
+#: inc/block/build/index.js:366
 msgid "Filter by"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:617
+#: inc/block/build/index.js:370
 msgid "Terms are filtered with OR within a taxonomy and with AND between taxonomies."
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:658
+#: inc/block/build/index.js:416
 msgid "+"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:661
+#: inc/block/build/index.js:417
 msgid "-"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:664
+#: inc/block/build/index.js:426
 msgid "Theme"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:671
+#: inc/block/build/index.js:433
 msgid "Group by month"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:680
+#: inc/block/build/index.js:442
 msgid "Number of posts"
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:698
+#: inc/block/build/index.js:458
+msgid "This setting is theme-dependent."
+msgstr ""
+
+#: inc/block/build/index.js:700
+#: inc/block/build/index.js:464
+msgid "Sort by"
+msgstr ""
+
+#: inc/block/build/index.js:720
+#: inc/block/build/index.js:477
 msgid "If there are less results than the setting on \"Number of posts\", the button is not added."
 msgstr ""
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:789
+#: inc/block/build/index.js:548
 msgid "Add grid of posts."
 msgstr ""

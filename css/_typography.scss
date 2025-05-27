@@ -13,6 +13,13 @@
 // ---
 // headings
 
+%h1-font-size { font-size: fluid(rem(32px), rem(32px)); }
+%h2-font-size { font-size: fluid(rem(24px), rem(24px)); }
+%h3-font-size { font-size: fluid(rem(18.72px), rem(18.72px)); }
+%h4-font-size { font-size: fluid(rem(16px), rem(16px)); }
+%h5-font-size { font-size: fluid(rem(13.28px), rem(13.28px)); }
+%h6-font-size { font-size: fluid(rem(10.72px), rem(10.72px)); }
+
 %heading {
   font-family: $font-family-heading;
   font-weight: 700;
@@ -21,48 +28,48 @@
 
 %h1 {
   @extend %heading;
+  @extend %h1-font-size;
 
-  //font-size: fluid(rem(28px), rem(36px));
   //line-height: fluid(rem(40px), rem(45px));
   //letter-spacing: 0;
 }
 
 %h2 {
   @extend %heading;
+  @extend %h2-font-size;
 
-  //font-size: fluid(rem(28px), rem(36px));
   //line-height: fluid(rem(40px), rem(45px));
   //letter-spacing: 0;
 }
 
 %h3 {
   @extend %heading;
+  @extend %h3-font-size;
 
-  //font-size: fluid(1.8rem, 2.2rem);
   //line-height: fluid(2.1rem, 3.6rem);
   //letter-spacing: fluid(.18px, 0px);
 }
 
 %h4 {
   @extend %heading;
+  @extend %h4-font-size;
 
-  //font-size: fluid(1.5rem, 1.6rem);
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
 }
 
 %h5 {
   @extend %heading;
+  @extend %h5-font-size;
 
-  //font-size: fluid(1.5rem, 1.6rem);
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
 }
 
 %h6 {
   @extend %heading;
+  @extend %h6-font-size;
 
-  //font-size: fluid(1.5rem, 1.6rem);
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
 }

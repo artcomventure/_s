@@ -34,6 +34,10 @@ add_action( 'init', function() {
 			'type' => 'array',
 			'default' => []
 		],
+		'post__not_in' => [
+			'type' => 'array',
+			'default' => []
+		],
 		'filter' => [
 			'type' => 'string',
 			'default' => '[]'

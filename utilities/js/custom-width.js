@@ -12,23 +12,30 @@
  * ```
  */
 
-Behaviours.add( 'custom-width', ( $context ) => {
+(function() {
 
-    // convert custom container width shorthand
-    [].forEach.call( $context.querySelectorAll( '[class*="container-"]' ), ( $element ) => {
-        const matches = $element.className.match( /(^| )container-(\d+)($| )/ );
-        if ( !matches ) return;
+    function customWidth( $context ) {
+        $context = $context || document;
 
-        $element.classList.remove( matches[0].trim() );
-        $element.classList.add( 'container', `width-${matches[2]}` );
-    } );
+        // convert custom container width shorthand
+        [].forEach.call( $context.querySelectorAll( '[class*="container-"]' ), ( $element ) => {
+            const matches = $element.className.match( /(^| )container-(\d+)($| )/ );
+            if ( !matches ) return;
 
-    // set custom width
-    [].forEach.call( $context.querySelectorAll( '[class*="width-"]' ), ( $element ) => {
-        let width = ($element.className.match( /(^| )width-(\d+)($| )/ )||[])[2];
-        if ( !width ) return;
+            $element.classList.remove( matches[0].trim() );
+            $element.classList.add( 'container', `width-${matches[2]}` );
+        } );
 
-        $element.style.width = `min(${width}px, 100%)`;
-    } );
+        // set custom width
+        [].forEach.call( $context.querySelectorAll( '[class*="width-"]' ), ( $element ) => {
+            let width = ($element.className.match( /(^| )width-(\d+)($| )/ )||[])[2];
+            if ( !width ) return;
 
-} );
+            $element.style.width = `min(${width}px, 100%)`;
+        } );
+    }
+
+    customWidth();
+    Behaviours.add( 'custom-width', customWidth );
+
+})()

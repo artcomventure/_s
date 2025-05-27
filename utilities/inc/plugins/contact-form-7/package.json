@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "watch": "npm-run-all --parallel *:watch",
+    "build": "npm-run-all --parallel *:build",
+
+    "mail-sent-ok-redirect:watch": "cd inc/mail-sent-ok-redirect && npm run watch",
+    "mail-sent-ok-redirect:build": "cd inc/mail-sent-ok-redirect && npm run build",
+
+    "i18n:scan": "npm run i18n:pot && npm run i18n:po",
+    "i18n:pot": "wp i18n make-pot . languages/cf7.pot --domain=cf7 --exclude=src,node_modules,**/*.min.* --package-name=CF7",
+    "i18n:po": "wp i18n update-po languages/cf7.pot languages",
+    "i18n:create": "npm run i18n:mo && npm run i18n:json",
+    "i18n:mo": "wp i18n make-mo languages languages",
+    "i18n:json": "wp i18n make-json languages/ --no-purge"
+  }
+}

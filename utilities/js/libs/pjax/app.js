@@ -5,12 +5,34 @@
 
     if ( typeof Pjax === 'undefined' ) return;
 
+    // overwrite `getElements` function to alter results
+    Pjax.prototype.getElements = function( el ) {
+        return Alter.do( 'pjax-elements', [].slice.call( el.querySelectorAll( this.options.elements ) )
+            .filter( element => {
+                switch ( element.tagName ) {
+                    case 'A':
+                        if ( element.classList.contains( 'no-pjax' ) || element.closest( '.no-pjax' ) ) return false;
+                        if ( element.target === '_blank' ) return false;
+                        if ( /\/wp-admin\//.test( element.href ) ) return false;
+                        if ( /\.(pdf|vcf|jpe?g|gif|png|webp|zip|mp4)$/.test( element.href ) ) return false;
+                        break;
+
+                    case 'FORM':
+                        if ( element.classList.contains( 'wpcf7-form' ) ) return false;
+                        break;
+                }
+
+                return true;
+            } )
+        )
+    }
+
     // elements to be updated
     window.pjax = new Pjax( {
-        // don't _pjax_ links to WP backend and _download links_
-        elements: Alter.do( 'pjax-elements', 'a[href]:not(.no-pjax):not([target="_blank"]):not([href*="/wp-admin/"]):not([href$=".pdf"]):not([href$=".vcf"]):not([href$=".jpg"]):not([href$=".gif"]):not([href$=".png"]):not([href$=".webp"]):not([href$=".zip"]):not([href$=".mp4"]), form[action]' ),
+        // elements: 'a[href], form[action]',
         selectors: Alter.do( 'pjax-selectors', [
-            'title',
+            'head title',
+            '#core-block-supports-inline-css',
             '#masthead',
             '#primary',
             '#colophon',
@@ -57,14 +79,6 @@
         scrollTo: Alter.do( 'pjax-scrollTo', false ),
     } );
 
-    // delay for transition
-    pjax._handleResponse = pjax.handleResponse;
-    pjax.handleResponse = function( responseText, request, href, options ) {
-        setTimeout( () => {
-            pjax._handleResponse( responseText, request, href, options )
-        }, 800 );
-    }
-
     // get/create overlay for transition effect
     let $overlay = document.getElementById( 'pjax-transition' );
     if ( !$overlay ) {
@@ -78,6 +92,14 @@
     const CSS= getComputedStyle( $overlay );
     // ... to extract `transition-duration` for `setTimeout` functions
     const pjaxTransitionDuration= parseFloat( CSS.getPropertyValue( 'transition-duration' ) ) * 1000;
+
+    // delay for transition
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function( responseText, request, href, options ) {
+        setTimeout( () => {
+            pjax._handleResponse( responseText, request, href, options )
+        }, pjaxTransitionDuration );
+    }
 
     // Pjax request begins
     document.addEventListener('pjax:send', function( e ) {
@@ -96,6 +118,7 @@
             if ( typeof mejs !== 'undefined' ) Object.keys( mejs.players || {} ).forEach( ( id ) => {
                 const player = mejs.players[id];
                 if ( !player.paused ) player.pause();
+                player.options.stretching = 'auto'; // other will cause an js error on remove
                 player.remove();
             } );
 
@@ -134,10 +157,19 @@
     }, { passive: true } );
 
     // Pjax request succeeds
-    document.addEventListener('pjax:success', function( e ) {
+    document.addEventListener( 'pjax:success', e => {
+        // Matomo : tracking a new page view
+        // https://developer.matomo.org/guides/spa-tracking#tracking-a-new-page-view
+        (function() {
+            var _paq = window._paq = window._paq || [];
+            _paq.push( ['setCustomUrl', location.href.replace( location.origin, '' )] );
+            _paq.push( ['setDocumentTitle', document.title]);
+            _paq.push( ['trackPageView'] );
+        })();
+
         // re-attach all behaviours
         window.requestAnimationFrame(
-            () => ['masthead', 'primary', 'colophon'].forEach( ( id ) => Behaviours.attach( document.getElementById( id ) ) )
+            () => Alter.do( 'pjax-selectors', ['#masthead', '#primary', '#colophon'] ).forEach( ( id ) => Behaviours.attach( document.querySelector( id ) ) )
         );
     }, { passive: true } );
 

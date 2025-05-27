@@ -32,7 +32,44 @@
     },
     "typography": {
       "fluid": true,
-      "fontSizes": [],
+      "fontSizes": [
+        {
+          "name": "H1",
+          "slug": "h1",
+          "size": "32px",
+          "fluid": false
+        },
+        {
+          "name": "H2",
+          "slug": "h2",
+          "size": "24px",
+          "fluid": false
+        },
+        {
+          "name": "H3",
+          "slug": "h3",
+          "size": "18.27px",
+          "fluid": false
+        },
+        {
+          "name": "H4",
+          "slug": "h4",
+          "size": "16px",
+          "fluid": false
+        },
+        {
+          "name": "H5",
+          "slug": "h5",
+          "size": "13.28px",
+          "fluid": false
+        },
+        {
+          "name": "H6",
+          "slug": "h6",
+          "size": "10.72px",
+          "fluid": false
+        }
+      ],
       "fontFamilies": [],
       "fontWeight": false,
       "textTransform": false,

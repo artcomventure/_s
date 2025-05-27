@@ -36,8 +36,13 @@ Behaviours.add( 'links:data-href', $context => {
 
         $link.setAttribute( 'data-Href', dataHref );
 
-        // don't access same link inside
         $a.forEach( $a => {
+            // don't propagate click event up to `$link`
+            $a.addEventListener( 'click', function ( e ) {
+                e.stopPropagation();
+            }, false );
+
+            // don't access same link inside
             if ( $a.href !== dataHref.toString() ) return;
             $a.setAttribute( 'tabindex', -1 );
         } )

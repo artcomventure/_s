@@ -91,4 +91,9 @@
     width: 1px;
     word-wrap: normal !important;
   }
+
+  // unfortunately this doesn't work in pjax links :/
+  [data-pjax-state] & {
+    display: none !important;
+  }
 }

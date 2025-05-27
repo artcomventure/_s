@@ -5,6 +5,12 @@
 
     "gutenberg:watch": "wp-scripts start",
     "gutenberg:build": "wp-scripts build",
+    "gutenberg:i18n:scan": "npm run gutenberg:i18n:pot && npm run gutenberg:i18n:po",
+    "gutenberg:i18n:pot": "wp i18n make-pot ./ languages/gutenberg.pot --domain=gutenberg --exclude=src,node_modules,**/*.min.* --package-name=Gutenberg",
+    "gutenberg:i18n:po": "wp i18n update-po languages/gutenberg.pot languages",
+    "gutenberg:i18n:create": "npm run gutenberg:i18n:mo & npm run gutenberg:i18n:json",
+    "gutenberg:i18n:mo": "wp i18n make-mo languages",
+    "gutenberg:i18n:json": "wp i18n make-json languages --no-purge",
 
     "accordion:watch": "cd inc/accordion && npm run watch",
     "accordion:build": "cd inc/accordion && npm run build",

@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CF7\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-01-22T08:22:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: cf7\n"
+
+#: inc/validate-email.php:13
+msgid "the @ sign is missing."
+msgstr "das @-Zeichen fehlt."
+
+#: inc/validate-email.php:12
+msgid "The email address entered by the sender is missing an @ sign"
+msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt ein @-Zeichen"
+
+#: inc/validate-email.php:17
+msgid "The email address entered by the sender contains multiple @ signs"
+msgstr "Die eingegebenen E-Mail-Adresse des Absenders enthält mehrere @-Zeichen"
+
+#: inc/validate-email.php:18
+msgid "multiple @ signs are used."
+msgstr "mehrere @-Zeichen werden verwendet."
+
+#: inc/validate-email.php:22
+msgid "The email address entered by the sender is missing an username"
+msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt der Benutzername"
+
+#: inc/validate-email.php:23
+msgid "the username is missing."
+msgstr "der Benutzername fehlt."
+
+#: inc/validate-email.php:27
+msgid "The email address entered by the sender is missing the domain"
+msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt die Domain"
+
+#: inc/validate-email.php:28
+msgid "the domain is missing."
+msgstr "die Domain fehlt."
+
+#: inc/validate-email.php:32
+msgid "The email address entered by the sender is missing the top-level domain"
+msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt die Top-Level-Domain"
+
+#: inc/validate-email.php:33
+msgid "the top-level domain is missing."
+msgstr "die Top-Level-Domain fehlt."
+
+#: inc/validate-email.php:37
+msgid "The email address entered by the sender contains whitespace characters"
+msgstr "Die eingegebenen E-Mail-Adresse des Absenders enthält Leerzeichen"
+
+#: inc/validate-email.php:38
+msgid "whitespace characters are used."
+msgstr "es werden Leerzeichen verwendet."
+
+#: inc/validate-email.php:7
+msgid "The email address is invalid: %s"
+msgstr "Die E-Mail-Adresse ist ungültig: %s"
+
+#: inc/mail-sent-ok-redirect/admin.js:5
+msgid "If you enter a URL, the user will be redirected to it."
+msgstr "Wenn Du eine URL eingibst, wird der Benutzer dorthin weitergeleitet."

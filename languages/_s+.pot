@@ -1,0 +1,6 @@
+# Here you can add strings to translate by hand.
+# They will be merged into the po-files.
+
+msgid ""
+msgstr ""
+

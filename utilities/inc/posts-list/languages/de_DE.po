@@ -13,35 +13,45 @@ msgstr ""
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: posts-list\n"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:680
+#: inc/block/build/index.js:442
 msgid "Number of posts"
 msgstr "Anzahl der Beiträge"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:611
+#: inc/block/build/index.js:366
 msgid "Filter by"
 msgstr "Filtern nach"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:617
+#: inc/block/build/index.js:370
 msgid "Terms are filtered with OR within a taxonomy and with AND between taxonomies."
 msgstr "Die Filterung von Begriffen innerhalb einer Taxonomie erfolgt mit „ODER“ und zwischen Taxonomien mit „UND“."
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:658
+#: inc/block/build/index.js:416
 msgid "+"
 msgstr "+"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:661
+#: inc/block/build/index.js:417
 msgid "-"
 msgstr "-"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:720
+#: inc/block/build/index.js:477
 msgid "If there are less results than the setting on \"Number of posts\", the button is not added."
 msgstr "Wenn weniger Ergebnisse vorliegen als die Einstellung unter \"Anzahl der Beiträge\", wird der Button nicht hinzugefügt."
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:456
+#: inc/block/build/index.js:788
+#: inc/block/build/index.js:236
+#: inc/block/build/index.js:547
 msgid "Posts List"
 msgstr "Beitrags-Liste"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:789
+#: inc/block/build/index.js:548
 msgid "Add grid of posts."
 msgstr "Raster mit Beiträgen hinzufügen."
 
@@ -107,32 +117,47 @@ msgstr "Listen speichern"
 msgid "Search for post ..."
 msgstr "Nach Inhalt suchen ..."
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:671
+#: inc/block/build/index.js:433
 msgid "Group by month"
 msgstr "Nach Monat gruppieren"
 
-#: inc/shortcode.php:90
+#: inc/shortcode.php:97
 msgid "No entries were found."
 msgstr "Keine Einträge gefunden."
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:664
+#: inc/block/build/index.js:426
 msgid "Theme"
 msgstr "Theme"
 
-#: inc/shortcode.php:93
+#: inc/shortcode.php:108
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d Ergebnis"
 msgstr[1] "%d Ergebnisse"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:551
+#: inc/block/build/index.js:315
 msgid "Search for %s to tease …"
 msgstr "Nach %s zum Anteasern suchen …"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:610
+#: inc/block/build/index.js:361
 msgid "add %s"
 msgstr "%s hinzufügen"
 
-#: inc/block/build/index.js:1
+#: inc/block/build/index.js:545
+#: inc/block/build/index.js:310
 msgid "Show specific %s"
 msgstr "Konkrete %s anzeigen"
+
+#: inc/block/build/index.js:698
+#: inc/block/build/index.js:458
+msgid "This setting is theme-dependent."
+msgstr "Diese Einstellung ist themenabhängig."
+
+#: inc/block/build/index.js:700
+#: inc/block/build/index.js:464
+msgid "Sort by"
+msgstr "Sortieren nach"

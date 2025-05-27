@@ -72,7 +72,7 @@ const getBackgroundColor = $element => {
  */
 const isInternalUrl = url => {
   const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
-  return regexp.test( url )
+  return !url || regexp.test( url )
 }
 
 /**

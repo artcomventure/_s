@@ -9,8 +9,10 @@
     "watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=**/*.min.js --presets=@babel/preset-env --watch",
     "build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=*.min.js --presets=@babel/preset-env,babel-preset-minify",
 
+    "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/aspect-ratio.pot --domain=aspect-ratio --exclude=src,node_modules,**/*.min.* --package-name='Aspect ratio'",
     "i18n:po": "wp i18n update-po languages/aspect-ratio.pot languages",
+    "i18n:create": "npm run i18n:mo & npm run i18n:json",
     "i18n:mo": "wp i18n make-mo languages languages",
     "i18n:json": "wp i18n make-json languages/ --no-purge"
   }

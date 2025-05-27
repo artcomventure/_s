@@ -31,4 +31,6 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'gsap-all', false, array_map( function( $plugin ) {
 		return "gsap-$plugin";
 	}, $plugins ), GSAP_VERSION, true );
+
+	wp_add_inline_script( 'gsap-ScrollTrigger', "window.addEventListener('load',e=>ScrollTrigger.refresh())" );
 } );

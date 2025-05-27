@@ -16,9 +16,9 @@ add_action( 'after_setup_theme', function() {
 	if ( $cssdir = opendir( get_template_directory() . '/css' ) ) {
 		while ( ($file = readdir( $cssdir )) !== false ) {
 			// check for `editor-POST_TYPE.css`
-			if ( !preg_match( '/^editor-(.+)\.css$/', $file, $match ) ) continue;
+			if ( !preg_match( '/^editor-(.+)\.css$/', $file, $matches ) ) continue;
 
-			if ( get_current_post_type() == 'event' ) {
+			if ( get_current_post_type() == $matches[1] ) {
 				add_editor_style(  "./css/$file" );
 			}
 		}
@@ -57,6 +57,8 @@ add_action( 'init', function() {
 		$asset_file['version']
 	);
 
+	wp_set_script_translations( 'gutenberg-be-js', 'gutenberg', GUTENBERG_DIRECTORY . '/languages' );
+
 	// enqueue
 	register_block_type( 'gutenberg/stuff', array(
 		'editor_script' => 'gutenberg-be-js',
@@ -70,6 +72,16 @@ add_action( 'init', function() {
 		)
 	) );
 } );
+
+// change i18n json file name to `DOMAIN-LOCALE-HASH.json` like created by `wp i18n make-json`
+add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {
+	if ( $domain == 'gutenberg' && $handle == 'gutenberg-be-js' ) {
+		$md5 = md5('build/index.js');
+		$file = preg_replace( '/\/(' . $domain . '-[^-]+)-.+\.json$/', "/$1-{$md5}.json", $file );
+	}
+
+	return $file;
+}, 10, 3 );
 
 add_action( 'rest_api_init', function() {
 	register_rest_route('gutenberg/v1', '/getBackgroundColor', [

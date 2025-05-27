@@ -42,9 +42,12 @@ function get_post_edit_link( $post = 0 ) {
 	// therefor the `$edit_link` will be empty
 	edit_post_link( '<span>' . get_post_type_object( get_post_type( $post ) )->labels->edit_item . '</span>', '', '', $post->ID );
 	$edit_link = ob_get_clean();
-	// switch `a` to `span[data-href]`
-	$edit_link = preg_replace( '/^<a /', '<span data-href="' . get_edit_post_link( $post->ID ) . '" tabindex="-1" ', $edit_link );
+	// switch `a` to `span`
+	$edit_link = preg_replace( '/^<a /', '<span tabindex="-1" ', $edit_link );
 	$edit_link = preg_replace( '/<\/a>$/', '</span>', $edit_link );
+	// switch `href` to `data-href`
+	// UX @see in `gutenberg/inc/data-href/app.js`
+	$edit_link = preg_replace( '/ href/', ' data-href', $edit_link );
 
 	return $edit_link ?: '';
 }

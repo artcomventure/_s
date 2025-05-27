@@ -48,6 +48,10 @@ const blockAttributes = {
     type: 'array',
     default: []
   },
+  post__not_in: {
+    type: 'array',
+    default: []
+  },
   // although this is an object it must be saved as a string
   // ... because Gutenberg has _problems_ with multidimensional objects (thinkingface)
   filter: {
@@ -90,7 +94,7 @@ const cleanUpBlockAttributes = attributes => {
   const attr = { ...attributes };
 
   Object.keys( attr ).map( ( attribute ) => {
-    if ( attribute === 'post__in' ) {
+    if ( ['post__in', 'post__not_in'].indexOf( attribute ) >= 0 ) {
       attr[attribute] = attr[attribute].filter( post_id => post_id )
     }
 
@@ -115,6 +119,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
     blockId,
     post_type,
     post__in,
+    post__not_in,
     posts_per_page,
     group_by_month,
     theme,
@@ -144,6 +149,15 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
     if ( post__in.length !== postIn.length ) setAttributes( { post__in: postIn } )
   }
 
+  // make sure post__not_in IDs are available
+  if ( posts.length ) {
+    let postNotIn = [...post__not_in]
+    postNotIn = postNotIn.filter( post_id => {
+      return !post_id || Object.values( posts ).some( option => option.value === post_id );
+    } )
+    if ( post__not_in.length !== postNotIn.length ) setAttributes( { post__not_in: postNotIn } )
+  }
+
   const $block = document.getElementById( `block-${props.clientId}` );
   if ( $block ) $block.setAttribute( 'data-grid', attributes.columns );
 
@@ -165,6 +179,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                 setAttributes( { post_type } )
                 setAttributes( { filter: '{}' } )
                 setAttributes( { post__in: [] } )
+                setAttributes( { post__not_in: [] } )
               } }
             />
 
@@ -297,7 +312,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
               onChange={ group_by_month => setAttributes( { group_by_month } ) }
             />
 
-            <BaseControl><Flex>
+            <BaseControl><Flex align="start">
               <FlexBlock>
                 <NumberControl
                   label={ __( 'Number of posts', 'posts-list' ) }
@@ -308,7 +323,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                   onChange={ ( posts_per_page ) => setAttributes( { posts_per_page } ) }
                 />
               </FlexBlock>
-              { (theme || blockAttributes.theme.default) === 'grid' && <FlexBlock>
+              <FlexBlock>
                 <NumberControl
                   label={ __( 'Columns' ) }
                   min={ 1 }
@@ -316,16 +331,19 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                   value={ columns }
                   placeholder={ blockAttributes.columns.default }
                   onChange={ ( columns ) => setAttributes( { columns } ) }
+                  help={ __( 'This setting is theme-dependent.', 'posts-list' ) }
                 />
-              </FlexBlock> }
+              </FlexBlock>
             </Flex></BaseControl>
 
-            { false && <SelectControl
+            { <SelectControl
               label={ __( 'Sort by', 'posts-list' ) }
               value={ orderby }
               options={ [
                 { value: 'date', label: __( 'Date' ) },
-                { value: 'rand', label: __( 'random', 'posts-list' ) },
+                { value: 'menu_order', label: __( 'Order' ) },
+                { value: 'title', label: __( 'Title' ) },
+                // { value: 'rand', label: __( 'random', 'posts-list' ) },
               ] }
               onChange={ ( orderby ) => setAttributes( { orderby } ) }
             /> }
@@ -408,6 +426,7 @@ registerBlockType( 'posts-list/block', {
   category: 'widgets',
   keywords: [],
   supports: {
+    anchor: true,
     align: ['wide', 'full'],
     color: { background: true }
   },
@@ -423,7 +442,7 @@ registerBlockType( 'posts-list/block', {
     } )
 
     return <div
-      data-id={ attributes.blockId }
+      data-uuid={ attributes.blockId }
       data-grid={ attributes.columns }
       className={ `${attributes.post_type}-posts-list wp-block-group is-layout-${attributes.theme || blockAttributes.theme.default} wp-block-group-is-layout-${attributes.theme || blockAttributes.theme.default}` }
     >

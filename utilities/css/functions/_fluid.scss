@@ -44,6 +44,11 @@
     @return $max;
   }
 
+  // no need for clamping values
+  @if $min == $max {
+    @return $min;
+  }
+
   $lower: strip-unit($lower);
   $upper: strip-unit($upper);
 
