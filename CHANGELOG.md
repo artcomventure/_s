@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.14.1 - 2025-07-02
+**Added**
+
+* Exclude `_original_post` (Bogo) from being duplicated (Yoast Duplicate Post) (in `THEME/utilities/inc/bogo/inc/duplicate-post.php`).
+
 ## 1.14.0 - 2025-04-04
 **Added**
 
