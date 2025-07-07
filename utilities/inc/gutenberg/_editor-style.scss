@@ -12,6 +12,21 @@ body {
   @extend %copy;
 }
 
+h1, .h1, .has-h-1-font-size { @extend %h1; }
+h2, .h2, .has-h-2-font-size { @extend %h2; }
+h3, .h3, .has-h-3-font-size { @extend %h3; }
+h4, .h4, .has-h-4-font-size { @extend %h4; }
+h5, .h5, .has-h-5-font-size { @extend %h5; }
+h6, .h6, .has-h-6-font-size { @extend %h6; }
+
+a, .link {
+  @extend %link;
+}
+
+figcaption, .caption {
+  @extend %caption;
+}
+
 button {
   box-sizing: border-box;
 }

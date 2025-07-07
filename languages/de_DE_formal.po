@@ -81,11 +81,11 @@ msgstr "Navigation"
 msgid "Footer"
 msgstr "Fussbereich"
 
-#: functions.php:124
+#: functions.php:129
 msgid "Sidebar"
 msgstr "Seitenleiste"
 
-#: functions.php:126
+#: functions.php:131
 msgid "Add widgets here."
 msgstr "Fügen Sie hier Widgets hinzu."
 
@@ -170,20 +170,20 @@ msgstr "Anscheinend können wir nicht finden, was Sie suchen."
 msgid "Perhaps searching can help."
 msgstr "Vielleicht hilft die Suche weiter."
 
-#: template-parts/content.php:43
+#: template-parts/content.php:56
 msgid "Pages:"
 msgstr "Seiten:"
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:35
+#: template-parts/content.php:48
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\" </span>weiterlesen"
 
-#: footer.php:15
+#: footer.php:21
 msgid "&copy; %d %s"
 msgstr ""
 
-#: header.php:50
+#: header.php:51
 msgid "Menu"
 msgstr ""
 
@@ -211,3 +211,33 @@ msgstr ""
 msgctxt "Color name"
 msgid "Error"
 msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 1"
+msgstr "Überschrift 1"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 2"
+msgstr "Überschrift 2"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 3"
+msgstr "Überschrift 3"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 4"
+msgstr "Überschrift 4"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 5"
+msgstr "Überschrift 5"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Heading 6"
+msgstr "Überschrift 6"
