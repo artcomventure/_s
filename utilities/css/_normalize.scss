@@ -56,7 +56,7 @@ blockquote {
       margin-bottom: 0;
 
       &:after {
-        content: "”";
+        content: "“";
       }
     }
   }
@@ -122,17 +122,8 @@ figure {
   }
 }
 
-%figcaption {
-  @extend %copy;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 !important;
-  padding: 1em 0 0;
-  text-align: left;
-}
-
 figcaption {
-  @extend %figcaption;
+  @extend %caption;
 }
 
 // ---

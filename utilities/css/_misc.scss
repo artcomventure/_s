@@ -39,7 +39,9 @@
 }
 
 .alignfull {
-  &, > .swiper-wrapper {
+  &,
+  > .swiper-wrapper,
+  .wp-block-cover__background {
     max-width: none;
   }
 }

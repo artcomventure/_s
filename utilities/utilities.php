@@ -10,6 +10,7 @@ add_action( 'after_setup_theme', function() {
 
 // enable shortcodes for titles
 add_filter( 'the_title', 'do_shortcode' );
+add_filter( 'widget_title', 'do_shortcode' );
 
 add_action( 'wp_head', function() {
 	// set css properties

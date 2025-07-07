@@ -8,19 +8,12 @@ define( 'TYPEKIT_FONTS', apply_filters( 'typekit-font-url', '' ) );
 /**
  * Enqueue fonts.
  */
-add_action( 'wp_enqueue_scripts', function() {
+add_action( 'wp_enqueue_scripts', 'enqueue_fonts' );
+add_action( 'enqueue_block_editor_assets', 'enqueue_fonts' );
+function enqueue_fonts(): void {
 	if ( TYPEKIT_FONTS ) wp_enqueue_style( 'typekit-fonts', TYPEKIT_FONTS );
 	wp_enqueue_style( 'icont', FONTS_DIRECTORY_URI . '/Icont/font.css' );
-} );
-
-/**
- * Add fonts to gutenberg.
- */
-add_action( 'after_setup_theme', function() {
-	if ( TYPEKIT_FONTS ) add_editor_style(  TYPEKIT_FONTS );
-	// relative path from `functions.php`
-	add_editor_style(  './media/fonts/Icont/font.css' );
-}, 11 );
+}
 
 /**
  * Preload woff2 fonts.

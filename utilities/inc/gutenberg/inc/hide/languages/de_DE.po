@@ -48,3 +48,7 @@ msgstr "Nur Screenreader"
 #: build/index.js:1
 msgid "Hidden but visible for screen readers"
 msgstr "Ausgeblendet, aber für Bildschirmleseprogramme sichtbar"
+
+#: build/index.js:1
+msgid "Don't display featured image in template"
+msgstr "Beitragsbild nicht im Template anzeigen"

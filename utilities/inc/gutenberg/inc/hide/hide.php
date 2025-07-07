@@ -32,6 +32,23 @@ add_action( 'init', function() {
 		'editor_script' => 'hide-be-js',
 		'editor_style' => 'hide-be-css',
 	) );
+
+	// all available post types
+	foreach ( array_intersect_key(
+		get_post_types( array( 'public' => TRUE ), 'objects' ),
+		array_flip( get_post_types_by_support( array( 'custom-fields' ) ) )
+	) as $post_type ) register_post_meta(
+		$post_type->name,
+		'_hide_thumbnail',
+		array(
+			'show_in_rest'  => true,
+			'single' => true,
+			'type' => 'boolean',
+			'auth_callback' => function () {
+				return current_user_can('edit_posts' );
+			}
+		)
+	);
 } );
 
 // add attributes to all block registries

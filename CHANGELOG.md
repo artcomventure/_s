@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.15.0 - 2025-07-07
+**Added**
+
+* Option to don't display the post thumbnail in template (in `THEME/utilities/inc/gutenberg/inc/hide`).
+
+**Fixed**
+
+* Gutenberg styles.
+* Minor CSS.
+
 ## 1.14.1 - 2025-07-02
 **Added**
 

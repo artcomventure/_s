@@ -18,3 +18,4 @@ function doubleSpacesToBreak( $string ) {
 }
 
 add_filter( 'the_title', 'doubleSpacesToBreak' );
+add_filter( 'the_subtitle', 'doubleSpacesToBreak' );

@@ -3,7 +3,8 @@ import { addFilter } from '@wordpress/hooks';
 import { Fragment } from '@wordpress/element';
 import { InspectorAdvancedControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from "@wordpress/components";
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { createHigherOrderComponent, compose, withState } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
 
 import classnames from 'classnames';
 
@@ -201,4 +202,49 @@ addFilter(
     'blocks.getSaveContent.extraProps',
     'utilities/applySROnlyClass',
     applySROnlyClass
+);
+
+// ---
+// Hide post thumbnail.
+
+const HideThumbnailField = ( { ...props } ) => {
+    return (
+        <ToggleControl
+            label={ __( "Don't display featured image in template", 'hide' ) }
+            checked={ props.hide_thumbnail }
+            onChange={ status => {
+                props.updateMeta( status );
+                props.setState()
+            } }
+        />
+    )
+}
+
+const HideThumbnailControl = compose( [
+    withState(),
+    withSelect( ( select, props ) => ( {
+        hide_thumbnail: select( 'core/editor' ).getEditedPostAttribute( 'meta' )['_hide_thumbnail']||false
+    } ) ),
+    withDispatch( ( dispatch ) => ( {
+        updateMeta( value, prop ) {
+            dispatch( 'core/editor' ).editPost(
+                { meta: { '_hide_thumbnail': value } }
+            );
+        }
+    } ) )
+] )( HideThumbnailField );
+
+const hideThumbnail = function( OriginalComponent ) {
+    return ( props ) => {
+        return [
+            createElement( OriginalComponent, props ), // original featured image box
+            <HideThumbnailControl />
+        ];
+    }
+}
+
+addFilter(
+    'editor.PostFeaturedImage',
+    'utilities/hide-featured-image',
+    hideThumbnail
 );
