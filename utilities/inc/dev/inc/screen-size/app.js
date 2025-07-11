@@ -13,7 +13,7 @@
         }
 
         let data = [
-            `<span data-copy="${wp.i18n.__( 'Screen size', 'dev' )}" title="${wp.i18n.__( 'Screen size', 'dev' )}">${window.innerWidth}&times;${window.innerHeight}</span>`
+            `<span data-copy="${wp.i18n.__( 'Screen size', 'dev' )}" title="${wp.i18n.__( 'Screen size', 'dev' )}">${document.documentElement.clientWidth}&times;${document.documentElement.clientHeight}</span>`
         ]
 
         if ( typeof BREAKPOINTS !== 'undefined' ) {

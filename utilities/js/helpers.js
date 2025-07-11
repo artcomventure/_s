@@ -18,6 +18,14 @@
       entries.forEach( ( entry ) => {
         // element doesn't exist anymore
         if ( !entry.target.parentElement ) return resizeObserver.unobserve( entry.target );
+
+        // set scrollbar width
+        if ( entry.target === document.body && $scrollBarTester && $scrollBarTester.parentElement )
+          return document.documentElement.style.setProperty(
+              '--scrollbar-width',
+              `${$scrollBarTester.offsetWidth - $scrollBarTester.clientWidth}px`
+          )
+
         // set height property (`id` is mandatory)
         !!entry.target.id && entry.target.offsetHeight
         && document.documentElement.style.setProperty(
@@ -26,6 +34,14 @@
         )
       } )
   );
+
+  // element for calculating the scroll bar width
+  const $scrollBarTester = document.createElement( 'div' );
+  $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none;"
+  $scrollBarTester.innerText = 'This element is for calculating the `--scrollbar-width` property.';
+  $scrollBarTester.setAttribute( 'aria-hidden', 'true' )
+  document.body.appendChild( $scrollBarTester );
+  resizeObserver.observe( document.body )
 
   Behaviours.add( 'set-height-property', $context => {
     Alter.do( 'set-height-property-for', ['#masthead', '#colophon'] ).forEach( selector => {

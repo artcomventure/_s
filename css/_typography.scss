@@ -105,6 +105,8 @@
   transition: all .2s ease-in-out;
   transition-property: color, text-underline-offset, text-decoration;
 
+  word-wrap: break-word; // breaks words wherever it is without a hyphen
+
   &:hover {
     color: var(--color-link, var(--color-copy));
     text-decoration-color: currentColor;

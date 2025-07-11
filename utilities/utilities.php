@@ -14,12 +14,12 @@ add_filter( 'widget_title', 'do_shortcode' );
 
 add_action( 'wp_head', function() {
 	// set css properties
-	// `--rootWidth` ... for CSS' fluid calculation
-	// `--scrollbarWidth` ... to calculate vw right
+	// `--root-width` ... for CSS' fluid calculation
+	// `--scrollbar-width` ... to calculate vw right
 	// run it _first_ in `<head>` to immediately set value ?>
     <script>(function() { function setProperties() {
-            document.documentElement.style.setProperty( '--rootWidth', `${document.documentElement.clientWidth}` );
-            document.documentElement.style.setProperty( '--scrollbarWidth', `${window.innerWidth - document.documentElement.clientWidth}px` );
+            document.documentElement.style.setProperty( '--root-width', `${document.documentElement.clientWidth}` );
+            document.documentElement.style.setProperty( '--scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px` );
         } setProperties() || new ResizeObserver( setProperties ).observe( document.documentElement )
         })();</script>
 <?php }, -1 );

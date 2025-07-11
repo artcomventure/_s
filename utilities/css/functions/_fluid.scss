@@ -52,5 +52,5 @@
   $lower: strip-unit($lower);
   $upper: strip-unit($upper);
 
-  @return clamp(min($min, $max), calc(#{$min} + #{$max - $min} * (var(--rootWidth) - #{$lower}) / #{$upper - $lower}), max($min, $max));
+  @return clamp(min($min, $max), calc(#{$min} + #{$max - $min} * (var(--root-width) - #{$lower}) / #{$upper - $lower}), max($min, $max));
 }

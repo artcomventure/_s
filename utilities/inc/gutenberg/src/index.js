@@ -25,7 +25,7 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
 (function setClientWidthProperty() {
     const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
     if ( $editorStylesWrapper ) new ResizeObserver( entries => {
-        $editorStylesWrapper.style.setProperty( '--rootWidth', `${$editorStylesWrapper.clientWidth}` );
+        $editorStylesWrapper.style.setProperty( '--root-width', `${$editorStylesWrapper.clientWidth}` );
     } ).observe( $editorStylesWrapper );
     else window.requestAnimationFrame( setClientWidthProperty )
 })();

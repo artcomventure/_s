@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.15.1 - 2025-07-11
+**Fixed**
+
+* `.alignfull` calculation taking scrollbars into account (in `THEME/utilities/css/mixins/_alignfull.scss` and `THEME/utilities/js/helpers.js`).
+* dev screen size calculation now takes scrollbars into account (in `THEME/utilities/inc/dev/inc/screen-size/app.js`).
+* Breaks link text wherever it is without a hyphen (in `THEME/css/_typography.scss`).
+
+**Changed**
+
+* Renamed `--rootWidth` CSS property to `root-width`.
+
 ## 1.15.0 - 2025-07-07
 **Added**
 
@@ -150,7 +161,7 @@
 ## 1.9.10 - 2024-07-30
 **Fixed**
 
-* Immediately set `--rootWidth` (in `THEME/header.php`).
+* Immediately set `--root-width` (in `THEME/header.php`).
 
 ## 1.9.9 - 2024-07-29
 **Added**
