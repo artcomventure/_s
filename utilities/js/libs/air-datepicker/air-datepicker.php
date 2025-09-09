@@ -11,7 +11,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 // add custom datepicker style/script in case pjax is enqueued
 add_action( 'wp_enqueue_scripts', function() {
-    if ( wp_script_is('air-datepicker', 'queue' ) ) {
+    if ( wp_script_is('air-datepicker' ) ) {
         wp_enqueue_style( 'air-datepicker', AIR_DATEPICKER_DIRECTORY_URI . '/style.css', ['air-datepicker-module'] );
     }
 }, 1982 );

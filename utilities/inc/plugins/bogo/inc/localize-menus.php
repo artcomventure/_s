@@ -1,7 +1,5 @@
 <?php
 
-return;
-
 // duplicate nav menus for each (additional) language
 add_action( 'after_setup_theme', 'bogo_localize_menus' );
 function bogo_localize_menus() {

@@ -36,9 +36,6 @@ $font-family-heading: serif;
 // ---
 // Spacing
 
-$spacing-min: 36px;
-$spacing-max: 130px;
-
 $breakpoints: (
     xs: 664px,
     sm: 782px,
@@ -56,6 +53,10 @@ $breakpoints: map-merge($breakpoints, (
     content: map-get($breakpoints, lg), // default
     wide: map-get($breakpoints, xl)
 ));
+
+$spacing-min: 36px;
+$spacing-max: 130px;
+$spacings: ();
 
 // ---
 // Create icons map.

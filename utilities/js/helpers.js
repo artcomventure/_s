@@ -36,8 +36,9 @@
   );
 
   // element for calculating the scroll bar width
+  // !!! same js in `gutenberg/src/index.js` !!!
   const $scrollBarTester = document.createElement( 'div' );
-  $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none;"
+  $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none; height:0;"
   $scrollBarTester.innerText = 'This element is for calculating the `--scrollbar-width` property.';
   $scrollBarTester.setAttribute( 'aria-hidden', 'true' )
   document.body.appendChild( $scrollBarTester );
@@ -81,7 +82,7 @@ const getBackgroundColor = $element => {
 }
 
 /**
- * Check if given `url` is an internal one.
+ * Check if given `url` is internal.
  *
  * @param url
  * @returns {boolean}
@@ -92,7 +93,7 @@ const isInternalUrl = url => {
 }
 
 /**
- * Check if given `url` is an external one.
+ * Check if given `url` is external.
  *
  * @param url
  * @returns {boolean}

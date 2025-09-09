@@ -3,16 +3,12 @@ import localeDe from './module/locale/de';
 import localeEn from './module/locale/en';
 
 const locale = (document.documentElement.getAttribute( 'lang' ) || 'en')
-  .split( '-' )[0];
+    .split( '-' )[0];
 
 Behaviours.add( 'datepicker', $context => {
 
   [].forEach.call( $context.querySelectorAll( 'input[type="date"]' ), $input => {
-
-    // remove native datepicker
-    $input.setAttribute( 'type', 'text' );
-
-    let options = {
+    let options = Alter.do( 'airDatepicker:options', {
       selectedDates: [Date.parse( $input.value )],
       dateFormat: phpDateFormatToJs( $input.getAttribute( 'data-format' ) || '' ),
       minDate: $input.getAttribute( 'min' ) || '',
@@ -26,16 +22,34 @@ Behaviours.add( 'datepicker', $context => {
           bubbles: true
         } ) )
       }
-    }
+    }, $input );
 
-    options = Alter.do( 'airDatepicker:options', options, $input );
+    // clone field for UI
+    const $ux = $input.cloneNode(true );
+    // remove native datepicker
+    $ux.setAttribute( 'type', 'text' );
+    $ux.removeAttribute( 'name' );
+    // disallow manual input ... but deletion on backspace
+    $ux.setAttribute( 'readonly', 'readonly' );
+    $ux.addEventListener( 'keydown', e => {
+      if ( e.key !== 'Backspace' ) return;
+      dp.update( { value: '' } )
+    } )
 
-    const dp = new AirDatepicker( $input, options );
+    // connect fields
+    options['altField'] = $input;
+    options['altFieldDateFormat'] = 'yyyy-MM-dd'; // necessary date format
+
+    const dp = new AirDatepicker( $ux, options );
 
     $input.dispatchEvent( new CustomEvent( 'datepicker:init', {
       detail: { dp, options },
       bubbles: true
     } ) )
+
+    // _switch_ date fields
+    $input.setAttribute( 'hidden', '' );
+    $input.after( $ux )
   } )
 
 } );

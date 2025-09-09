@@ -83,7 +83,9 @@ label {
 
 input,
 textarea,
-select {
+select,
+.file-drop,
+.customSelect .custom-select-opener {
   font-size: rem(16px);
   padding: .71875em;
   background-color: #fff;
@@ -95,6 +97,14 @@ select {
 
   &, &::placeholder {
   }
+
+  @at-root input,
+  textarea,
+  select {
+    &:focus-visible {
+      --focus-outline-color: transparent;
+    }
+  }
 }
 
 input[type="checkbox"],
@@ -104,4 +114,11 @@ input[type="radio"] {
 
 textarea {
   resize: vertical;
+}
+
+// ---
+// CF7
+
+.hidden-fields-container {
+  display: none;
 }

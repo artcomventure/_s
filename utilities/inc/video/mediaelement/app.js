@@ -12,6 +12,7 @@
 
             const options = {
                 stretching: 'responsive',
+                autoRewind: false,
                 // t9n
                 playText: wp.i18n.__( 'Play', 'mediaelement' ),
                 pauseText: wp.i18n.__( 'Pause', 'mediaelement' ),

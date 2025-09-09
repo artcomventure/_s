@@ -42,6 +42,7 @@ function _s_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	// This theme uses wp_nav_menu() in one location.
+	// To enable localized menus @see `no localized menus` at the end of file.
 	register_nav_menus(
 		array(
 			'navigation' => esc_html__( 'Navigation', '_s' ),
@@ -156,3 +157,8 @@ add_action( 'wp_enqueue_scripts', '_s_scripts' );
 // auto-include theme's /inc/ files see utilities/auto-include-files.php
 require_once get_template_directory() . '/utilities/utilities.php';
 auto_include_files( get_template_directory() . '/media/fonts' );
+
+// no localized menus
+// TODO: make it a theme setting
+remove_action( 'after_setup_theme', 'bogo_localize_menus' );
+remove_filter( 'wp_nav_menu_args', 'bogo_localized_menu' );

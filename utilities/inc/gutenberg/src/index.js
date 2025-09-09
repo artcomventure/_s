@@ -30,6 +30,27 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
     else window.requestAnimationFrame( setClientWidthProperty )
 })();
 
+// set scrollbar width property
+(function setScrollbarWidthProperty() {
+    const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
+    if ( !$editorStylesWrapper ) return window.requestAnimationFrame( setScrollbarWidthProperty )
+
+    // element for calculating the scroll bar width
+    // !!! same js in `helper.js` !!!
+    const $scrollBarTester = document.createElement( 'div' );
+    $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none; height:0;"
+    $scrollBarTester.innerText = 'This element is for calculating the `--scrollbar-width` property.';
+    $scrollBarTester.setAttribute( 'aria-hidden', 'true' )
+    $editorStylesWrapper.appendChild( $scrollBarTester );
+
+    new ResizeObserver( entries => {
+        $editorStylesWrapper.style.setProperty(
+            '--scrollbar-width',
+            `${$scrollBarTester.offsetWidth - $scrollBarTester.clientWidth}px`
+        );
+    } ).observe( $editorStylesWrapper );
+})();
+
 // `style="white-space: nowrap"`
 registerFormatType( 'utilities-gutenberg/nowrap', {
     title: __( 'no line break', 'gutenberg' ),

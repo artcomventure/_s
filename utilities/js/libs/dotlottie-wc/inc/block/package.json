@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "watch": "wp-scripts start block.js",
+    "build": "wp-scripts build block.js"
+  }
+}

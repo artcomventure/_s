@@ -30,6 +30,9 @@
     "custom-select:watch": "cd js/libs/custom-select && npm run watch",
     "custom-select:build": "cd js/libs/custom-select && npm run build",
 
+    "dotlottie-wc:watch": "cd js/libs/dotlottie-wc && npm run watch",
+    "dotlottie-wc:build": "cd js/libs/dotlottie-wc && npm run build",
+
     "dev:watch": "cd inc/dev && npm run watch",
     "dev:build": "cd inc/dev && npm run build",
     "dev:i18n:pot": "cd inc/dev && npm run i18n:pot",
@@ -56,6 +59,7 @@
     "video:build": "cd inc/video && npm run build"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-wc": "^0.6.4",
     "air-datepicker": "^3.5.0",
     "autosize": "^6.0.1",
     "custom-select": "^1.1.15",

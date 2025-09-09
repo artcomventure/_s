@@ -104,7 +104,7 @@ function accordion( $context ) {
             $accordion.dispatchEvent( new CustomEvent( 'accordion-init', { bubbles: true } ) );
         } );
 
-        // open item by hash
+        // open item by hash (corresponding element id)
         if ( location.hash ) {
             const $item = $accordion.querySelector( `.wp-block-accordion-item${location.hash}` );
             if ( $item ) {

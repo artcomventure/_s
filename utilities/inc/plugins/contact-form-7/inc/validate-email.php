@@ -50,7 +50,7 @@ add_action( 'wpcf7_swv_create_schema', function( $schema, $contact_form ) {
 		if ( 'email' !== $tag->basetype ) continue; // not an email field
 		if ( empty($email = $_POST[$tag->name] ?? null) ) continue; // no input
 
-		// expected format: USERNAME@DOMAIN.TDL
+		// expected format: USERNAME@DOMAIN.TLD
 
 		// whitespace characters are used
 		if ( preg_match( '/\s/', $email ) ) $schema->add_rule(
@@ -88,15 +88,13 @@ add_action( 'wpcf7_swv_create_schema', function( $schema, $contact_form ) {
 				) )
 			);
 		}
-		elseif ( preg_match( '/@.+\.?$/', $email ) ) $schema->add_rule(
+		elseif ( preg_match( '/@[^.]+\.?$/', $email ) ) $schema->add_rule(
 			wpcf7_swv_create_rule( 'email', array(
 				'field' => $tag->name,
-				'error' => wpcf7_get_message( 'invalid_email--tdl' ),
+				'error' => wpcf7_get_message( 'invalid_email--tld' ),
 			) )
 		);
 	}
-
-	return $schema;
 }, 9, 2 );
 
 // WP7 uses Schema-Woven Validation (see above)

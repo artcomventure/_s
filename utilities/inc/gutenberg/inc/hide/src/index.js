@@ -211,6 +211,7 @@ const HideThumbnailField = ( { ...props } ) => {
     return (
         <ToggleControl
             label={ __( "Don't display featured image in template", 'hide' ) }
+            help={ __( "This setting is theme dependent and usually only affects the single view display.", 'hide' ) }
             checked={ props.hide_thumbnail }
             onChange={ status => {
                 props.updateMeta( status );

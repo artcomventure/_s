@@ -28,7 +28,8 @@
     },
     "layout": {
       "contentSize": "1100px",
-      "wideSize": "1660px"
+      "wideSize": "1660px",
+      "allowCustomContentAndWideSize": false
     },
     "typography": {
       "fluid": true,

@@ -1,0 +1,26 @@
+.cookie-wall {
+  isolation: isolate;
+  background-color: #fff;
+  border-radius: 1em;
+  padding: 2em;
+  box-sizing: border-box;
+  max-width: 664px;
+
+  > :first-child, .textwidget > :first-child { margin-top: 0 !important; }
+  .textwidget > :last-child { margin-bottom: 0 !important; }
+
+  // ---
+  // Google Maps
+
+  .wp-block-gmap-block:has(&) {
+    aspect-ratio: auto !important;
+  }
+
+  .map:has(> &) {
+    background: url(map-placeholder.webp) no-repeat scroll center center transparent;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+  }
+}

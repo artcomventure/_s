@@ -38,4 +38,4 @@ add_filter( 'bogo_terms_translation', function( $items, $locale ) {
 	add_filter( 'option_time_format', 'translate_time_format' );
 
 	return $items;
-}, 10,2 );
+}, 10, 2 );

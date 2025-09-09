@@ -19,7 +19,8 @@ function get_posts_list( $attr = [] ) {
 		'theme'  => 'grid',
 		'more'   => '',
 
-		'lang' => get_locale(),
+		'lang' => function_exists( 'pll_current_language' )
+			? pll_current_language() : get_locale(),
 	], $attr );
 
 	// make array

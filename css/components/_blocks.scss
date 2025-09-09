@@ -1,0 +1,35 @@
+@mixin blocks( $combinator: '' ) {
+  #{$combinator} .wp-block-group,
+  #{$combinator} .wp-block-columns,
+  #{$combinator} .wp-block-cover,
+  #{$combinator} .wp-block-quote,
+  #{$combinator} .wp-block-media-text,
+  #{$combinator} .swiper {
+    @content
+  }
+}
+
+// default spacing between blocks
+.entry-content,
+.is-root-container {
+  // default spacing
+  @include blocks {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  &, .alignfull {
+    // spacing of root blocks
+    @include blocks( '>' ) {
+      margin-top: 40px;
+      margin-bottom: 40px;
+
+      &.alignfull {
+        &:last-child,
+        &:has(+ .alignfull) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

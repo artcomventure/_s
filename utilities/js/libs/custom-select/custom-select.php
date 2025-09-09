@@ -12,9 +12,14 @@ add_action( 'wp_enqueue_scripts', function() {
         'selectors' => trim( get_option( 'custom-select-css-selectors', '' ) ),
     ] );
 
-    if (get_option('custom-select')) {
-        wp_enqueue_script('custom-select');
-    }
+	if ( get_option( 'custom-select' ) ) {
+		wp_enqueue_script('custom-select' );
+	}
+
+	// auto enqueue default styles
+	if ( wp_script_is('custom-select-module' ) ) {
+		wp_enqueue_style('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15' );
+	}
 } );
 
 add_action( 'customize_controls_enqueue_scripts', function() {

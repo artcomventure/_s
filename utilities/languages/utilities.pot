@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-21T12:56:14+00:00\n"
+"POT-Creation-Date: 2025-07-25T11:52:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: utilities\n"
@@ -73,22 +73,34 @@ msgstr ""
 msgid "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!"
 msgstr ""
 
-#: js/libs/custom-select/custom-select.php:32
+#: js/libs/custom-select/custom-select.php:37
 msgid "Enable custom-select.js"
 msgstr ""
 
-#: js/libs/custom-select/custom-select.php:33
+#: js/libs/custom-select/custom-select.php:38
 msgid "Replacing and enhancing the native <code>select</code> (dropdown) element."
 msgstr ""
 
-#: js/libs/custom-select/custom-select.php:45
+#: js/libs/custom-select/custom-select.php:50
 msgid "CSS selectors for <code>select</code> fields to apply custom-select.js to. Leave blank to apply to all. Each selector in a new line."
 msgstr ""
 
-#: js/libs/pjax/pjax.php:34
+#: js/libs/pjax/pjax.php:43
 msgid "Enable Pjax"
 msgstr ""
 
-#: js/libs/pjax/pjax.php:35
+#: js/libs/pjax/pjax.php:44
 msgid "Load page content using AJAX without reloading your page's layout."
+msgstr ""
+
+#: js/file-drop.js:31
+msgid "Drag and drop the files here<br />or click to select the files."
+msgstr ""
+
+#: js/file-drop.js:32
+msgid "Drag and drop the file here<br />or click to select the file."
+msgstr ""
+
+#: js/file-drop.js:76
+msgid "Remove File"
 msgstr ""

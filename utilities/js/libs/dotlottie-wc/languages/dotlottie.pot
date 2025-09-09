@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-08T05:39:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: dotlottie\n"
+
+#: inc/block/block.js:12
+msgid "DotLottie Settings"
+msgstr ""
+
+#: inc/block/block.js:23
+msgid "Change file"
+msgstr ""
+
+#: inc/block/block.js:23
+msgid "Select file"
+msgstr ""
+
+#: inc/block/block.js:28
+msgid "In the editor, the animation is always played automatically and looped for preview purposes."
+msgstr ""
+
+#: inc/block/block.js:30
+msgid "Start animation"
+msgstr ""
+
+#: inc/block/block.js:35
+msgid "on file load"
+msgstr ""
+
+#: inc/block/block.js:36
+msgid "on click"
+msgstr ""
+
+#: inc/block/block.js:37
+msgid "on hover"
+msgstr ""
+
+#: inc/block/block.js:38
+msgid "on custom event"
+msgstr ""
+
+#: inc/block/block.js:43
+msgid "Loop"
+msgstr ""
+
+#: inc/block/block.js:59
+msgid "Lazy Loading"
+msgstr ""
+
+#: inc/block/block.js:60
+msgid "The file is only loaded when it is immediately needed."
+msgstr ""
+
+#: inc/block/block.js:83
+msgid "DotLottie"
+msgstr ""
+
+#: inc/block/block.js:84
+msgid "Web component that allows you to easily embed Lottie animations."
+msgstr ""

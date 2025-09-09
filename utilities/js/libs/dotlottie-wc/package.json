@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "watch": "npm-run-all --parallel watch:*",
+    "build": "npm-run-all --parallel build:*",
+
+    "watch:app": "wp-scripts start ./app.js",
+    "build:app": "wp-scripts build ./app.js",
+
+    "watch:block": "cd inc/block && npm run watch",
+    "build:block": "cd inc/block && npm run build",
+
+    "i18n:scan": "npm run i18n:pot && npm run i18n:po",
+    "i18n:pot": "wp i18n make-pot . languages/dotlottie.pot --domain=dotlottie --exclude=build,node_modules,**/*.min.*",
+    "i18n:po": "wp i18n update-po languages/dotlottie.pot languages",
+    "i18n:create": "npm run i18n:mo & npm run i18n:json",
+    "i18n:mo": "wp i18n make-mo languages languages",
+    "i18n:json": "wp i18n make-json languages/ --no-purge"
+  }
+}

@@ -38,7 +38,7 @@ global $more;
         </header><!-- .entry-header -->
 	<?php endif; ?>
 
-	<?php if ( !get_post_meta( get_the_ID(), '_hide_thumbnail', true ) )
+	<?php if ( !$more || !get_post_meta( get_the_ID(), '_hide_thumbnail', true ) )
         _s_post_thumbnail(); ?>
 
 	<div class="entry-content">

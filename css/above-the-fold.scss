@@ -16,8 +16,7 @@ button,
 input,
 select,
 optgroup,
-textarea,
-figcaption {
+textarea {
   @extend %copy;
 }
 

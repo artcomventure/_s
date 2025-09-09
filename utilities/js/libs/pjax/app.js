@@ -14,6 +14,7 @@
                         if ( element.classList.contains( 'no-pjax' ) || element.closest( '.no-pjax' ) ) return false;
                         if ( element.target === '_blank' ) return false;
                         if ( /\/wp-admin\//.test( element.href ) ) return false;
+                        if ( element.closest( '.widget_polylang' ) || element.closest( '.bogo-language-switcher' ) ) return false;
                         if ( /\.(pdf|vcf|jpe?g|gif|png|webp|zip|mp4)$/.test( element.href ) ) return false;
                         break;
 

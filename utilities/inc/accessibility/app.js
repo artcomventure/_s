@@ -5,7 +5,7 @@ Behaviours.add( 'accessibility:shy', $context => {
 
     // get all elements with "&shy;" in text
     const elements = document.evaluate(
-        `//*[contains(., '­')]`,
+        `//*[contains(text(), '­')]`,
         document, null, XPathResult.ANY_TYPE, null
     );
 

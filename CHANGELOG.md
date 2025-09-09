@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.16.0 - 2025-09-09
+**Added**
+
+* CF7 Brevo integration (in `THEME/utilities/inc/plugins/contact-form-7/inc/brevo.php`).
+* CF7 multiple files (in `THEME/utilities/inc/plugins/contact-form-7/inc/multiple-files.php`).
+* Form file drop UI.
+* Cookie wall (in `THEME/utilities/inc/cookie-wall`).
+* DotLottie web component (in `THEME/utilities/js/libs/dotlottie-wc`).
+
+**Fixed**
+
+* `.no-pjax` check on `checkIfShouldAbort()` (in `THEME/utilities/js/libs/pjax/module/pjax.min.js`).
+* Minor CSS and bug fixes.
+
 ## 1.15.1 - 2025-07-11
 **Fixed**
 

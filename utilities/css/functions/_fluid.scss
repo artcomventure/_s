@@ -25,6 +25,7 @@
  */
 
 @import "./strip-unit";
+@import "../mixins/breakpoints";
 
 @function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
   @if unit($min) != unit($max) {

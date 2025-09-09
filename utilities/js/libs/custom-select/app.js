@@ -31,7 +31,10 @@
 
         $selects.forEach( $select => {
             $select.style.display = 'none';
-            customSelect( $select );
+            const cstSel = customSelect( $select );
+            requestAnimationFrame( () => cstSel[0].container.dispatchEvent( new CustomEvent( 'custom-select:init', {
+                bubbles: true
+            } ) ) );
         } );
     }
 

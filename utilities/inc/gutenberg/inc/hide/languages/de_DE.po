@@ -52,3 +52,7 @@ msgstr "Ausgeblendet, aber für Bildschirmleseprogramme sichtbar"
 #: build/index.js:1
 msgid "Don't display featured image in template"
 msgstr "Beitragsbild nicht im Template anzeigen"
+
+#: build/index.js:1
+msgid "This setting is theme dependent and usually only affects the single view display."
+msgstr "Diese Einstellung ist themeabhängig und betrifft i.d.R. nur die Einzelansichtsanzeige."

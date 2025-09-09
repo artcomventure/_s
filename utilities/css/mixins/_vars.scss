@@ -6,4 +6,8 @@
   @each $name, $breakpoint in $breakpoints {
     --width-#{$name}: #{$breakpoint};
   }
+
+  @each $name, $value in $spacings {
+    --wp--preset--spacing--#{$name}: #{$value};
+  }
 }
