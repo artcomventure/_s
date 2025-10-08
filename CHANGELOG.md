@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.17.0 - 2025-10-08
+**Added**
+
+* Anchor navigation (in `THEME/utilities/inc/anchor-navigation/`).
+* Redirect canonical bug fix for paged CPT requests (in `THEME/utilities/inc/posts-list/inc/disable-redirect-canonical.php`).
+* Scroll direction class (in `THEME/utilities/js/helpers.js`);
+
+**Fixed**
+
+* Moved `<button>` CSS into `THEME/css/typography.scss`.
+* Various CSS.
+
 ## 1.16.0 - 2025-09-09
 **Added**
 

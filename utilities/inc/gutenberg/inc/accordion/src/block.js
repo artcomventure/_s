@@ -114,7 +114,7 @@ registerBlockType( 'accordion/widget', {
 
 registerBlockType( 'accordion/item', {
     title: __( 'Item', 'accordion' ),
-    parent: [ 'accordion/block' ],
+    parent: [ 'accordion/widget' ],
     // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/
     supports: {
         anchor: true

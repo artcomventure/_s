@@ -34,12 +34,12 @@ add_action( 'wp_dashboard_setup', function() {
 	                $labels = get_post_type_labels( get_post_type_object( $post_type ) ); ?>
 	                <div class="list-post-type-wrapper" data-post-type="<?php echo $post_type ?>">
                         <?php if ( !$lists = get_terms( [
-                            'taxonomy' => "${post_type}_list",
+                            'taxonomy' => "{$post_type}_list",
                             'hide_empty' => false
                         ] ) ) {
                             echo '<p class="description">' . sprintf(
                                 __( 'There is no list defined yet. Please <a href="%s">add list</a> first.', 'posts-list' ),
-                                add_query_arg( ['post_type' => $post_type, 'taxonomy' => "${post_type}_list"], admin_url( 'edit-tags.php' ) )
+                                add_query_arg( ['post_type' => $post_type, 'taxonomy' => "{$post_type}_list"], admin_url( 'edit-tags.php' ) )
                             ) . '</p>';
                         } else { ?>
 

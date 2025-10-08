@@ -35,7 +35,7 @@
     vertical-align: top;
   }
 
-  @if variable-exists(font-color-link-hover) {
+  @if variable-exists(font-color-hyperlink-hover) {
     &:hover:after {
       background-color: lighten(#000, 35%) !important;
     }

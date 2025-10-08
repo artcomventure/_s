@@ -29,7 +29,7 @@
 
 %h1 {
   @extend %heading;
-  @extend %h1-font-size;
+  @extend %h1-font-size !optional;
 
   //line-height: fluid(rem(40px), rem(45px));
   //letter-spacing: 0;
@@ -37,7 +37,7 @@
 
 %h2 {
   @extend %heading;
-  @extend %h2-font-size;
+  @extend %h2-font-size !optional;
 
   //line-height: fluid(rem(40px), rem(45px));
   //letter-spacing: 0;
@@ -45,7 +45,7 @@
 
 %h3 {
   @extend %heading;
-  @extend %h3-font-size;
+  @extend %h3-font-size !optional;
 
   //line-height: fluid(2.1rem, 3.6rem);
   //letter-spacing: fluid(.18px, 0px);
@@ -53,7 +53,7 @@
 
 %h4 {
   @extend %heading;
-  @extend %h4-font-size;
+  @extend %h4-font-size !optional;
 
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
@@ -61,7 +61,7 @@
 
 %h5 {
   @extend %heading;
-  @extend %h5-font-size;
+  @extend %h5-font-size !optional;
 
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
@@ -69,7 +69,7 @@
 
 %h6 {
   @extend %heading;
-  @extend %h6-font-size;
+  @extend %h6-font-size !optional;
 
   //line-height: 1.8rem;
   //letter-spacing: fluid(.9px, .48px);
@@ -99,7 +99,7 @@
 }
 
 %link {
-  color: var(--color-link, var(--color-copy));
+  color: var(--color-hyperlink, var(--color-copy));
   text-decoration: none;
   text-underline-offset: .14em;
   transition: all .2s ease-in-out;
@@ -108,12 +108,12 @@
   word-wrap: break-word; // breaks words wherever it is without a hyphen
 
   &:hover {
-    color: var(--color-link, var(--color-copy));
+    color: var(--color-hyperlink, var(--color-copy));
     text-decoration-color: currentColor;
   }
 
   &:active, &.active {
-    color: var(--color-link, var(--color-copy));
+    color: var(--color-hyperlink, var(--color-copy));
   }
 
   &[href=""] {
@@ -144,10 +144,79 @@
 
       &:hover {
         text-underline-offset: .4em;
+        text-decoration-color: currentColor;
       }
     }
     @else if $link-text-decoration-animation == x {
       @extend %text-decoration-animation-x;
+    }
+  }
+}
+
+// ---
+// Button.
+
+%button {
+  display: inline-block;
+  border-radius: 5px;
+  padding: .8rem 6.6rem;
+  text-shadow: none;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  &, a { text-decoration: none !important; }
+  white-space: nowrap;
+
+  transition: all .3s ease-out;
+  transition-property: color, background-color, opacity, border-color;
+
+  border: 1px solid;
+
+  @if $link-text-decoration-animation == x {
+    &:before { content: none; }
+  }
+
+  &, // default state
+  .is-style-fill & {
+    @extend %bgcolor-black;
+    border-color: transparent;
+
+    &:hover, &.active {
+      color: $black;
+      background-color: transparent;
+      border-color: currentColor;
+    }
+
+    @each $name, $color in $colors {
+      &.has-#{$name}-background-color {
+        @extend %bgcolor-#{$name};
+
+        &:hover, &.active {
+          @extend %color-#{$name};
+          background-color: transparent;
+          border-color: currentColor;
+        }
+      }
+    }
+  }
+
+  .is-style-outline & {
+    background-color: transparent;
+    border-color: currentColor;
+    @extend %color-black;
+
+    &:hover, &.active {
+      @extend %bgcolor-black;
+      border-color: transparent;
+    }
+
+    @each $name, $color in $colors {
+      &.has-#{$name}-color {
+        @extend %color-#{$name};
+        &:hover, &.active {
+          @extend %bgcolor-#{$name};
+        }
+      }
     }
   }
 }

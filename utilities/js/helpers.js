@@ -110,4 +110,25 @@ const isExternalUrl = url => {
 (function() {
   const isMobileDevice = document.body.classList.contains( 'mobile-device' );
   window.isMobileDevice = () => isMobileDevice;
-})()
+})();
+
+/**
+ * Sets `scroll-dir--(down|up)` class to `<html>` according to the scroll direction.
+ */
+(function() {
+
+  let lastScrollY = 0;
+  window.addEventListener('scroll', e => {
+    let dir = window.scrollY - lastScrollY;
+
+    if (dir > 0) dir = 'down';
+    else if (dir < 0) dir = 'up';
+    else dir = '';
+
+    document.documentElement.classList.remove( 'scroll-dir--down', 'scroll-dir--up' );
+    if ( dir ) document.documentElement.classList.add( `scroll-dir--${dir}` );
+
+    lastScrollY = window.scrollY;
+  } )
+
+})();

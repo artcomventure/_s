@@ -13,7 +13,7 @@ add_action( 'after_setup_theme', function() {
 } );
 
 /**
- * Register Mapbox GL JS.
+ * Register scripts and styles.
  */
 add_action( 'wp_enqueue_scripts', function() {
 	wp_enqueue_script( 'cookie-wall', COOKIE_WALL_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, true );
@@ -36,3 +36,12 @@ add_action( 'widgets_init', function() {
 		)
 	);
 } );
+
+/**
+ * Retrieve cookie wall text.
+ *
+ * @return void
+ */
+function cookie_wall(): void {
+	dynamic_sidebar( 'cookie-wall' );
+}

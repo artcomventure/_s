@@ -26,7 +26,7 @@
         cursor: pointer;
 
         &:after {
-          content: "↑";
+          content: "↓";
           display: inline-block;
           transform: rotate(0);
           transition: all var(--transition-duration) var(--transition-timing-function);
@@ -49,7 +49,7 @@
       pointer-events: none;
     }
 
-    &[aria-expanded="false"] > :first-child:after {
+    &[aria-expanded="true"] > :first-child:after {
       transform: rotate(-180deg);
     }
 

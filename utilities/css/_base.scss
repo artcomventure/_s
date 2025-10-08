@@ -50,7 +50,7 @@
   %color-#{$name} {
     @if $name != copy { --color-copy: var(--color-#{$name}); }
     @if $name != heading { --color-heading: var(--color-#{$name}); }
-    @if $name != link { --color-link: var(--color-#{$name}); }
+    @if $name != hyperlink { --color-hyperlink: var(--color-#{$name}); }
     color: var(--color-#{$name});
 
     svg {
@@ -74,13 +74,13 @@
       @if lightness($color) < $lightness-threshold {
         --color-copy: var(--color-light, #fff);
         --color-heading: var(--color-light, #fff);
-        --color-link: var(--color-light, #fff);
+        --color-hyperlink: var(--color-light, #fff);
         color: var(--color-light, #fff);
       }
       @else {
         --color-copy: #{map-get($colors, copy)};
         --color-heading: #{map-get($colors, copy)};
-        --color-link: #{map-get($colors, copy)};
+        --color-hyperlink: #{map-get($colors, copy)};
         color: #{map-get($colors, copy)};
       }
     }

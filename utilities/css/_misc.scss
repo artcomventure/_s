@@ -1,10 +1,6 @@
 .site {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
-
   &-main {
-    flex-grow: 1;
+    min-height: calc(100svh - var(--masthead-height) - var(--colophon-height));
   }
 }
 
@@ -41,8 +37,13 @@
 .alignfull {
   &,
   > .swiper-wrapper,
-  .wp-block-cover__background {
+  .wp-block-cover__background,
+  .wp-block-cover__image-background {
     max-width: none;
+  }
+
+  > .wp-block-cover__inner-container {
+    --width-max: 100%;
   }
 }
 
@@ -140,6 +141,7 @@
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: subgrid;
+  gap: var(--gap, 1em);
   pointer-events: none;
 
   > .wp-element-button {
