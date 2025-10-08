@@ -49,7 +49,7 @@ add_action( 'init', function() {
 			}
 		)
 	);
-} );
+}, 20 );
 
 // add attributes to all block registries
 add_filter( 'register_block_type_args', function( $args ) {

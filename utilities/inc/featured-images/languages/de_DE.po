@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Featured Images\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-24T16:02:02+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: featured-images\n"
+
+#: block.js:13
+#: build/block.js:1
+msgid "Edit Featured Images"
+msgstr "Beitragsbilder bearbeiten"
+
+#: block.js:14
+#: block.js:43
+#: build/block.js:1
+msgid "Add to Featured Images"
+msgstr "Beitragsbilder hinzufügen"
+
+#: block.js:43
+#: build/block.js:1
+msgid "Update Featured Images"
+msgstr "Beitragsbilder aktualisieren"
+
+#: block.js:57
+#: build/block.js:1
+msgid "Set featured image"
+msgstr "Beitragsbilder setzen"
+
+#: block.js:136
+#: build/block.js:1
+msgid "How and where multiple images are displayed depends on the theme."
+msgstr "Wie und wo mehrere Bilder angezeigt werden ist themabhängig."
