@@ -1,4 +1,4 @@
 @mixin focus-outline($color: var(--focus-outline-color, var(--color-error, red)), $offset: var(--focus-outline-offset, .28em)) {
-  outline: 2px dashed $color;
-  outline-offset: $offset;
+  outline: 2px dashed $color !important;
+  outline-offset: $offset !important;
 }

@@ -3,8 +3,13 @@
 define( 'ANCHOR_NAVIGATION_DIRECTORY', dirname( __FILE__ ) );
 define( 'ANCHOR_NAVIGATION_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/anchor-navigation' );
 
+// t9n
+add_action( 'after_setup_theme', function() {
+	load_theme_textdomain( 'anchor-navigation', ANCHOR_NAVIGATION_DIRECTORY . '/languages' );
+} );
+
 /**
- * Register Mapbox GL JS.
+ * Register scripts and styles.
  */
 add_action( 'wp_enqueue_scripts', function() {
 	wp_enqueue_script( 'anchor-navigation', ANCHOR_NAVIGATION_DIRECTORY_URI . '/app.js', ['behaviours'], false, true );
@@ -19,7 +24,9 @@ add_action( 'wp_enqueue_scripts', function() {
  */
 function get_anchor_navigation( string $post_content ): string {
 	if ( $anchors = parse_anchors( $post_content ) ) {
-		$output = '<div class="anchors"><nav>';
+		$toggler = '<button class="anchors-toggle" aria-expanded="false">' . __( 'Jump to', 'anchor-navigation' ) . '</button>';
+
+		$output = "<div class=\"anchors\">$toggler<nav>";
 
 		do_action( 'prepend_anchor_navigation', $anchors );
 
@@ -66,11 +73,13 @@ function parse_anchors( array|string $content ): array {
 
 		// loop through inner blocks
 		foreach ( $block['innerBlocks'] as $inner_block ) {
-			$anchors += parse_anchors( $inner_block );
+			$anchors += parse_anchors( $inner_block, true );
 		}
 	}
 
-	return apply_filters( 'anchor_navigation_items', $anchors ?? [], $content );
+	return isset((func_get_args())[1])
+		? $anchors ?? []
+		: apply_filters( 'anchor_navigation_items', $anchors ?? [], $content );
 }
 
 // change anchor label to valid id attribute value
@@ -79,7 +88,7 @@ add_filter( 'render_block', function( string $block_content, array $block, WP_Bl
 		!str_contains( $block['attrs']['className'] ?? '', 'no-anchor' )
 		&& preg_match('/ id=["\']([^"\']+)["\']/', $block['innerHTML'], $matches )
 	) {
-		$block_content = str_replace( $matches[0], ' id="' . sanitize_title( $matches[1] )  . '"', $block_content );
+		$block_content = str_replace( $matches[0], ' id="' . sanitize_title( $matches[1] )  . '" aria-label="' . esc_attr( $matches[1] ) . '"', $block_content );
 	}
 
 	return $block_content;

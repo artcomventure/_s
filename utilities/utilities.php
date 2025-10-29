@@ -37,8 +37,6 @@ function utilities_register_scripts(): void {
 	wp_register_script( 'inline-svg', UTILITIES_DIRECTORY_URI . '/js/inline-svg.js', ['behaviours'], false, true );
 	wp_register_script( 'custom-width', UTILITIES_DIRECTORY_URI . '/js/custom-width.js', ['behaviours'], false, true );
 	wp_register_script( 'in-viewport', UTILITIES_DIRECTORY_URI . '/js/in-viewport.js', [], false, true );
-	wp_register_script( 'file-drop', UTILITIES_DIRECTORY_URI . '/js/file-drop.js', ['alter', 'wp-i18n'], false, true );
-	wp_set_script_translations( 'file-drop', 'utilities', UTILITIES_DIRECTORY . '/languages/' );
 
 	wp_register_style( 'admin-bar-ux', UTILITIES_DIRECTORY_URI . '/css/admin-bar.css' );
 	wp_register_script( 'css-breakpoints', UTILITIES_DIRECTORY_URI . '/js/BREAKPOINTS.js', [], false, true );
@@ -61,22 +59,10 @@ add_action( 'admin_enqueue_scripts', function() {
 	wp_enqueue_style( 'utilities-admin', UTILITIES_DIRECTORY_URI . '/css/admin.css' );
 } );
 
-
-// change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`
-add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) {
-	if ( $file && $domain == 'utilities' ) {
-		if ( $handle == 'file-drop' ) {
-			$md5 = md5('js/file-drop.js' );
-			$file = preg_replace( '/\/' . $domain . '-([^-]+)-.+\.json$/', "/$1-{$md5}.json", $file );
-		}
-	}
-
-	return $file;
-}, 10, 3 );
-
 // auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
 auto_include_files( UTILITIES_DIRECTORY . '/inc' );
+auto_include_files( UTILITIES_DIRECTORY . '/js/file-drop' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/plugins' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/shortcodes' );

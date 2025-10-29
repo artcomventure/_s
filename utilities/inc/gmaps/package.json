@@ -1,0 +1,28 @@
+{
+	"main": "build/index.js",
+	"scripts": {
+		"watch": "npm run gmaps:watch & npm run settings:watch",
+		"build": "npm run gmaps:build & npm run settings:build",
+
+		"gmaps:watch": "npm run gmaps:watch:scss & npm run gmaps:watch:js",
+		"gmaps:build": "npm run gmaps:build:scss & npm run gmaps:build:js",
+		"gmaps:watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=**/*.min.js --presets=@babel/preset-env --watch",
+		"gmaps:watch:scss": "node-sass ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+		"gmaps:build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+		"gmaps:build:scss": "node-sass ./ -o ./ --output-style compressed",
+
+		"settings:watch": "npm run settings:watch:scss & npm run settings:watch:js",
+		"settings:build": "npm run settings:build:scss & npm run settings:build:js",
+		"settings:watch:js": "babel inc/settings -d inc/settings/ --out-file-extension .min.js --source-maps --ignore=inc/settings/**/*.min.js --presets=@babel/preset-env --watch",
+		"settings:watch:scss": "node-sass inc/settings -o inc/settings/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+		"settings:build:js": "babel inc/settings -d inc/settings/ --out-file-extension .min.js --no-comments --ignore=inc/settings/**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+		"settings:build:scss": "node-sass inc/settings -o inc/settings/ --output-style compressed",
+
+		"i18n:scan": "npm run i18n:pot && npm run i18n:po",
+		"i18n:pot": "wp i18n make-pot  languages/gmaps.pot --domain=gmaps --exclude=src,node_modules,js/**/*.min.* --package-name=gmaps",
+		"i18n:po": "wp i18n update-po languages/gmaps.pot languages",
+		"i18n:create": "npm run i18n:mo & npm run i18n:json",
+		"i18n:mo": "wp i18n make-mo languages",
+		"i18n:json": "wp i18n make-json languages --no-purge"
+	}
+}

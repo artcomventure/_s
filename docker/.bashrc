@@ -10,6 +10,14 @@ alias dev2ip="wp search-replace '${DEV_URL}' 'http://${LOCAL_IP}' --allow-root"
 alias stage2ip="wp search-replace '${STAGE_URL}' 'http://${LOCAL_IP}' --allow-root"
 alias live2ip="wp search-replace '${LIVE_URL}' 'http://${LOCAL_IP}' --allow-root"
 
+alias dev2stage="wp search-replace '${DEV_URL}' '${STAGE_URL}' --allow-root"
+alias ip2stage="wp search-replace 'http://${LOCAL_IP}' '${STAGE_URL}' --allow-root"
+alias live2stage="wp search-replace '${LIVE_URL}' '${STAGE_URL}' --allow-root"
+
+alias dev2live="wp search-replace '${DEV_URL}' '${LIVE_URL}' --allow-root"
+alias ip2live="wp search-replace 'http://${LOCAL_IP}' '${LIVE_URL}' --allow-root"
+alias stage2live="wp search-replace '${STAGE_URL}' '${LIVE_URL}' --allow-root"
+
 # WP CLI commands to update WP and else:
 # For more info see https://developer.wordpress.org/cli/commands/
 # ---

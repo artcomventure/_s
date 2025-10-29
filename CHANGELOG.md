@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.18.0 - 2025-10-29
+**Added**
+
+* Google Maps integration (in `THEME/utilities/inc/gmaps/`).
+* More Docker command aliases (in `THEME/docker/.bashrc`).
+
+**Fixed**
+
+* Conditional post-thumbnail linking (in `THEME/inc/template-tags.php`).
+* Various CSS.
+* Dotlottie-WC without import from jsDelivr (in `THEME/utilities/js/libs/dowlottie-wc/`).
+
+**Changed**
+
+* Select non-viewable post types (in `THEME/utilities/inc/posts-list/inc/block/index.js`).
+* Move and extend "file drop" js (in `THEME/utilities/js/file-drop/`).
+
 ## 1.17.0 - 2025-10-08
 **Added**
 

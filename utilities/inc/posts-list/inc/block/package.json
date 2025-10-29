@@ -4,11 +4,6 @@
     "build": "wp-scripts build index.js & npm-run-all --parallel build:*",
 
     "watch:scss": "node-sass --include-path scss ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build:scss": "node-sass ./ -o ./ --output-style compressed",
-
-    "i18n:pot": "wp i18n make-pot . languages/posts-list.pot --domain=posts-list --exclude=src,node_modules,**/*.min.* --package-name='Posts List'",
-    "i18n:po": "wp i18n update-po languages/posts-list.pot languages",
-    "i18n:mo": "wp i18n make-mo languages",
-    "i18n:json": "wp i18n make-json languages --no-purge"
+    "build:scss": "node-sass ./ -o ./ --output-style compressed"
   }
 }

@@ -1,0 +1,20 @@
+@import "../../style.css";
+
+#tab-map {
+  label {
+    display: block;
+
+    input, textarea, p {
+      font-weight: normal;
+    }
+
+    input {
+      margin-top: .5em;
+      width: 100%;
+    }
+
+    + label {
+      margin-top: 1em;
+    }
+  }
+}

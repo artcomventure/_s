@@ -1,0 +1,55 @@
+@import "../../../css/variables";
+@import "../../css/base";
+
+.file-drop {
+  + input[type="file"] {
+    display: none;
+  }
+
+  &--zone {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+
+    &, .file-drop--text {
+      transition: .2s ease-in-out;
+    }
+
+    &.drop-here {
+      background-color: currentColor-opacity(.1);
+    }
+
+    &.is-dragover {
+      cursor: grab;
+    }
+
+    &.is-dragover,
+    &:focus-visible {
+      @include focus-outline;
+    }
+  }
+
+  &--files {
+    @extend %list-unstyled;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid currentColor;
+      padding: 1em;
+      padding-left: 0;
+
+      span {
+        cursor: pointer;
+        width: 1em;
+        line-height: 1;
+        border-radius: 50%;
+        align-self: center;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -43,7 +43,10 @@
   }
 
   > .wp-block-cover__inner-container {
-    --width-max: 100%;
+    --width-max: #{map-get($breakpoints, wide)};
+    width: 100% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
   }
 }
 
@@ -69,6 +72,21 @@
   .entry-content > *,
   .alignfull > * {
     max-width: none;
+  }
+}
+
+// ---
+// Cover Block.
+
+.wp-block-cover {
+  // content alignment
+  @each $vposition, $valignment in (top: start, center: center, bottom: end) {
+    @each $hposition, $halignment in (right: start, center: center, left: end) {
+      &.is-position-#{$vposition}-#{$hposition} .wp-block-cover__inner-container {
+        justify-content: $halignment;
+        align-self: $valignment;
+      }
+    }
   }
 }
 

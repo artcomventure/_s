@@ -343,7 +343,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                 { value: 'date', label: __( 'Date' ) },
                 { value: 'menu_order', label: __( 'Order' ) },
                 { value: 'title', label: __( 'Title' ) },
-                // { value: 'rand', label: __( 'random', 'posts-list' ) },
+                { value: 'rand', label: __( 'random', 'posts-list' ) },
               ] }
               onChange={ ( orderby ) => setAttributes( { orderby } ) }
             /> }
@@ -380,12 +380,24 @@ const PostsListControl = compose( [
     // get all post types
     let post_types = (getPostTypes( { per_page: -1 } ) || [])
     // ... which are viewable
-    post_types = post_types.filter( post_type => post_type.viewable );
+    // post_types = post_types.filter( post_type => post_type.viewable );
+    // ... and not WP special
+    post_types = post_types.filter( post_type => [
+      'attachment',
+      'nav_menu_item',
+      'wp_block',
+      'wp_navigation',
+      'wp_template',
+      'wp_template_part',
+      'wp_global_styles',
+      'wp_font_family',
+      'wp_font_face'
+    ].indexOf( post_type.slug ) < 0 );
 
     // get all post of corresponding post type
     const posts = (getEntityRecords( 'postType', attributes.post_type, {
       per_page: -1,
-      status : 'publish',
+      status : 'any',
       orderby: 'title',
       order: 'asc',
       exclude: select('core/editor').getCurrentPostId()

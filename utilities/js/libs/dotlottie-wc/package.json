@@ -4,7 +4,7 @@
     "build": "npm-run-all --parallel build:*",
 
     "watch:app": "wp-scripts start ./app.js",
-    "build:app": "wp-scripts build ./app.js",
+    "build:app": "wp-scripts build ./app.js && node setWasmUrl.js",
 
     "watch:block": "cd inc/block && npm run watch",
     "build:block": "cd inc/block && npm run build",

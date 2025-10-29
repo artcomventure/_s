@@ -137,7 +137,7 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 
 		<?php else : ?>
 
-			<figure class="wp-block-image post-thumbnail" data-href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+			<figure class="wp-block-image post-thumbnail"<?php echo is_post_publicly_viewable() ? ' data-href="' . the_permalink() . '"' : '' ?> aria-hidden="true" tabindex="-1">
 				<?php the_post_thumbnail(
 					$size,
                     ['alt' => the_title_attribute( ['echo' => false] )]
