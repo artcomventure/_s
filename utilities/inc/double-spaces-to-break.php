@@ -11,7 +11,7 @@ add_filter( 'aioseo_title', function( $title ) {
  * @return string
  */
 function doubleSpacesToBreak( $string ) {
-    $replacement = '<br />';
+    $replacement = '<br /> ';
     if ( is_admin() || wp_is_json_request() || wp_doing_ajax() ) $replacement = ' ';
 
     return preg_replace( '/  +/', $replacement, $string );

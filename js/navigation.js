@@ -11,7 +11,7 @@
 	// remove the .toggled class and set aria-expanded to false
 	// when the user clicks outside the navigation
 	document.addEventListener( 'click', function( event ) {
-		if ( $button && !$siteNavigation.contains( event.target ) ) {
+		if ( $button && !$siteNavigation.contains( event.target ) && $button.getAttribute( 'aria-expanded' ) === 'true' ) {
 			$button.dispatchEvent( new Event( 'click' ) );
 		}
 	} );

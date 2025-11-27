@@ -9,9 +9,9 @@ const BodyclassSettings = ({setState, updateMeta, ...props}) => {
 
     return (
         <>
+            <p>{ __('Separate multiple classes with spaces.') }</p>
             <TextControl
                 label={__('Extra <html> class(es)', 'bodyclass')}
-                help={__('Separate multiple classes with spaces.')}
                 value={props._htmlclass}
                 onChange={(state) => {
                     updateMeta('_htmlclass', state)
@@ -20,7 +20,6 @@ const BodyclassSettings = ({setState, updateMeta, ...props}) => {
             />
             <TextControl
                 label={__('Extra <body> class(es)', 'bodyclass')}
-                help={__('Separate multiple classes with spaces.')}
                 value={props._bodyclass}
                 onChange={(state) => {
                     updateMeta('_bodyclass', state)
@@ -29,7 +28,6 @@ const BodyclassSettings = ({setState, updateMeta, ...props}) => {
             />
             <TextControl
                 label={__('Extra <article> class(es)', 'bodyclass')}
-                help={__('Separate multiple classes with spaces.')}
                 value={props._articleclass}
                 onChange={(state) => {
                     updateMeta('_articleclass', state)

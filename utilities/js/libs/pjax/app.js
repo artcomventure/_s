@@ -76,7 +76,7 @@
         currentUrlFullReload: Alter.do( 'pjax-currentUrlFullReload', false ),
         debug: Alter.do( 'pjax-debug', false ),
         history: Alter.do( 'pjax-history', true ),
-        scrollRestoration: Alter.do( 'pjax-scrollRestoration', false ),
+        scrollRestoration: Alter.do( 'pjax-scrollRestoration', true ),
         scrollTo: Alter.do( 'pjax-scrollTo', false ),
     } );
 

@@ -3,11 +3,20 @@
   background-color: #fff;
   border-radius: 1em;
   padding: 2em;
+  margin: 2em;
   box-sizing: border-box;
   max-width: 664px;
+  justify-self: center;
 
   > :first-child, .textwidget > :first-child { margin-top: 0 !important; }
   .textwidget > :last-child { margin-bottom: 0 !important; }
+
+  .map:has(> &),
+  .wp-block-embed__wrapper:has(iframe[data-ccm-loader-group] + &) {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
 
   // ---
   // Google Maps
@@ -18,9 +27,25 @@
 
   .map:has(> &) {
     background: url(map-placeholder.webp) no-repeat scroll center center transparent;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
+
+  }
+
+  // ---
+  // Embed wrapper.
+
+  @at-root {
+    .wp-block-embed__wrapper:has(iframe[data-ccm-loader-group] + &) {
+      background-color: #eee;
+      iframe { display: none; }
+
+      &:before, > * {
+        grid-column: 1;
+        grid-row: 1;
+      }
+    }
+
+    .wp-block-embed__wrapper:not(:has(iframe[data-ccm-loader-group])) & {
+      display: none;
+    }
   }
 }

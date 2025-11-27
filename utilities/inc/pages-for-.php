@@ -104,3 +104,10 @@ function page_for_class( $classes ) {
 
 	return $classes;
 }
+
+// get bogo translated post
+add_action( 'wp', function() {
+	foreach( apply_filters( 'pages_for', array() ) as $name => $label ) {
+		add_filter( "option_$name", 'bogo_get_local_post' );
+	}
+} );

@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.19.0 - 2025-11-27
+**Added**
+
+* Remove links from not `publicly_queryable` taxonomies (in `THEME/utilities/inc/taxonomy-links.php`).
+* Selectively change post navigation from `post_date` to `menu_order` (in `THEME/utilities/inc/post-navigation-by-menu_order.php`). 
+* Add tablesort js library (in `THEME/utilities/js/libs/tablesort/`).
+
+**Fixed**
+
+* Mobile navigation close UX (in `THEME/js/navigation.js`).
+* Typekit fonts enqueue (in `THEME/media/fonts/fonts.php`).
+* Add _missing_ embed aspect ratio (in `THEME/utilities/css/_misc.scss`).
+* Cookie wall: default embed styles (in `THEME/utilities/inc/cookie-wall/style.scss`).
+
 ## 1.18.0 - 2025-10-29
 **Added**
 

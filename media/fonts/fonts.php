@@ -3,15 +3,13 @@
 define( 'FONTS_DIRECTORY', dirname( __FILE__ ) );
 define( 'FONTS_DIRECTORY_URI', get_template_directory_uri() . '/media/fonts' );
 
-define( 'TYPEKIT_FONTS', apply_filters( 'typekit-font-url', '' ) );
-
 /**
  * Enqueue fonts.
  */
 add_action( 'wp_enqueue_scripts', 'enqueue_fonts' );
 add_action( 'enqueue_block_editor_assets', 'enqueue_fonts' );
 function enqueue_fonts(): void {
-	if ( TYPEKIT_FONTS ) wp_enqueue_style( 'typekit-fonts', TYPEKIT_FONTS );
+	if ( $typekit = apply_filters( 'typekit-font-url', '' ) ) wp_enqueue_style( 'typekit-fonts', $typekit );
 	wp_enqueue_style( 'icont', FONTS_DIRECTORY_URI . '/Icont/font.css' );
 }
 

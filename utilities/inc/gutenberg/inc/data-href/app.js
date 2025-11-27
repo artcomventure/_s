@@ -58,6 +58,18 @@ Behaviours.add( 'links:data-href', $context => {
         // redirect
 
         $link.addEventListener( 'click', e => {
+            // is anchor
+            if ( dataHref[0] === '#' ) {
+                const $element = document.getElementById( dataHref );
+                if ( $element ) {
+                    $element.scrollIntoView();
+                    // re-do scroll in case something changes on scroll action
+                    setTimeout( () => $element.scrollIntoView(), 100 )
+                }
+
+                return;
+            }
+
             if ( typeof pjax !== 'undefined' && isInternalUrl( dataHref ) ) {
                 const $tmp = document.createElement( 'div' );
                 $tmp.innerHTML = `<a href="${dataHref}"></a>`;

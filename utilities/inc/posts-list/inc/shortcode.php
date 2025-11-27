@@ -42,8 +42,10 @@ function get_posts_list( $attr = [] ) {
 		if ( get_post_type() == $atts['post_type'] )
 			$query['post__not_in'] = [get_the_ID()];
 
-		if ( isset($query['orderby']) && $query['orderby'] !== 'date' )
-			$query['order'] = 'ASC';
+		if ( isset($query['orderby']) ) {
+			if ( $query['orderby'] !== 'date' ) $query['order'] = 'ASC';
+			if ( $query['orderby'] === 'menu_order' ) $query['orderby'] .= ' title';
+		}
 
 		// parse filter (set from Gutenberg block)
 		if ( is_string( $filter = $atts['filter'] ) ) {

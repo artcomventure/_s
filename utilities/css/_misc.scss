@@ -301,3 +301,11 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
   padding: 0;
 }
 
+// ---
+// add missing aspect ratio
+// see `wp-includes/blocks/embed/style.css`
+
+.wp-embed-responsive .wp-embed-aspect-3-2 .wp-block-embed__wrapper:before {
+  padding-top: 66.66667%;
+}
+
