@@ -5,7 +5,6 @@ define( 'GUTENBERG_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/gutenberg' );
 
 add_action( 'after_setup_theme', function() {
 	add_theme_support( 'editor-styles' );
-	add_theme_support( 'align-wide' );
 	// more settings see `THEME/theme.json`
 	// https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
 

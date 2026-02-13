@@ -72,3 +72,11 @@ msgstr "Element"
 #: build/block.js:1
 msgid "Content"
 msgstr "Inhalt"
+
+#: accordion.php:14
+msgid "Use custom accordion block"
+msgstr "Unseren Akkordeonblock verwenden"
+
+#: accordion.php:15
+msgid "Since “Gene” (6.9) WordPress got its own <a href=\"%s\" target=\"_blank\">accordion block</a>. Our custom block is therefore deprecated."
+msgstr "Seit Version „Gene“ (6.9) verfügt WordPress über einen eigenen <a href=\"%s\" target=\"_blank\">Akkordeon-Block</a>. Unser eigener Block ist damit veraltet."

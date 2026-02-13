@@ -7,16 +7,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-20T15:21:41+00:00\n"
+"POT-Creation-Date: 2026-01-05T09:02:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: posts-list\n"
 
-#: inc/shortcode.php:109
+#: inc/shortcode.php:112
+#: inc/block/build/index.js:1
 msgid "No entries were found."
 msgstr ""
 
-#: inc/shortcode.php:120
+#: inc/shortcode.php:123
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
@@ -138,6 +139,10 @@ msgstr ""
 
 #: inc/block/build/index.js:1
 msgid "random"
+msgstr ""
+
+#: inc/block/build/index.js:1
+msgid "No entries message"
 msgstr ""
 
 #: inc/block/build/index.js:1

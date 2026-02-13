@@ -31,10 +31,12 @@ Change the theme's name "_s" to something else (like, say, `next-awesome-theme`)
 
 1. Search for `'_s'` (inside single quotations) to capture the text domain and replace with: `'next-awesome-theme'`.
 2. Search for `_s_` to capture all the functions names and replace with: `megatherium_is_awesome_`.
-3. Search for `Text Name: _s` in `css/style.scss` and replace with: `Text Name: Next Awesome Theme`.
+3. Search for `Theme Name: _s` in `css/style.scss` and replace with: `Theme Name: Next Awesome Theme`.
 3. Search for `Text Domain: _s` in `css/style.scss` and replace with: `Text Domain: next-awesome-theme`.
-4. Search for `_s.pot` and replace with: `next-awesome-theme.pot`.
+4. Search for `_s.pot`/`_s+.pot` and replace with: `next-awesome-theme.pot`/`next-awesome-theme+.pot`. Change file names in `package.json` too.
 5. Search for `_s-` to capture prefixed handles and replace with: `next-awesome-theme-`.
+
+Last but not least: Search for `_s` in all theme files and replace selectively with `next-awesome-theme`.
 
 ## Setup
 

@@ -3,8 +3,8 @@
 /**
  * Set file's timestamp as `ver` to automatically _busting_ browser's cache.
  */
-add_action( 'wp_enqueue_scripts', 'filemtime_as_file_version', 12 );
-add_action( 'admin_enqueue_scripts', 'filemtime_as_file_version', 12 );
+add_action( 'wp_enqueue_scripts', 'filemtime_as_file_version', 99999 );
+add_action( 'admin_enqueue_scripts', 'filemtime_as_file_version', 99999 );
 function filemtime_as_file_version(): void {
 	// all CSS and js files
 	foreach ( array( wp_styles(), wp_scripts() ) as $files ) {

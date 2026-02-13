@@ -21,3 +21,13 @@ add_action( 'customize_register', function( $wp_customize ) {
 	if ( !user_has_role( 'administrator' ) )
 		$wp_customize->remove_section( 'static_front_page' );
 } );
+
+/**
+ * Remove "Customizer" from admin menu.
+ *
+ * @since 1.20.0
+ */
+add_action( 'wp_before_admin_bar_render', function() {
+	global $wp_admin_bar;
+	$wp_admin_bar->remove_menu( 'customize' );
+} );

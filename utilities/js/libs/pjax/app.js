@@ -119,7 +119,6 @@
             if ( typeof mejs !== 'undefined' ) Object.keys( mejs.players || {} ).forEach( ( id ) => {
                 const player = mejs.players[id];
                 if ( !player.paused ) player.pause();
-                player.options.stretching = 'auto'; // other will cause an js error on remove
                 player.remove();
             } );
 

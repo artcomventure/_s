@@ -56,6 +56,8 @@ $breakpoints: map-merge($breakpoints, (
 
 $spacing-min: 36px;
 $spacing-max: 130px;
+
+@import "../utilities/css/functions/fluid";
 $spacings: ();
 
 // ---

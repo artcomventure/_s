@@ -11,6 +11,12 @@ add_action( 'after_setup_theme', function() {
 // enable shortcodes for titles
 add_filter( 'the_title', 'do_shortcode' );
 add_filter( 'widget_title', 'do_shortcode' );
+// ... and terms
+add_filter( 'get_term', function( $term, $taxonomy ) {
+	$term->name = do_shortcode( $term->name );
+	return $term;
+}, 10, 2 );
+add_filter( 'term_description', 'do_shortcode' );
 
 add_action( 'wp_head', function() {
 	// set css properties

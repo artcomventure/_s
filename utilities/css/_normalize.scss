@@ -123,7 +123,7 @@ figure {
 }
 
 figcaption {
-  @extend %caption;
+  @extend %caption !optional;
 }
 
 // ---

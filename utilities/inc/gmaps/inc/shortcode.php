@@ -12,10 +12,6 @@ function gmap_shortcode( $attr = [] ) {
 		$aspect_ratio = ' style="--ratio: ' . (int) $matches[2] / (int) $matches[1] . '"';
 	}
 
-	ob_start();
-	cookie_wall();
-	$cookie_wall = ob_get_clean();
-
 	// create block like Gutenberg would
-	return '<div class="wp-block-gmap-block"' . ($aspect_ratio ?? '') . '><div class="map">' . $cookie_wall . '</div></div>';
+	return '<div class="wp-block-gmap-block"' . ($aspect_ratio ?? '') . '><div class="map">' . get_cookie_wall() . '</div></div>';
 }

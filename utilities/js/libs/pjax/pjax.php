@@ -3,6 +3,8 @@
 define( 'PJAX_DIRECTORY', dirname( __FILE__ ) );
 define( 'PJAX_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/js/libs/pjax' );
 
+add_filter( 'should_load_separate_core_block_assets', '__return_false' );
+
 // register pjax lib
 add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'pjax-module', PJAX_DIRECTORY_URI . '/module/pjax.min.js', [], '0.2.8', true );

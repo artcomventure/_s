@@ -17,6 +17,7 @@ function get_posts_list( $attr = [] ) {
 
 		'filter' => [],
 		'theme'  => 'grid',
+		'empty'   => '',
 		'more'   => '',
 
 		'lang' => function_exists( 'pll_current_language' )
@@ -30,7 +31,7 @@ function get_posts_list( $attr = [] ) {
 
 	// build query
 	$query = array_filter( $atts, function ( $value, $key ) {
-		return $value && ! in_array( $key, [ 'more', 'filter', 'group_by_month', 'theme' ] );
+		return $value && ! in_array( $key, [ 'empty', 'more', 'filter', 'group_by_month', 'theme' ] );
 	}, ARRAY_FILTER_USE_BOTH );
 
 	// order by post__in
@@ -77,7 +78,10 @@ function get_posts_list( $attr = [] ) {
 	$query['paged'] = $page;
 
 	// query posts
-	$posts = new WP_Query( $query );
+	$posts = new WP_Query( [
+        'is_posts_list_query' => true,
+        'posts_list_theme' => $atts['theme'],
+    ] + $query );
 
 	if ( $posts->have_posts() ) {
 		// custom theme
@@ -108,7 +112,7 @@ function get_posts_list( $attr = [] ) {
 	}
 
 	$output = ( $output ?? '' )
-		?: '<div class="no-entries-message">' . wpautop( __( 'No entries were found.', 'posts-list' ) ) . '</div>';
+		?: '<div class="no-entries-message">' . wpautop( $atts['empty'] ?: __( 'No entries were found.', 'posts-list' ) ) . '</div>';
 
 	ob_start();
 	do_action( 'posts-list-prepend', $posts, $atts );

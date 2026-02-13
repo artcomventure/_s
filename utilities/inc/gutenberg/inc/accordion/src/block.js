@@ -73,7 +73,8 @@ registerBlockType( 'accordion/widget', {
     // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/
     supports: {
         anchor: true,
-        align: [ 'wide', 'full' ]
+        align: [ 'wide', 'full' ],
+        color: true
     },
 
     attributes: {

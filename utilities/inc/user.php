@@ -54,3 +54,13 @@ add_action( 'admin_menu', function() {
 		urlencode( 'autofocus[control]' ) => 'background_image'
 	], 'customize.php' ) ) );
 } );
+
+/**
+ * Remove "User" from "New" in admin menu.
+ *
+ * @since 1.20.0
+ */
+add_action( 'wp_before_admin_bar_render', function() {
+	global $wp_admin_bar;
+	$wp_admin_bar->remove_menu( 'new-user' );
+} );

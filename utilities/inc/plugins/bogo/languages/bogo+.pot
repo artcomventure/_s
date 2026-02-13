@@ -1,0 +1,20 @@
+# Bogo doesn't come with translations.
+# These are the most important translations in backend.
+
+msgid "Languages"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Language Packs"
+msgstr ""
+
+msgid "Terms Translation"
+msgstr ""
+
+msgid "Search Language"
+msgstr ""
+
+msgid "-- Select Language to Edit --"
+msgstr ""

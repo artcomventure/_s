@@ -1,0 +1,15 @@
+/**
+ * Media query especially for (non) touch devices.
+ */
+
+@mixin touch-device-only {
+  @media (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin non-touch-device {
+  @media not all and (pointer: coarse) {
+    @content;
+  }
+}

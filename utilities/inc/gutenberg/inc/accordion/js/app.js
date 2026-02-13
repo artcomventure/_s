@@ -53,8 +53,9 @@ function accordion( $context ) {
 
         // set item's max height according if expanded or collapsed
         const setMaxHeight = ( $item ) => {
-            if ( expanded( $item ) ) $item.style.maxHeight = `${$item.scrollHeight}px`;
-            else $item.style.maxHeight = `${$item.firstElementChild.scrollHeight}px`;
+            const $content = $item.querySelector( '.wp-block-accordion-item-content' );
+            if ( $content && Math.abs( parseInt($content.style.maxHeight || 0 ) - $content.scrollHeight ) > 1 )
+                $content.style.maxHeight = `${$content.scrollHeight}px`;
 
             // nested accordions
             while ( $item = $item.parentElement.closest( 'div.wp-block-accordion-item' ) )
@@ -70,6 +71,8 @@ function accordion( $context ) {
                 $item.firstElementChild.setAttribute( 'tabindex', 0 );
             }
 
+            setMaxHeight( $item );
+
             $item.firstElementChild.addEventListener( 'click', function( e ) {
                 // close all other items
                 if ( !multiple() ) [].filter.call( $accordion.children, function( $child ) {
@@ -77,8 +80,6 @@ function accordion( $context ) {
                 } ).forEach( collapse );
 
                 toggle( $item );
-
-                [].forEach.call( $accordion.children, setMaxHeight );
             }, { passive: true } );
 
             $item.firstElementChild.addEventListener( 'keydown', e => {

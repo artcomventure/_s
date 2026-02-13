@@ -78,6 +78,10 @@ const blockAttributes = {
     type: 'string',
     default: '1'
   },
+  empty: {
+    type: 'string',
+    default: ''
+  },
   more: {
     type: 'string',
     default: ''
@@ -125,6 +129,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
     theme,
     columns,
     orderby,
+    empty,
     more
   } = attributes;
 
@@ -166,6 +171,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
       <ServerSideRender
         block="posts-list/preview"
         attributes={ cleanUpBlockAttributes( attributes ) }
+        className={ `${props.className} ${post_type}-posts-list is-layout-${theme || blockAttributes.theme.default}` }
       />
 
       <InspectorControls>
@@ -349,6 +355,13 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
             /> }
 
             <TextControl
+              label={ __( 'No entries message', 'posts-list' ) }
+              placeholder={ __( 'No entries were found.', 'posts-list' ) }
+              value={ empty }
+              onChange={ ( empty ) => setAttributes( { empty } ) }
+            />
+
+            <TextControl
               label={ __( 'Load more' ) }
               help={ __( 'If there are less results than the setting on "Number of posts", the button is not added.', 'posts-list' ) }
               placeholder={ __( 'Button text' ) }
@@ -379,7 +392,7 @@ const PostsListControl = compose( [
 
     // get all post types
     let post_types = (getPostTypes( { per_page: -1 } ) || [])
-    // ... which are viewable
+    // ... which are _viewable_
     // post_types = post_types.filter( post_type => post_type.viewable );
     // ... and not WP special
     post_types = post_types.filter( post_type => [
@@ -456,7 +469,7 @@ registerBlockType( 'posts-list/block', {
     return <div
       data-uuid={ attributes.blockId }
       data-grid={ attributes.columns }
-      className={ `${attributes.post_type}-posts-list wp-block-group is-layout-${attributes.theme || blockAttributes.theme.default} wp-block-group-is-layout-${attributes.theme || blockAttributes.theme.default}` }
+      className={ `${attributes.post_type}-posts-list wp-block-group is-layout-${attributes.theme || blockAttributes.theme.default}` }
     >
       <RawHTML>{ `[posts-list ${ attr.join( ' ' ) }]` }</RawHTML>
     </div>

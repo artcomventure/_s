@@ -24,7 +24,7 @@ a, .link {
 }
 
 figcaption, .caption {
-  @extend %caption;
+  @extend %caption !optional;
 }
 
 button {

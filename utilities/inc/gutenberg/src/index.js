@@ -55,7 +55,7 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
 registerFormatType( 'utilities-gutenberg/nowrap', {
     title: __( 'no line break', 'gutenberg' ),
     tagName: 'span',
-    className: null,
+    className: 'white-space-nowrap',
     attributes: {
         style: 'style'
     },

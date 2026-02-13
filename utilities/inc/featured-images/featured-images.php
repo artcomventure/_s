@@ -3,6 +3,21 @@
 define( 'FEATURED_IMAGES_DIRECTORY', dirname( __FILE__ ) );
 define( 'FEATURED_IMAGES_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/featured-images' );
 
+//add_action( 'customize_register', function( $wp_customize ) {
+//	$wp_customize->add_setting( 'multiple-featured-images', array(
+//		'type' => 'option',
+//		'capability' => 'manage_options',
+//	) );
+//
+//	$wp_customize->add_control( 'multiple-featured-images', array(
+//		'label' => __( 'Multiple featured images', 'featured-images' ),
+//		'section' => 'utilities',
+//		'type' => 'checkbox'
+//	) );
+//} );
+//
+//if ( !get_option('multiple-featured-images' ) ) return;
+
 /**
  * Register block and enqueue styles and scripts.
  */
@@ -75,5 +90,13 @@ function delete_empty_thumbnails_meta( $meta_id, $post_id, $meta_key, $meta_valu
  */
 function get_featured_images( int|WP_POST $post = 0 ): array {
 	$post = get_post( $post );
-	return get_post_meta( $post->ID, '_thumbnails', true ) ?: [];
+
+	// get thumbnails (at least WP' thumbnail)
+	$images = array_merge(
+		[get_post_thumbnail_id()],
+		(get_post_meta( $post->ID, '_thumbnails', true ) ?: [])
+	);
+	$images = array_filter( $images ); // remove empty values
+	$images = array_unique( $images ); // unify values
+	return array_values( $images ); // reset keys
 }

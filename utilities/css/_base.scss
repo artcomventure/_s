@@ -17,6 +17,7 @@
 @import "mixins/px2rem";
 @import "mixins/scrollwithoutbar";
 @import "mixins/sr-only";
+@import "mixins/touch-device";
 @import "mixins/vars";
 
 // ---
@@ -46,6 +47,33 @@
   }
 }
 
+@mixin bgcolor($name) {
+  $name: quote($name);
+  $color: map-get($colors, $name);
+
+  background-color: var(--color-#{unquote($name)});
+
+  svg {
+    fill: currentColor;
+  }
+
+  // auto light color on dark backgrounds
+  @if type-of($color) == color {
+    @if lightness($color) < $lightness-threshold {
+      --color-copy: var(--color-light, #fff);
+      --color-heading: var(--color-light, #fff);
+      --color-hyperlink: var(--color-light, #fff);
+      color: var(--color-light, #fff);
+    }
+    @else {
+      --color-copy: #{map-get($colors, copy)};
+      --color-heading: #{map-get($colors, copy)};
+      --color-hyperlink: #{map-get($colors, copy)};
+      color: #{map-get($colors, copy)};
+    }
+  }
+}
+
 @each $name, $color in $colors {
   %color-#{$name} {
     @if $name != copy { --color-copy: var(--color-#{$name}); }
@@ -63,27 +91,7 @@
   }
 
   %bgcolor-#{$name} {
-    background-color: var(--color-#{unquote($name)});
-
-    svg {
-      fill: currentColor;
-    }
-
-    // auto light color on dark backgrounds
-    @if type-of($color) == color {
-      @if lightness($color) < $lightness-threshold {
-        --color-copy: var(--color-light, #fff);
-        --color-heading: var(--color-light, #fff);
-        --color-hyperlink: var(--color-light, #fff);
-        color: var(--color-light, #fff);
-      }
-      @else {
-        --color-copy: #{map-get($colors, copy)};
-        --color-heading: #{map-get($colors, copy)};
-        --color-hyperlink: #{map-get($colors, copy)};
-        color: #{map-get($colors, copy)};
-      }
-    }
+    @include bgcolor($name);
   }
 }
 

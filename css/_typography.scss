@@ -30,49 +30,31 @@
 %h1 {
   @extend %heading;
   @extend %h1-font-size !optional;
-
-  //line-height: fluid(rem(40px), rem(45px));
-  //letter-spacing: 0;
 }
 
 %h2 {
   @extend %heading;
   @extend %h2-font-size !optional;
-
-  //line-height: fluid(rem(40px), rem(45px));
-  //letter-spacing: 0;
 }
 
 %h3 {
   @extend %heading;
   @extend %h3-font-size !optional;
-
-  //line-height: fluid(2.1rem, 3.6rem);
-  //letter-spacing: fluid(.18px, 0px);
 }
 
 %h4 {
   @extend %heading;
   @extend %h4-font-size !optional;
-
-  //line-height: 1.8rem;
-  //letter-spacing: fluid(.9px, .48px);
 }
 
 %h5 {
   @extend %heading;
   @extend %h5-font-size !optional;
-
-  //line-height: 1.8rem;
-  //letter-spacing: fluid(.9px, .48px);
 }
 
 %h6 {
   @extend %heading;
   @extend %h6-font-size !optional;
-
-  //line-height: 1.8rem;
-  //letter-spacing: fluid(.9px, .48px);
 }
 
 // ---
@@ -151,6 +133,10 @@
       @extend %text-decoration-animation-x;
     }
   }
+
+  p & {
+    overflow-wrap: break-word
+  }
 }
 
 // ---
@@ -171,6 +157,9 @@
   transition-property: color, background-color, opacity, border-color;
 
   border: 1px solid;
+
+  color: inherit;
+  --color-link: inherit;
 
   @if $link-text-decoration-animation == x {
     &:before { content: none; }

@@ -62,6 +62,10 @@ add_action( 'init', function() {
 			'type' => 'string',
 			'default' => 'date'
 		],
+		'empty' => [
+			'type' => 'string',
+			'default' => ''
+		],
 		'more' => [
 			'type' => 'string',
 			'default' => ''

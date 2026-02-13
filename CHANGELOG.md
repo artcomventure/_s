@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.20.0 - 2026-02-13
+**Added**
+
+* Touch device media query (in `THEME/utilities/css/mixins/_touch-device.scss`).
+* YouTube/Vimeo auto cookie wall (in `THEME/utilities/cookie-wall`).
+* Bogo slug translations (in `THEME/utilities/inc/plugins/bogo/inc/slugs`).
+* Posts list empty message (in `THEME/utilities/inc/posts-list`).
+* `post` and `t9n` shortcodes (in `THEME/utilities/inc/shortcodes`).
+* Odometer format (in `THEME/utilities/js/libs/odometer`).
+* Various CSS.
+
+**Fixed**
+
+* `get_featured_images` returns at least the thumbnail ID (in `THEME/utilities/inc/featured-images/featured-images.php`).
+* Accordion `max-height` (in `THEME/utilities/inc/gutenberg/inc/accordion/js/app.js`).
+* Air datepicker UX (in `THEME/utilities/js/libs/air-datepicker`).
+
 ## 1.19.0 - 2025-11-27
 **Added**
 

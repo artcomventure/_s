@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bogo\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-12-06T19:26:07+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.10.0\n"
+
+msgid "Languages"
+msgstr "Sprachen"
+
+#: inc/slugs.php:128
+#: inc/slugs.php:129
+#: inc/slugs.php:135
+msgid "Slugs Translation"
+msgstr "URL-Übersetzung"
+
+msgid "Language Packs"
+msgstr "Sprachpakete"
+
+msgid "Terms Translation"
+msgstr "Begriff-Übersetzung"
+
+#: inc/slugs.php:156
+#: inc/slugs.php:175
+#: inc/slugs.php:210
+#: inc/slugs.php:234
+msgid "Context"
+msgstr ""
+
+#: inc/slugs.php:157
+#: inc/slugs.php:176
+#: inc/slugs.php:211
+#: inc/slugs.php:235
+msgid "Translation"
+msgstr "Übersetzung"
+
+#: inc/slugs.php:164
+msgid "Post Types"
+msgstr "Inhaltstypen"
+
+#: inc/slugs.php:175
+msgid "%s (Post Type)"
+msgstr "%s (Inhaltstyp)"
+
+#: inc/slugs.php:189
+#: inc/slugs.php:224
+#: inc/slugs.php:236
+msgid "Original"
+msgstr ""
+
+#: inc/slugs.php:197
+msgid "Taxonomies"
+msgstr "Taxonomien"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Search Language"
+msgstr "Sprache suchen"
+
+msgid "-- Select Language to Edit --"
+msgstr "-- Sprache zum Bearbeiten auswählen --"
+
+#: inc/slugs.php:36
+msgid "Slug (%s: %s)"
+msgstr "Titelform (%s: %s)"

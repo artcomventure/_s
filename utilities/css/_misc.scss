@@ -44,7 +44,6 @@
 
   > .wp-block-cover__inner-container {
     --width-max: #{map-get($breakpoints, wide)};
-    width: 100% !important;
     margin-right: auto !important;
     margin-left: auto !important;
   }
@@ -79,6 +78,16 @@
 // Cover Block.
 
 .wp-block-cover {
+  .wp-block-cover__video-background,
+  .wp-block-cover__image-background,
+  .wp-block-cover__background {
+    z-index: -1;
+  }
+
+  > .wp-block-cover__inner-container {
+    @extend %container-content;
+  }
+
   // content alignment
   @each $vposition, $valignment in (top: start, center: center, bottom: end) {
     @each $hposition, $halignment in (right: start, center: center, left: end) {
@@ -309,3 +318,13 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
   padding-top: 66.66667%;
 }
 
+// ---
+// CF7
+
+.hidden-fields-container {
+  display: none;
+}
+
+.screen-reader-response {
+  @include sr-only;
+}

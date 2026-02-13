@@ -12,7 +12,9 @@
   .textwidget > :last-child { margin-bottom: 0 !important; }
 
   .map:has(> &),
-  .wp-block-embed__wrapper:has(iframe[data-ccm-loader-group] + &) {
+  .wp-block-embed__wrapper:has(iframe[data-ccm-src] + &),
+  .wp-video:has(iframe[data-ccm-src]):has(&),
+  .wp-video:has(div[id$="youtube_iframe"]):has(&) {
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
@@ -34,9 +36,15 @@
   // Embed wrapper.
 
   @at-root {
-    .wp-block-embed__wrapper:has(iframe[data-ccm-loader-group] + &) {
+    .wp-video:has(iframe[data-ccm-src]):has(&),
+    .wp-video:has(div[id$="youtube_iframe"]):has(&) {
+      .wp-video-shortcode { visibility: hidden;}
+    }
+
+    .wp-block-embed__wrapper:has(iframe[data-ccm-src] + &),
+    .wp-video:has(iframe[data-ccm-src]):has(&),
+    .wp-video:has(div[id$="youtube_iframe"]):has(&) {
       background-color: #eee;
-      iframe { display: none; }
 
       &:before, > * {
         grid-column: 1;
@@ -44,8 +52,19 @@
       }
     }
 
-    .wp-block-embed__wrapper:not(:has(iframe[data-ccm-loader-group])) & {
+    .wp-block-embed__wrapper:has(iframe[data-ccm-src] + &) {
+      iframe { display: none; }
+    }
+
+    .wp-block-embed__wrapper:not(:has(iframe[data-ccm-src])) &,
+    .wp-video:not(:has(iframe[data-ccm-src])) + &,
+    .wp-video:not(:has(iframe[data-ccm-src])) &,
+    .wp-video:has(#{&}) + & {
       display: none;
+    }
+
+    .wp-video:has(div[id$="youtube_iframe"]) & {
+      display: block;
     }
   }
 }

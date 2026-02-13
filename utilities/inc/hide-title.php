@@ -1,10 +1,15 @@
 <?php
 
 /**
+ * Deprecated @since 1.20.0
+ * This feature is already implemented with UI in `utilities/inc/gutenberg/inc/hide`.
+ */
+return;
+
+/**
  * Removes '!' at first position of title which indicates hidden title.
  *
  * @param string $title
- *
  * @return string
  */
 function remove_hide_title_indicator( string $title ): string {
