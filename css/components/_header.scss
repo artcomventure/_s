@@ -1,4 +1,18 @@
 .site-header {
+  & { // toggle header
+    transition: .3s ease-in-out;
+    transition-property: transform, opacity;
+    &.is-togglable {
+      transform: translateY(calc(-100% + #{fluid($spacing-min, 24px)}));
+      opacity: 0;
+
+      &.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
   &--content {
     @extend %container-content;
   }

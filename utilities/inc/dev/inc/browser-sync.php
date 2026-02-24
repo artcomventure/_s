@@ -2,7 +2,7 @@
 
 /**
  * Enables npm's browser sync.
- * @see neukoellneroper/package.json
+ * @see THEME/package.json
  */
 
 if ( !isLocal() ) return;

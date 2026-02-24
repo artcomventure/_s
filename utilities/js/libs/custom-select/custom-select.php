@@ -20,7 +20,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	if ( wp_script_is('custom-select-module' ) ) {
 		wp_enqueue_style('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15' );
 	}
-} );
+}, 9 );
 
 add_action( 'customize_controls_enqueue_scripts', function() {
 	wp_enqueue_script( 'custom-select-be', CUSTOM_SELECT_DIRECTORY_URI . '/admin.js', [], false, true );

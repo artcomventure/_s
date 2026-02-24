@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.20.1 - 2026-02-24
+**Changed**
+
+* Footer widgets by default.
+
+**Fixed**
+
+* Various CSS.
+* I18n of page for pages (in `THEME/utilities/inc/pages-for-.php`).
+* Custom select loading order (in `THEME/utilities/js/libs/custom-select/custom-select.php`).
+
+**Added**
+
+* Example video (in `THEME/media/example.webm`).
+* Toggle header UX.
+* Script to delete revisions (in `THEME/utilities/inc/delete-revisions.php`).
+
 ## 1.20.0 - 2026-02-13
 **Added**
 

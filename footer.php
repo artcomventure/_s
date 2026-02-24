@@ -11,14 +11,9 @@
 
 ?>
 
-	<footer id="colophon" class="site-footer">
+    <footer id="colophon" class="site-footer">
         <div class="site-footer--content">
-            <?php wp_nav_menu( [
-                'theme_location' => 'footer',
-                'container'      => false,
-                'menu_id'        => 'footer-menu',
-            ] ); ?>
-            <?php printf( __( '&copy; %d %s', '_s' ), date( 'Y' ), get_bloginfo( 'name' ) ) ?>
+            <?php dynamic_sidebar('footer' ); ?>
         </div><!-- .footer-content -->
     </footer><!-- #colophon -->
 </div><!-- #page -->

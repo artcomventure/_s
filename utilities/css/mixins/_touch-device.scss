@@ -9,7 +9,14 @@
 }
 
 @mixin non-touch-device {
-  @media not all and (pointer: coarse) {
+  @media (pointer: fine) {
     @content;
   }
+
+  // Query for screens without touch.
+  // FYI : A monitor with a touchscreen is usually classified as `pointer: coarse` by modern browsers.
+
+  //@media not all and (pointer: coarse) {
+  //  @content;
+  //}
 }

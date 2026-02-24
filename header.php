@@ -45,7 +45,8 @@
 		        'theme_location' => 'navigation',
 		        'container'      => false,
 		        'menu_id'        => 'navigation',
-		        'echo'           => false
+		        'echo'           => false,
+                'fallback_cb'    => '__return_empty_string',
 	        ] ) ) : ?>
                 <nav id="site-navigation" class="main-navigation">
                     <button class="menu-toggle" aria-controls="navigation" aria-expanded="false"><?php esc_html_e( 'Menu', '_s' ); ?></button>

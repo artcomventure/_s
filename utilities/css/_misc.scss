@@ -177,6 +177,18 @@
 }
 
 // ---
+// Flex.
+
+.wp-block-group.is-layout-flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  &.is-nowrap {
+    flex-wrap: nowrap;
+  }
+}
+
+// ---
 // Buttons.
 
 .wp-block-buttons {

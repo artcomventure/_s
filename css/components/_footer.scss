@@ -2,4 +2,8 @@
   &--content {
     @extend %container-content;
   }
+
+  &:has(&--content:empty) {
+    display: none;
+  }
 }

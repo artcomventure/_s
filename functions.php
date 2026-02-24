@@ -45,8 +45,7 @@ function _s_setup() {
 	// To enable localized menus @see `no localized menus` at the end of file.
 	register_nav_menus(
 		array(
-			'navigation' => esc_html__( 'Navigation', '_s' ),
-			'footer' => esc_html__( 'Footer', '_s' ),
+			'navigation' => esc_html__( 'Navigation', '_s' )
 		)
 	);
 
@@ -70,18 +69,6 @@ function _s_setup() {
 	// Apply aspect ratio responsive styles to embed blocks.
 	add_theme_support( 'responsive-embeds' );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'_s_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
-
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -90,15 +77,7 @@ function _s_setup() {
 	 *
 	 * @link https://codex.wordpress.org/Theme_Logo
 	 */
-	add_theme_support(
-		'custom-logo',
-		array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
-		)
-	);
+	add_theme_support( 'custom-logo' );
 
 	/**
 	 * Switch from widgets block editor to classic one.
@@ -127,8 +106,8 @@ add_action( 'after_setup_theme', '_s_content_width', 0 );
 function _s_widgets_init() {
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Sidebar', '_s' ),
-			'id'            => 'sidebar',
+			'name'          => esc_html__( 'Footer', '_s' ),
+			'id'            => 'footer',
 			'description'   => esc_html__( 'Add widgets here.', '_s' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
