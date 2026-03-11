@@ -32,7 +32,9 @@
 
                 if ( !has_custom_logo() || display_header_text() ) { ?>
                     <p class="site-title">
-                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?></a>
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"<?php echo has_custom_logo() ? ' tabindex="-1"' : ''  ?>>
+                            <?php echo doubleSpacesToBreak( get_bloginfo( 'name' ) ); ?>
+                        </a>
                     </p>
 
                     <?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>

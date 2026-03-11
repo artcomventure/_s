@@ -11,7 +11,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	// register themes
 	foreach ( ['car', 'default', 'digital', 'minimal', 'plaza', 'slot-machine', 'train-station'] as $theme ) {
 		$handle = "odometer-theme-$theme";
-		wp_register_style( $handle, LIBS_DIRECTORY_URI . "/odometer/module/themes/$handle.css", [], '0.4.7' );
+		wp_register_style( $handle, LIBS_DIRECTORY_URI . "/odometer/module/themes/$handle.css", [], '0.4.7', 'async' );
 
 		$theme_enqueued = ($theme_enqueued ?? false) || wp_style_is( $handle );
 	}

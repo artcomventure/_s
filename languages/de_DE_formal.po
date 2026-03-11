@@ -16,20 +16,20 @@ msgstr ""
 msgid "_s"
 msgstr "_s"
 
+#. Author of the theme
+#: style.css
+msgid "SMITH"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://www.smithberlin.com"
+msgstr ""
+
 #. Description of the theme
 #: style.css
 msgid "I'm the next, most awesome, WordPress theme out there."
 msgstr "Ich bin das nächste, tollste WordPress-Theme da draußen."
-
-#. Author of the theme
-#: style.css
-msgid "artcom venture GmbH"
-msgstr "artcom venture GmbH"
-
-#. Author URI of the theme
-#: style.css
-msgid "https://www.artcom-venture.de"
-msgstr "https://www.artcom-venture.de"
 
 #: 404.php:27
 msgid "Oops! That page can&rsquo;t be found."
@@ -73,19 +73,15 @@ msgstr[1] "%1$s Gedanken zu &ldquo;%2$s&rdquo;"
 msgid "Comments are closed."
 msgstr "Kommentarfunktion ist geschlossen."
 
-#: functions.php:47
+#: functions.php:48
 msgid "Navigation"
 msgstr "Navigation"
 
-#: functions.php:48
+#: functions.php:109
 msgid "Footer"
 msgstr "Fussbereich"
 
-#: functions.php:129
-msgid "Sidebar"
-msgstr "Seitenleiste"
-
-#: functions.php:131
+#: functions.php:111
 msgid "Add widgets here."
 msgstr "Fügen Sie hier Widgets hinzu."
 
@@ -179,11 +175,7 @@ msgstr "Seiten:"
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\" </span>weiterlesen"
 
-#: footer.php:21
-msgid "&copy; %d %s"
-msgstr ""
-
-#: header.php:51
+#: header.php:54
 msgid "Menu"
 msgstr ""
 

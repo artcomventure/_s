@@ -43,8 +43,8 @@
     "gutenberg:watch": "cd inc/gutenberg && npm run watch",
     "gutenberg:build": "cd inc/gutenberg && npm run build",
 
-    "pjax:watch": "cd js/libs/pjax && npm run watch",
-    "pjax:build": "cd js/libs/pjax && npm run build",
+    "pjax:watch": "cd js/libs/spa/pjax && npm run watch",
+    "pjax:build": "cd js/libs/spa/pjax && npm run build",
 
     "post-edit-link:watch": "cd inc/post-edit-link && npm run watch",
     "post-edit-link:build": "cd inc/post-edit-link && npm run build",

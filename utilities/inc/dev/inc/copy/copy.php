@@ -1,7 +1,7 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style( 'dev-copy', DEV_DIRECTORY_URI . '/inc/copy/style.css' );
+    wp_enqueue_style( 'dev-copy', DEV_DIRECTORY_URI . '/inc/copy/style.css', [], false, 'async' );
     wp_enqueue_script( 'dev-copy', DEV_DIRECTORY_URI . '/inc/copy/app.js', [], false, true );
     wp_set_script_translations( 'dev-copy', 'dev', DEV_DIRECTORY . '/languages/' );
 } );

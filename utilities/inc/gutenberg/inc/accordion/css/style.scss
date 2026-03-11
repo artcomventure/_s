@@ -8,7 +8,6 @@
     position: relative;
     box-sizing: content-box;
     border-bottom: 2px solid currentColor;
-    transition: max-height var(--transition-duration) var(--transition-timing-function);
     max-height: 0;
 
     // trigger

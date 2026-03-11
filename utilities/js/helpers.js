@@ -132,3 +132,26 @@ const isExternalUrl = url => {
   } )
 
 })();
+
+/**
+ * Create a unique ID.
+ *
+ * @param {int} length
+ * @param {string} prefix
+ * @returns {string}
+ */
+const uuid = ( length, prefix ) => {
+  length = Math.abs(parseInt( length ) ) || 8
+  if ( !(prefix = (prefix || '').toString().replace( /^[^a-zA-Z]*/, '' )) )
+    prefix = 'id'
+
+  const chars = "0123456789BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789";
+
+  let id = '';
+  while ( id.length < length )
+    id += chars.charAt( Math.floor(Math.random() * chars.length ) );
+
+  // make sure ID has not yet been assigned
+  if ( document.getElementById( id ) ) return uuid( length, prefix )
+  return `${prefix}-${id}`;
+}

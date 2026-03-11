@@ -5,6 +5,7 @@
     bottom: 0;
 
     display: grid;
+    gap: .2em;
     justify-items: end;
     margin-right: .2em;
 
@@ -23,7 +24,6 @@
             background-color: rgba(#000,.8);
             padding: .5em;
             border-radius: .24em;
-            margin-bottom: .2em;
             display: block;
             white-space: nowrap;
             transition: background-color .2s ease-in-out;

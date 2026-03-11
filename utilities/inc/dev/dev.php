@@ -27,7 +27,7 @@ add_action( 'after_setup_theme', function() {
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style( 'dev-info-panel', DEV_DIRECTORY_URI . '/style.css' );
+    wp_enqueue_style( 'dev-info-panel', DEV_DIRECTORY_URI . '/style.css', [], false, 'async' );
 	wp_enqueue_script( 'dev-info-panel', DEV_DIRECTORY_URI . '/app.js', [], false, true );
 } );
 

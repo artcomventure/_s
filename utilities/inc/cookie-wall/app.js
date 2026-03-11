@@ -23,6 +23,9 @@ Behaviours.add( 'cookie-wall:borlabs', $context => {
 
 // remove from pjax
 Alter.add( 'pjax-elements', $elements => {
+  // backwards compatibility for old pjax version
+  if ( typeof $elements === 'string' ) return $elements;
+
   return $elements.filter( $element => {
     return !$element.classList.contains( 'borlabs-cookie-open-dialog-preferences' )
   } )

@@ -1,9 +1,8 @@
 <?php
 
 /**
- * Display bloginfo through shortcode.
+ * Display blog info through shortcode.
  */
-
 add_shortcode( 'bloginfo', 'bloginfo_shortcode' );
 function bloginfo_shortcode( $attr = [] ) {
 	if ( isset($attr[0]) ) $attr = [ 'show' => $attr[0] ];

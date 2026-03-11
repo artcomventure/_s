@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.20.2 - 2026-03-??
+**Added**
+
+* Selectively load CSS files asynchronously (in `THEME/utilities/inc/performance/inc/prioritize-files.php`).
+* Icont font `font-display: swap;` (in `THEME/media/fonts/Icont/addFontDisplay.js`).
+* Preload fonts CSS (in `THEME/utilities/inc/performance/inc/prioritize-files.php`).
+* `[lang]` shortcode for marking words in foreign language (in `THEME/utilities/inc/shortcodes/l10n.php`).
+* Remove shortcodes but keeping `$content` (in `THEME/utilities/inc/shortcodes/shortcodes.php`).
+
+**Fixed**
+
+* Add `font-display: swap;` to Icont (in `THEME/media/fonts/Icont/addFontDisplay.js`).
+* Contact Form 7 JS vs Pjax (in `THEME/utilities/inc/plugins/contact-form-7/app.js`).
+* Various performance issues.
+* Thumbnail alt text (in `THEME/inc/template-tags.php`).
+
+**Removed**
+
+* Code for sidebar.
+
 ## 1.20.1 - 2026-02-24
 **Changed**
 

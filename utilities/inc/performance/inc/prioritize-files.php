@@ -4,7 +4,6 @@
  * `fetchpriority` is a hint to the browser indicating how it should prioritize fetching
  * a file (img, css, js, font, iframe) relative to other files.
  */
-
 add_filter( 'wp_preload_resources', function( $resources ) {
 	// theme CSS
 	$resources[] = [
@@ -14,13 +13,27 @@ add_filter( 'wp_preload_resources', function( $resources ) {
 		'fetchpriority' => 'high'
 	];
 
+	// fonts @since 1.20.2
+	foreach ( wp_styles()->registered as $file ) {
+		if ( ! str_contains( $file->src, '/font.css' ) ) continue;
+
+		$href = $file->src;
+		if ( $file->ver ) $href .= "?ver=$file->ver";
+
+		$resources[] = [
+			'href' => $href,
+			'as' => 'style',
+			'type' => 'text/css',
+			'fetchpriority' => 'high'
+		];
+	}
 
 	return $resources;
 } );
 
 /**
  * Preload jQuery scripts to optimize the page load.
- * Thx to https://www.crafted.at/b/wordpress-jquery-ladevorgang-optimieren/
+ * Thx to https://www.crafted.at/b/wordpress-jquery-ladevorgang-optimieren/#ladezeiten-coding
  *
  * @since 1.20.0
  */
@@ -59,3 +72,21 @@ add_action( 'wp_enqueue_scripts', function() {
 		}
 	}
 } );
+
+/**
+ * I assume no one will ever print _this_ webpage.
+ * So we use the `media="print"` attribute for asynchronously load CSS files.
+ * @see https://www.filamentgroup.com/lab/load-css-simpler/
+ *
+ * Usage:
+ * `wp_enqueue_style( HANDLE, URI, DEPENDENCIES, VERSION, 'async' )`
+ *
+ * @since 1.20.2
+ */
+add_filter( 'style_loader_tag', function( $tag, $handle, $href, $media ) {
+	if ( 'async' === $media && !str_contains( $tag, ' onload="' ) ) {
+		$tag = str_replace(" media='async'", ' media="print" onload="this.media=\'all\';this.onload=null;"', $tag);
+	}
+
+	return $tag;
+}, 10, 4 );

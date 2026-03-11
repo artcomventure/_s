@@ -7,10 +7,6 @@ define( 'UTILITIES_DIRECTORY_URI', get_template_directory_uri() . '/utilities' )
 add_action( 'after_setup_theme', function() {
 	load_theme_textdomain( 'utilities', UTILITIES_DIRECTORY . '/languages' );
 } );
-
-// enable shortcodes for titles
-add_filter( 'the_title', 'do_shortcode' );
-add_filter( 'widget_title', 'do_shortcode' );
 // ... and terms
 add_filter( 'get_term', function( $term, $taxonomy ) {
 	$term->name = do_shortcode( $term->name );
@@ -57,7 +53,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_enqueue_script( 'custom-width' );
 	wp_enqueue_script( 'in-viewport' );
 
-	wp_enqueue_style( 'admin-bar-ux' );
+	if ( wp_script_is( 'admin-bar' ) ) wp_enqueue_style( 'admin-bar-ux' );
 	wp_enqueue_script( 'css-breakpoints' );
 }, 9 );
 
@@ -71,7 +67,6 @@ auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/file-drop' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc/plugins' );
-auto_include_files( UTILITIES_DIRECTORY . '/inc/shortcodes' );
 // auto include theme's /inc files
 // TODO: theme vs child theme
 auto_include_files( get_template_directory() . '/inc' );

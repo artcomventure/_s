@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 	// auto enqueue default styles
 	if ( wp_script_is('custom-select-module' ) ) {
-		wp_enqueue_style('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15' );
+		wp_enqueue_style('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15', 'async' );
 	}
 }, 9 );
 

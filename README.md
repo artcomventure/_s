@@ -182,8 +182,7 @@ For debugging itself follow the steps from [Stage/Live](#stagelive).
 1. Remove example post.
 2. Disallow comments in `/wp-admin/options-discussion.php`.
 3. Set permalink structure to **Post name** in `/wp-admin/options-permalink.php`.
-4. Clear sidebar widgets in `/wp-admin/widgets.php`.
-5. Create 2 menus. One for main menu (navigation) and one for footer. See `/wp-admin/nav-menus.php`.
+5. Create one menus for main menu (navigation). See `/wp-admin/nav-menus.php`.
 
 Find further theme settings (Pjax, ...) in customizer. 
 

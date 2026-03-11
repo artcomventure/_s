@@ -17,3 +17,18 @@
     }
   }
 }
+
+.mobile-only {
+  @include tablet { display: none !important; }
+  @include desktop { display: none !important; }
+}
+
+.tablet-only {
+  @include mobile { display: none !important; }
+  @include desktop { display: none !important; }
+}
+
+.desktop-only {
+  @include mobile { display: none !important; }
+  @include tablet { display: none !important; }
+}

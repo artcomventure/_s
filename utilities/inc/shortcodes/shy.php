@@ -1,13 +1,7 @@
 <?php
 
 /**
- * Shortcode for manual word breaks.
- * To make this work you have to add `hyphens: auto;` to the corresponding CSS selector.
- */
-
-/**
  * Add soft hyphen.
- *
  * @return string
  */
 function shy_shortcode() {
@@ -21,18 +15,19 @@ function shy_shortcode() {
 add_shortcode( 'shy', 'shy_shortcode' );
 add_shortcode( '-', 'shy_shortcode' );
 
-// remove _shy_ from document `<title>`
-// TODO: only remove shy shortcode
+// remove shy shortcode from document `<title>`
+// @since 1.20.2
 add_filter( 'document_title_parts', function ( $title ) {
-	if ( !is_array( $title ) ) $title = strip_shortcodes( $title );
-	else if ( isset( $title['title'] ) ) $title['title'] = strip_shortcodes( $title['title'] );
-	else $title = array_map( 'strip_shortcodes', $title );
+	if ( !is_array( $title ) ) $title = strip_shortcode_tags( $title, ['shy', '-'] );
+	else if ( isset( $title['title'] ) ) $title['title'] = strip_shortcode_tags( $title['title'], ['shy', '-'] );
+	else $title = array_map( 'strip_shortcode_tags', $title, ['shy', '-'] );
 
 	return $title;
 } );
 
 // Yoast
-add_filter( 'wpseo_title', function( $title, $presentation ) {
-	return strip_shortcodes( $title );
-}, 10, 2 );
+// @since 1.20.2
+add_filter( 'wpseo_title', function( $title ) {
+	return strip_shortcode_tags( $title, ['shy', '-'] );
+} );
 

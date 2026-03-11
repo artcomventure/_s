@@ -4,7 +4,6 @@ define( 'DATAHREF_DIRECTORY', dirname( __FILE__ ) );
 define( 'DATAHREF_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/data-href' );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_style('data-href-style', DATAHREF_DIRECTORY_URI . '/css/style.css' );
 	wp_enqueue_script('data-href-app', DATAHREF_DIRECTORY_URI . '/app.js', [], false, true );
 } );
 

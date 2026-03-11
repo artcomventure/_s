@@ -1,10 +1,13 @@
 {
   "scripts": {
-    "watch": "npm-run-all --parallel *:watch",
-    "build": "npm-run-all --parallel *:build",
+    "watch": "npm-run-all --parallel watch:*",
+    "build": "npm-run-all --parallel build:*",
 
-    "mail-sent-ok-redirect:watch": "cd inc/mail-sent-ok-redirect && npm run watch",
-    "mail-sent-ok-redirect:build": "cd inc/mail-sent-ok-redirect && npm run build",
+    "watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+    "build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=./**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+
+    "watch:mail-sent-ok-redirect": "cd inc/mail-sent-ok-redirect && npm run watch",
+    "build:mail-sent-ok-redirect": "cd inc/mail-sent-ok-redirect && npm run build",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/cf7.pot --domain=cf7 --exclude=src,node_modules,**/*.min.* --package-name=CF7",

@@ -129,7 +129,11 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 		if ( is_singular() && $more ) : ?>
 
 			<figure class="wp-block-image post-thumbnail">
-				<?php the_post_thumbnail( $size, ['fetchpriority' => 'high'] );
+				<?php the_post_thumbnail( $size, [
+                    // @since 1.20.2
+                    'alt' => get_post_meta( get_the_ID(), '_wp_attachment_image_alt', true),
+                    'fetchpriority' => 'high'
+                ] );
 
                 if ( $caption = get_the_post_thumbnail_caption() )
                     echo "<figcaption>$caption</figcaption>"; ?>
@@ -138,9 +142,9 @@ if ( ! function_exists( '_s_post_thumbnail' ) ) :
 		<?php else : ?>
 
 			<figure class="wp-block-image post-thumbnail"<?php echo is_post_publicly_viewable() ? ' data-href="' . the_permalink() . '"' : '' ?> aria-hidden="true" tabindex="-1">
-				<?php the_post_thumbnail(
-					$size,
-                    ['alt' => the_title_attribute( ['echo' => false] )]
+				<?php the_post_thumbnail( $size,
+                    // @since 1.20.2
+                    ['alt' => get_post_meta( get_the_ID(), '_wp_attachment_image_alt', true)]
                 );
 
                 if ( $caption = get_the_post_thumbnail_caption() )
