@@ -7,9 +7,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-14T09:24:21+00:00\n"
+"POT-Creation-Date: 2026-03-14T16:16:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: security\n"
 
 #: inc/db-table-prefix.php:10
@@ -28,23 +28,23 @@ msgstr ""
 msgid "To prevent SQL injections (or at least make it more difficult) the database table prefix should not be WordPress' default <code>wp_</code> prefix. We recommend using the %s plugin to change that. Once changed you can deactivate and uninstall the plugin again."
 msgstr ""
 
-#: inc/file-mods.php:13
+#: inc/file-mods.php:14
 msgid "File modifications"
 msgstr ""
 
-#: inc/file-mods.php:16
+#: inc/file-mods.php:18
 msgid "No file modifications via backend are allowed."
 msgstr ""
 
-#: inc/file-mods.php:18
+#: inc/file-mods.php:20
 msgid "File modifications via backend are allowed.%s"
 msgstr ""
 
-#: inc/file-mods.php:19
+#: inc/file-mods.php:21
 msgid "But in the development environment it always is. Please check on <i>stage</i> and <i>live</i>!"
 msgstr ""
 
-#: inc/file-mods.php:21
+#: inc/file-mods.php:23
 msgid "Actions like un/installing plugins/themes, downloading language packs, using the file editors, etc. should only be possible in the development environment. Because if an intruder gains backend access, they would be able to modify the codebase."
 msgstr ""
 
@@ -104,47 +104,47 @@ msgstr ""
 msgid "We recommend using the %s plugin."
 msgstr ""
 
-#: inc/updates/updates.php:22
+#: inc/updates/updates.php:29
 msgid "No updates available"
 msgstr ""
 
-#: inc/updates/updates.php:22
+#: inc/updates/updates.php:29
 msgid "Updates available"
 msgstr ""
 
-#: inc/updates/updates.php:25
+#: inc/updates/updates.php:32
 msgid "There is a new version of WordPress available."
 msgstr ""
 
-#: inc/updates/updates.php:28
+#: inc/updates/updates.php:35
 msgid "There are no updates available."
 msgstr ""
 
-#: inc/updates/updates.php:32
+#: inc/updates/updates.php:39
 msgid "Updates available."
 msgstr ""
 
-#: inc/updates/updates.php:38
+#: inc/updates/updates.php:45
 msgid "Please immediately run updates"
 msgstr ""
 
-#: inc/updates/updates.php:40
+#: inc/updates/updates.php:47
 msgid "Please notify the site administrator!"
 msgstr ""
 
-#: inc/updates/updates.php:46
+#: inc/updates/updates.php:53
 msgid "Many updates include security fixes. It is therefore important to keep WordPress itself and all plugins always up to date.%s"
 msgstr ""
 
-#: inc/updates/updates.php:47
+#: inc/updates/updates.php:54
 msgid "These actions are only possible in the development environment!"
 msgstr ""
 
-#: inc/updates/updates.php:101
+#: inc/updates/updates.php:108
 msgid "Disable updates"
 msgstr ""
 
-#: inc/updates/updates.php:156
+#: inc/updates/updates.php:168
 msgid "Updates"
 msgstr ""
 

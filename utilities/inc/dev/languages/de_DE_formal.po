@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2023-09-28T14:58:13+00:00\n"
 "Language: \n"
 
-#: inc/git.php:16
+#: inc/git.php:25
 msgid "Hash: %s"
 msgstr "Hash: %s"
 
@@ -40,6 +40,7 @@ msgid "Kindle"
 msgstr "Kindle"
 
 #: inc/device.php:29
+#: inc/screen-size/app.js:34
 msgid "Tablet"
 msgstr "Tablet"
 
@@ -79,14 +80,26 @@ msgstr "OS"
 msgid "Device assumption"
 msgstr "Geräteannahme"
 
-#: inc/git.php:14
+#: inc/git.php:20
 msgid "Commit from %s o'clock"
 msgstr "Commit vom %s Uhr"
 
-#: inc/git.php:15
+#: inc/git.php:23
 msgid "Branch"
 msgstr "Branch"
 
 #: inc/url/app.js:13
 msgid "URL"
 msgstr "URL"
+
+#: inc/screen-size/app.js:35
+msgid "Mobile"
+msgstr ""
+
+#: inc/screen-size/app.js:36
+msgid "Desktop"
+msgstr ""
+
+#: inc/screen-size/app.js:37
+msgid "Layout"
+msgstr ""

@@ -70,6 +70,7 @@ services:
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./.bashrc:/root/.bashrc
+      - ../.git:/var/www/.git:ro
     extra_hosts:
       - ${HOST}:172.17.0.1
     networks:

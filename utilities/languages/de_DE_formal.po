@@ -56,11 +56,11 @@ msgstr "Suche deaktivieren"
 msgid "All search requests will be redirected to home page."
 msgstr "Alle Suchanfragen werden zur Startseite weitergeleitet."
 
-#: js/libs/pjax/pjax.php:43
+#: js/libs/spa/pjax/pjax.php:31
 msgid "Enable Pjax"
 msgstr "Pjax aktivieren"
 
-#: js/libs/pjax/pjax.php:44
+#: js/libs/spa/pjax/pjax.php:32
 msgid "Load page content using AJAX without reloading your page's layout."
 msgstr "Laden Sie den Inhalt der Seiten mit AJAX, ohne das Layout Ihrer Seite neu zu laden."
 
@@ -93,14 +93,60 @@ msgstr "Logo %s, Link zur Startseite"
 msgid "Replacing and enhancing the native <code>select</code> (dropdown) element."
 msgstr "Ersetzen und Verbessern des nativen <code>select</code> (Dropdown) elements."
 
-#: js/file-drop.js:31
-msgid "Drag and drop the files here<br />or click to select the files."
-msgstr "Ziehen Sie die Dateien per Drag-and-Drop hierher<br />oder klicken Sie zur Dateiauswahl."
+#: inc/db-export.php:11
+#: inc/db-export.php:12
+#: inc/db-export.php:124
+msgid "Export Database"
+msgstr "Datenbank exportieren"
 
-#: js/file-drop.js:76
-msgid "Remove File"
-msgstr "Datei entfernen"
+#: inc/db-export.php:35
+msgid "File \"%s\" deleted."
+msgstr "Die Datei „%s“ wurde gelöscht."
 
-#: js/file-drop.js:32
-msgid "Drag and drop the file here<br />or click to select the file."
-msgstr "Ziehen Sie die Datei per Drag-and-Drop hierher<br />oder klicken Sie zur Dateiauswahl."
+#: inc/db-export.php:37
+msgid "File not found."
+msgstr "Datei nicht gefunden."
+
+#: inc/db-export.php:40
+msgid "Invalid nonce."
+msgstr "Ungültiger Nonce."
+
+#: inc/db-export.php:60
+msgid "%d files deleted."
+msgstr "%d Dateien wurden gelöscht."
+
+#: inc/db-export.php:104
+msgid "Database successfully exported: %s"
+msgstr "Datenbank erfolgreich exportiert: %s"
+
+#: inc/db-export.php:108
+msgid "Error creating export file."
+msgstr "Fehler beim Erstellen der Exportdatei."
+
+#: inc/db-export.php:133
+msgid "If the database dump is not a backup, please delete it immediately after downloading."
+msgstr "Falls es sich bei dem Datenbank-Dump nicht um eine Sicherung handelt, lösche ihn bitte unmittelbar nach dem Herunterladen."
+
+#: inc/db-export.php:148
+msgid "New database export"
+msgstr "Neuer Datenbankexport"
+
+#: inc/db-export.php:163
+msgid "No exports found."
+msgstr "Es wurden keine Exporte gefunden."
+
+#: inc/db-export.php:183
+msgid "Download %s"
+msgstr "%s herunterladen"
+
+#: inc/db-export.php:183
+msgid "Download"
+msgstr "Herunterladen"
+
+#: inc/db-export.php:186
+msgid "Are you sure you want to delete this export?"
+msgstr "Möchten Sie diesen Export wirklich löschen?"
+
+#: inc/db-export.php:186
+msgid "Delete %s"
+msgstr "%s löschen"

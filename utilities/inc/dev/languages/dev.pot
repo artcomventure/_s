@@ -7,9 +7,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-01T15:37:38+00:00\n"
+"POT-Creation-Date: 2026-03-14T16:16:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: dev\n"
 
 #: inc/device.php:10
@@ -25,6 +25,7 @@ msgid "Kindle"
 msgstr ""
 
 #: inc/device.php:29
+#: inc/screen-size/app.js:34
 msgid "Tablet"
 msgstr ""
 
@@ -64,15 +65,15 @@ msgstr ""
 msgid "Device assumption"
 msgstr ""
 
-#: inc/git.php:14
+#: inc/git.php:20
 msgid "Commit from %s o'clock"
 msgstr ""
 
-#: inc/git.php:15
+#: inc/git.php:23
 msgid "Branch"
 msgstr ""
 
-#: inc/git.php:16
+#: inc/git.php:25
 msgid "Hash: %s"
 msgstr ""
 
@@ -86,6 +87,18 @@ msgstr ""
 
 #: inc/screen-size/app.js:31
 msgid "Breakpoint range"
+msgstr ""
+
+#: inc/screen-size/app.js:35
+msgid "Mobile"
+msgstr ""
+
+#: inc/screen-size/app.js:36
+msgid "Desktop"
+msgstr ""
+
+#: inc/screen-size/app.js:37
+msgid "Layout"
 msgstr ""
 
 #: inc/url/app.js:13

@@ -21,7 +21,7 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_enqueue_style( 'odometer-theme-default' );
 
 	if ( wp_style_is( 'odometer-theme-default' ) ) {
-		wp_add_inline_style( 'odometer-theme-default', ".odometer.odometer-auto-theme {
+		wp_add_inline_style( 'odometer-theme-default', minify_css( ".odometer.odometer-auto-theme {
 			font-family: inherit;
 			line-height: inherit;
 		}
@@ -34,7 +34,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 		.odometer.odometer-auto-theme .odometer-digit * {
 			width: 1ch;
-		}" );
+		}" ) );
 	}
 } );
 

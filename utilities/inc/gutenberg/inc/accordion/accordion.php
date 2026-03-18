@@ -37,7 +37,7 @@ else add_action( 'enqueue_block_editor_assets', function() {
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_style('accordion-style', ACCORDION_DIRECTORY_URI . '/css/style.css' );
+	wp_enqueue_style('accordion-style', ACCORDION_DIRECTORY_URI . '/css/style.css', [], false, 'async' );
 	wp_enqueue_script('accordion-app', ACCORDION_DIRECTORY_URI . '/js/app.js', [], false, true );
 }, 9 );
 

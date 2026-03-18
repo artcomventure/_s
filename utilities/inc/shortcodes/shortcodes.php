@@ -14,6 +14,12 @@ add_filter( 'document_title_parts', function ( $title ) {
 
 	return $title;
 }, 11 );
+// ... and terms
+add_filter( 'term_description', 'do_shortcode' );
+add_filter( 'get_term', function( $term, $taxonomy ) {
+	$term->name = do_shortcode( $term->name );
+	return $term;
+}, 10, 2 );
 
 /**
  * Almost a duplicate of WPs `strip_shortcodes()`

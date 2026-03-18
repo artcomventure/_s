@@ -26,11 +26,11 @@ add_action( 'admin_enqueue_scripts', 'gmaps_register_scripts' );
 
 function gmaps_localize_script( $handle ) {
     wp_localize_script(
-            $handle,
-            'gmaps',
-            ['settings' => gmaps_get_settings() + [
-                            'home_url' => home_url()
-                    ] ]
+        $handle,
+        'gmaps',
+        ['settings' => gmaps_get_settings() + [
+            'home_url' => home_url()
+        ] ]
     );
 }
 

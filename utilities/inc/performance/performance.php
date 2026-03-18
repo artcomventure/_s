@@ -1,5 +1,8 @@
 <?php
 
+define( 'UTILITIES_PERFORMANCE_DIRECTORY', dirname( __FILE__ ) );
+const UTILITIES_PERFORMANCE_DIRECTORY_URI = UTILITIES_DIRECTORY_URI . '/inc/performance';
+
 add_filter( 'get_custom_logo_image_attributes', 'add_inline_svg_class', 10, 2 );
 function add_inline_svg_class( $attr, $attachment ) {
 	if ( $file = get_attached_file( $attachment->ID ?? $attachment ) ) {

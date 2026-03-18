@@ -2,8 +2,12 @@
 
 add_action( 'dev-info-panel', function() {
 	$gitBasePath = '.git';
-	// doesn't work anymore since WP is in a project's subfolder
-	// TODO: most likely add .git to wordpress container volumes
+
+    // @since 1.20.3
+    if ( ! file_exists( $gitBasePath ) && defined( 'ABSPATH' ) && file_exists( dirname( ABSPATH ) . '/.git' ) ) {
+        $gitBasePath = dirname( ABSPATH ) . '/.git';
+    }
+
 	if ( !file_exists( "{$gitBasePath}/HEAD" ) ) return;
 	if ( !$git = @file_get_contents( "{$gitBasePath}/HEAD" ) ) return;
 

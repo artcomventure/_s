@@ -7,15 +7,11 @@ define( 'UTILITIES_DIRECTORY_URI', get_template_directory_uri() . '/utilities' )
 add_action( 'after_setup_theme', function() {
 	load_theme_textdomain( 'utilities', UTILITIES_DIRECTORY . '/languages' );
 } );
-// ... and terms
-add_filter( 'get_term', function( $term, $taxonomy ) {
-	$term->name = do_shortcode( $term->name );
-	return $term;
-}, 10, 2 );
-add_filter( 'term_description', 'do_shortcode' );
 
 add_action( 'wp_head', function() {
-	// set css properties
+    ob_start();
+
+	// set CSS properties
 	// `--root-width` ... for CSS' fluid calculation
 	// `--scrollbar-width` ... to calculate vw right
 	// run it _first_ in `<head>` to immediately set value ?>
@@ -24,7 +20,9 @@ add_action( 'wp_head', function() {
             document.documentElement.style.setProperty( '--scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px` );
         } setProperties() || new ResizeObserver( setProperties ).observe( document.documentElement )
         })();</script>
-<?php }, -1 );
+
+    <?php echo minify_js( ob_get_clean() );
+}, -1 );
 
 // make _utilities_ also available in admin area
 add_action( 'admin_enqueue_scripts', 'utilities_register_scripts' );
@@ -63,6 +61,7 @@ add_action( 'admin_enqueue_scripts', function() {
 
 // auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
+//auto_include_files( UTILITIES_DIRECTORY . '/js/polyfills' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/file-drop' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );

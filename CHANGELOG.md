@@ -1,6 +1,17 @@
 # Changelog
 
-## 1.20.2 - 2026-03-??
+## 1.20.3 - 2026-03-18
+**Added**
+
+* DB export (in `THEME/utilities/inc/db-export.php`).
+* Minify inline CSS/js (in `THEME/utilities/inc/performance/inc/minifiy/`).
+
+**Fixed**
+
+* Check if BrowserSync is actually running to avoid browser timeout (in `THEME/utilities/inc/dev/inc/browser-sync.php`).
+* Git branch and commit dev display (in `THEME/utilities/inc/dev/inc/git.php`).
+
+## 1.20.2 - 2026-03-11
 **Added**
 
 * Selectively load CSS files asynchronously (in `THEME/utilities/inc/performance/inc/prioritize-files.php`).
