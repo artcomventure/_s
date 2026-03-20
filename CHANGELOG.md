@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.20.4 - 2026-03-20
+**Fixed**
+
+* Post navigation by menu order WHERE clause (in `THEME/utilities/inc/post-navigation-by-menu_order.php`).
+* Exclude file downloads from Pjax (in `THEME/utilities/js/libs/spa/pjax/app.js`).
+
 ## 1.20.3 - 2026-03-18
 **Added**
 

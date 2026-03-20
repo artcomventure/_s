@@ -33,16 +33,15 @@ class PostNavigationByMenuOrder {
 			// both filters use this very same function
 			$compare = current_filter() == 'get_previous_post_where' ? '<' : '>';
 
-			$where = preg_replace('/p\.post_date\s*[<>]=?\s*\'[^\']+\'\s*(AND)?/i', '', $where );
-
-			$current_order = $post->menu_order;
-			$current_title = $post->post_title;
-
-			$where .= $wpdb->prepare(
-				" AND (p.menu_order $compare %d OR (p.menu_order = %d AND p.post_title $compare %s))",
-				$current_order,
-				$current_order,
-				$current_title
+			$where = preg_replace(
+				'/\(p\.post_date.*?\)\)/is',
+				$wpdb->prepare(
+					"(p.menu_order $compare %d OR (p.menu_order = %d AND p.post_title $compare %s))",
+					$post->menu_order,
+					$post->menu_order,
+					$post->post_title
+				),
+				$where
 			);
 		}
 

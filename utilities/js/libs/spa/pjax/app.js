@@ -15,6 +15,7 @@
                         if ( element.target === '_blank' ) return false;
                         if ( /\/wp-admin\//.test( element.href ) ) return false;
                         if ( element.closest( '.widget_polylang' ) || element.closest( '.bogo-language-switcher' ) ) return false;
+                        if ( element.classList.contains( 'wp-block-file__button' ) ) return false;
                         if ( /\.(pdf|vcf|jpe?g|gif|png|webp|zip|mp4)$/.test( element.href ) ) return false;
                         break;
 
