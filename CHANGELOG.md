@@ -5,6 +5,7 @@
 
 * Post navigation by menu order WHERE clause (in `THEME/utilities/inc/post-navigation-by-menu_order.php`).
 * Exclude file downloads from Pjax (in `THEME/utilities/js/libs/spa/pjax/app.js`).
+* CF7 Apps redirect vs custom redirect (in `THEME/utilities/inc/plugins/contact-form-7/inc/mail-sent-ok-redirect/mail-sent-ok-redirect.php`).
 
 ## 1.20.3 - 2026-03-18
 **Added**

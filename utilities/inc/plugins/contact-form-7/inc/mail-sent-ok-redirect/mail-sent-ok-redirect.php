@@ -5,10 +5,10 @@
  */
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-if ( !is_plugin_active( 'contact-form-7-honeypot/honeypot.php' ) ) return;
-
-// check if the feature is enabled
-if ( get_option( 'cf7apps_settings', [] )['cf7-redirection']['is_enabled'] ?? false ) return;
+if ( is_plugin_active( 'contact-form-7-honeypot/honeypot.php' ) ) {
+	// check if the feature is enabled
+	if ( get_option( 'cf7apps_settings', [] )['cf7-redirection']['is_enabled'] ?? false ) return;
+}
 
 // ... otherwise we keep our custom solution:
 
