@@ -8,10 +8,10 @@
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) die( '-1' );
 
-if ( ! user_has_role( 'administrator' ) ) return; // admins only
-if ( ! current_user_can( 'manage_options' ) ) return;
-
 add_action('admin_menu', function() {
+    if ( ! user_has_role( 'administrator' ) ) return; // admins only
+    if ( ! current_user_can( 'manage_options' ) ) return;
+
 	add_management_page(
 		__( 'Export Database', 'utilities' ),
 		__( 'Export Database', 'utilities' ),
