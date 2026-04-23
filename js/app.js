@@ -23,6 +23,50 @@ Behaviours.add( 'gdpr:privacy-policy', $context => {
 // Do any slider adjustment here!
 window.addEventListener( 'swiper:afterInit', e => {
     const swiper = e.detail;
+
+    // responsive `slidesPerView`
+    // @since 1.20.5
+    (function() {
+        const updateSlidesPerView = () => {
+            if ( swiper.el.classList.contains( 'static-slidesPerView' ) ) return;
+
+            let originalSlidesPerView = swiper.originalParams.slidesPerView === 'auto'
+                ? swiper.slides.length : swiper.originalParams.slidesPerView;
+
+            let slidesPerView = originalSlidesPerView;
+            ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'].some( ( size, i) => {
+                if ( !BREAKPOINTS.down( size ) ) return;
+                slidesPerView = ++i;
+                return true;
+            } );
+
+            if ( swiper.params.slidesPerView !== 'auto' ) {
+                slidesPerView = Math.min( originalSlidesPerView, slidesPerView );
+                if ( swiper.originalParams.slidesPerView > 1 && slidesPerView !== swiper.params.slidesPerView ) {
+                    swiper.params.slidesPerView = slidesPerView;
+                    swiper.params.slidesPerGroup = swiper.params.slidesPerView;
+                }
+            }
+
+            swiper.update();
+        }
+
+        // setting `swiper.params.breakpoints` doesn't work properly
+        // ... so we use our custom calculation on swiper's resize event
+        swiper.on( 'resize', updateSlidesPerView );
+        updateSlidesPerView();
+    })();
+
+    // fluid `spaceBetween`
+    // @since 1.20.5
+    if ( swiper.params.spaceBetween ) new ResizeObserver( entries => {
+        // progress from mobile to desktop
+        const progress = Math.max( 0, Math.min( 1, (window.innerWidth - BREAKPOINTS.mobile) / (BREAKPOINTS.desktop - BREAKPOINTS.mobile) ) );
+        // calculate space between
+        swiper.params.spaceBetween = Math.max(8, swiper.originalParams.spaceBetween * progress )
+
+        swiper.update()
+    } ).observe( document.documentElement );
 }, { passive: true } );
 
 /**

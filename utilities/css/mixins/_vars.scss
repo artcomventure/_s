@@ -7,7 +7,14 @@
     --width-#{$name}: #{$breakpoint};
   }
 
+  --wp--preset--spacing--auto: auto;
   @each $name, $value in $spacings {
     --wp--preset--spacing--#{$name}: #{$value};
+  }
+
+  @each $name, $size in $fontSizes {
+    &, .is-root-container {
+      --wp--preset--font-size--#{$name}: #{$size};
+    }
   }
 }

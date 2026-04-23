@@ -1,3 +1,5 @@
+$rpx: 10px; // = 1rem
+
 // ---
 // Colors.
 // !!! Keep this colors in sync with the color palette in `theme.json` !!!
@@ -26,19 +28,12 @@ $colors: (
 $lightness-threshold: 60;
 
 // ---
-// Typography.
-
-$rpx: 10px; // rem
-
-$font-family-base: sans-serif;
-$font-family-heading: serif;
-
-// ---
 // Spacing
 
 $breakpoints: (
+    xxs: 480px,
     xs: 664px,
-    sm: 782px,
+    sm: 782px, // WP uses this as mobile breakpoint
     md: 1030px,
     lg: 1100px,
     xl: 1660px,
@@ -57,8 +52,26 @@ $breakpoints: map-merge($breakpoints, (
 $spacing-min: 36px;
 $spacing-max: 130px;
 
+@import "../utilities/css/mixins/px2rem";
 @import "../utilities/css/functions/fluid";
 $spacings: ();
+
+// ---
+// Typography.
+
+$font-family-base: sans-serif;
+$font-family-heading: serif;
+
+$fontSizes: ( // @since 1.20.5
+    "normal": fluid(rem(16px), rem(16px)),
+    "huge": fluid(rem(42px), rem(42px)),
+    "h-1": fluid(rem(32px), rem(32px)),
+    "h-2": fluid(rem(24px), rem(24px)),
+    "h-3": fluid(rem(18.72px), rem(18.72px)),
+    "h-4": fluid(rem(16px), rem(16px)),
+    "h-5": fluid(rem(13.28px), rem(13.28px)),
+    "h-6": fluid(rem(10.72px), rem(10.72px))
+);
 
 // ---
 // Create icons map.

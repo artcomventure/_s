@@ -57,8 +57,10 @@ button {
     > *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
       @extend %container-content;
 
-      &.alignwide {
-        @extend %container-wide;
+      @if index($breakpoints, wide) != null {
+        &.alignwide {
+          @extend %container-wide;
+        }
       }
 
       @each $name, $breakpoint in $breakpoints {

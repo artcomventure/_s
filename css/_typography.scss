@@ -1,11 +1,13 @@
 // ---
 // typography
 
+%copy-font-size { font-size: var(--wp--preset--font-size--normal); }
+
 %copy {
   color: var(--color-copy);
   font-family: $font-family-base;
   font-weight: 400;
-  font-size: fluid(rem(16px), rem(20px));
+  @extend %copy-font-size;
   //line-height: fluid(rem(26px), rem(28px));
   //letter-spacing: fluid(0px, -.2px);
 }
@@ -14,12 +16,12 @@
 // headings
 // !!! Keep in sync with font sizes in `THEME/theme.json` !!!
 
-%h1-font-size { font-size: fluid(rem(32px), rem(32px)); }
-%h2-font-size { font-size: fluid(rem(24px), rem(24px)); }
-%h3-font-size { font-size: fluid(rem(18.72px), rem(18.72px)); }
-%h4-font-size { font-size: fluid(rem(16px), rem(16px)); }
-%h5-font-size { font-size: fluid(rem(13.28px), rem(13.28px)); }
-%h6-font-size { font-size: fluid(rem(10.72px), rem(10.72px)); }
+%h1-font-size { font-size: var(--wp--preset--font-size--h-1); }
+%h2-font-size { font-size: var(--wp--preset--font-size--h-2); }
+%h3-font-size { font-size: var(--wp--preset--font-size--h-3); }
+%h4-font-size { font-size: var(--wp--preset--font-size--h-4); }
+%h5-font-size { font-size: var(--wp--preset--font-size--h-5); }
+%h6-font-size { font-size: var(--wp--preset--font-size--h-6); }
 
 %heading {
   font-family: $font-family-heading;

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.20.5 - 2026-04-23
+**Fixed**
+
+* DB export set utf8mb4 (in `THEME/utilities/inc/db-export.php`).
+* AIOSEO redirects vs Pjax (in `THEME/utilities/inc/plugins/aioseo.php`).
+
+**Added**
+
+* Font sizes as SCSS variables (in `THEME/css/variabes.scss`).
+* Slider UX: responsive slidesPerView and fluid spaceBetween (in `THEME/js/app.js`)
+* Tom Select js (in `THEME/utilities/js/libs/tom-select`).
+* Default form styles (in `THEME/css/components/forms.scss`).
+* Widgets shortcode (in `THEME/utilities/inc/shortcodes/widgets.php`).
+* Videojs (in `THEME/utilities/inc/video/videojs`).
+
 ## 1.20.4 - 2026-03-20
 **Fixed**
 

@@ -10,6 +10,9 @@ add_action( 'login_enqueue_scripts', function() {
 				background-image: url(" . $logo[0] . ");
 				background-size: contain;
 				width: auto;
+				max-width: 100%;
+				" . ( ($logo[1] && $logo[2]) ? "aspect-ratio: " . $logo[1] . "/" . $logo[2] . ";" : '' ) . ";
+				" . ( ($logo[1] && $logo[2]) ? "height: auto;" : '' ) . ";
 			}" );
 		}
 	}

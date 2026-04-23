@@ -68,6 +68,7 @@
     "formbouncerjs": "^1.4.6",
     "gsap": "^3.12.5",
     "lottie-web": "^5.12.2",
-    "pjax": "^0.2.8"
+    "pjax": "^0.2.8",
+    "tom-select": "^2.5.2"
   }
 }

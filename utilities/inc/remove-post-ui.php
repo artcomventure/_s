@@ -64,7 +64,7 @@ add_action( 'admin_init', function() {
 			$forbidden = true;
 		}
 		// forbid post taxonomies
-		elseif ( $pagenow == 'edit-tags.php' && in_array( $_GET['taxonomy'], array( 'category', 'post_tag' ) ) ) {
+		elseif ( $pagenow == 'edit-tags.php' && in_array( $_GET['taxonomy'] ?? '', array( 'category', 'post_tag' ) ) ) {
 			$forbidden = true;
 		}
 	}

@@ -43,7 +43,7 @@
   }
 
   > .wp-block-cover__inner-container {
-    --width-max: #{map-get($breakpoints, wide)};
+    --width-max: #{map-get($breakpoints, content)};
     margin-right: auto !important;
     margin-left: auto !important;
   }
@@ -52,8 +52,10 @@
 .entry-content,
 .alignfull {
   > * {
-    &.alignwide {
-      @extend %container-wide;
+    @if index($breakpoints, wide) != null {
+      &.alignwide {
+        @extend %container-wide;
+      }
     }
 
     @each $name, $breakpoint in $breakpoints {
@@ -78,6 +80,8 @@
 // Cover Block.
 
 .wp-block-cover {
+  isolation: isolate;
+
   .wp-block-cover__video-background,
   .wp-block-cover__image-background,
   .wp-block-cover__background {
@@ -223,15 +227,20 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
 // ---
 // Make sure logo link wraps around logo image.
 
-.custom-logo-link {
-  display: block;
-  line-height: 0;
+.custom-logo {
+  max-width: 100%;
+  height: auto;
 
-  // by default we hide `.site-title` and `.site-description`
-  ~ .site-title,
-  ~ .site-description {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
+  &-link {
+    display: block;
+    line-height: 0;
+
+    // by default we hide `.site-title` and `.site-description`
+    ~ .site-title,
+    ~ .site-description {
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+    }
   }
 }
 
@@ -302,12 +311,14 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
   }
 }
 
-%alignwide {
-  @extend %width-wide;
-}
+@if index($breakpoints, wide) != null {
+  %alignwide {
+    @extend %width-wide;
+  }
 
-.alignwide {
-  @extend %alignwide;
+  .alignwide {
+    @extend %alignwide;
+  }
 }
 
 // ---

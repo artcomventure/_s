@@ -31,6 +31,17 @@
       "wideSize": "1660px",
       "allowCustomContentAndWideSize": false
     },
+    "spacing": {
+      "margin": true,
+      "customSpacingSize": false,
+      "spacingSizes": [
+        {
+          "size": "auto",
+          "slug": "auto",
+          "name": "auto"
+        }
+      ]
+    },
     "typography": {
       "fluid": true,
       "fontSizes": [

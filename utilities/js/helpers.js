@@ -82,27 +82,6 @@ const getBackgroundColor = $element => {
 }
 
 /**
- * Check if given `url` is internal.
- *
- * @param url
- * @returns {boolean}
- */
-const isInternalUrl = url => {
-  const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
-  return !url || regexp.test( url )
-}
-
-/**
- * Check if given `url` is external.
- *
- * @param url
- * @returns {boolean}
- */
-const isExternalUrl = url => {
-  return !isInternalUrl( url );
-}
-
-/**
  * Page is shown on mobile device!?
  *
  * Class is set in `UTILITIES/inc/gutenberg/inc/bodyclass/inc/frontend.php`.
@@ -111,6 +90,26 @@ const isExternalUrl = url => {
   const isMobileDevice = document.body.classList.contains( 'mobile-device' );
   window.isMobileDevice = () => isMobileDevice;
 })();
+
+/**
+ * Checks if devive is touch.
+ * @returns {boolean}
+ *
+ * @since 1.20.5
+ */
+function isTouchDevice() {
+  return matchMedia( '(pointer: coarse)' ).matches;
+}
+
+/**
+ * Checks if devive is not touch.
+ * @returns {boolean}
+ *
+ * @since 1.20.5
+ */
+function isNotTouchDevice() {
+  return matchMedia( '(pointer: fine)' ).matches;
+}
 
 /**
  * Sets `scroll-dir--(down|up)` class to `<html>` according to the scroll direction.

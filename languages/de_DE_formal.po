@@ -14,7 +14,7 @@ msgstr ""
 #. Theme Name of the theme
 #: style.css
 msgid "_s"
-msgstr "_s"
+msgstr ""
 
 #. Author of the theme
 #: style.css

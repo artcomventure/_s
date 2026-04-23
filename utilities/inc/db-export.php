@@ -81,6 +81,8 @@ add_action('admin_menu', function() {
 					$f = fopen( $export_path, 'w' );
 
 					if ( $f ) {
+                        $wpdb->query( "SET NAMES 'utf8mb4'" );
+                        fwrite( $f, "SET NAMES utf8mb4;\n\n" );
 						$tables = $wpdb->get_col( 'SHOW TABLES' );
 						foreach ( $tables as $table ) {
 							// Structure
