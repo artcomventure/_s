@@ -1,0 +1,22 @@
+// make whole teaser view a link
+// without `[data-href]` so the contextual menu can be used
+article.teaser-view {
+  position: relative;
+
+  a {
+    position: relative;
+    z-index: 2;
+  }
+
+  .entry-title a {
+    position: static;
+
+    text-decoration: none;
+
+    &:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+  }
+}

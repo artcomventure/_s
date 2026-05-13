@@ -26,7 +26,8 @@ global $more;
 
 			the_post_title( $before, $after );
 
-			$titletag = $titletag === 'h1' ? 'h2' : 'h3';
+            // increase level by 1
+            $titletag = 'h' . min((int) filter_var( $titletag, FILTER_SANITIZE_NUMBER_INT) + 1, 6 );
 			the_subtitle( "<$titletag class=\"entry-subtitle\">", "</$titletag>" ); ?>
 
             <?php if ( 'post' === get_post_type() ) : ?>
@@ -41,8 +42,8 @@ global $more;
 	<?php if ( !$more || !get_post_meta( get_the_ID(), '_hide_thumbnail', true ) )
         _s_post_thumbnail(); ?>
 
-	<div class="entry-content">
-		<?php the_content( sprintf(
+	<div class="entry-content"><?php
+        the_content( sprintf(
 			wp_kses(
 				/* translators: %s: Name of current post. Only visible to screen readers */
 				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', '_s' ),
@@ -57,10 +58,9 @@ global $more;
 				'after'  => '</div>',
 			)
 		);
-		?>
-	</div><!-- .entry-content -->
+    ?></div><!-- .entry-content -->
 
-	<footer class="entry-footer">
-		<?php _s_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+	<footer class="entry-footer"><?php
+        _s_entry_footer();
+    ?></footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

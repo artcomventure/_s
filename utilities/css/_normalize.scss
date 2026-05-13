@@ -44,8 +44,7 @@ address {
 }
 
 blockquote {
-  margin-right: 0;
-  margin-left: 0;
+  margin-inline: auto;
 
   > p {
     &:first-of-type {

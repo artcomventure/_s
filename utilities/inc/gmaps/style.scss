@@ -22,15 +22,15 @@ gmp-advanced-marker {
     z-index: 1;
   }
 
-  :has(> gmp-advanced-marker):has(gmp-advanced-marker:hover) & svg {
-    opacity: .35;
-    scale: .65;
-  }
+  //:has(> gmp-advanced-marker):has(gmp-advanced-marker:hover) & svg {
+  //  opacity: .35;
+  //  scale: .65;
+  //}
 
-  :has(> gmp-advanced-marker):has(gmp-advanced-marker:hover) &:hover svg {
-    opacity: 1;
-    scale: 1.35;
-  }
+  //:has(> gmp-advanced-marker):has(gmp-advanced-marker:hover) &:hover svg {
+  //  opacity: 1;
+  //  scale: 1.35;
+  //}
 }
 
 // info window

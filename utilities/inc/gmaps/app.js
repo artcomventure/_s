@@ -21,7 +21,7 @@
       options.styles = gmaps.settings.styles;
 
     // the map
-    let map = new Map( $map, Alter.do( 'gmap:options', options ), $map );
+    let map = new Map( $map, Alter.do( 'gmap:options', options, $map ) );
 
     // make sure the map is initialized
     const idleListener = map.addListener( 'idle', () => {

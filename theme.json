@@ -43,8 +43,13 @@
       ]
     },
     "typography": {
-      "fluid": true,
+      "fluid": false,
+      "defaultFontSizes": false,
       "fontSizes": [
+        {
+          "name": "Inherit",
+          "slug": "inherit"
+        },
         {
           "name": "Heading 1",
           "slug": "h1",

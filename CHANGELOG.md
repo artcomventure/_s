@@ -1,9 +1,21 @@
 # Changelog
 
+## 1.20.6 - 2026-05-13
+**Added**
+
+* DB import tool (in `THEME/utilities/inc/db-port.php`).
+* Archive slug translation (in `THEME/utilities/inc/plugins/bogo/inc/slugs/slugs.php`).
+* Reusable term color setting (in `THEME/utilities/inc/term-color.php`).
+* posts-list block title tag setting (in `THEME/utilities/inc/posts-list/inc/block`).
+
+**Fixed**
+
+* Various CSS and JS.
+
 ## 1.20.5 - 2026-04-23
 **Fixed**
 
-* DB export set utf8mb4 (in `THEME/utilities/inc/db-export.php`).
+* DB export set utf8mb4 (in `THEME/utilities/inc/db-port.php`).
 * AIOSEO redirects vs Pjax (in `THEME/utilities/inc/plugins/aioseo.php`).
 
 **Added**
@@ -25,7 +37,7 @@
 ## 1.20.3 - 2026-03-18
 **Added**
 
-* DB export (in `THEME/utilities/inc/db-export.php`).
+* DB export (in `THEME/utilities/inc/db-port.php`).
 * Minify inline CSS/js (in `THEME/utilities/inc/performance/inc/minifiy/`).
 
 **Fixed**

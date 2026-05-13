@@ -28,6 +28,17 @@ h5, .h5, .has-h-5-font-size { @extend %h5; }
 h6, .h6, .has-h-6-font-size { @extend %h6; }
 
 .has-copy-font-size { @extend %copy-font-size; }
+// @since 1.20.6
+.has-inherit-font-size {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+.has-huge-font-size { @extend %huge-font-size; }
+.has-small-font-size { @extend %small-font-size; }
+.has-medium-font-size { @extend %medium-font-size; }
+.has-large-font-size { @extend %large-font-size; }
+.has-x-large-font-size { @extend %x-large-font-size; }
 
 a, .link {
   @extend %link;

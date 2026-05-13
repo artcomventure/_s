@@ -58,6 +58,10 @@ add_action( 'init', function() {
 			'type' => 'string',
 			'default' => '1'
 		],
+		'title_tag' => [
+			'type' => 'string',
+			'default' => 'h2'
+		],
 		'orderby' => [
 			'type' => 'string',
 			'default' => 'date'

@@ -26,7 +26,8 @@ global $more;
 
 			the_post_title( $before, $after );
 
-			$titletag = $titletag === 'h1' ? 'h2' : 'h3';
+            // increase level by 1
+            $titletag = 'h' . min((int) filter_var( $titletag, FILTER_SANITIZE_NUMBER_INT) + 1, 6 );
 			the_subtitle( "<$titletag class=\"entry-subtitle\">", "</$titletag>" ); ?>
         </header><!-- .entry-header -->
 	<?php endif; ?>
@@ -34,7 +35,7 @@ global $more;
 	<?php if ( !$more || !get_post_meta( get_the_ID(), '_hide_thumbnail', true ) )
 		_s_post_thumbnail(); ?>
 
-	<div class="entry-content">
-		<?php the_content(); ?>
-	</div><!-- .entry-content -->
+	<div class="entry-content"><?php
+        the_content();
+    ?></div><!-- .entry-content -->
 </article><!-- #post-<?php the_ID(); ?> -->

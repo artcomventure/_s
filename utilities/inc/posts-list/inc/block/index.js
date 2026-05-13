@@ -78,6 +78,10 @@ const blockAttributes = {
     type: 'string',
     default: '1'
   },
+  title_tag: {
+    type: 'string',
+    default: 'h2'
+  },
   empty: {
     type: 'string',
     default: ''
@@ -128,6 +132,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
     group_by_month,
     theme,
     columns,
+    title_tag,
     orderby,
     empty,
     more
@@ -341,6 +346,18 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                 />
               </FlexBlock>
             </Flex></BaseControl>
+
+            <ToggleGroupControl
+              label={ __( 'Title tag', 'posts-list' ) }
+              help={ __( 'Depending on where the list is inserted, what level should the headings have?', 'posts-list' ) }
+              value={ title_tag }
+              onChange={ title_tag => setAttributes( { title_tag } ) }
+              isBlock
+            >
+              { [2,3,4,5,6].map( level =>
+                <ToggleGroupControlOption key={ level } value={ `h${level}` } label={ `H${level}` } />
+              ) }
+            </ToggleGroupControl>
 
             { <SelectControl
               label={ __( 'Sort by', 'posts-list' ) }

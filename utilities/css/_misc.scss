@@ -67,6 +67,10 @@
   }
 }
 
+.entry-footer:empty {
+  display: none;
+}
+
 // no max width in post's teaser view
 .teaser-view {
   .entry-header,

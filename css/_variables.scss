@@ -63,6 +63,10 @@ $font-family-base: sans-serif;
 $font-family-heading: serif;
 
 $fontSizes: ( // @since 1.20.5
+    //"small": fluid(rem(12px), rem(13px)),
+    //"medium": fluid(rem(20px), rem(20px)),
+    //"large": fluid(rem(36px), rem(36px)),
+    //"x-large": fluid(rem(42px), rem(42px)),
     "normal": fluid(rem(16px), rem(16px)),
     "huge": fluid(rem(42px), rem(42px)),
     "h-1": fluid(rem(32px), rem(32px)),

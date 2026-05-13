@@ -31,20 +31,21 @@ add_filter( 'wp_check_filetype_and_ext', function( $checked, $file, $filename, $
 
 /**
  * Add a default image alt (attachment title).
+ *
+ * Removed @since 1.20.6
  */
-add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment ) {
-	// don't override existing alt text
-	if ( empty( $attr['alt'] ) ) {
-		$attr['alt'] = get_the_title( $attachment );
-	}
-
-	return $attr;
-}, 10, 2 );
+//add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment ) {
+//	// don't override existing alt text
+//	if ( empty( $attr['alt'] ) ) {
+//		$attr['alt'] = get_the_title( $attachment );
+//	}
+//
+//	return $attr;
+//}, 10, 2 );
 
 /**
  * Force `figcaption` to be added.
  */
-
 add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_setting( 'force_figcaption', array(
 		'type' => 'option',
@@ -130,3 +131,55 @@ function maybe_crop_media() {
 		add_image_size( $name, $settings['width'], $settings['height'], true );
 	}
 }
+
+// fix PHP warning "Undefined array key"
+// @since 1.20.6
+add_filter( 'wp_get_attachment_metadata', function( $data, $attachment_id ) {
+	return $data + ['width' => '', 'height' => ''];
+}, 10, 2 );
+
+/**
+ * When an image was auto-scaled by WordPress on upload (> 2560px), the 'full'
+ * size in the REST API points to the -scaled version. Replace it with the
+ * actual original so the editor's "Full Size" option works correctly.
+ *
+ * @since 1.20.6
+ */
+add_filter( 'rest_prepare_attachment', function( $response, $attachment ) {
+	if ( ! str_starts_with( $attachment->post_mime_type, 'image/' ) ) return $response;
+
+	$original_url = wp_get_original_image_url( $attachment->ID );
+	if ( ! $original_url ) return $response;
+
+	$data     = $response->get_data();
+	$full_url = $data['source_url'] ?? '';
+
+	// image was never auto-scaled — nothing to fix
+	if ( $original_url === $full_url ) return $response;
+
+	$original_path = wp_get_original_image_path( $attachment->ID );
+	$dimensions    = $original_path ? @getimagesize( $original_path ) : false;
+
+	// Top-level source_url (used by the editor as the 'full' URL)
+	$data['source_url'] = $original_url;
+
+	// sizes.full entry
+	if ( isset( $data['media_details']['sizes']['full'] ) ) {
+		$data['media_details']['sizes']['full']['source_url'] = $original_url;
+		$data['media_details']['sizes']['full']['file']       = basename( $original_url );
+		if ( $dimensions ) {
+			$data['media_details']['sizes']['full']['width']  = $dimensions[0];
+			$data['media_details']['sizes']['full']['height'] = $dimensions[1];
+		}
+	}
+
+	// top-level dimensions in media_details
+	if ( $dimensions ) {
+		$data['media_details']['width']  = $dimensions[0];
+		$data['media_details']['height'] = $dimensions[1];
+	}
+
+	$response->set_data( $data );
+
+	return $response;
+}, 10, 2 );

@@ -85,7 +85,7 @@ msgstr "CSS-Selektoren für <code>select</code>-Felder, auf die custom-select.js
 msgid "auto"
 msgstr "auto"
 
-#: inc/performance/performance.php:16
+#: inc/performance/performance.php:19
 msgid "Logo %s, Link to home page"
 msgstr "Logo %s, Link zur Startseite"
 
@@ -93,60 +93,103 @@ msgstr "Logo %s, Link zur Startseite"
 msgid "Replacing and enhancing the native <code>select</code> (dropdown) element."
 msgstr "Ersetzen und Verbessern des nativen <code>select</code> (Dropdown) elements."
 
-#: inc/db-export.php:11
-#: inc/db-export.php:12
-#: inc/db-export.php:124
-msgid "Export Database"
-msgstr "Datenbank exportieren"
-
-#: inc/db-export.php:35
+#: inc/db-port.php:41
+#: inc/db-port.php:90
 msgid "File \"%s\" deleted."
 msgstr "Die Datei „%s“ wurde gelöscht."
 
-#: inc/db-export.php:37
+#: inc/db-port.php:43
+#: inc/db-port.php:65
 msgid "File not found."
 msgstr "Datei nicht gefunden."
 
-#: inc/db-export.php:40
+#: inc/db-port.php:46
+#: inc/db-port.php:68
 msgid "Invalid nonce."
 msgstr "Ungültiger Nonce."
 
-#: inc/db-export.php:60
+#: inc/db-port.php:92
 msgid "%d files deleted."
 msgstr "%d Dateien wurden gelöscht."
 
-#: inc/db-export.php:104
+#: inc/db-port.php:165
 msgid "Database successfully exported: %s"
 msgstr "Datenbank erfolgreich exportiert: %s"
 
-#: inc/db-export.php:108
+#: inc/db-port.php:169
 msgid "Error creating export file."
 msgstr "Fehler beim Erstellen der Exportdatei."
 
-#: inc/db-export.php:133
+#: inc/db-port.php:194
 msgid "If the database dump is not a backup, please delete it immediately after downloading."
 msgstr "Falls es sich bei dem Datenbank-Dump nicht um eine Sicherung handelt, lösche ihn bitte unmittelbar nach dem Herunterladen."
 
-#: inc/db-export.php:148
+#: inc/db-port.php:209
 msgid "New database export"
 msgstr "Neuer Datenbankexport"
 
-#: inc/db-export.php:163
+#: inc/db-port.php:228
 msgid "No exports found."
 msgstr "Es wurden keine Exporte gefunden."
 
-#: inc/db-export.php:183
+#: inc/db-port.php:249
 msgid "Download %s"
 msgstr "%s herunterladen"
 
-#: inc/db-export.php:183
+#: inc/db-port.php:249
 msgid "Download"
 msgstr "Herunterladen"
 
-#: inc/db-export.php:186
+#: inc/db-port.php:255
 msgid "Are you sure you want to delete this export?"
 msgstr "Möchten Sie diesen Export wirklich löschen?"
 
-#: inc/db-export.php:186
+#: inc/db-port.php:255
 msgid "Delete %s"
 msgstr "%s löschen"
+
+#: inc/db-port.php:16
+#: inc/db-port.php:17
+#: inc/db-port.php:185
+msgid "Export/import Database"
+msgstr "Datenbank ex-/importieren"
+
+#: inc/db-port.php:60
+msgid "Database successfully imported from: %s"
+msgstr "Datenbank erfolgreich importiert aus: %s"
+
+#: inc/db-port.php:62
+msgid "Import error: %s"
+msgstr "Importfehler: %s"
+
+#: inc/db-port.php:101
+msgid "Upload error."
+msgstr "Upload-Fehler."
+
+#: inc/db-port.php:103
+msgid "Only .sql files are allowed."
+msgstr "Nur .sql-Dateien sind erlaubt."
+
+#: inc/db-port.php:114
+msgid "File \"%s\" uploaded."
+msgstr "Die Datei \"%s\" wurde hochgeladen."
+
+#: inc/db-port.php:117
+msgid "Error saving uploaded file."
+msgstr "Fehler beim Speichern der hochgeladenen Datei."
+
+#: inc/db-port.php:214
+msgid "Upload"
+msgstr "Hochladen"
+
+#: inc/db-port.php:252
+msgid "Are you sure you want to import this file? This will overwrite existing data."
+msgstr "Möchten Sie diese Datei wirklich importieren? Vorhandene Daten werden dabei überschrieben."
+
+#: inc/db-port.php:252
+msgid "Import %s"
+msgstr "%s importieren"
+
+#: inc/db-port.php:252
+msgid "Import"
+msgstr "Importieren"

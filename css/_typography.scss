@@ -2,6 +2,12 @@
 // typography
 
 %copy-font-size { font-size: var(--wp--preset--font-size--normal); }
+// @since 1.20.6
+%huge-font-size { font-size: var(--wp--preset--font-size--huge); }
+%small-font-size { font-size: var(--wp--preset--font-size--small); }
+%medium-font-size { font-size: var(--wp--preset--font-size--medium); }
+%large-font-size { font-size: var(--wp--preset--font-size--large); }
+%x-large-font-size { font-size: var(--wp--preset--font-size--x-large); }
 
 %copy {
   color: var(--color-copy);
@@ -160,8 +166,8 @@
 
   border: 1px solid;
 
-  color: inherit;
-  --color-link: inherit;
+  //color: inherit;
+  //--color-link: inherit;
 
   @if $link-text-decoration-animation == x {
     &:before { content: none; }
