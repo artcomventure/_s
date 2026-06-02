@@ -64,14 +64,13 @@ function get_cookie_wall(): string {
  *
  * @since 1.20.0
  */
-add_filter( 'wp_video_shortcode', function( $output, $atts ) {
+add_filter( 'embed_oembed_html', function( $html, $url, $attr, $post_id ) {
 	$oEmbed = _wp_oembed_get_object();
-	if ( $video = $oEmbed->fetch( $oEmbed->get_provider( $atts['src'] ), $atts['src'] ) ) {
+	if ( $video = $oEmbed->fetch( $oEmbed->get_provider( $url ), $url ) ) {
 		if ( in_array( $video->provider_name, ['YouTube', 'Vimeo'] ) ) {
-			if ( $cookie_wall = get_cookie_wall() )
-				$output = preg_replace( '/<\/div>\s*$/', $cookie_wall . '</div>', $output );
+			$html .= get_cookie_wall();
 		}
 	}
 
-	return $output;
-}, 10, 2 );
+	return $html;
+}, 10, 4 );

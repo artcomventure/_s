@@ -4,9 +4,9 @@ define( 'VIDEOJS_DIRECTORY', dirname( __FILE__ ) );
 const VIDEOJS_DIRECTORY_URI = VIDEO_DIRECTORY_URI . '/videojs';
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_script( 'videojs', VIDEOJS_DIRECTORY_URI . '/app.js', ['behaviours', 'video-js'], false, true );
+	wp_enqueue_script( 'videojs', VIDEOJS_DIRECTORY_URI . '/app.js', ['behaviours', 'alter', 'video-js'], false, true );
 
-	wp_enqueue_script( 'video-js', VIDEOJS_DIRECTORY_URI . '/video.js', [], false, true );
+	wp_enqueue_script( 'video-js', VIDEOJS_DIRECTORY_URI . '/video.js', [], '8.23.7', true );
 	// auto include CSS
 	if ( wp_script_is('video-js' ) ) wp_enqueue_style( 'videojs', VIDEOJS_DIRECTORY_URI . '/video-js.css' );
 

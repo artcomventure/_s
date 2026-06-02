@@ -8,6 +8,9 @@ define( 'MEDIAELEMENT_DIRECTORY_URI', VIDEO_DIRECTORY_URI . '/mediaelement' );
  * so we check for the script in `wp_footer` action (not `wp_enqueue_scripts`).
  */
 add_action( 'wp_footer', function() {
+	wp_dequeue_script( 'wp-mediaelement' );
+	wp_dequeue_style( 'wp-mediaelement' );
+
 	if ( wp_script_is('wp-mediaelement' ) ) {
 		wp_enqueue_script( 'video-mediaelement', MEDIAELEMENT_DIRECTORY_URI . '/app.js', ['behaviours', 'wp-mediaelement', 'mediaelement-vimeo'], false, true );
 		wp_enqueue_style( 'wp-mediaelement' );

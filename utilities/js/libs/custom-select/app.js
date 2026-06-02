@@ -30,6 +30,8 @@
         } );
 
         $selects.forEach( $select => {
+            if ( !$select.isConnected ) return;
+
             $select.style.display = 'none';
             const cstSel = customSelect( $select );
             requestAnimationFrame( () => cstSel[0].container.dispatchEvent( new CustomEvent( 'custom-select:init', {

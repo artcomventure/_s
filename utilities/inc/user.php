@@ -21,7 +21,7 @@ function user_has_role( $roles, $user = null ) {
 }
 
 /**
- * Grant editor more capabilities.
+ * Grant editor role more capabilities.
  */
 add_action( 'admin_menu', function() {
 	if ( !user_has_role( 'editor' ) ) return;
@@ -53,7 +53,17 @@ add_action( 'admin_menu', function() {
 		'return' => urlencode( $_SERVER['REQUEST_URI'] ),
 		urlencode( 'autofocus[control]' ) => 'background_image'
 	], 'customize.php' ) ) );
-} );
+
+	// remove all settings pages but `options-privacy.php`
+	// @since 1.20.7
+	global $submenu;
+	if ( isset( $submenu['options-general.php'] ) ) {
+		$submenu['options-general.php'] = array_filter(
+			$submenu['options-general.php'],
+			fn( $item ) => $item[2] === 'options-privacy.php'
+		);
+	}
+}, 999 );
 
 /**
  * Remove "User" from "New" in admin menu.

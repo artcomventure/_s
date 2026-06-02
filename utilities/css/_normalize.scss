@@ -51,7 +51,7 @@ blockquote {
       margin-top: 0;
 
       &:before {
-        content: "„";
+        content: open-quote;
       }
     }
 
@@ -59,7 +59,7 @@ blockquote {
       margin-bottom: 0;
 
       &:after {
-        content: "“";
+        content: close-quote;
       }
     }
   }

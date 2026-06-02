@@ -8,6 +8,7 @@ define( 'UTLTS_JS_LIBS_SPA_DIRECTORY', dirname( __FILE__ ) );
 const UTLTS_JS_LIBS_SPA_DIRECTORY_URI = UTILITIES_DIRECTORY_URI . '/js/libs/spa';
 
 add_filter( 'should_load_separate_core_block_assets', '__return_false' );
+//add_filter( 'should_load_block_assets_on_demand', '__return_false' );
 
 add_action( 'wp_footer', function() {
 	// make sure `core-block-supports-inline-css.css` is enqueued
@@ -20,4 +21,4 @@ add_action( 'wp_footer', function() {
 
 // SPA libs
 auto_include_files( UTLTS_JS_LIBS_SPA_DIRECTORY . '/pjax' );
-//auto_include_files( UTLTS_JS_LIBS_SPA_DIRECTORY . '/htmx' );
+auto_include_files( UTLTS_JS_LIBS_SPA_DIRECTORY . '/htmx' );

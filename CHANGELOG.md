@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.20.7 - 2026-06-02
+**Added**
+
+* Claude.md
+
+**Fixed**
+
+* Video : mediaelementjs vs videojs (in `THEME/utilities/inc/video`).
+* Skip certain elements (in `THEME/utilities/inc/accessibility/app.js`).
+* Various CSS.
+
 ## 1.20.6 - 2026-05-13
 **Added**
 

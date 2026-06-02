@@ -14,6 +14,8 @@ Behaviours.add( 'accessibility:shy', $context => {
     while ( $element = elements.iterateNext() ) {
         // don't override existing `aria-label`
         if ( $element.hasAttribute( 'aria-label' ) ) return;
+        // skip _these_ elements
+        if ( $element.closest( 'script, style, link, meta, title, base, noscript, template, slot, head' ) ) continue;
         // `setAttribute` can't be done here.
         // `$element` must not be changed while in loop.
         $elements.push( $element );

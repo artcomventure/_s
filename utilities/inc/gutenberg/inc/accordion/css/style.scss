@@ -47,7 +47,8 @@
       }
     }
 
-    &[aria-expanded="false"] > .wp-block-accordion-item-content  {
+    &[aria-expanded="false"] > .wp-block-accordion-item-content,
+    &:not([aria-expanded]) > .wp-block-accordion-item-content {
       max-height: 0 !important;
       pointer-events: none;
     }

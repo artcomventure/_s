@@ -10,7 +10,7 @@ add_action( 'admin_enqueue_scripts', function () {
         return;
     }
     // for sanitizing slugs
-    wp_enqueue_script( 'bogo--terms-translation--slugs', get_template_directory_uri() . '/inc/bogo/inc/slugs/app.js', [ 'wp-url' ], false,
+    wp_enqueue_script( 'bogo--terms-translation--slugs', BOGO_DIRECTORY_URI . '/inc/slugs/app.js', [ 'wp-url' ], false,
             true );
 } );
 

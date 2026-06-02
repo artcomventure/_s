@@ -41,15 +41,16 @@ function get_post_edit_link( $post = 0 ) {
 	// this can't be checked on ajax requests :/
 	// therefor the `$edit_link` will be empty
 	edit_post_link( '<span>' . get_post_type_object( get_post_type( $post ) )->labels->edit_item . '</span>', '', '', $post->ID );
-	$edit_link = ob_get_clean();
-	// switch `a` to `span`
-	$edit_link = preg_replace( '/^<a /', '<span tabindex="-1" ', $edit_link );
-	$edit_link = preg_replace( '/<\/a>$/', '</span>', $edit_link );
-	// switch `href` to `data-href`
-	// UX @see in `gutenberg/inc/data-href/app.js`
-	$edit_link = preg_replace( '/ href/', ' data-href', $edit_link );
+	if ( $edit_link = ob_get_clean() ) {
+		// switch `a` to `span`
+		$edit_link = preg_replace( '/^<a /', '<span tabindex="-1" ', $edit_link );
+		$edit_link = preg_replace( '/<\/a>$/', '</span>', $edit_link );
+		// switch `href` to `data-href`
+		// UX @see in `gutenberg/inc/data-href/app.js`
+		$edit_link = preg_replace( '/ href/', ' data-href', $edit_link );
+	}
 
-	return $edit_link ?: '';
+	return apply_filters( 'get_post_edit_link', $edit_link ?: '', $post );
 }
 
 // custom `[get]_the_post_title()` functions to force edit link

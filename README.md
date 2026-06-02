@@ -129,30 +129,33 @@ For debugging itself follow the steps from [Stage/Live](#stagelive).
 
 #### JS
 
-| File              | What does it do                                       |
-|-------------------|-------------------------------------------------------|
-| alter.js          | _Equivalent_ to WP's `apply_filter()`/`add_filter()`. |
-| behaviours.js     | Wrapper for functions to be called grouped.           |
-| BREAKPOINTS.js    | Check widths according to theme's breakpoints.        |
-| cache.js          | Cache values as cookie or in localStorage.            |
-| custom-width.js   | Custom widths from classes.                           |
-| external-links.js | Open external links in new window.                    |
-| file-drop/app.js  | UI for drag&drop files to `input[type="file"]`.       |
-| helpers.js        | ...                                                   |
-| in-viewport.js    | Check if element is in viewport.                      |
-| inline-svg.js     | Replace SVG image with actual SVG code.               |
+| File                                                | What does it do                                       |
+|-----------------------------------------------------|-------------------------------------------------------|
+| alter.js                                            | _Equivalent_ to WP's `apply_filter()`/`add_filter()`. |
+| behaviours.js                                       | Wrapper for functions to be called grouped.           |
+| BREAKPOINTS.js                                      | Check widths according to theme's breakpoints.        |
+| cache.js                                            | Cache values as cookie or in localStorage.            |
+| custom-width.js                                     | Custom widths from classes.                           |
+| external-links.js                                   | Open external links in new window.                    |
+| file-drop/                                          | UI for drag&drop files to `input[type="file"]`.       |
+| helpers.js                                          | ...                                                   |
+| in-viewport.js                                      | Check if element is in viewport.                      |
+| inline-svg.js                                       | Replace SVG image with actual SVG code.               |
 
 ##### `/utilities/js/libs/`
 
-| Library                                                         | What does it do                                                              |
-|-----------------------------------------------------------------|------------------------------------------------------------------------------|
-| [Air Datepicker](https://air-datepicker.com/)                   | Datepicker UI.                                                               |
-| autosize                                                        | [Autosize `<textarea>`](https://www.jacklmoore.com/autosize/) and `<input>`. | 
-| [Custom-select](https://custom-select.github.io/custom-select/) | Custom `<select>` creation.                                                  | 
-| [DotLottie WC](https://github.com/LottieFiles/dotlottie-web/blob/main/packages/wc/README.md)                               | Web component wrapper for dotlottie-web.                                     | 
-| [GSAP](https://gsap.com/)                                       | Animate anything.                                                            | 
-| [lottie-web](https://github.com/airbnb/lottie-web)              | JSON animations rendered natively.                                           | 
-| [Pjax](https://github.com/MoOx/pjax)                            | Use AJAX to deliver a fast browsing experience.                              | 
+| Library                                                                                      | What does it do                                                              |
+|----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| [Air Datepicker](https://air-datepicker.com/)                                                | Datepicker UI.                                                               |
+| autosize                                                                                     | [Autosize `<textarea>`](https://www.jacklmoore.com/autosize/) and `<input>`. | 
+| [Custom-select](https://custom-select.github.io/custom-select/)                              | Custom `<select>` creation.                                                  | 
+| [DotLottie WC](https://github.com/LottieFiles/dotlottie-web/blob/main/packages/wc/README.md) | Web component wrapper for dotlottie-web.                                     | 
+| [GSAP](https://gsap.com/)                                                                    | Animate anything.                                                            | 
+| [lottie-web](https://github.com/airbnb/lottie-web)                                           | JSON animations rendered natively.                                           | 
+| [odometer](https://github.hubspot.com/odometer/)/                                            | Transition numbers with ease.                                                |
+| [Pjax](https://github.com/MoOx/pjax)                                                         | Use AJAX to deliver a fast browsing experience.                              |
+| [Tablesort](https://tristen.ca/tablesort/demo/)/                                                     | Sorting component for tables.                                                | 
+| [Tom Select](https://tom-select.js.org/)/                                                    | `<select>` UI control.                                                       | 
 
 #### PHP
 
