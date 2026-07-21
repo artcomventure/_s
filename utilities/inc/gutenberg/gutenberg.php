@@ -8,7 +8,7 @@ add_action( 'after_setup_theme', function() {
 	// more settings see `THEME/theme.json`
 	// https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
 
-	// relative path from `functions.php`
+	// relative path from theme root
 	add_editor_style(  './css/editor-style.css' );
 
 	// load post type specific css

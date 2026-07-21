@@ -30,6 +30,9 @@ add_filter( 'aioseo_ai_image_generator_extend_image_block_placeholder', '__retur
 // @since 1.20.4
 add_filter( 'aioseo_ai_assistant_extend_block_editor_inserter_button', '__return_false' );
 add_filter( 'aioseo_ai_assistant_extend_paragraph_placeholder', '__return_false' );
+// @since 1.20.8
+// the filters above are for backwards compatibility only
+add_filter( 'aioseo_ai_disabled', '__return_true' );
 
 // remove admin menu item
 add_action( 'wp_before_admin_bar_render', function() {

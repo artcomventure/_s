@@ -231,9 +231,9 @@ add_action('admin_menu', function() {
                                     $filename = basename($file);
                                     $url = $dump_url . '/' . $filename;
                                     $date = sprintf(
-                                            __( '%1$s at %2$s' ),
-                                            date_i18n( __( 'Y/m/d' ), filemtime( $file ) ),
-                                            date_i18n( __( 'g:i a' ), filemtime( $file ) )
+                                            __( '%s at %s' ),
+                                            wp_date( get_option( 'date_format' ), filemtime( $file ) ),
+                                            wp_date( get_option( 'time_format' ), filemtime( $file ) )
                                     );
                                     $delete_url = wp_nonce_url( add_query_arg( ['page' => 'db-port', 'action' => 'delete', 'file' => $filename], admin_url( 'tools.php' ) ), 'delete_dump_' . $filename );
                                     $import_url = wp_nonce_url( add_query_arg( ['page' => 'db-port', 'action' => 'import', 'file' => $filename], admin_url( 'tools.php' ) ), 'import_dump_' . $filename );

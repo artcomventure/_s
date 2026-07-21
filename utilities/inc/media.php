@@ -135,7 +135,7 @@ function maybe_crop_media() {
 // fix PHP warning "Undefined array key"
 // @since 1.20.6
 add_filter( 'wp_get_attachment_metadata', function( $data, $attachment_id ) {
-	return $data + ['width' => '', 'height' => ''];
+	return $data + ['width' => 0, 'height' => 0];
 }, 10, 2 );
 
 /**

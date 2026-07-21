@@ -98,7 +98,8 @@ const getBackgroundColor = $element => {
  * @since 1.20.5
  */
 function isTouchDevice() {
-  return matchMedia( '(pointer: coarse)' ).matches;
+  return matchMedia( '(pointer: coarse)' ).matches
+      && !matchMedia( '(hover: hover)' ).matches;
 }
 
 /**
@@ -108,7 +109,8 @@ function isTouchDevice() {
  * @since 1.20.5
  */
 function isNotTouchDevice() {
-  return matchMedia( '(pointer: fine)' ).matches;
+  return matchMedia( '(pointer: fine)' ).matches
+      && matchMedia( '(hover: hover)' ).matches;
 }
 
 /**

@@ -29,6 +29,7 @@
 
   .map:has(> &) {
     background: url(map-placeholder.webp) no-repeat scroll center center transparent;
+    background-size: cover;
 
   }
 

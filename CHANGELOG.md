@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.20.8 - 2026-07-21
+**Added**
+
+* Enqueue fonts in iframe block editor  (in `THEME/media/fonts/fonts.php`).
+
+**Fixed**
+
+* Various CSS/JS.
+
 ## 1.20.7 - 2026-06-02
 **Added**
 

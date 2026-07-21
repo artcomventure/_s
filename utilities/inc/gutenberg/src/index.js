@@ -8,42 +8,68 @@ import { lineDashed } from '@wordpress/icons';
 // remove template panel
 // dispatch( 'core/editor').removeEditorPanel( 'template' );
 
+/**
+ * Find .editor-styles-wrapper in the parent document or any editor iframe (WP7+).
+ */
+function getEditorStylesWrapper() {
+    const $el = document.querySelector( '.editor-styles-wrapper' );
+    if ( $el ) return $el;
+
+    for ( const $iframe of document.querySelectorAll( 'iframe' ) ) {
+        const $wrapper = $iframe.contentDocument?.querySelector( '.editor-styles-wrapper' );
+        if ( $wrapper ) return $wrapper;
+    }
+
+    return null;
+}
+
 // set background color
 apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
-    const $sheet = document.createElement('style' );
+    (function injectStyles() {
+        const $wrapper = getEditorStylesWrapper();
+        if ( !$wrapper ) return requestAnimationFrame( injectStyles );
 
-    // set root font size to 10px like frontend
-    $sheet.innerHTML = 'html { font-size: 62.5%; }';
+        const doc = $wrapper.ownerDocument;
+        const $sheet = doc.createElement( 'style' );
 
-    // attach custom background color to editor
-    if ( color ) $sheet.innerHTML += "\n" + `.editor-styles-wrapper { background-color: #${color}; }`;
+        // set root font size to 10px like frontend
+        $sheet.innerHTML = 'html { font-size: 62.5%; }';
 
-    document.body.appendChild( $sheet );
+        // attach custom background color to editor
+        if ( color ) $sheet.innerHTML += "\n" + `.editor-styles-wrapper { background-color: #${color}; }`;
+
+        doc.head.appendChild( $sheet );
+    })();
 } );
 
 // set client width property to get fluid to work properly
 (function setClientWidthProperty() {
-    const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
-    if ( $editorStylesWrapper ) new ResizeObserver( entries => {
+    const $editorStylesWrapper = getEditorStylesWrapper();
+    if ( !$editorStylesWrapper ) return requestAnimationFrame( setClientWidthProperty );
+
+    const { ResizeObserver } = $editorStylesWrapper.ownerDocument.defaultView;
+    new ResizeObserver( () => {
         $editorStylesWrapper.style.setProperty( '--root-width', `${$editorStylesWrapper.clientWidth}` );
     } ).observe( $editorStylesWrapper );
-    else window.requestAnimationFrame( setClientWidthProperty )
 })();
 
 // set scrollbar width property
 (function setScrollbarWidthProperty() {
-    const $editorStylesWrapper = document.querySelector( '.editor-styles-wrapper' );
-    if ( !$editorStylesWrapper ) return window.requestAnimationFrame( setScrollbarWidthProperty )
+    const $editorStylesWrapper = getEditorStylesWrapper();
+    if ( !$editorStylesWrapper ) return requestAnimationFrame( setScrollbarWidthProperty );
+
+    const doc = $editorStylesWrapper.ownerDocument;
+    const { ResizeObserver } = doc.defaultView;
 
     // element for calculating the scroll bar width
     // !!! same js in `helper.js` !!!
-    const $scrollBarTester = document.createElement( 'div' );
+    const $scrollBarTester = doc.createElement( 'div' );
     $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none; height:0;"
     $scrollBarTester.innerText = 'This element is for calculating the `--scrollbar-width` property.';
-    $scrollBarTester.setAttribute( 'aria-hidden', 'true' )
+    $scrollBarTester.setAttribute( 'aria-hidden', 'true' );
     $editorStylesWrapper.appendChild( $scrollBarTester );
 
-    new ResizeObserver( entries => {
+    new ResizeObserver( () => {
         $editorStylesWrapper.style.setProperty(
             '--scrollbar-width',
             `${$scrollBarTester.offsetWidth - $scrollBarTester.clientWidth}px`

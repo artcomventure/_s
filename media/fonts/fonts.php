@@ -7,11 +7,21 @@ define( 'FONTS_DIRECTORY_URI', get_template_directory_uri() . '/media/fonts' );
  * Enqueue fonts.
  */
 add_action( 'wp_enqueue_scripts', 'enqueue_fonts' );
-add_action( 'enqueue_block_editor_assets', 'enqueue_fonts' );
+add_action( 'enqueue_block_editor_assets', 'enqueue_fonts' ); // block editor not as iframe
 function enqueue_fonts(): void {
 	if ( $typekit = apply_filters( 'typekit-font-url', '' ) ) wp_enqueue_style( 'typekit-fonts', $typekit );
 	wp_enqueue_style( 'icont', FONTS_DIRECTORY_URI . '/Icont/font.css' );
 }
+
+/**
+ * Enqueue fonts in iframe block editor.
+ * @since 1.20.8
+ */
+add_action( 'after_setup_theme', function() {
+	// relative path from theme root or absolute
+	if ( $typekit = apply_filters( 'typekit-font-url', '' ) ) add_editor_style( $typekit );
+	add_editor_style( './media/fonts/Icont/font.css' );
+} );
 
 /**
  * Preload woff2 fonts.

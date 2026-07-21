@@ -40,16 +40,16 @@ Behaviours.add( 'datepicker', $context => {
     options['altField'] = $input;
     options['altFieldDateFormat'] = 'yyyy-MM-dd'; // necessary date format
 
+    // _switch_ date fields
+    $input.setAttribute( 'hidden', '' );
+    $input.after( $ux )
+
     const dp = new AirDatepicker( $ux, options );
 
     $input.dispatchEvent( new CustomEvent( 'datepicker:init', {
       detail: { dp, options },
       bubbles: true
     } ) )
-
-    // _switch_ date fields
-    $input.setAttribute( 'hidden', '' );
-    $input.after( $ux )
   } )
 
 } );

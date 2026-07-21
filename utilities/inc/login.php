@@ -18,7 +18,5 @@ add_action( 'login_enqueue_scripts', function() {
 	}
 } );
 
-home_url();
-
 add_filter( 'login_headerurl', function() { return home_url(); } );
 add_filter( 'login_headertext', function() { return get_bloginfo( 'name' ); } );
