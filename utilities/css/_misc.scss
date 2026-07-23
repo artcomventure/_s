@@ -52,7 +52,7 @@
 .entry-content,
 .alignfull {
   > * {
-    @if index($breakpoints, wide) != null {
+    @if map-has-key($breakpoints, wide) {
       &.alignwide {
         @extend %container-wide;
       }
@@ -315,7 +315,7 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
   }
 }
 
-@if index($breakpoints, wide) != null {
+@if map-has-key($breakpoints, wide) {
   %alignwide {
     @extend %width-wide;
   }

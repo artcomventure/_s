@@ -37,7 +37,7 @@
     }
 
     .wp-block-accordion-item-content {
-      transition-property: opacity, max-height;
+      transition-property: opacity, max-height, padding, margin;
       transition-duration: var(--transition-duration);
       transition-timing-function: var(--transition-timing-function);
       overflow: hidden;
@@ -50,6 +50,8 @@
     &[aria-expanded="false"] > .wp-block-accordion-item-content,
     &:not([aria-expanded]) > .wp-block-accordion-item-content {
       max-height: 0 !important;
+      padding-block: 0 !important;
+      margin-block: 0 !important;
       pointer-events: none;
     }
 

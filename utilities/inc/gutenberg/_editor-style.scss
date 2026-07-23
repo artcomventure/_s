@@ -57,7 +57,7 @@ button {
     > *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
       @extend %container-content;
 
-      @if index($breakpoints, wide) != null {
+      @if map-has-key($breakpoints, wide) {
         &.alignwide {
           @extend %container-wide;
         }

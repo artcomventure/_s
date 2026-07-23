@@ -3,7 +3,8 @@
 ## 1.20.8 - 2026-07-21
 **Added**
 
-* Enqueue fonts in iframe block editor  (in `THEME/media/fonts/fonts.php`).
+* Enqueue fonts in iframe block editor (in `THEME/media/fonts/fonts.php`).
+* Allow all roles who can edit posts to create post translations (in `THEME/utilities/inc/plugins/bogo/inc/terms-translation.php`).
 
 **Fixed**
 
