@@ -44,5 +44,15 @@ add_filter( 'bogo_duplicate_post', function( $postarr, $original_post, $locale )
 	return $postarr;
 }, 10, 3 );
 
+/**
+ * Allow all roles who can edit posts to create post translations.
+ * @since 1.20.8
+ */
+add_filter( 'bogo_map_meta_cap', function( $meta_caps ) {
+	if ( isset($meta_caps['bogo_access_all_locales']) )
+		$meta_caps['bogo_access_all_locales'] = 'edit_posts';
+	return $meta_caps;
+} );
+
 // auto include /inc files
 auto_include_files( dirname( __FILE__ ) . '/inc' );

@@ -4,7 +4,7 @@
 **Added**
 
 * Enqueue fonts in iframe block editor (in `THEME/media/fonts/fonts.php`).
-* Allow all roles who can edit posts to create post translations (in `THEME/utilities/inc/plugins/bogo/inc/terms-translation.php`).
+* Allow all roles who can edit posts to create post translations (in `THEME/utilities/inc/plugins/bogo/bogo.php`).
 
 **Fixed**
 

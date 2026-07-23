@@ -1,16 +1,6 @@
 <?php
 
 /**
- * Allow all roles who can edit posts to create post translations.
- * @since 1.20.8
- */
-add_filter( 'bogo_map_meta_cap', function( $meta_caps ) {
-	if ( isset($meta_caps['bogo_access_all_locales']) )
-		$meta_caps['bogo_access_all_locales'] = 'edit_posts';
-	return $meta_caps;
-} );
-
-/**
  * $_POST data from terms translation table gets _slashed_ by WP @see `wp-includes/load.php:wp_magic_quotes()`
  * ... and once again by `wp-includes/pomo/po.php:poify()`,
  * which results in visible slashes on frontend.
