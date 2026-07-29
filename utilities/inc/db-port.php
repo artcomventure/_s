@@ -210,7 +210,7 @@ add_action('admin_menu', function() {
                                 <span class="spinner" id="export-db-spinner" style="float: none; margin-top: 5px; display: none"></span>
                             </div>
                             <div class="alignleft actions" style="display:flex;align-items:center;gap:4px;">
-                                <input type="file" name="import_file" accept=".sql" style="font-size:13px; border:1px solid #8c8f94; border-radius: 3px; padding-inline:3px; background-color: #fff">
+                                <input type="file" name="import_file" accept=".sql" style="font-size:13px; border:1px solid #8c8f94; border-radius: 2px; padding: 4px; background-color: #fff">
                                 <input type="submit" name="upload_dump" class="button button-primary" value="<?php _e( 'Upload', 'utilities' ) ?>">
                             </div>
                         </div>

@@ -33,7 +33,7 @@ function utilities_register_scripts(): void {
 	wp_register_script( 'bouncer', UTILITIES_DIRECTORY_URI . '/js/libs/bouncer.min.js', [], '1.4.6', true );
 
 	wp_register_script( 'helpers', UTILITIES_DIRECTORY_URI . '/js/helpers.js', ['behaviours', 'alter'], false, true );
-	wp_register_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours'], false, true );
+	wp_register_script( 'external-links', UTILITIES_DIRECTORY_URI . '/js/external-links.js', ['behaviours', 'alter'], false, true );
 	wp_register_script( 'inline-svg', UTILITIES_DIRECTORY_URI . '/js/inline-svg.js', ['behaviours'], false, true );
 	wp_register_script( 'custom-width', UTILITIES_DIRECTORY_URI . '/js/custom-width.js', ['behaviours'], false, true );
 	wp_register_script( 'in-viewport', UTILITIES_DIRECTORY_URI . '/js/in-viewport.js', [], false, true );
