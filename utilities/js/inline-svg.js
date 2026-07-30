@@ -58,8 +58,8 @@ Behaviours.add( 'media:inline-svg', function( $context ) {
     [].forEach.call( $images, function( $image ) {
         if ( !($image.classList.contains( 'inline-svg' ) || $image.closest( '.inline-svg' )) ) return;
 
-        replaceImage( $image );
-        $image.addEventListener( 'load', function( e ) {
+        if ( $image.complete ) replaceImage( $image );
+        else $image.addEventListener( 'load', function( e ) {
             replaceImage( e.target );
         }, { passive: true } );
     } );

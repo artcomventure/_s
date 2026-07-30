@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.20.9 - 2026-07-30
+**Fixed**
+
+* Database ex-/import (in `THEME/utilities/inc/db-port/`).
+
 ## 1.20.8 - 2026-07-21
 **Added**
 
