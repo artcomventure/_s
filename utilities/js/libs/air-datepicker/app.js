@@ -1,11 +1,17 @@
 import AirDatepicker from './module/air-datepicker';
-import localeDe from './module/locale/de';
-import localeEn from './module/locale/en';
 
 const locale = (document.documentElement.getAttribute( 'lang' ) || 'en')
     .split( '-' )[0];
 
-Behaviours.add( 'datepicker', $context => {
+// load only the locale that's actually needed as a separate chunk
+// falls back to 'en' if there's no locale file for `locale`
+const localeDataPromise = import( `./module/locale/${locale}` )
+  .catch( () => import( './module/locale/en' ) )
+  .then( module => module.default );
+
+Behaviours.add( 'datepicker', async $context => {
+
+  const localeData = await localeDataPromise;
 
   [].forEach.call( $context.querySelectorAll( 'input[type="date"]' ), $input => {
     let options = Alter.do( 'airDatepicker:options', {
@@ -13,7 +19,7 @@ Behaviours.add( 'datepicker', $context => {
       dateFormat: phpDateFormatToJs( $input.getAttribute( 'data-format' ) || '' ),
       minDate: $input.getAttribute( 'min' ) || '',
       maxDate: $input.getAttribute( 'max' ) || '',
-      locale: { de: localeDe, en: localeEn }[locale],
+      locale: localeData,
       position: 'bottom center',
       buttons: ['today'],
       onSelect( { date, formattedDate, datepicker } ) {

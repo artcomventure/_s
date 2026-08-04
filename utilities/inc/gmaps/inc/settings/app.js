@@ -45,7 +45,7 @@
 
 })();
 
-document.addEventListener( 'map:init', async e => {
+document.addEventListener( 'gmap:init', async e => {
   const map = e.detail;
 
   const $zoom = document.querySelector( '[name="gmaps[zoom]"]' );

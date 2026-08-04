@@ -27,14 +27,14 @@
     const idleListener = map.addListener( 'idle', () => {
       google.maps.event.removeListener( idleListener );
 
-      $map.dispatchEvent( new CustomEvent( 'map:init', {
+      $map.dispatchEvent( new CustomEvent( 'gmap:init', {
         bubbles: true,
         detail: map
       } ) )
     } );
   }
 
-  Behaviours.add( 'map:init', $context => {
+  Behaviours.add( 'gmap:init', $context => {
     $context.querySelectorAll( '.wp-block-gmap-block > .map:not(:has(.gm-style))' ).forEach( initMap )
   } )
 

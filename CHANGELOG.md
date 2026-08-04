@@ -4,6 +4,11 @@
 **Fixed**
 
 * Database ex-/import (in `THEME/utilities/inc/db-port/`).
+* `gmaps` wording (in `THEME/utilities/inc/gmaps/`).
+
+**Added**
+
+* Air Datepicker locale (in `THEME/utilities/js/libs/air-datepicker/`).
 
 ## 1.20.8 - 2026-07-21
 **Added**
