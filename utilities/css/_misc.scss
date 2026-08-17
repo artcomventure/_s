@@ -80,9 +80,9 @@
   }
 }
 
-.is-content-justification-right { margin-left: auto; }
-.is-content-justification-center { margin-inline: auto; }
-.is-content-justification-left { margin-right: auto; }
+.is-content-justification-right { justify-content: start; }
+.is-content-justification-center { justify-content: center; }
+.is-content-justification-left { justify-content: end; }
 
 // ---
 // Cover Block.
