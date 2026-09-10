@@ -18,3 +18,19 @@ add_filter( 'get_canonical_url', function( $canonical_url, $post ) {
 	return $canonical_url;
 }, 10, 2 );
 
+/**
+ * Auto-column size for `wp-list-table`.
+ */
+add_action( 'admin_enqueue_scripts', function ( $hook_suffix ) {
+	if ( 'edit.php' !== $hook_suffix ) return;
+
+	wp_add_inline_style( 'list-tables', minify_css( '
+	    @media screen and (min-width: 783px) {
+	        .wp-list-table.fixed th:not(.check-column),
+	        .wp-list-table.fixed td:not(.check-column) {
+	            width: auto;
+	        }
+	    }'
+	) );
+} );
+

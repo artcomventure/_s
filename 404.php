@@ -16,7 +16,11 @@ get_header();
 		    $not_found = new WP_Query( 'page_id=' . $not_found );
 
 		    while ( $not_found->have_posts() ) : $not_found->the_post();
-			    get_template_part( 'template-parts/content', '404' );
+                global $more;
+                $_more = $more;
+                $more = 1;
+                get_template_part( 'template-parts/content', '404' );
+                $more = $_more;
 		    endwhile;
 
 		    // restore original post data

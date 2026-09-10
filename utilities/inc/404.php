@@ -1,42 +1,70 @@
 <?php
 
 function get_404_page() {
-	return apply_filters( 'wpml_object_id', get_option( 'error-404' ), 'page' );
+	return apply_filters( 'wpml_object_id', get_option( 'error404' ), 'page' );
 }
-
-// No 404 … redirect to home
-add_action( 'template_redirect', function () {
-	if ( is_404() ) {
-		if ( $post_id = get_404_page() )
-			wp_redirect( get_permalink( $post_id ) );
-		else wp_redirect( home_url() );
-
-		exit();
-	}
-} );
 
 // register 404 page setting
 add_filter( 'pages_for', function( $pages ) {
-	$pages['error-404'] = __( '404 not found error', 'utilities' );
+	$pages['error404'] = __( '404 not found error', 'utilities' );
 	return $pages;
 } );
 
-// setting description
-add_filter( 'page_for_error-404_description', function( $description ) {
-	return __( 'Leave blank to redirect to front page.', 'utilities' );
+/**
+ * Auto-set WP's 404 page to `noindex`.
+ * The 404 page actually displayed is not affected by this.
+ * @since 1.20.10
+ */
+// the WP way
+add_filter( 'wp_robots', function( $robots ) {
+	if ( get_the_ID() == get_404_page() ) {
+		return wp_robots_no_robots( $robots );
+	}
+
+	return $robots;
 } );
 
-// TODO: in case a 404 page is selected automatically change template and query to this page
-//add_filter( '404_template_hierarchy', function( $templates ) {
-//	if ( $postid = get_404_page() ) {
-//		array_unshift( $templates, 'page.php' );
+// the AIOSEO way
+add_filter( 'aioseo_robots_meta', function( $attributes ) {
+	if ( get_the_ID() == get_404_page() ) {
+		$attributes['noindex'] = 'noindex';
+	}
+
+	return $attributes;
+} );
+
+// the old Yoast SEO way
+add_filter( 'wpseo_robots', function( $robots ) {
+	if ( get_the_ID() == get_404_page() ) {
+		return 'noindex,follow';
+	}
+
+	return $robots;
+} );
+
+// the new Yoast SEO way
+add_filter( 'wpseo_robots_array', function( $robots ) {
+	if ( get_the_ID() == get_404_page() ) {
+		$robots['index']   = 'noindex';
+		$robots['follow']  = 'follow'; // oder 'nofollow', je nach Wunsch
+	}
+
+	return $robots;
+}, 99 );
+
+// removed @since 1.20.10 due to bad SEO/UX
 //
-//		global $wp_query;
-//		$wp_query = new WP_Query( [
-//			'post_type' => 'page',
-//			'p' => $postid
-//		] );
+// No 404 … redirect to home
+//add_action( 'template_redirect', function () {
+//	if ( is_404() ) {
+//		if ( !get_404_page() ) {
+//			wp_redirect( home_url() );
+//			exit();
+//		}
 //	}
+//} );
 //
-//	return $templates;
+// setting description
+//add_filter( 'page_for_error404_description', function( $description ) {
+//	return __( 'Leave blank to redirect to front page.', 'utilities' );
 //} );

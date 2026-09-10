@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.20.10 - 2026-09-10
+**Fixed**
+
+* 404 page with 404 status (in `THEME/404.php`).
+* `&shy;` accessibility loop (in `THEME/utilities/inc/accessibility/app.js`).
+
 ## 1.20.9 - 2026-07-30
 **Fixed**
 

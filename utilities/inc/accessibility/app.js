@@ -13,7 +13,7 @@ Behaviours.add( 'accessibility:shy', $context => {
     const $elements = []; let $element;
     while ( $element = elements.iterateNext() ) {
         // don't override existing `aria-label`
-        if ( $element.hasAttribute( 'aria-label' ) ) return;
+        if ( $element.hasAttribute( 'aria-label' ) ) continue;
         // skip _these_ elements @since 1.20.6
         if ( $element.closest( 'script, style, link, meta, title, base, noscript, template, slot, head' ) ) continue;
         // `setAttribute` can't be done here.
