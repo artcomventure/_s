@@ -58,9 +58,11 @@ Behaviours.add( 'links:data-href', $context => {
         // redirect
 
         $link.addEventListener( 'click', e => {
+            const Url = new URL( dataHref, window.location.origin );
+
             // is anchor
-            if ( dataHref[0] === '#' ) {
-                const $element = document.getElementById( dataHref );
+            if ( Url.pathname === location.pathname && Url.hash ) {
+                const $element = document.querySelector( Url.hash );
                 if ( $element ) {
                     $element.scrollIntoView();
                     // re-do scroll in case something changes on scroll action

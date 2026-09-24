@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import { compose, withState } from '@wordpress/compose';
@@ -124,10 +124,41 @@ registerBlockType( 'accordion/item', {
     edit: ( props ) => ( <>
         <InnerBlocks
             template={ [
-                [ 'core/heading' ],
+                [ 'accordion/item-header', {} ],
                 [ 'accordion/item-content', {} ],
             ] }
             templateLock="all" />
+    </> ),
+
+    save: function( { attributes, ...props } ) {
+        return <div><InnerBlocks.Content /></div>
+    },
+
+    // legacy: wrap former `core/heading` into `accordion/item-header`
+    deprecated: [ {
+        supports: {
+            anchor: true
+        },
+        isEligible: ( attributes, innerBlocks ) => innerBlocks[0]?.name === 'core/heading',
+        migrate: ( attributes, [ heading, ...innerBlocks ] ) => [
+            attributes,
+            [ createBlock( 'accordion/item-header', {}, [ heading ] ), ...innerBlocks ]
+        ],
+        save: () => <div><InnerBlocks.Content /></div>
+    } ]
+} );
+
+registerBlockType( 'accordion/item-header', {
+    title: __( 'Header', 'accordion' ),
+    parent: [ 'accordion/item' ],
+
+    edit: ( props ) => ( <>
+        <InnerBlocks
+            template={ [
+                [ 'core/heading', {} ]
+            ] }
+            allowedBlocks={ [ 'core/image', 'core/heading', 'core/paragraph' ] }
+            templateLock={ false } />
     </> ),
 
     save: function( { attributes, ...props } ) {

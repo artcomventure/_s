@@ -17,13 +17,17 @@
     } )
   }, { rootMargin: '-50% 0% -50% 0%', threshold: [0,1] } );
 
+  // behaviour for all anchor links (not anchor navigation only)
   Behaviours.add( 'anchor-navigation', $context => {
 
-    const $anchors = $context.querySelectorAll('article.full-view a[href^="#"]' );
+    const $anchors = $context.querySelectorAll('a[href*="#"]' );
     if ( !$anchors.length ) return;
 
     $anchors.forEach( $anchor => {
-      const $element = document.querySelector( $anchor.getAttribute( 'href' ) );
+      // anchor must be on the current page
+      if ( !$anchor.hash || $anchor.pathname !== window.location.pathname ) return;
+
+      const $element = document.querySelector( $anchor.hash );
       if ( !$element ) return;
 
       $anchor.addEventListener( 'click', e => {

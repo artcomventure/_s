@@ -1,51 +1,21 @@
-.wp-block-accordion-widget {
-  --transition-duration: .2s;
-  --transition-timing-function: ease-out;
+.wp-block-accordion {
+  &-widget {
+    --transition-duration: .2s;
+    @media (prefers-reduced-motion: reduce) {
+      --transition-duration: 0s;
+    }
+    --transition-timing-function: ease-out;
 
-  --border-width: 2px;
-  --border-color: currentColor;
+    --border-width: 2px;
+    --border-color: currentColor;
 
-  border-top: var(--border-width) solid var(--border-color);
+    border-top: var(--border-width) solid var(--border-color);
+  }
 
-  > * {
+  &-item {
     position: relative;
     box-sizing: content-box;
     border-bottom: var(--border-width) solid var(--border-color);
-
-    // trigger
-    > :first-child {
-      margin-top: 0;
-      margin-bottom: 0;
-      padding-top: 1.46667em;
-      padding-bottom: 1.46667em;
-      position: relative;
-      display: flex;
-      gap: 1em;
-      justify-content: space-between;
-      align-items: center;
-
-      &:not(:last-child) {
-        cursor: pointer;
-
-        &:after {
-          content: "↓";
-          display: inline-block;
-          transform: rotate(0);
-          transition: all var(--transition-duration) var(--transition-timing-function);
-        }
-      }
-    }
-
-    .wp-block-accordion-item-content {
-      transition-property: opacity, max-height, padding, margin;
-      transition-duration: var(--transition-duration);
-      transition-timing-function: var(--transition-timing-function);
-      overflow: hidden;
-
-      > :first-child {
-        margin-top: 0;
-      }
-    }
 
     &[aria-expanded="false"] > .wp-block-accordion-item-content,
     &:not([aria-expanded]) > .wp-block-accordion-item-content {
@@ -63,19 +33,39 @@
     .is-root-container & {
       max-height: none;
     }
-  }
 
-  .wp-block-accordion-item-content .wp-block-accordion-widget {
-    > * > :first-child {
-      font-size: 0.66667em;
+    &-header {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 1.46667em;
+      padding-bottom: 1.46667em;
+      position: relative;
+      display: flex;
+      gap: 0 1em;
+      justify-content: space-between;
+      align-items: center;
 
-      &:after {
-        margin-right: .275em;
+      &:not(:last-child) {
+        cursor: pointer;
+
+        &:after {
+          content: "↓";
+          display: inline-block;
+          transform: rotate(0);
+          transition: all var(--transition-duration) var(--transition-timing-function);
+        }
       }
     }
 
-    &:last-child > :last-child {
-      border-bottom: 0;
+    &-content {
+      transition-property: opacity, max-height, padding, margin;
+      transition-duration: var(--transition-duration);
+      transition-timing-function: var(--transition-timing-function);
+      overflow: clip;
+
+      > :first-child {
+        margin-top: 0;
+      }
     }
   }
 }

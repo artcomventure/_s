@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.20.11 - 2026-09-24
+**Added**
+
+* Set image's eager loading and high fetch priority via class (in `THEME/utilities/inc/perfomarnce/inc/prioritize-files.php`).
+* Accordion header can include multiple blocks (in `THEME/utilities/inc/gutenberg/inc/accordion/`).
+* Scroll timeline polyfill (in `THEME/utilities/js/polyfills/`).
+
+**Fixed**
+
+* nginx media requests : live vs Stage vs local  (in `THEME/docker/nginx.conf`).
+* Anchor UX (in various JS).
+* Various CSS.
+
 ## 1.20.10 - 2026-09-10
 **Fixed**
 

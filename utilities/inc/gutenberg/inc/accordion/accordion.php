@@ -71,12 +71,29 @@ function register_accordion() {
 	) );
 }
 
+// legacy: wrap former `core/heading` into `accordion/item-header`
+add_filter( 'render_block_data', function( $block ) {
+	if ( $block['blockName'] !== 'accordion/item' ) return $block;
+	if ( ( $block['innerBlocks'][0]['blockName'] ?? null ) !== 'core/heading' ) return $block;
+
+	$block['innerBlocks'][0] = array(
+		'blockName' => 'accordion/item-header',
+		'attrs' => array(),
+		'innerBlocks' => array( $block['innerBlocks'][0] ),
+		'innerHTML' => '<div class="wp-block-accordion-item-header"></div>',
+		'innerContent' => array( '<div class="wp-block-accordion-item-header">', null, '</div>' ),
+	);
+
+	return $block;
+} );
+
 // allow post-teaser block by default
 add_filter( 'allowed_block_types_all', 'allow_accordion_block', 11, 2 );
 function allow_accordion_block( $allowed_blocks ) {
 	if ( is_array( $allowed_blocks ) ) {
 		$allowed_blocks[] = 'accordion/widget';
 		$allowed_blocks[] = 'accordion/item';
+		$allowed_blocks[] = 'accordion/item-header';
 		$allowed_blocks[] = 'accordion/content';
 	}
 	return $allowed_blocks;

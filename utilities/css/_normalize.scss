@@ -30,7 +30,12 @@ output {
 
 html {
   box-sizing: border-box;
-  scroll-behavior: smooth;
+
+  overscroll-behavior: none;
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+
   // with this font size definition
   // 1rem is set to 10px
   font-size: $rpx * 100% / 16px;

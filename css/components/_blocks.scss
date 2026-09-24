@@ -25,6 +25,11 @@
       margin-bottom: 40px;
 
       &.alignfull {
+        &:first-child,
+        + .alignfull {
+          margin-top: 0;
+        }
+
         &:last-child,
         &:has(+ .alignfull) {
           margin-bottom: 0;

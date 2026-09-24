@@ -33,6 +33,7 @@
     },
     "spacing": {
       "margin": true,
+      "blockGap": false,
       "customSpacingSize": false,
       "spacingSizes": [
         {

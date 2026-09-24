@@ -33,7 +33,8 @@
   font-family: $font-family-heading;
   font-weight: 700;
   color: var(--color-heading, var(--color-copy));
-  text-wrap: balance;
+
+  &:not(:has(br)) { text-wrap: balance; }
 }
 
 %h1 {

@@ -10,7 +10,7 @@
     "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/*.min.js --presets=@babel/preset-env,babel-preset-minify",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
-    "i18n:pot": "wp i18n make-pot . languages/accordion.pot --domain=accordion --exclude=src,node_modules,**/*.min.* --subtract=../../../../../languages/_s.pot --package-name=Accordion",
+    "i18n:pot": "wp i18n make-pot . languages/accordion.pot --domain=accordion --exclude=src,node_modules,**/*.min.* --subtract=../../../../../languages/rebirth.pot --package-name=Accordion",
     "i18n:po": "wp i18n update-po languages/accordion.pot languages",
     "i18n:create": "npm run i18n:mo & npm run i18n:json",
     "i18n:mo": "wp i18n make-mo languages languages",

@@ -90,3 +90,47 @@ add_filter( 'style_loader_tag', function( $tag, $handle, $href, $media ) {
 
 	return $tag;
 }, 10, 4 );
+
+/**
+ * Set `loading="eager"` and/or `fetchpriority="height"` through classes.
+ *
+ * @since 1.20.11
+ */
+add_filter( 'render_block', function( $block_content, $block ) {
+	$allowed_blocks = ['core/image', 'core/cover', 'core/media-text'];
+
+	if ( isset( $block['blockName'] ) && in_array( $block['blockName'], $allowed_blocks, true ) && ! empty( $block['attrs']['className'] ) ) {
+		$classes = explode( ' ', $block['attrs']['className'] );
+
+		// loading attribute
+		if ( in_array( 'no-lazy', $classes, true ) || in_array( 'loading-eager', $classes, true ) ) {
+			if ( strpos( $block_content, 'loading="lazy"' ) !== false ) {
+				$block_content = str_replace( 'loading="lazy"', 'loading="eager"', $block_content );
+			} else {
+				$block_content = str_replace( '<img ', '<img loading="eager" ', $block_content );
+			}
+		}
+
+		// fetchpriority attribute
+		if ( in_array( 'fetchpriority-high', $classes, true ) ) {
+			if ( strpos( $block_content, 'fetchpriority=' ) === false ) {
+				$block_content = str_replace( '<img ', '<img fetchpriority="high" ', $block_content );
+			}
+		}
+
+		// clean up
+		$classes_to_remove = ['no-lazy', 'loading-eager', 'fetchpriority-high'];
+		$block_content = preg_replace_callback('/class="([^"]+)"/', function( $matches ) use ( $classes_to_remove ) {
+			$current_classes = explode( ' ', $matches[1] );
+			$filtered_classes = array_diff( $current_classes, $classes_to_remove );
+
+			if ( ! empty( $filtered_classes ) ) {
+				return 'class="' . implode( ' ', array_map( 'trim', $filtered_classes ) ) . '"';
+			}
+
+			return '';
+		}, $block_content);
+	}
+
+	return $block_content;
+}, 10, 2 );

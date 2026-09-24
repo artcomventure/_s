@@ -61,7 +61,7 @@ add_action( 'admin_enqueue_scripts', function() {
 
 // auto include utilities files
 require_once UTILITIES_DIRECTORY . '/auto-include-files.php';
-//auto_include_files( UTILITIES_DIRECTORY . '/js/polyfills' );
+auto_include_files( UTILITIES_DIRECTORY . '/js/polyfills' );
 auto_include_files( UTILITIES_DIRECTORY . '/inc' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/file-drop' );
 auto_include_files( UTILITIES_DIRECTORY . '/js/libs' );

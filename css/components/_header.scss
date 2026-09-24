@@ -1,7 +1,9 @@
 .site-header {
   & { // toggle header
-    transition: .3s ease-in-out;
-    transition-property: transform, opacity;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: .3s ease-in-out;
+      transition-property: transform, opacity;
+    }
     &.is-togglable {
       transform: translateY(calc(-100% + #{fluid($spacing-min, 24px)}));
       opacity: 0;
