@@ -33,3 +33,4 @@ alias stage2live="wp search-replace '${STAGE_URL}' '${LIVE_URL}' --allow-root"
 # ---
 # changes in settings: `docker-compose up --build -d`
 # network not found: `docker-compose up --force-recreate`
+# storage space issues: `docker builder prune -a` (flush build-cache)

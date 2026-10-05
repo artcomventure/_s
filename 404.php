@@ -19,49 +19,30 @@ get_header();
                 global $more;
                 $_more = $more;
                 $more = 1;
-                get_template_part( 'template-parts/content', '404' );
+                locate_template( [
+                    'template-parts/content-404.php',
+                    'template-parts/content-page.php',
+                    'template-parts/content.php',
+                ], true, false );
                 $more = $_more;
 		    endwhile;
 
 		    // restore original post data
 		    wp_reset_postdata();
 	    else: ?>
-            <section class="error-404 not-found">
+            <section class="error-404 not-found container-content">
                 <header class="page-header">
-                    <h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', '_s' ); ?></h1>
+                    <h1 class="page-title"><?php esc_html_e( '404 — The page was not found.', 'rebirth' ); ?></h1>
                 </header><!-- .page-header -->
 
                 <div class="page-content">
-                    <p><?php esc_html_e( 'It looks like nothing was found at this location.', '_s' );
-                        if ( !get_option( 'disable_posts' ) ) printf(
-                            esc_html( __( 'Maybe try one of the links below%s?', '_s' ) ),
-                            !get_option('disable_search' ) ? ' ' . __( 'or a search', '_s' ) : ''
-                        )?></p>
-
-                    <?php if ( !get_option('disable_search' ) ) get_search_form();
-
-                    if ( !get_option( 'disable_posts' ) ) :
-                        the_widget( 'WP_Widget_Recent_Posts' ); ?>
-
-                        <div class="widget widget_categories">
-                            <h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', '_s' ); ?></h2>
-                            <ul>
-                                <?php wp_list_categories( [
-                                    'orderby'    => 'count',
-                                    'order'      => 'DESC',
-                                    'show_count' => 1,
-                                    'title_li'   => '',
-                                    'number'     => 10,
-                                ] ); ?>
-                            </ul>
-                        </div><!-- .widget -->
-
-                        <?php /* translators: %1$s: smiley */
-                        $_s_archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', '_s' ), convert_smilies( ':)' ) ) . '</p>';
-                        the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$_s_archive_content" );
-
-                        the_widget( 'WP_Widget_Tag_Cloud' );
-                    endif; ?>
+                    <div class="wp-block-buttons">
+                        <div class="wp-block-button">
+                            <a href="<?php echo esc_url( home_url() ) ?>" class="wp-block-button__link wp-element-button">
+                                <?php _e( 'Back to home', '_s' ) ?>
+                            </a>
+                        </div>
+                    </div>
 
                 </div><!-- .page-content -->
             <?php endif; ?>

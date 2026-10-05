@@ -31,31 +31,6 @@ msgstr ""
 msgid "I'm the next, most awesome, WordPress theme out there."
 msgstr "Ich bin das nächste, tollste WordPress-Theme da draußen."
 
-#: 404.php:27
-msgid "Oops! That page can&rsquo;t be found."
-msgstr "Hoppla! Diese Seite kann nicht gefunden werden."
-
-#: 404.php:31
-msgid "It looks like nothing was found at this location."
-msgstr "Es sieht so aus, als ob an dieser Stelle nichts gefunden wurde."
-
-#: 404.php:33
-msgid "Maybe try one of the links below%s?"
-msgstr "Versuche es vielleicht mit einem der untenstehenden Links%s?"
-
-#: 404.php:34
-msgid "or a search"
-msgstr "oder einer Suche"
-
-#: 404.php:43
-msgid "Most Used Categories"
-msgstr "Meist genutzte Kategorien"
-
-#. translators: %1$s: smiley
-#: 404.php:56
-msgid "Try looking in the monthly archives. %1$s"
-msgstr "Versuche in den monatlichen Archiven nachzusehen. %1$s"
-
 #. translators: 1: title.
 #: comments.php:35
 msgid "One thought on &ldquo;%1$s&rdquo;"
@@ -85,7 +60,7 @@ msgstr "Fussbereich"
 msgid "Add widgets here."
 msgstr "Füge hier Widgets hinzu."
 
-#: header.php:26
+#: header.php:27
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
@@ -127,11 +102,6 @@ msgstr "Markiert mit %1$s"
 msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Hinterlasse einen Kommentar<span class=\"screen-reader-text\"> zu %s</span>"
 
-#. translators: %s: Name of current post. Only visible to screen readers
-#: inc/template-tags.php:100
-msgid "Edit<span class=\"screen-reader-text\"> %s</span>"
-msgstr "<span class=\"screen-reader-text\">%s </span>bearbeiten"
-
 #. translators: %s: search query.
 #: search.php:21
 msgid "Search Results for: %s"
@@ -166,16 +136,16 @@ msgstr "Anscheinend können wir nicht finden, was Du suchst."
 msgid "Perhaps searching can help."
 msgstr "Vielleicht hilft die Suche weiter."
 
-#: template-parts/content.php:56
+#: template-parts/content.php:57
 msgid "Pages:"
 msgstr "Seiten:"
 
 #. translators: %s: Name of current post. Only visible to screen readers
-#: template-parts/content.php:48
+#: template-parts/content.php:49
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\" </span>weiterlesen"
 
-#: header.php:54
+#: header.php:57
 msgid "Menu"
 msgstr "Menü"
 
@@ -233,3 +203,17 @@ msgstr "Überschrift 5"
 msgctxt "Font size name"
 msgid "Heading 6"
 msgstr "Überschrift 6"
+
+#: 404.php:42
+msgid "Back to home"
+msgstr "Zurück zur Startseite"
+
+#: theme.json
+msgctxt "Space size name"
+msgid "auto"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Inherit"
+msgstr ""

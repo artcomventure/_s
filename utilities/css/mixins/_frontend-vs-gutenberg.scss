@@ -1,0 +1,16 @@
+/**
+ * Apply CSS only to the desired environment.
+ * @since 1.20.12
+ */
+
+@mixin frontend {
+  body:not(.block-editor-iframe__body) & {
+    @content
+  }
+}
+
+@mixin gutenberg {
+  body.block-editor-iframe__body & {
+    @content;
+  }
+}

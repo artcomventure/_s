@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.20.12 - 2026-10-05
+**Added**
+
+* Frontend vs Gutenberg mixin (in `THEME/utilities/css/mixins/_frontend-vs-gutenberg.scss`).
+
+** Fixed **
+
+* Docker nginx stage/live media load (`THEME/docker/nginx.conf`).
+* Better default 404 page (in `THEME/404.php`).
+* Enqueue login CSS (in `THEME/utilities/inc/login.php`).
+
 ## 1.20.11 - 2026-09-24
 **Added**
 

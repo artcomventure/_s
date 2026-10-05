@@ -1,21 +1,27 @@
 <?php
 
-add_action( 'login_enqueue_scripts', function() {
-	$theme = wp_get_theme();
+/**
+ * Show project's logo on login screen.
+ *
+ * via `login_head` action @since 1.20.12
+ */
+add_action( 'login_head', function() {
+	if ( ! $logo_id = get_theme_mod( 'custom_logo' ) ) return;
+	if ( ! $logo = wp_get_attachment_image_src( $logo_id, 'full' ) ) return;
 
-	wp_enqueue_style( "{$theme->stylesheet}-login", get_template_directory_uri() . '/css/login.css' );
-	if ( $logo = get_theme_mod( 'custom_logo' ) ) {
-		if ( $logo = wp_get_attachment_image_src( $logo, 'full' ) ) {
-			wp_add_inline_style( "{$theme->stylesheet}-login", ".login h1 a {
-				background-image: url(" . $logo[0] . ");
-				background-size: contain;
-				width: auto;
-				max-width: 100%;
-				" . ( ($logo[1] && $logo[2]) ? "aspect-ratio: " . $logo[1] . "/" . $logo[2] . ";" : '' ) . ";
-				" . ( ($logo[1] && $logo[2]) ? "height: auto;" : '' ) . ";
-			}" );
+	[ $url, $width, $height ] = $logo;
+
+	$ratio = ( $width && $height ) ? 'aspect-ratio: ' . (int) $width . ' / ' . (int) $height . '; height: auto;' : '';
+
+	echo '<style>' . minify_css( "
+		.login h1 a {
+			background-image: url(" . esc_url( $url ) . ");
+			background-size: contain;
+			width: auto;
+			max-width: 100%;
+			{$ratio}
 		}
-	}
+	" ) . '</style>';
 } );
 
 add_filter( 'login_headerurl', function() { return home_url(); } );
