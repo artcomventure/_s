@@ -42,26 +42,23 @@ add_action( 'registered_taxonomy', function( $taxonomy ) {
         $screen = get_current_screen();
         if ( !$screen || $screen->id !== "edit-$taxonomy" ) return;
 
-        echo minify_css( "<style>
-            .column-color {
-                width: 2em;
-            }
-
-            .column-color span {
-                display: block;
-                border-radius: .2em;
-                width: 2em;
-                aspect-ratio: 1/1;
-            }
-        </style>" )?>
+        echo '<style>
+            .column-color { width: 2em; }
+            .column-color span { display: block; border-radius: .2em; width: 2em; aspect-ratio: 1/1; }
+        </style>' ?>
     <?php } );
 
 } );
 
 function save_term_color( $term_id, $tt_id, $taxonomy  ): void {
-    if ( $color = $_POST['term-color'] ?? '' )
-        update_term_meta( $term_id, 'color', $color );
-    else delete_term_meta( $term_id, 'color' );
+    // field is missing on quick edit and REST updates: keep color
+    if ( !isset( $_POST['term-color'] ) || !is_string( $_POST['term-color'] ) ) return;
+
+    $color = trim( wp_unslash( $_POST['term-color'] ) );
+
+    if ( !$color ) delete_term_meta( $term_id, 'color' );
+    // invalid input: keep color
+    elseif ( $color = sanitize_hex_color( $color ) ) update_term_meta( $term_id, 'color', $color );
 }
 
 /**
@@ -89,8 +86,8 @@ function term_color_columns( array $columns ): array {
  */
 function term_color_column( string $output, string $column_name, int $term_id ): string {
     if ( $column_name == 'color' ) {
-        if ( $color = get_term_meta( $term_id, 'color', true ) ) {
-            $output .= "<span style='background-color:$color' title='$color'></span>";
+        if ( $color = sanitize_hex_color( get_term_meta( $term_id, 'color', true ) ) ) {
+            $output .= '<span style="background-color:' . esc_attr( $color ) . '" title="' . esc_attr( $color ) . '"></span>';
         }
     }
 
@@ -100,7 +97,8 @@ function term_color_column( string $output, string $column_name, int $term_id ):
 // auto load color
 add_filter( 'get_term', function( $term ) {
     if ( in_array( $term->taxonomy, apply_filters( 'register-term-color', [] ) ) )
-        $term->color = get_term_meta( $term->term_id, 'color', true );
+        // sanitize on output too: values stored before validation existed
+        $term->color = sanitize_hex_color( get_term_meta( $term->term_id, 'color', true ) ) ?? '';
 
     return $term;
 } );

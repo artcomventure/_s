@@ -1,12 +1,12 @@
 <?php
 
-define( 'IMAGE_ORIENTATION_DIRECTORY', dirname( __FILE__ ) );
-define( 'IMAGE_ORIENTATION_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/image-orientation' );
+define( 'UTLTS_IMAGEORIENTATION_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_IMAGEORIENTATION_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/image-orientation' );
 
 // ...
 add_action( 'wp_enqueue_scripts', 'image_orientation_script' );
 function image_orientation_script() {
-	wp_enqueue_script( 'image-orientation', IMAGE_ORIENTATION_DIRECTORY_URI . '/app.js', array( 'behaviours' ), false, true );
+	wp_enqueue_script( 'image-orientation', UTLTS_IMAGEORIENTATION_DIRECTORY_URI . '/app.js', array( 'behaviours' ), false, ['in_footer' => true, 'strategy' => 'defer'] );
 }
 
 /**
@@ -28,7 +28,7 @@ function image_orientation_class( $attr, $attachment, $size ) {
 
 			if ( $width == $height )
 				$attr['class'][] = 'ratio-square';
-			if ( $width > $height )
+			elseif ( $width > $height )
 				$attr['class'][] = 'ratio-landscape';
 			else $attr['class'][] = 'ratio-portrait';
 

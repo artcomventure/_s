@@ -10,7 +10,7 @@ add_action( 'admin_enqueue_scripts', function () {
         return;
     }
     // for sanitizing slugs
-    wp_enqueue_script( 'bogo--terms-translation--slugs', BOGO_DIRECTORY_URI . '/inc/slugs/app.js', [ 'wp-url' ], false,
+    wp_enqueue_script( 'bogo--terms-translation--slugs', UTLTS_PLUGINS_BOGO_DIRECTORY_URI . '/inc/slugs/app.js', [ 'wp-url' ], false,
             true );
 } );
 
@@ -236,13 +236,12 @@ add_action( 'admin_menu', function () {
                                         data-colname="<?php _e( 'Translation', 'bogo' ) ?>">
                                         <div style="display: grid; gap: .5em;">
                                             <?php foreach ( bogo_available_locales() as $locale ) {
-                                                $language = bogo_get_language( $locale ); ?>
+                                                $language = bogo_get_language_native_name( $locale ); // native name, independent of language packs ?>
                                                 <div style="display: flex; align-items: center; gap: .42em">
                                                     <?php $id = "slug--post-type--$post_type->name"; ?>
                                                     <label for="<?php echo $id ?>"
                                                            style="font-family: monospace;"
-                                                           title="<?php _e( $language ) ?>
-                                                    "><?php _e( $locale ) ?></label>
+                                                           title="<?php echo esc_attr( $language ) ?>"><?php echo esc_html( $locale ) ?></label>
                                                     <input type="text"
                                                            name="slugs[post-types][<?php echo $post_type->name ?>][<?php echo $locale ?>]"
                                                            id="<?php echo $id ?>" class="large-text"
@@ -280,13 +279,12 @@ add_action( 'admin_menu', function () {
                                         data-colname="<?php _e( 'Translation', 'bogo' ) ?>">
                                         <div style="display: grid; gap: .5em;">
                                             <?php foreach ( bogo_available_locales() as $locale ) {
-                                                $language = bogo_get_language( $locale ); ?>
+                                                $language = bogo_get_language_native_name( $locale ); // native name, independent of language packs ?>
                                                 <div style="display: flex; align-items: center; gap: .42em">
                                                     <?php $id = "slug--archive--$post_type->name"; ?>
                                                     <label for="<?php echo $id ?>"
                                                            style="font-family: monospace;"
-                                                           title="<?php _e( $language ) ?>
-                                                    "><?php _e( $locale ) ?></label>
+                                                           title="<?php echo esc_attr( $language ) ?>"><?php echo esc_html( $locale ) ?></label>
                                                     <input type="text"
                                                            name="slugs[archive][<?php echo $post_type->name ?>][<?php echo $locale ?>]"
                                                            id="<?php echo $id ?>" class="large-text"
@@ -327,11 +325,11 @@ add_action( 'admin_menu', function () {
                                         data-colname="<?php _e( 'Translation', 'bogo' ) ?>">
                                         <div style="display: grid; gap: .5em;">
                                             <?php foreach ( bogo_available_locales() as $locale ) {
-                                                $language = bogo_get_language( $locale ); ?>
+                                                $language = bogo_get_language_native_name( $locale ); // native name, independent of language packs ?>
                                                 <div style="display: flex; align-items: center; gap: .42em">
                                                     <?php $id = "slug--taxonomy--$taxonomy->name"; ?>
                                                     <label for="<?php echo $id ?>" style="font-family: monospace;"
-                                                           title="<?php _e( $language ) ?>"><?php _e( $locale ) ?></label>
+                                                           title="<?php echo esc_attr( $language ) ?>"><?php echo esc_html( $locale ) ?></label>
                                                     <input type="text"
                                                            name="slugs[taxonomies][<?php echo $taxonomy->name ?>][<?php echo $locale ?>]"
                                                            id="<?php echo $id ?>" class="large-text"

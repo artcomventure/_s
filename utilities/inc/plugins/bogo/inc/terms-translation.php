@@ -17,7 +17,7 @@ add_action( 'admin_menu', function() {
 						if ( isset( $_POST[$item['name']] )
 						     and current_user_can( $item['cap'] ?? 'bogo_edit_terms_translation' ) ) {
 							// _unslash_ term translation
-							$_POST[$item['name']] = stripslashes( $_POST[$item['name']] );
+							$_POST[$item['name']] = wp_unslash( $_POST[$item['name']] );
 						}
 					}
 				}

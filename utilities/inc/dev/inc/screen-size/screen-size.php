@@ -1,8 +1,8 @@
 <?php
 
 add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_script( 'dev-screen-size', DEV_DIRECTORY_URI . '/inc/screen-size/app.js', ['wp-i18n'], false, true );
-    wp_set_script_translations( 'dev-screen-size', 'dev', DEV_DIRECTORY . '/languages/' );
+    wp_enqueue_script( 'dev-screen-size', UTLTS_DEV_DIRECTORY_URI . '/inc/screen-size/app.js', ['css-breakpoints', 'wp-i18n'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+    wp_set_script_translations( 'dev-screen-size', 'dev', UTLTS_DEV_DIRECTORY . '/languages/' );
 } );
 
 // change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`

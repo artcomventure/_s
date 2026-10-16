@@ -8,7 +8,8 @@ function gmap_shortcode( $attr = [] ) {
 		'aspect-ratio' => ''
 	], $attr, 'gmap' );
 
-	if ( preg_match( '#(\d+)\s*/\s*(\d+)#', trim( $atts['aspect-ratio'] ), $matches ) ) {
+	// zero would throw `DivisionByZeroError` (fatal on PHP 8)
+	if ( preg_match( '#(\d+)\s*/\s*(\d+)#', trim( $atts['aspect-ratio'] ), $matches ) && (int) $matches[1] && (int) $matches[2] ) {
 		$aspect_ratio = ' style="--ratio: ' . (int) $matches[2] / (int) $matches[1] . '"';
 	}
 

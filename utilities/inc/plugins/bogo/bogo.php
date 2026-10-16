@@ -3,12 +3,12 @@
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( !is_plugin_active( 'bogo/bogo.php' ) ) return;
 
-define( 'BOGO_DIRECTORY', dirname( __FILE__ ) );
-define( 'BOGO_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/plugins/bogo' );
+define( 'UTLTS_PLUGINS_BOGO_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_PLUGINS_BOGO_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/plugins/bogo' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-	load_theme_textdomain( 'bogo', BOGO_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'bogo', UTLTS_PLUGINS_BOGO_DIRECTORY . '/languages' );
 } );
 
 // no flags in language switcher

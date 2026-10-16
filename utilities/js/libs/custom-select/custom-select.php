@@ -1,12 +1,12 @@
 <?php
 
-define( 'CUSTOM_SELECT_DIRECTORY', dirname( __FILE__ ) );
-define( 'CUSTOM_SELECT_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/js/libs/custom-select' );
+define( 'UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/js/libs/custom-select' );
 
 // register custom-select lib
 add_action( 'wp_enqueue_scripts', function() {
-    wp_register_script('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.min.js', [], '1.1.15', true);
-    wp_register_script('custom-select', CUSTOM_SELECT_DIRECTORY_URI . '/app.js', ['custom-select-module'], false, true);
+    wp_register_script('custom-select-module', UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY_URI . '/module/custom-select.min.js', [], '1.1.15', ['in_footer' => true, 'strategy' => 'defer'] );
+    wp_register_script('custom-select', UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY_URI . '/app.js', ['custom-select-module'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 
     wp_localize_script('custom-select', 'customSelectVars', [
         'selectors' => trim( get_option( 'custom-select-css-selectors', '' ) ),
@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 	// auto enqueue default styles
 	if ( wp_script_is('custom-select-module' ) ) {
-		wp_enqueue_style('custom-select-module', CUSTOM_SELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15', 'async' );
+		wp_enqueue_style('custom-select-module', UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY_URI . '/module/custom-select.css', [], '1.1.15', 'async' );
 
 		wp_add_inline_style( 'custom-select-module', '.custom-select-opener span:empty:before {
 			content: "' . __( 'Select' ) . '";
@@ -27,7 +27,7 @@ add_action( 'wp_enqueue_scripts', function() {
 }, 9 );
 
 add_action( 'customize_controls_enqueue_scripts', function() {
-	wp_enqueue_script( 'custom-select-be', CUSTOM_SELECT_DIRECTORY_URI . '/admin.js', [], false, true );
+	wp_enqueue_script( 'custom-select-be', UTLTS_JS_LIBS_CUSTOMSELECT_DIRECTORY_URI . '/admin.js', [], false, true );
 } );
 
 // enable/disable custom-select customizer setting

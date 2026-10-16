@@ -2,7 +2,7 @@
 
   const io = new IntersectionObserver( entries => {
     entries.forEach( entry => {
-      if ( !entry.target.parentElement ) return io.unobserve( entry.target );
+      if ( !entry.target.isConnected ) return io.unobserve( entry.target );
       if ( !entry.isIntersecting ) return;
 
       entry.target.innerHTML = entry.target.getAttribute( 'data-value' )

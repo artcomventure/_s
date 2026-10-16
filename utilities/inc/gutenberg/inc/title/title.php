@@ -1,7 +1,7 @@
 <?php
 
-define( 'TITLE_DIRECTORY', dirname( __FILE__ ) );
-define( 'TITLE_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/title' );
+define( 'UTLTS_GUTENBERG_TITLE_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_GUTENBERG_TITLE_DIRECTORY_URI', UTLTS_GUTENBERG_DIRECTORY_URI . '/inc/title' );
 
 // auto include /inc files
-auto_include_files( TITLE_DIRECTORY . '/inc' );
+auto_include_files( UTLTS_GUTENBERG_TITLE_DIRECTORY . '/inc' );

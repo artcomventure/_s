@@ -1,5 +1,5 @@
 /**
- * Behaviours v2.0.0
+ * Behaviours v2.1.0
  * https://gist.github.com/enoks/77b98aded9b21e082bfc9625eb5e0870
  *
  * ```
@@ -12,6 +12,12 @@
  */
 
 // Changelog:
+//
+// 2.1.0 - 2026-10-07
+// Errors in a callback don't stop following callbacks.
+// Unknown name in `attach()` doesn't throw.
+// Negative and float priorities.
+// `attach( name, settings )` and `attach( name, settings, $context )`.
 //
 // 2.0.0 - 2023-08-21
 // Refactoring.
@@ -35,6 +41,7 @@
      */
     add: function ( name, callback, priority = 10 ) {
       if ( !checkForValidName( name ) ) return;
+      if ( !isPriority( priority ) ) return console.error( `Priority of '${name}' must be a number.` );
 
       const groups = name.split( ':' );
 
@@ -46,7 +53,7 @@
           if ( !!scope[priority] && scope[priority].toString() === callback.toString() )
             return; // prevent duplicated entry
           else {
-            const prio = Object.keys( scope ).filter( key => Number.isInteger( key * 1 ) )[0] || false;
+            const prio = Object.keys( scope ).filter( isPriority )[0] || false;
 
             if ( prio === false ) return scope[priority] = callback;
             else if ( scope[prio].toString() === callback.toString() ) {
@@ -91,7 +98,7 @@
         if ( depth === groups.length - 1 ) {
           if ( recursive ) delete scope[group];
           else {
-            const priority = Object.keys( scope[group] ).filter( key => Number.isInteger( key * 1 ) )[0] || false;
+            const priority = Object.keys( scope[group] ).filter( isPriority )[0] || false;
 
             if ( priority === false )
               return console.error(
@@ -108,21 +115,20 @@
     },
 
     /**
-     * @param {string} name  [[GROUP:]GROUP:]NAME (optional)
+     * @param {string|HTMLDocument|HTMLElement} name  [[GROUP:]GROUP:]NAME (optional)
      * @param {HTMLDocument|HTMLElement} $context (optional)
      * @param {object} settings (optional)
      */
     attach: function ( name, $context, settings ) {
       // shortcut: name is settings
-      if ( name && name.toString() === '[object Object]' && !$context && !settings ) {
+      if ( isPlainObject( name ) && !$context && !settings ) {
         settings = name;
         name = '';
       }
 
-      // shortcut: $context is settings
-      if ( settings && settings.toString() !== '[object Object]' && $context && $context.toString() === '[object Object]' ) {
-        settings = $context;
-        $context = null;
+      // shortcut: $context is settings (and settings maybe $context)
+      if ( isPlainObject( $context ) && !isPlainObject( settings ) ) {
+        [$context, settings] = [settings, $context];
       }
 
       // shortcut: name is $context
@@ -131,7 +137,7 @@
         name = '';
       }
 
-      let callbacks = {}
+      let callbacks = [];
 
       let scope = behaviours;
       if ( name ) {
@@ -148,36 +154,49 @@
 
           scope = scope[group];
         } );
+
+        if ( !scope ) return this;
       }
 
-      // group all callbacks in scope by priority
+      // collect all callbacks in scope
       (function addCallbacks( scope ) {
         Object.keys( scope ).forEach( key => {
-          if ( Number.isInteger( key * 1 ) ) {
-            if ( !callbacks[key] ) callbacks[key] = [];
-            callbacks[key].push( scope[key] );
-          }
+          if ( isPriority( key ) ) callbacks.push( { priority: key * 1, callback: scope[key] } );
           else addCallbacks( scope[key] );
         } )
       })( scope );
 
-      // sort by key aka priority
-      callbacks = Object.keys( callbacks ).sort().reduce(function (result, key) {
-        result[key] = callbacks[key];
-        return result;
-      }, {});
+      // sort by priority (stable)
+      callbacks.sort( ( a, b ) => a.priority - b.priority );
 
-      Object.values( callbacks ).flat().forEach( callback => callback( $context || document, settings ) );
+      callbacks.forEach( ( { callback } ) => {
+        // don't let one failing behaviour stop the others
+        try {
+          callback( $context || document, settings );
+        }
+        catch ( error ) {
+          window.reportError ? reportError( error ) : setTimeout( () => { throw error } );
+        }
+      } );
 
       return this;
     }
   };
 
   function checkForValidName( name ) {
-    if ( /(^|:)\d+(:|$)/.test( name ) )
+    if ( name.split( ':' ).some( isPriority ) )
       return console.error( "Name (or group) mustn't be numeric." );
 
     return true;
+  }
+
+  // priorities and groups share the same keys, so numeric keys are priorities
+  function isPriority( key ) {
+    return /^-?\d+(\.\d+)?$/.test( key );
+  }
+
+  function isPlainObject( value ) {
+    return !!value && value.toString() === '[object Object]';
   }
 
   // eventually call all behaviours once dom is loaded

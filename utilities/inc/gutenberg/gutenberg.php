@@ -1,7 +1,7 @@
 <?php
 
-define( 'GUTENBERG_DIRECTORY', dirname( __FILE__ ) );
-define( 'GUTENBERG_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/gutenberg' );
+define( 'UTLTS_GUTENBERG_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_GUTENBERG_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/gutenberg' );
 
 add_action( 'after_setup_theme', function() {
 	add_theme_support( 'editor-styles' );
@@ -26,9 +26,21 @@ add_action( 'after_setup_theme', function() {
 	}
 } );
 
+// editor styles are inlined: strip BOM (see `performance/inc/above-the-fold.php`)
+add_filter( 'block_editor_settings_all', function( $settings ) {
+	foreach ( $settings['styles'] ?? [] as $i => $style ) {
+		if ( isset( $style['css'] ) && is_string( $style['css'] ) )
+			$settings['styles'][$i]['css'] = preg_replace( '/^\xEF\xBB\xBF/', '', $style['css'] );
+	}
+
+	return $settings;
+} );
+
 // add `?ver=FILEMTIME` to editor-style.css
 add_filter( 'tiny_mce_before_init', function( $mce_init ) {
-	$mce_init['cache_suffix'] = 'ver=' . filemtime(get_template_directory() . '/css/editor-style.css');
+	if ( file_exists( $file = get_template_directory() . '/css/editor-style.css' ) )
+		$mce_init['cache_suffix'] = 'ver=' . filemtime( $file );
+
 	return $mce_init;
 } );
 
@@ -47,16 +59,16 @@ add_action( 'after_setup_theme', function() {
 // block editor
 add_action( 'init', function() {
 	// automatically load dependencies and version
-	$asset_file = include( GUTENBERG_DIRECTORY . '/build/index.asset.php' );
+	$asset_file = include( UTLTS_GUTENBERG_DIRECTORY . '/build/index.asset.php' );
 
 	wp_register_script(
 		'gutenberg-be-js',
-		GUTENBERG_DIRECTORY_URI . '/build/index.js',
+		UTLTS_GUTENBERG_DIRECTORY_URI . '/build/index.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'gutenberg-be-js', 'gutenberg', GUTENBERG_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'gutenberg-be-js', 'gutenberg', UTLTS_GUTENBERG_DIRECTORY . '/languages' );
 
 	// enqueue
 	register_block_type( 'gutenberg/stuff', array(

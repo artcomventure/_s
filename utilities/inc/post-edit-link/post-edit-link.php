@@ -1,12 +1,12 @@
 <?php
 
-define( 'POST_EDIT_LINK_DIRECTORY', dirname( __FILE__ ) );
-define( 'POST_EDIT_LINK_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/post-edit-link' );
+define( 'UTLTS_POSTEDITLINK_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_POSTEDITLINK_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/post-edit-link' );
 
 add_action( 'wp_enqueue_scripts', function() {
 	if ( !is_user_logged_in() ) return;
-	wp_enqueue_script( 'utilities--post-edit-link', POST_EDIT_LINK_DIRECTORY_URI . '/app.js', ['alter'], false, true );
-	wp_enqueue_style( 'utilities--post-edit-link', POST_EDIT_LINK_DIRECTORY_URI . '/style.css', ['dashicons'] );
+	wp_enqueue_script( 'utilities--post-edit-link', UTLTS_POSTEDITLINK_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+	wp_enqueue_style( 'utilities--post-edit-link', UTLTS_POSTEDITLINK_DIRECTORY_URI . '/style.css', ['dashicons'] );
 } );
 
 /**

@@ -1,3 +1,6 @@
+// namespace for utilities' helpers (load order of the files isn't guaranteed)
+window.utlts = window.utlts || {};
+
 /**
  * Autogenerate a Google Maps link on `<address>` elements.
  *
@@ -24,7 +27,7 @@ Behaviours.add( 'link:external', $context => {
         $links.push( $context );
 
     $links.forEach( $link => {
-        if ( isInternalUrl( $link.href || $link.getAttribute( 'data-href' ) ) ) return;
+        if ( !utlts.isExternalUrl( $link.href || $link.getAttribute( 'data-href' ) ) ) return;
 
         if ( !$link.hasAttribute( 'rel' ) )
             $link.setAttribute( 'rel', 'noopener noreferrer' );
@@ -36,22 +39,35 @@ Behaviours.add( 'link:external', $context => {
 } );
 
 /**
- * Check if given `url` is internal.
- *
- * @param url
- * @returns {boolean}
+ * `isInternalUrl( url )`: http(s) on the current host.
+ * `isExternalUrl( url )`: http(s) or ftp on another host.
+ * `mailto:`, `tel:`, `javascript:` etc. are neither internal nor external.
  */
-const isInternalUrl = url => {
-    const regexp = new RegExp( '^(\/$|\/[^\/]|#|((ht|f)tps?:)?\/\/' + location.host + '|javascript:)' );
-    return !url || regexp.test( url )
-}
+Object.assign( utlts, (() => {
+    // `null` for invalid URLs
+    const parse = url => {
+        try {
+            return new URL( url, location.href );
+        }
+        catch {
+            return null;
+        }
+    }
 
-/**
- * Check if given `url` is external.
- *
- * @param url
- * @returns {boolean}
- */
-const isExternalUrl = url => {
-    return !isInternalUrl( url );
-}
+    return {
+        isInternalUrl: url => {
+            if ( !url ) return true;
+
+            const Url = parse( url );
+            return !!Url && /^https?:$/.test( Url.protocol ) && Url.host === location.host;
+        },
+
+        isExternalUrl: url => {
+            const Url = url && parse( url );
+            return !!Url && /^(https?|ftp):$/.test( Url.protocol ) && Url.host !== location.host;
+        }
+    };
+})() );
+
+// deprecated global names (as `window` properties, not `const`: no clash with other scripts) – use `utlts.*`
+['isInternalUrl', 'isExternalUrl'].forEach( name => window[name] = utlts[name] );

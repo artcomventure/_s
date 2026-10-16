@@ -28,6 +28,7 @@
 // ---
 // Block layout
 
+.site-main > .page-header,
 .entry-header,
 .entry-content > *,
 .alignfull > * {
@@ -83,6 +84,17 @@
 .is-content-justification-right { justify-content: start; }
 .is-content-justification-center { justify-content: center; }
 .is-content-justification-left { justify-content: end; }
+
+// ---
+// Video shortcode: fluid (WP sets a fixed `width` inline, MediaElement CSS is not loaded).
+
+// fallback outside content (theme's content rules win)
+:where(.wp-video) { max-width: 100%; }
+
+.wp-video video {
+  width: 100%;
+  height: auto;
+}
 
 // ---
 // Cover Block.
@@ -264,9 +276,9 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
 // ---
 // The following are kind of default WP styles.
 
-// do not show the outline on the skip link target
-#primary[tabindex="-1"]:focus {
-  outline: 0;
+// do not show the outline on skip link and anchor targets (focused by script)
+[tabindex="-1"]:focus-visible {
+  --focus-outline-color: transparent;
 }
 
 // hide updated date

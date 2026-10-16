@@ -1,19 +1,20 @@
 <?php
 
-define( 'UTILITIES_JS_LIBS_SPA_PJAX_DIRECTORY', dirname( __FILE__ ) );
-const UTILITIES_JS_LIBS_SPA_PJAX_DIRECTORY_URI = UTILITIES_DIRECTORY_URI . '/js/libs/spa/pjax';
+define( 'UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY', dirname( __FILE__ ) );
+const UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI = UTLTS_DIRECTORY_URI . '/js/libs/spa/pjax';
 
 // register pjax lib
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'pjax-module', UTILITIES_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/module/pjax.min.js', [], '0.2.8', true );
-	wp_register_script( 'pjax', UTILITIES_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/app.js', ['pjax-module', 'alter'], false, true );
+	wp_register_script( 'pjax-module', UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/module/pjax.min.js', [], '0.2.8', ['in_footer' => true, 'strategy' => 'defer'] );
+	wp_register_script( 'pjax', UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/app.js', ['pjax-module', 'behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 
 	if ( get_option( 'pjax' ) )
 		wp_enqueue_script( 'pjax' );
 
 	// add custom pjax style/script in case pjax is enqueued
 	if ( wp_script_is('pjax' ) ) {
-		wp_enqueue_style( 'pjax', UTILITIES_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/style.css' );
+		// DON'T load async because pjax script requires CSS values
+		wp_enqueue_style( 'pjax', UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/style.css' );
 		if ( $hex = get_background_color() ) {
 			wp_add_inline_style( 'pjax', "body.custom-background #pjax-transition { background-color: #{$hex}; }" );
 		}

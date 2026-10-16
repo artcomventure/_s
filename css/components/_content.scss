@@ -9,3 +9,25 @@
   display: flow-root;
   overflow: clip;
 }
+
+// ---
+// Error 404 page
+
+.error-404,
+.error404 {
+  #primary {
+    display: grid;
+    align-items: center;
+    min-height: calc(100svh - var(--masthead-height, 0px));
+  }
+}
+
+.entry-footer,
+.post-navigation,
+.comments-area {
+  @extend %container-content;
+
+  .teaser-view > & {
+    max-width: none;
+  }
+}

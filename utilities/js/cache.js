@@ -235,15 +235,16 @@
             var months = date.match( /-?\d+M/g ); // month
             date = date.replace( /-?\d+M/g, '' );
 
-            date = date.replace( 'w', '*1000*60*60*24*7' ) // weeks
-                .replace( 'd', '*1000*60*60*24' ) // days
-                .replace( 'h', '*1000*60*60' ) // hours
-                .replace( /ms/g, '' ) // milliseconds
-                .replace( 'm', '*1000*60' ) // minutes
-                .replace( 's', '*1000' ); // seconds
+            // weeks and 'below' in ms (no unit = ms)
+            var units = { w: 6048e5, d: 864e5, h: 36e5, m: 6e4, s: 1e3, ms: 1 };
+            var ms = 0;
+            date.split( ' ' ).forEach( function( term ) {
+                var match = term.match( /^(-?\d+)(ms|w|d|h|m|s)?$/ );
+                if ( match ) ms += parseInt( match[1] ) * units[ match[2] || 'ms' ];
+            } );
 
             // calculate date
-            date = new Date( Date.now() + ( eval( date.replace( /\s+/, '+' ) ) || 0 ) ); // weeks and 'below'
+            date = new Date( Date.now() + ms );
             ( years || [] ).forEach( function( year ) {
                 date.setFullYear( date.getFullYear() + parseInt( year ) );
             } ); // add years

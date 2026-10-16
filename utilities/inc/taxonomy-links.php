@@ -13,7 +13,7 @@ add_filter( 'init', function() {
 
 		// eventually strip links
 		add_filter( "term_links-$taxonomy", function( $links ) {
-			return array_map( 'strip_tags', $links, ['a'] );
+			return array_map( fn( $link ) => preg_replace( '#</?a\b[^>]*>#i', '', $link ), $links );
 		} );
 	}
 

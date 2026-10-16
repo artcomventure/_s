@@ -29,16 +29,16 @@ add_action( 'init', function() {
 	}
 
 	// automatically load dependencies and version
-	$asset_file = include( TITLE_DIRECTORY . '/build/panel.asset.php' );
+	$asset_file = include( UTLTS_GUTENBERG_TITLE_DIRECTORY . '/build/panel.asset.php' );
 
 	wp_register_script(
 		'title-panel-js',
-		TITLE_DIRECTORY_URI . '/build/panel.js',
+		UTLTS_GUTENBERG_TITLE_DIRECTORY_URI . '/build/panel.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'title-panel-js', 'title', TITLE_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'title-panel-js', 'title', UTLTS_GUTENBERG_TITLE_DIRECTORY . '/languages' );
 
 	register_block_type( 'title/panel', array(
 		'editor_script' => 'title-panel-js',

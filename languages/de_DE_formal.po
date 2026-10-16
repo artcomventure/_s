@@ -217,3 +217,7 @@ msgstr ""
 msgctxt "Font size name"
 msgid "Inherit"
 msgstr ""
+
+#: 404.php:35
+msgid "404 — The page was not found."
+msgstr ""

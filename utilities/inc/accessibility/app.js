@@ -1,28 +1,19 @@
 /**
  * Set `aria-label` with cleaned up text content (screenreader).
+ * Only on elements named by their content: `aria-label` is ignored on generic elements like `p`, `div`, `span`.
  */
 Behaviours.add( 'accessibility:shy', $context => {
+    const selector = 'h1, h2, h3, h4, h5, h6, a, button, summary';
 
-    // get all elements with "&shy;" in text
-    const elements = document.evaluate(
-        `//*[contains(text(), '­')]`,
-        document, null, XPathResult.ANY_TYPE, null
-    );
+    const $elements = [...$context.querySelectorAll( selector )];
+    if ( $context.matches?.( selector ) ) $elements.push( $context );
 
-    // XPathResult to array
-    const $elements = []; let $element;
-    while ( $element = elements.iterateNext() ) {
-        // don't override existing `aria-label`
-        if ( $element.hasAttribute( 'aria-label' ) ) continue;
-        // skip _these_ elements @since 1.20.6
-        if ( $element.closest( 'script, style, link, meta, title, base, noscript, template, slot, head' ) ) continue;
-        // `setAttribute` can't be done here.
-        // `$element` must not be changed while in loop.
-        $elements.push( $element );
-    }
-
-    // clean up text content and set as `aria-label`
     $elements.forEach( $element => {
+        // don't override existing `aria-label`
+        if ( $element.hasAttribute( 'aria-label' ) ) return;
+        // "&shy;" in any text node
+        if ( !$element.textContent.includes( '­' ) ) return;
+
         // clone element for possible cleanup
         const $el = $element.cloneNode( true );
 

@@ -5,10 +5,10 @@
 
     "dev:watch": "npm-run-all --parallel dev:watch:*",
     "dev:watch:scss": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "dev:watch:js": "babel ./ -d ./ --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+    "dev:watch:js": "babel app.js -o app.min.js --source-maps --presets=@babel/preset-env --watch",
     "dev:build": "npm-run-all --parallel dev:build:*",
     "dev:build:scss": "node-sass style.scss -o . --output-style compressed",
-    "dev:build:js": "babel ./ -d ./ --out-file-extension .min.js --no-comments --ignore=./**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+    "dev:build:js": "babel app.js -o app.min.js --no-comments --presets=@babel/preset-env,babel-preset-minify",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/dev.pot --domain=dev --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Dev",

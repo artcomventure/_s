@@ -52,6 +52,15 @@ add_action( 'rest_api_init', function() {
 				't9n' => $t9n ?? ''
 			] );
 		},
+		// public on purpose (frontend); strict types prevent TypeErrors (500) on PHP 8
 		'permission_callback' => '__return_true',
+		'args' => array(
+			'text' => ['type' => 'string', 'default' => ''],
+			'single' => ['type' => 'string', 'default' => ''],
+			'plural' => ['type' => 'string', 'default' => ''],
+			'context' => ['type' => 'string', 'default' => ''],
+			'number' => ['type' => 'integer', 'minimum' => 0, 'default' => 1],
+			'domain' => ['type' => 'string', 'default' => 'default', 'pattern' => '^[A-Za-z0-9_.-]+$'],
+		),
 	) );
 } );

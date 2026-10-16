@@ -5,6 +5,11 @@
  * a file (img, css, js, font, iframe) relative to other files.
  */
 add_filter( 'wp_preload_resources', function( $resources ) {
+	// font styles; resolve final `src`/`ver` now, so preload matches the printed URLs
+	$fonts = array_keys( array_filter( wp_styles()->registered, fn( $file ) => is_string( $file->src ) && str_contains( $file->src, '/font.css' ) ) );
+	minify_replace_sources( wp_styles(), $fonts );
+	filemtime_as_file_version( wp_styles(), $fonts );
+
 	// theme CSS
 	$resources[] = [
 		'href' => get_stylesheet_uri() . '?ver=' . get_file_version( get_stylesheet_uri() ),
@@ -14,9 +19,8 @@ add_filter( 'wp_preload_resources', function( $resources ) {
 	];
 
 	// fonts @since 1.20.2
-	foreach ( wp_styles()->registered as $file ) {
-		if ( ! str_contains( $file->src, '/font.css' ) ) continue;
-
+	foreach ( $fonts as $handle ) {
+		$file = wp_styles()->registered[ $handle ];
 		$href = $file->src;
 		if ( $file->ver ) $href .= "?ver=$file->ver";
 

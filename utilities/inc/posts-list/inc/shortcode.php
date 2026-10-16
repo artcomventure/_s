@@ -26,8 +26,29 @@ function get_posts_list( $attr = [] ) {
 
 	// make array
 	if ( is_string( $atts['post__in'] ) ) {
-		$atts['post__in'] = array_filter( explode( ',', $atts['post__in'] ) );
+		$atts['post__in'] = explode( ',', $atts['post__in'] );
 	}
+
+	// sanitize: attributes are set by authors
+	$atts['post__in'] = array_values( array_filter( array_map( 'intval', (array) $atts['post__in'] ), fn( $id ) => $id > 0 ) );
+
+	// public post types only (no `any`, no internal types like `wpcf7_contact_form`)
+	$post_types = array_intersect(
+		array_map( 'trim', is_array( $atts['post_type'] ) ? $atts['post_type'] : explode( ',', (string) $atts['post_type'] ) ),
+		get_post_types( ['public' => true] )
+	);
+	$atts['post_type'] = count( $post_types ) > 1 ? array_values( $post_types ) : ( reset( $post_types ) ?: 'post' );
+
+	// like WP_Query: -1 = all, invalid/0 = default
+	$atts['posts_per_page'] = (int) $atts['posts_per_page'];
+	if ( $atts['posts_per_page'] < -1 || !$atts['posts_per_page'] ) $atts['posts_per_page'] = (int) get_option( 'posts_per_page' );
+
+	if ( !in_array( $atts['orderby'], ['', 'date', 'modified', 'title', 'name', 'menu_order', 'post__in', 'rand'], true ) ) {
+		$atts['orderby'] = '';
+	}
+
+	$atts['theme'] = sanitize_key( $atts['theme'] ) ?: 'grid';
+	$atts['lang'] = sanitize_text_field( (string) $atts['lang'] );
 
 	// build query
 	$query = array_filter( $atts, function ( $value, $key ) {
@@ -40,7 +61,7 @@ function get_posts_list( $attr = [] ) {
 			$query['orderby'] = 'post__in';
 	} else {
 		// remove current post from query
-		if ( get_post_type() == $atts['post_type'] )
+		if ( in_array( get_post_type(), (array) $atts['post_type'], true ) )
 			$query['post__not_in'] = [get_the_ID()];
 
 		if ( isset($query['orderby']) ) {
@@ -49,32 +70,34 @@ function get_posts_list( $attr = [] ) {
 		}
 
 		// parse filter (set from Gutenberg block)
-		if ( is_string( $filter = $atts['filter'] ) ) {
-			try {
-				$filter         = urldecode( $filter );
-				$filter         = (array) json_decode( $filter );
-				$atts['filter'] = $filter;
-			} catch ( Exception ) {}
+		if ( is_string( $atts['filter'] ) ) {
+			$atts['filter'] = json_decode( urldecode( $atts['filter'] ), true );
 		}
 
 		// build `tax_query`
 		$query += [ 'tax_query' => [] ];
-		if ( is_array( $atts['filter'] ) ) {
-			foreach ( $atts['filter'] as $taxonomy => $operators ) {
-				foreach ( $operators as $operator => $terms ) {
-					$query['tax_query'][] = [
-						'taxonomy' => $taxonomy,
+		foreach ( is_array( $atts['filter'] ) ? $atts['filter'] : [] as $taxonomy => $operators ) {
+			if ( !taxonomy_exists( $taxonomy ) || !is_array( $operators ) ) continue;
+
+			foreach ( $operators as $operator => $terms ) {
+				if ( !in_array( $operator, ['IN', 'NOT IN', 'AND', 'EXISTS', 'NOT EXISTS'], true ) ) continue;
+
+				// term ids (`field` defaults to `term_id`)
+				$terms = array_values( array_filter( array_map( 'intval', array_filter( (array) $terms, 'is_scalar' ) ), fn( $id ) => $id > 0 ) );
+
+				$query['tax_query'][] = [
+					'taxonomy' => $taxonomy,
 //                    'field' => 'term_id',
-						'terms'    => $terms,
-						'operator' => $operator
-					];
-				}
+					'terms'    => $terms,
+					'operator' => $operator
+				];
 			}
 		}
 	}
 
 	// set page to get right pool of posts
-	$page           = get_query_var( 'paged' ) ?: 1;
+	// static front page: WP moves `paged` to `page`
+	$page           = max( 1, (int) get_query_var( 'paged' ), (int) get_query_var( 'page' ) );
 	$query['paged'] = $page;
 
 	// query posts
@@ -105,14 +128,14 @@ function get_posts_list( $attr = [] ) {
             <button class="wp-element-button load-more no-pjax"
                     aria-label="<?php _e( 'Load next results' ) ?>"
                     data-next-page="<?php echo (int) $page + 1 ?>">
-				<?php echo $atts['more'] ?>
+				<?php echo wp_kses_post( $atts['more'] ) ?>
             </button>
 			<?php $output .= ob_get_clean();
 		endif;
 	}
 
 	$output = ( $output ?? '' )
-		?: '<div class="no-entries-message">' . wpautop( $atts['empty'] ?: __( 'No entries were found.', 'posts-list' ) ) . '</div>';
+		?: '<div class="no-entries-message">' . wpautop( wp_kses_post( $atts['empty'] ) ?: __( 'No entries were found.', 'posts-list' ) ) . '</div>';
 
 	ob_start();
 	do_action( 'posts-list-prepend', $posts, $atts );

@@ -29,16 +29,16 @@ add_action( 'init', function() {
 	}
 
 	// automatically load dependencies and version
-	$asset_file = include( BODYCLASS_DIRECTORY . '/build/panel.asset.php' );
+	$asset_file = include( UTLTS_GUTENBERG_BODYCLASS_DIRECTORY . '/build/panel.asset.php' );
 
 	wp_register_script(
 		'bodyclass-panel-js',
-		BODYCLASS_DIRECTORY_URI . '/build/panel.js',
+		UTLTS_GUTENBERG_BODYCLASS_DIRECTORY_URI . '/build/panel.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'bodyclass-panel-js', 'bodyclass', BODYCLASS_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'bodyclass-panel-js', 'bodyclass', UTLTS_GUTENBERG_BODYCLASS_DIRECTORY . '/languages' );
 
 	register_block_type( 'bodyclass/panel', array(
 		'editor_script' => 'bodyclass-panel-js',

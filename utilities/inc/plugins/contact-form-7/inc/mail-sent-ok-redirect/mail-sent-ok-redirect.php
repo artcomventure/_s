@@ -16,11 +16,19 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 	if ( !str_contains( $hook, 'wpcf7' ) ) return;
 
 	wp_enqueue_script( 'mail-sent-ok-redirect-admin',
-		CF7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/admin.js',
+		UTLTS_PLUGINS_CONTACTFORM7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/admin.js',
 		array( 'suggest' ), false, true
 	);
 
-	wp_set_script_translations( 'mail-sent-ok-redirect-admin', 'cf7', CF7_DIRECTORY . '/languages/' );
+	wp_set_script_translations( 'mail-sent-ok-redirect-admin', 'cf7', UTLTS_PLUGINS_CONTACTFORM7_DIRECTORY . '/languages/' );
+
+	wp_localize_script( 'mail-sent-ok-redirect-admin', 'mailSentOkRedirect', [
+		'suggestUrl' => add_query_arg( [
+			'action' => 'cf7-suggest-link',
+			'_wpnonce' => wp_create_nonce( 'cf7-suggest-link' ),
+			'page' => 1,
+		], admin_url( 'admin-ajax.php' ) ),
+	] );
 } );
 
 // change i18n json file name to `LOCALE-HASH.json` like created by `wp i18n make-json`
@@ -35,30 +43,42 @@ add_filter( 'load_script_translation_file', function( $file, $handle, $domain ) 
 	return $file;
 }, 10, 3 );
 
-add_action( 'wp_enqueue_scripts', function() {
-	foreach (
-		get_posts( array(
-			'numberposts' => -1,
-			'post_type' => 'wpcf7_contact_form'
-		) ) as $form
-	) if ( wp_http_validate_url( $redirect = WPCF7_ContactForm::get_instance( $form )->message( 'mail_sent_ok' ) ) ) {
-		$redirects[ $form->ID ] = $redirect;
+// redirect URL of the current form, if `mail_sent_ok` message is an URL
+function get_wpcf7_mail_sent_ok_redirect(): ?string {
+	$form = WPCF7_ContactForm::get_current();
+	if ( !$form ) return null;
+
+	return wp_http_validate_url( $redirect = $form->message( 'mail_sent_ok' ) ) ? $redirect : null;
+}
+
+// redirect URL on the form itself (no global map, works with pjax)
+add_filter( 'wpcf7_form_additional_atts', function( $atts ) {
+	if ( $redirect = get_wpcf7_mail_sent_ok_redirect() ) {
+		$atts['data-redirect'] = esc_url_raw( $redirect );
 	}
 
-	if ( empty( $redirects ) ) return;
-
-	wp_enqueue_script( 'mail-sent-ok-redirect',
-		CF7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/app.js',
-		[], false, true
-	);
-
-	wp_localize_script( 'mail-sent-ok-redirect', 'wpcf7MailSentOkRedirects', $redirects );
-
-	wp_enqueue_style( 'mail-sent-ok-redirect', CF7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/style.css' );
+	return $atts;
 } );
 
-// URL suggestions
-add_action( 'wp_ajax_suggest-link-ajax', function() {
+add_filter( 'wpcf7_form_class_attr', function( $class ) {
+	return get_wpcf7_mail_sent_ok_redirect() ? "$class redirect-on-mail-sent-ok" : $class;
+} );
+
+// always enqueued: with pjax, forms may appear after navigation
+add_action( 'wp_enqueue_scripts', function() {
+	wp_enqueue_script( 'mail-sent-ok-redirect',
+		UTLTS_PLUGINS_CONTACTFORM7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/app.js',
+		[], false, ['in_footer' => true, 'strategy' => 'defer']
+	);
+
+	wp_enqueue_style( 'mail-sent-ok-redirect', UTLTS_PLUGINS_CONTACTFORM7_DIRECTORY_URI . '/inc/mail-sent-ok-redirect/style.css' );
+} );
+
+// URL suggestions (form editors only)
+add_action( 'wp_ajax_cf7-suggest-link', function() {
+	check_ajax_referer( 'cf7-suggest-link' );
+	if ( !current_user_can( 'wpcf7_edit_contact_forms' ) ) wp_die( -1, 403 );
+
 	$args = array();
 
 	if ( isset( $_GET['q'] ) ) {
@@ -81,7 +101,7 @@ add_action( 'wp_ajax_suggest-link-ajax', function() {
 		return $result['permalink'];
 	}, $results );
 
-	echo implode( "\n", $results );
+	echo implode( "\n", array_map( 'esc_url', $results ) );
 
 	wp_die();
-}, 1 );
+} );

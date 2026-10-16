@@ -59,14 +59,20 @@ window.addEventListener( 'swiper:afterInit', e => {
 
     // fluid `spaceBetween`
     // @since 1.20.5
-    if ( swiper.params.spaceBetween ) new ResizeObserver( entries => {
-        // progress from mobile to desktop
-        const progress = Math.max( 0, Math.min( 1, (window.innerWidth - BREAKPOINTS.mobile) / (BREAKPOINTS.desktop - BREAKPOINTS.mobile) ) );
-        // calculate space between
-        swiper.params.spaceBetween = Math.max(8, swiper.originalParams.spaceBetween * progress )
+    if ( swiper.params.spaceBetween ) {
+        const updateSpaceBetween = () => {
+            // progress from mobile to desktop
+            const progress = Math.max( 0, Math.min( 1, (window.innerWidth - BREAKPOINTS.mobile) / (BREAKPOINTS.desktop - BREAKPOINTS.mobile) ) );
+            // calculate space between
+            swiper.params.spaceBetween = Math.max(8, swiper.originalParams.spaceBetween * progress )
 
-        swiper.update()
-    } ).observe( document.documentElement );
+            swiper.update()
+        }
+
+        // swiper's resize event: ends with the swiper (an observer on `<html>` would outlive pjax navigation)
+        swiper.on( 'resize', updateSpaceBetween );
+        updateSpaceBetween();
+    }
 }, { passive: true } );
 
 /**
@@ -75,7 +81,15 @@ window.addEventListener( 'swiper:afterInit', e => {
 (function() {
 
     const threshold = 11 // min distance to be scrolled before making actions
-    let $masthead;
+    let $masthead, mastheadHeight = 0;
+
+    // cache height: reading `offsetHeight` on scroll forces a style/layout calculation
+    const mastheadObserver = new ResizeObserver( ( [entry] ) => {
+        // check if element is connected to the `document`
+        if ( !entry.target.isConnected ) return mastheadObserver.unobserve( entry.target );
+
+        mastheadHeight = entry.borderBoxSize[0].blockSize;
+    } );
 
     Behaviours.add( 'header:toggle', $context => {
 
@@ -84,8 +98,12 @@ window.addEventListener( 'swiper:afterInit', e => {
             $primary = $context;
 
         if ( $primary ) {
-            if ( ($masthead && $masthead.parentElement ) || ($masthead = document.getElementById( 'masthead' )) )
+            if ( ($masthead && $masthead.parentElement ) || ($masthead = document.getElementById( 'masthead' )) ) {
                 $masthead.addEventListener( 'mouseover', e => $masthead.classList.add( 'is-visible' ) )
+
+                mastheadObserver.disconnect();
+                mastheadObserver.observe( $masthead );
+            }
         }
         // else $masthead = undefined
 
@@ -96,13 +114,12 @@ window.addEventListener( 'swiper:afterInit', e => {
         if ( Math.abs( window.scrollY - lastScrollY ) < threshold ) return
 
         if ( $masthead ) {
-            $masthead.classList[window.scrollY < $masthead.offsetHeight ? 'remove' : 'add']( 'is-togglable' );
+            // `toggle()` with force only changes classes if needed
+            $masthead.classList.toggle( 'is-togglable', window.scrollY >= mastheadHeight );
 
-            const action = lastScrollY < window.scrollY
-                ? /* scroll up */ 'remove'
-                : lastScrollY > window.scrollY ? /* scroll down */ 'add' : ''
-
-            if ( action ) $masthead.classList[action]( 'is-visible' );
+            // visible on scroll up, hidden on scroll down
+            if ( lastScrollY !== window.scrollY )
+                $masthead.classList.toggle( 'is-visible', lastScrollY > window.scrollY );
         }
 
         lastScrollY = window.scrollY

@@ -27,6 +27,10 @@
             display: block;
             white-space: nowrap;
             transition: background-color .2s ease-in-out;
+
+            a {
+                color: inherit;
+            }
         }
 
         &.hidden {

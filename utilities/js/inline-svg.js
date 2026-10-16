@@ -9,6 +9,22 @@
 
 Behaviours.add( 'media:inline-svg', function( $context ) {
 
+    // remove scripts and event handlers: SVG is inserted into the live document
+    const sanitizeSvg = function( $svg ) {
+        $svg.querySelectorAll( 'script, foreignObject' ).forEach( $element => $element.remove() );
+
+        [$svg].concat( Array.from( $svg.querySelectorAll( '*' ) ) ).forEach( $element => {
+            // e.g. <set attributeName="href" to="javascript:…">
+            if ( ['set', 'animate'].includes( $element.localName ) && /href/i.test( $element.getAttribute( 'attributeName' ) || '' ) )
+                return $element.remove();
+
+            Array.from( $element.attributes ).forEach( attribute => {
+                if ( /^on/i.test( attribute.name ) || ( /href$/i.test( attribute.name ) && /^\s*javascript:/i.test( attribute.value ) ) )
+                    $element.removeAttribute( attribute.name );
+            } );
+        } );
+    };
+
     const replaceImage = function( $image ) {
         if ( !$image || /^data:/.test( $image.src ) ) return;
 
@@ -17,6 +33,7 @@ Behaviours.add( 'media:inline-svg', function( $context ) {
         xhr.onload = function (e) {
             if ( xhr.status === 200 && !!(xhr.responseXML||{}).documentElement ) {
                 const $svg = xhr.responseXML.documentElement;
+                sanitizeSvg( $svg );
 
                 // take over _all_ attributes
                 [].forEach.call( $image.attributes, function( attribute ) {

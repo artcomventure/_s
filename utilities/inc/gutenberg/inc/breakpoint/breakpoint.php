@@ -1,7 +1,7 @@
 <?php
 
-define( 'BREAKPOINT_DIRECTORY', dirname( __FILE__ ) );
-define( 'BREAKPOINT_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/breakpoint' );
+define( 'UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY_URI', UTLTS_GUTENBERG_DIRECTORY_URI . '/inc/breakpoint' );
 
 /**
  * Enqueue gutenberg block styles and scripts.
@@ -12,20 +12,20 @@ add_action( 'init', function() {
 	if ( $pagenow == 'widgets.php' ) return;
 
 	// automatically load dependencies and version
-	$asset_file = include( BREAKPOINT_DIRECTORY . '/build/index.asset.php' );
+	$asset_file = include( UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY . '/build/index.asset.php' );
 
 	wp_register_script(
 		'breakpoint-be-js',
-		BREAKPOINT_DIRECTORY_URI . '/build/index.js',
+		UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY_URI . '/build/index.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'breakpoint-be-js', 'breakpoint', BREAKPOINT_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'breakpoint-be-js', 'breakpoint', UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY . '/languages' );
 
 	wp_register_style(
 		'breakpoint-be-css',
-		BREAKPOINT_DIRECTORY_URI . '/css/gutenberg.css'
+		UTLTS_GUTENBERG_BREAKPOINT_DIRECTORY_URI . '/css/gutenberg.css'
 	);
 
 	register_block_type( 'utilities/breakpoint', array(

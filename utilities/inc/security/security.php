@@ -1,19 +1,17 @@
 <?php
 
-define( 'SECURITY_DIRECTORY', dirname( __FILE__ ) );
-define( 'SECURITY_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/security' );
+define( 'UTLTS_SECURITY_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_SECURITY_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/security' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-	load_theme_textdomain( 'security', SECURITY_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'security', UTLTS_SECURITY_DIRECTORY . '/languages' );
 } );
 
-add_action( 'admin_enqueue_scripts', function() {
-	if ( get_current_screen()->base !== 'dashboard' ) {
-		return;
-	}
-
-	wp_enqueue_style( 'security', SECURITY_DIRECTORY_URI . '/style.css', [ 'dashicons' ] );
+// dashboard only (`$hook_suffix` doesn't depend on the current screen being set)
+add_action( 'admin_enqueue_scripts', function( $hook_suffix ) {
+	if ( $hook_suffix !== 'index.php' ) return;
+	wp_enqueue_style( 'security', UTLTS_SECURITY_DIRECTORY_URI . '/style.css', [ 'dashicons' ] );
 } );
 
 /**
@@ -72,7 +70,7 @@ add_action( 'wp_dashboard_setup', function() {
               <div class="handle-actions hide-if-no-js">
                 <button type="button" class="handlediv" aria-expanded="false">
                   <span
-                    class="screen-reader-text"><?php printf( __( 'Bedienfeld umschalten: %s' ), $data['title'] ) ?></span>
+                    class="screen-reader-text"><?php printf( esc_html__( 'Toggle panel: %s' ), esc_html( $data['title'] ) ) ?></span>
                   <span class="toggle-indicator" aria-hidden="true"></span>
                 </button>
               </div>
@@ -97,7 +95,7 @@ add_action( 'wp_dashboard_setup', function() {
           <div class="handle-actions hide-if-no-js">
             <button type="button" class="handlediv" aria-expanded="false">
                   <span
-                    class="screen-reader-text"><?php printf( __( 'Bedienfeld umschalten: %s' ), $title ) ?></span>
+                    class="screen-reader-text"><?php printf( esc_html__( 'Toggle panel: %s' ), esc_html( $title ) ) ?></span>
               <span class="toggle-indicator" aria-hidden="true"></span>
             </button>
           </div>

@@ -63,17 +63,20 @@
 
             // override output (Gutenberg style)
             Autocomplete.autocomplete( 'instance' )._renderItem = function( ul, item ) {
+                const escape = string => String( string ?? '' ).replace( /[&<>"']/g, char => `&#${char.charCodeAt( 0 )};` );
+                // title may contain HTML/entities: plain text via inert parser
+                const title = new DOMParser().parseFromString( String( item.title ?? '' ).replace( /(<br ?\/?>|\n)/, ' ' ), 'text/html' ).body.textContent;
+                const term = this.term.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
+
                 return $( `<li>` )
                     .append( `<div class="suggest-item">
                         <span class="suggest-item-info">
                             <span class="suggest-item-title">
-                                ${item.title
-                        .replace( /(<br ?\/?>|\n)/, ' ' )
-                        .replace( new RegExp( this.term, 'gi' ), '<mark>$&</mark>' )}
+                                ${escape( title ).replace( new RegExp( escape( term ), 'gi' ), '<mark>$&</mark>' )}
                             </span>
-                            <span class="suggest-item-url">${item.url}</span>
+                            <span class="suggest-item-url">${escape( item.url )}</span>
                         </span>
-                        <span class="suggest-item-type">${item.subtype}</span>
+                        <span class="suggest-item-type">${escape( item.subtype )}</span>
                     </div>` )
                     .appendTo( ul );
             }
@@ -114,6 +117,7 @@
 
                         $.get( ajaxurl, {
                             action: 'add-post-to-list',
+                            nonce: $widget.find( 'form' ).data( 'ajax-nonce' ),
                             list
                         }, function ( response ) {
                             const $input = $( response )

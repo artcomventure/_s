@@ -5,7 +5,11 @@
  */
 
 add_filter( 'upload_mimes', function( $mimes ){
-	$mimes['svg'] = 'image/svg+xml';
+	// SVG can contain script: only for users who may post unfiltered HTML anyway
+	if ( current_user_can( 'unfiltered_html' ) ) {
+		$mimes['svg'] = 'image/svg+xml';
+	}
+
 	$mimes['vcf'] = 'text/vcard';
 
 	return $mimes;
@@ -13,20 +17,30 @@ add_filter( 'upload_mimes', function( $mimes ){
 
 // https://kulturbanause.de/blog/svg-dateien-in-die-wordpress-mediathek-hochladen/#chapter3
 add_filter( 'wp_check_filetype_and_ext', function( $checked, $file, $filename, $mimes ) {
-	if( !$checked['type'] ) {
-		$wp_filetype = wp_check_filetype( $filename, $mimes );
-		$ext = $wp_filetype['ext'];
-		$type = $wp_filetype['type'];
-		$proper_filename = $filename;
+	// only handle what core couldn't determine
+	if( $checked['type'] ) return $checked;
 
-		if($type && 0 === strpos( $type, 'image/' ) && $ext !== 'svg' ) {
-			$ext = $type = false;
-		}
+	$wp_filetype = wp_check_filetype( $filename, $mimes );
+	$ext = $wp_filetype['ext'];
+	$type = $wp_filetype['type'];
 
-		$checked = compact('ext','type','proper_filename' );
+	// only svg and vcf, everything else stays with core
+	if( !$type || !in_array( $ext, ['svg', 'vcf'], true ) ) return $checked;
+
+	$head = (string) @file_get_contents( $file, false, null, 0, 4096 );
+
+	if( $ext === 'svg' ) {
+		if( !current_user_can( 'unfiltered_html' ) ) return $checked;
+
+		// optional BOM, XML prolog, comments and doctype, then <svg
+		if( !preg_match( '/^(?:\xEF\xBB\xBF)?\s*(?:<\?xml[^>]*\?>\s*|<!--.*?-->\s*|<!DOCTYPE[^>\[]*(?:\[.*?\]\s*)?>\s*)*<svg[\s>]/is', $head ) ) return $checked;
 	}
+	// vcf: must start with BEGIN:VCARD
+	else if( !preg_match( '/^(?:\xEF\xBB\xBF)?\s*BEGIN:VCARD/i', $head ) ) return $checked;
 
-	return $checked;
+	$proper_filename = $filename;
+
+	return compact('ext','type','proper_filename' );
 }, 10, 4 );
 
 /**
@@ -84,9 +98,12 @@ add_filter( 'render_block', function( $block_content, $block ) {
 add_filter( 'image_size_names_choose', function( $size_names ) {
 	$subsizes = wp_get_registered_image_subsizes();
 
+	// WP's sizes for `srcset` only, not meant to be selected
+	$srcset_only = ['medium_large', '1536x1536', '2048x2048'];
+
 	// add custom sizes to select
 	foreach ( array_keys( $subsizes ) as $name ) {
-		if ( isset($size_names[$name]) ) continue;
+		if ( isset($size_names[$name]) || in_array( $name, $srcset_only ) ) continue;
 
 		$size_names[$name] = $name;
 	}
@@ -121,21 +138,22 @@ add_filter( 'image_size_names_choose', function( $size_names ) {
 /**
  * Crop WP's changeable image sizes if width and height are given.
  */
-add_action( 'admin_init', 'maybe_crop_media', 100 );
-add_action( 'init', 'maybe_crop_media', 100 );
-function maybe_crop_media() {
-	foreach ( wp_get_registered_image_subsizes() as $name => $settings ) {
-		if ( !in_array( $name, ['medium', 'large'] ) ) continue;
-		if ( !$settings['width'] || !$settings['height'] ) continue;
-
-		add_image_size( $name, $settings['width'], $settings['height'], true );
-	}
-}
+//add_action( 'admin_init', 'maybe_crop_media', 100 );
+//add_action( 'init', 'maybe_crop_media', 100 );
+//function maybe_crop_media() {
+//	foreach ( wp_get_registered_image_subsizes() as $name => $settings ) {
+//		if ( !in_array( $name, ['medium', 'large'] ) ) continue;
+//		if ( !$settings['width'] || !$settings['height'] ) continue;
+//
+//		add_image_size( $name, $settings['width'], $settings['height'], true );
+//	}
+//}
 
 // fix PHP warning "Undefined array key"
 // @since 1.20.6
 add_filter( 'wp_get_attachment_metadata', function( $data, $attachment_id ) {
-	return $data + ['width' => 0, 'height' => 0];
+	// attachments without metadata return `false`
+	return is_array( $data ) ? $data + ['width' => 0, 'height' => 0] : $data;
 }, 10, 2 );
 
 /**

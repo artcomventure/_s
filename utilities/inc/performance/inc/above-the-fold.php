@@ -8,7 +8,10 @@ add_action( 'wp_head', function() {
 	if ( !file_exists( $file = get_template_directory() . '/css/above-the-fold.css' ) )
 		return;
 
-	if ( !$CSS = @file_get_contents( $file ) ) return;  ?>
+	if ( !$CSS = @file_get_contents( $file ) ) return;
+
+	// Sass `compressed` prepends a BOM for non-ASCII; inline it breaks the first rule
+	$CSS = preg_replace( '/^\xEF\xBB\xBF/', '', $CSS ); ?>
 
     <style><?php echo $CSS ?></style>
 

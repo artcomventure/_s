@@ -27,7 +27,7 @@
 
         [].forEach.call( $context.querySelectorAll( 'img' ), $image => {
             // check for already given orientation
-            let orientation = ($image.className.match( /(^| )ratio-([^ ])( |$)/ )||[])[2];
+            let orientation = ['square', 'landscape', 'portrait'].find( orientation => $image.classList.contains( `ratio-${orientation}` ) );
 
             if ( orientation  ) mediaOrientation( $image, orientation );
             else if ( $image.complete ) mediaOrientation( $image )

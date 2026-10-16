@@ -25,7 +25,7 @@
 
                 [].forEach.call( $input.files, file => {
                     const $item = document.createElement( 'li' );
-                    $item.innerHTML = `${file.name} `;
+                    $item.textContent = `${file.name} `;
                     $item.setAttribute( 'data-type', file.type );
 
                     const $remove = document.createElement( 'span' );

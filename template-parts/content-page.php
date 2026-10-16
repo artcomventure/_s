@@ -10,8 +10,8 @@
 global $more;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
-	<?php echo (!$more && is_post_publicly_viewable()) ? 'data-href="' . get_permalink() . '"' : '' ?>>
+<article <?php post_class(); ?>
+	<?php echo (!$more && is_post_publicly_viewable()) ? 'data-href="' . esc_url( get_permalink() ) . '"' : '' ?>>
 	<?php // don't include header if `<h1>` title block is already added to content
 	if ( !$more || !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
         <header <?php header_class( 'entry-header' ) ?>>
@@ -35,7 +35,9 @@ global $more;
 	<?php if ( !$more || !get_post_meta( get_the_ID(), '_hide_thumbnail', true ) )
 		_s_post_thumbnail(); ?>
 
-	<div class="entry-content"><?php
-        the_content();
-    ?></div><!-- .entry-content -->
-</article><!-- #post-<?php the_ID(); ?> -->
+	<div class="entry-content"><?php if ( $more ) {
+//            echo $anchors = get_anchor_navigation( $post->post_content );
+            the_content();
+//            echo $anchors;
+        } ?></div><!-- .entry-content -->
+</article><!-- .post-<?php the_ID(); ?> -->

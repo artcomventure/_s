@@ -21,9 +21,9 @@ function t9n_shortcode( $attr ) {
 	), $attr ) + $attr;
 
 	$locale = explode( '_', get_locale() )[0];
-	if ( isset( $atts[$locale] ) ) return $atts[$locale];
+	if ( isset( $atts[$locale] ) ) return wp_kses_post( $atts[$locale] );
 
-	return __( $atts['text'], $atts['domain'] );
+	return wp_kses_post( __( $atts['text'], $atts['domain'] ) );
 }
 
 /**
@@ -40,12 +40,16 @@ add_shortcode( 'lang', function( $attr, $content = '' ) {
 		'dir' => 'ltr',
 	), $attr, 'lang' );
 
+	// language tag like `en`, `en-US`, `zh-Hant`
+	if ( !preg_match( '/^[a-z]{2,3}(-[a-z0-9]{2,8})*$/i', $atts['lang'] ) ) $atts['lang'] = '';
+
 	if ( $atts['lang'] && $content ) {
-		if ( (is_rtl() && $atts['dir'] == 'rtl') || (!is_rtl() && $atts['dir'] == 'ltr') )
-			unset( $atts['dir'] ); // not needed
+		if ( !in_array( $atts['dir'], ['ltr', 'rtl'], true )
+		     || (is_rtl() && $atts['dir'] == 'rtl') || (!is_rtl() && $atts['dir'] == 'ltr') )
+			unset( $atts['dir'] ); // invalid or not needed
 
 		$content = "<span " . implode( ' ', array_map( function( $key, $value ) {
-				return "$key=\"$value\"";
+				return $key . '="' . esc_attr( $value ) . '"';
 			}, array_keys( $atts ), $atts ) ) . ">$content</span>";
 	}
 

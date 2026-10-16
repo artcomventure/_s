@@ -1,4 +1,11 @@
 .site-header {
+  display: flow-root;
+  position: sticky;
+  top: 0;
+
+  background-color: hexa(#fff, .2);
+  backdrop-filter: blur(20px);
+
   & { // toggle header
     @media (prefers-reduced-motion: no-preference) {
       transition: .3s ease-in-out;

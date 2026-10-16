@@ -10,6 +10,57 @@ if ( ! defined( 'ABSPATH' ) ) die( '-1' );
 
 auto_include_files( dirname( __FILE__ ) . '/inc' );
 
+// Write index.php and .htaccess into the dump dir if missing.
+function db_port_protect_dir( $dir ) {
+	if ( ! file_exists( $dir ) ) {
+		wp_mkdir_p( $dir );
+	}
+
+	if ( ! file_exists( $dir . '/index.php' ) ) {
+		file_put_contents( $dir . '/index.php', "<?php // Silence is golden.\n" );
+	}
+
+	if ( ! file_exists( $dir . '/.htaccess' ) ) {
+		file_put_contents( $dir . '/.htaccess', "<IfModule mod_authz_core.c>\n\tRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n\tDeny from all\n</IfModule>\n" );
+	}
+}
+
+// Stream a dump through PHP (admins only).
+add_action( 'admin_post_db_port_download', function() {
+	if ( ! user_has_role( 'administrator' ) || ! current_user_can( 'manage_options' ) ) {
+		wp_die( __( 'Sorry, you are not allowed to access this page.' ), '', 403 );
+	}
+
+	$file = isset( $_GET['file'] ) ? sanitize_file_name( wp_unslash( $_GET['file'] ) ) : '';
+
+	if ( ! $file || ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'download_dump_' . $file ) ) {
+		wp_die( __( 'Invalid nonce.', 'utilities' ), '', 403 );
+	}
+
+	$upload_dir = wp_upload_dir();
+	$dump_dir   = realpath( $upload_dir['basedir'] . '/sqldumps' );
+	$path       = $dump_dir ? realpath( $dump_dir . '/' . $file ) : false;
+
+	if (
+		! $path
+		|| strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) !== 'sql'
+		|| strpos( $path, $dump_dir . DIRECTORY_SEPARATOR ) !== 0
+		|| ! is_file( $path )
+	) {
+		wp_die( __( 'File not found.', 'utilities' ), '', 403 );
+	}
+
+	nocache_headers();
+	header( 'Content-Type: application/sql' );
+	header( 'Content-Disposition: attachment; filename="' . $file . '"' );
+	header( 'Content-Length: ' . filesize( $path ) );
+	header( 'X-Content-Type-Options: nosniff' );
+
+	while ( ob_get_level() ) ob_end_clean();
+	readfile( $path );
+	exit;
+} );
+
 add_action('admin_menu', function() {
 	if ( ! user_has_role( 'administrator' ) ) return; // admins only
 	if ( ! current_user_can( 'manage_options' ) ) return;
@@ -24,11 +75,8 @@ add_action('admin_menu', function() {
 
 				$upload_dir = wp_upload_dir();
 				$dump_dir   = $upload_dir['basedir'] . '/sqldumps';
-				$dump_url   = $upload_dir['baseurl'] . '/sqldumps';
 
-				if ( ! file_exists( $dump_dir ) ) {
-					wp_mkdir_p( $dump_dir );
-				}
+				db_port_protect_dir( $dump_dir );
 
 				// Handle Actions
 				$success = null;
@@ -137,7 +185,7 @@ add_action('admin_menu', function() {
 						set_time_limit( 0 );
 
 						$filename    = sanitize_file_name( get_bloginfo( 'name' ) );
-						$filename    .= date( '-Ymd-U' ) . '.sql';
+						$filename    .= date( '-Ymd-U' ) . '-' . wp_generate_password( 20, false ) . '.sql';
 						$export_path = $dump_dir . '/' . $filename;
 
 						try {
@@ -145,7 +193,7 @@ add_action('admin_menu', function() {
 
 							$success = sprintf(
 									__( 'Database successfully exported: %s', 'utilities' ),
-									'<a href="' . esc_url($dump_url . '/' . $filename) . '" download>' . "$filename</a>"
+									'<a href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=db_port_download&file=' . rawurlencode( $filename ) ), 'download_dump_' . $filename ) ) . '">' . esc_html( $filename ) . '</a>'
 							);
 						} catch ( Exception $e ) {
 							if ( file_exists( $export_path ) ) unlink( $export_path );
@@ -212,7 +260,7 @@ add_action('admin_menu', function() {
 							<?php else : ?>
 								<?php foreach ( $files as $file ) :
 									$filename = basename($file);
-									$url = $dump_url . '/' . $filename;
+									$url = wp_nonce_url( admin_url( 'admin-post.php?action=db_port_download&file=' . rawurlencode( $filename ) ), 'download_dump_' . $filename );
 									$date = sprintf(
 											__( '%s at %s' ),
 											wp_date( get_option( 'date_format' ), filemtime( $file ) ),
@@ -226,10 +274,10 @@ add_action('admin_menu', function() {
 											<input type="checkbox" name="bulk_files[]" value="<?php echo esc_attr($filename); ?>">
 										</th>
 										<td class="column-primary">
-											<strong><a href="<?php echo esc_url($url); ?>" download><?php echo esc_html($filename); ?></a></strong>
+											<strong><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($filename); ?></a></strong>
 											<div class="row-actions">
 												<span class="download">
-													<a href="<?php echo esc_url($url); ?>" download aria-label="<?php echo esc_attr( sprintf( __( 'Download %s', 'utilities' ), $filename ) ); ?>"><?php _e( 'Download', 'utilities' ); ?></a> |
+													<a href="<?php echo esc_url($url); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Download %s', 'utilities' ), $filename ) ); ?>"><?php _e( 'Download', 'utilities' ); ?></a> |
 												</span>
 												<span class="import">
 													<a href="<?php echo esc_url($import_url); ?>" onclick="return confirm('<?php echo esc_js( __( 'Are you sure you want to import this file? This will overwrite existing data.', 'utilities' ) ); ?>')" aria-label="<?php echo esc_attr( sprintf( __( 'Import %s', 'utilities' ), $filename ) ); ?>"><?php _e( 'Import', 'utilities' ); ?></a> |

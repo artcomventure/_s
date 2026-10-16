@@ -1,12 +1,15 @@
 <?php
 
-define( 'DOTLOTTIE_DIRECTORY', dirname( __FILE__ ) );
-define( 'DOTLOTTIE_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/js/libs/dotlottie-wc' );
+define( 'UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/js/libs/dotlottie-wc' );
 
 add_action( 'wp_enqueue_scripts', 'register_dotlottie_web_component' );
 add_action( 'admin_enqueue_scripts', 'register_dotlottie_web_component' );
 function register_dotlottie_web_component(): void {
-	wp_register_script( 'dotlottie-wc', DOTLOTTIE_DIRECTORY_URI . '/build/app.js', ['behaviours'], false, true );
+	wp_register_script( 'dotlottie-wc', UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY_URI . '/build/app.js', ['behaviours'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+
+	// WASM file location, independent of the theme's folder name (see `setWasmUrl()` in `app.js`)
+	wp_add_inline_script( 'dotlottie-wc', 'window.dotlottieWasmUrl = ' . wp_json_encode( UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY_URI . '/dotlottie-player.wasm' ) . ';', 'before' );
 }
 
 /**
@@ -18,4 +21,4 @@ add_filter( 'upload_mimes', function( array $mime_types ):array {
 } );
 
 // auto include /inc files
-auto_include_files( DOTLOTTIE_DIRECTORY . '/inc' );
+auto_include_files( UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY . '/inc' );

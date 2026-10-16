@@ -6,27 +6,51 @@
     }
     --transition-timing-function: ease-out;
 
-    --border-width: 2px;
+    --border-width: 1px;
     --border-color: currentColor;
+    --border-alpha: .35;
 
-    border-top: var(--border-width) solid var(--border-color);
+    border-top: var(--border-width) solid Alpha(from var(--border-color) / var(--border-alpha));
   }
 
   &-item {
     position: relative;
     box-sizing: content-box;
-    border-bottom: var(--border-width) solid var(--border-color);
+    border-bottom: var(--border-width) solid Alpha(from var(--border-color) / var(--border-alpha));
 
-    &[aria-expanded="false"] > .wp-block-accordion-item-content,
-    &:not([aria-expanded]) > .wp-block-accordion-item-content {
+    // state on the header (set by JS); without JS everything stays open
+    > [aria-expanded="false"] + .wp-block-accordion-item-content {
       max-height: 0 !important;
       padding-block: 0 !important;
       margin-block: 0 !important;
       pointer-events: none;
     }
 
-    &[aria-expanded="true"] > :first-child:after {
-      transform: rotate(-180deg);
+    // icon always turns clockwise: keyframes per state (a transition would reverse)
+    // `:first-child` for specificity (beats `&-header:not(:last-child):after`)
+    > :first-child[aria-expanded]:after {
+      animation: accordion-icon-close 0s var(--transition-timing-function);
+    }
+
+    > :first-child[aria-expanded="true"]:after {
+      transform: rotate(180deg);
+      animation-name: accordion-icon-open;
+    }
+
+    // initial animation runs with `0s` (invisible); changing the duration doesn't restart it
+    [data-ready] > & > :first-child[aria-expanded]:after {
+      animation-duration: var(--transition-duration);
+    }
+
+    @keyframes accordion-icon-open {
+      from { transform: rotate(0); }
+      to { transform: rotate(180deg); }
+    }
+
+    // starts at -180deg (looks like 180deg) → also clockwise
+    @keyframes accordion-icon-close {
+      from { transform: rotate(-180deg); }
+      to { transform: rotate(0); }
     }
 
     // gutenberg
@@ -45,14 +69,22 @@
       justify-content: space-between;
       align-items: center;
 
+      > * {
+        margin-block: 0;
+      }
+
       &:not(:last-child) {
         cursor: pointer;
 
+        // chevron, drawn by mask (font independent, `currentColor`); replace via `--accordion-icon: url(…)`
         &:after {
-          content: "↓";
-          display: inline-block;
+          content: "";
+          flex: none;
+          width: 1.5em;
+          height: 1.5em;
+          background-color: currentColor;
+          mask: var(--accordion-icon, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")) center / contain no-repeat;
           transform: rotate(0);
-          transition: all var(--transition-duration) var(--transition-timing-function);
         }
       }
     }
@@ -61,6 +93,7 @@
       transition-property: opacity, max-height, padding, margin;
       transition-duration: var(--transition-duration);
       transition-timing-function: var(--transition-timing-function);
+      display: flow-root;
       overflow: clip;
 
       > :first-child {

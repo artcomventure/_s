@@ -10,7 +10,10 @@
     $panel.setAttribute( 'data-copy', '' );
 
     function display() {
-        $url.innerHTML = `<span data-copy="${wp.i18n.__( 'URL', 'dev' )}">${location.href}</span>`;
+        const $span = document.createElement( 'span' );
+        $span.setAttribute( 'data-copy', wp.i18n.__( 'URL', 'dev' ) );
+        $span.textContent = location.href;
+        $url.replaceChildren( $span );
     }
 
     window.addEventListener( 'popstate', display );

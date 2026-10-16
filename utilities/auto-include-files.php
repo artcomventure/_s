@@ -17,10 +17,11 @@ function auto_include_files( string $path ): void {
 
 	$path = rtrim( $path, '/' );
 
-	if ( $inc = opendir( $path ) ) {
-		while ( ($file = readdir( $inc )) !== false ) {
+	// sorted, so include order is the same on every system
+	if ( $files = scandir( $path ) ) {
+		foreach ( $files as $file ) {
 			// ignore files/folders which starts with '_'
-			if ( strpos( $file, '_' ) === 1 ) continue;
+			if ( str_starts_with( $file, '_' ) ) continue;
 
 			$filename = "{$path}/{$file}";
 
@@ -37,7 +38,5 @@ function auto_include_files( string $path ): void {
 
 			require_once $filename;
 		}
-
-		closedir( $inc );
 	}
 }

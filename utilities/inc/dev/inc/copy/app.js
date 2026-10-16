@@ -8,10 +8,13 @@
     $info.classList.add( 'copyable' );
 
     $info.addEventListener( 'click', e => {
+        // links (e.g. repository) navigate, don't copy
+        if ( e.target.closest( 'a' ) ) return;
+
         const data = [];
 
         [].forEach.call( $info.querySelectorAll( '[data-copy]' ), $data => {
-            data.push( `${$data.getAttribute( 'data-copy' ) || $data.title}: ${$data.innerText}` )
+            data.push( `${$data.getAttribute( 'data-copy' ) || $data.title}: ${$data.innerText}`.replace( "\n", ' ' ) )
         } )
 
         navigator.clipboard.writeText( data.join( "\n" ) )

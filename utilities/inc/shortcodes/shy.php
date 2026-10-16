@@ -18,9 +18,12 @@ add_shortcode( '-', 'shy_shortcode' );
 // remove shy shortcode from document `<title>`
 // @since 1.20.2
 add_filter( 'document_title_parts', function ( $title ) {
-	if ( !is_array( $title ) ) $title = strip_shortcode_tags( $title, ['shy', '-'] );
-	else if ( isset( $title['title'] ) ) $title['title'] = strip_shortcode_tags( $title['title'], ['shy', '-'] );
-	else $title = array_map( 'strip_shortcode_tags', $title, ['shy', '-'] );
+	$strip = fn( $part ) => strip_shortcode_tags( $part, ['shy', '-'] );
+
+	// same parts as `do_shortcode()` in `shortcodes.php`
+	if ( !is_array( $title ) ) $title = $strip( $title );
+	else if ( isset( $title['title'] ) ) $title['title'] = $strip( $title['title'] );
+	else $title = array_map( $strip, $title );
 
 	return $title;
 } );

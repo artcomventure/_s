@@ -14,11 +14,10 @@
       fullscreenControl: true
     }
 
-    // map id or styles
-    if ( gmaps.settings.mapId || !gmaps.settings.styles )
-      options.mapId = gmaps.settings.mapId || 'DEMO_MAP_ID';
-    if ( gmaps.settings.styles.length && !gmaps.settings.mapId )
-      options.styles = gmaps.settings.styles;
+    // map id (cloud styling, needed for advanced markers), local styles or demo map id (development)
+    if ( gmaps.settings.mapId ) options.mapId = gmaps.settings.mapId;
+    else if ( gmaps.settings.styles.length ) options.styles = gmaps.settings.styles;
+    else options.mapId = 'DEMO_MAP_ID';
 
     // the map
     let map = new Map( $map, Alter.do( 'gmap:options', options, $map ) );

@@ -5,7 +5,7 @@
     const resizeObserver = new ResizeObserver( entries => {
         entries.forEach( entry => {
             // check if element is connected to the `document`
-            if ( !entry.target.parentElement )
+            if ( !entry.target.isConnected )
                 return resizeObserver.unobserve( entry.target );
 
             autosize.update( entry.target );

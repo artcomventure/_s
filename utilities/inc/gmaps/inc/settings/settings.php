@@ -4,15 +4,14 @@
  * Gmaps' settings page styles/scripts.
  */
 add_action( 'admin_enqueue_scripts', function () {
-	global $pagenow;
-
-	// mapbox setting page only
-	if ( $pagenow != 'options-general.php' || ( $_GET['page'] ?? '' ) != 'gmaps' ) {
+	// gmaps setting page only
+	// (for editors the menu links to `options-privacy.php?page=gmaps`)
+	if ( ( $_GET['page'] ?? '' ) !== 'gmaps' ) {
 		return;
 	}
 
-	wp_enqueue_style( 'gmaps-settings', GMAPS_DIRECTORY_URI . '/inc/settings/style.css', [] );
-    wp_enqueue_script( 'gmaps-settings', GMAPS_DIRECTORY_URI . '/inc/settings/app.js', [], false, true );
+	wp_enqueue_style( 'gmaps-settings', UTLTS_GMAPS_DIRECTORY_URI . '/inc/settings/style.css', [] );
+    wp_enqueue_script( 'gmaps-settings', UTLTS_GMAPS_DIRECTORY_URI . '/inc/settings/app.js', [], false, true );
 	gmaps_localize_script( 'gmaps-settings' );
 } );
 
@@ -79,15 +78,39 @@ function gmaps_get_setting( string $setting, mixed $default = null ): mixed {
  * Register "mapbox" as option.
  */
 add_action( 'admin_init', function () {
-	register_setting( 'gmaps', 'gmaps' );
+	register_setting( 'gmaps', 'gmaps', [
+		'sanitize_callback' => function( $value ) {
+			$value = is_array( $value ) ? $value : [];
+			$number = fn( $number ) => is_numeric( $number ) ? floatval( $number ) : null;
+
+			// stored as JSON string, decoded in `gmaps_get_settings()`
+			$styles = trim( (string) ( $value['styles'] ?? '' ) );
+			if ( $styles && !is_array( json_decode( $styles, true ) ) ) $styles = '';
+
+			// missing numbers fall back to defaults in `gmaps_get_settings()`
+			return array_filter( [
+				'apiKey' => sanitize_text_field( $value['apiKey'] ?? '' ),
+				'mapId' => sanitize_text_field( $value['mapId'] ?? '' ),
+				'styles' => $styles,
+				'zoom' => $number( $value['zoom'] ?? null ),
+				'center' => array_filter( [
+					'lat' => $number( $value['center']['lat'] ?? null ),
+					'lng' => $number( $value['center']['lng'] ?? null ),
+				], fn( $item ) => $item !== null ),
+			], fn( $item ) => $item !== null );
+		},
+	] );
 } );
+
+// options.php requires `manage_options` by default
+add_filter( 'option_page_capability_gmaps', fn() => 'edit_theme_options' );
 
 // add settings menu
 add_action( 'admin_menu', function() {
 	add_options_page(
 		__( 'Google Maps', 'gmaps' ),  // Page title
 		__( 'Google Maps', 'gmaps' ),  // Menu title
-		'manage_options',   // Capability
+		'edit_theme_options',   // Capability
 		'gmaps',  // Menu slug
 		function() {
 

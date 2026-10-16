@@ -4,12 +4,12 @@
  * Auto-supports YouTube, Vimeo, Google Maps (see `../gmaps`).
  */
 
-define( 'COOKIE_WALL_DIRECTORY', dirname( __FILE__ ) );
-define( 'COOKIE_WALL_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/cookie-wall' );
+define( 'UTLTS_COOKIEWALL_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_COOKIEWALL_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/cookie-wall' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-	load_theme_textdomain( 'cookie-wall', COOKIE_WALL_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'cookie-wall', UTLTS_COOKIEWALL_DIRECTORY . '/languages' );
 } );
 
 /**
@@ -17,8 +17,8 @@ add_action( 'after_setup_theme', function() {
  */
 add_action( 'wp_enqueue_scripts', function() {
 	if ( is_active_sidebar( 'cookie-wall' ) ) {
-		wp_enqueue_script( 'cookie-wall', COOKIE_WALL_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, true );
-		wp_enqueue_style( 'cookie-wall', COOKIE_WALL_DIRECTORY_URI . '/style.css' );
+		wp_enqueue_script( 'cookie-wall', UTLTS_COOKIEWALL_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+		wp_enqueue_style( 'cookie-wall', UTLTS_COOKIEWALL_DIRECTORY_URI . '/style.css' );
 	}
 }, 9 );
 
@@ -65,11 +65,8 @@ function get_cookie_wall(): string {
  * @since 1.20.0
  */
 add_filter( 'embed_oembed_html', function( $html, $url, $attr, $post_id ) {
-	$oEmbed = _wp_oembed_get_object();
-	if ( $video = $oEmbed->fetch( $oEmbed->get_provider( $url ), $url ) ) {
-		if ( in_array( $video->provider_name, ['YouTube', 'Vimeo'] ) ) {
-			$html .= get_cookie_wall();
-		}
+	if ( get_video_provider( $url ) ) {
+		$html .= get_cookie_wall();
 	}
 
 	return $html;

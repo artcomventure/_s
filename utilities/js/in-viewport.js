@@ -1,10 +1,13 @@
+// namespace for utilities' helpers (load order of the files isn't guaranteed)
+window.utlts = window.utlts || {};
+
 /**
  * Set classes `in-viewport` or `outside-viewport`.
  */
-const inViewportObserver = new IntersectionObserver( entries => {
+utlts.inViewportObserver = new IntersectionObserver( entries => {
   entries.forEach( entry => {
     // check if element is still connected to the `document`
-    if ( !entry.target.parentElement ) return inViewportObserver.unobserve( entry.target );
+    if ( !entry.target.isConnected ) return utlts.inViewportObserver.unobserve( entry.target );
 
     entry.target.classList.add( entry.isIntersecting ? 'in-viewport' : 'outside-viewport' );
     entry.target.classList.remove( entry.isIntersecting ? 'outside-viewport' : 'in-viewport' );
@@ -24,7 +27,7 @@ const inViewportObserver = new IntersectionObserver( entries => {
  * @param $element
  * @returns {boolean}
  */
-const isInViewport = $element => {
+utlts.isInViewport = $element => {
   // make use of `IntersectionObserver`
   if ( $element.classList.contains( 'in-viewport' ) ) return true;
   if ( $element.classList.contains( 'outside-viewport' ) ) return false;
@@ -36,5 +39,8 @@ const isInViewport = $element => {
     && rect.top < window.innerHeight;
 }
 
-const isOutsideViewport = $element => !isInViewport( $element );
-const isNotInViewport = $element => isOutsideViewport( $element );
+utlts.isOutsideViewport = $element => !utlts.isInViewport( $element );
+utlts.isNotInViewport = $element => utlts.isOutsideViewport( $element );
+
+// deprecated global names (as `window` properties, not `const`: no clash with other scripts) – use `utlts.*`
+['inViewportObserver', 'isInViewport', 'isOutsideViewport', 'isNotInViewport'].forEach( name => window[name] = utlts[name] );

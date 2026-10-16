@@ -42,14 +42,13 @@
         ] ),
         switches: Alter.do( 'pjax-switches', {
             '#primary': function( oldEl, newEl, options ) {
-                const $html = document.createElement( 'html' );
-                $html.innerHTML = options.request.responseText;
-                const $body = $html.querySelector( 'body' );
+                // inert document: no image loading or inline handlers (unlike innerHTML in the live document)
+                const $document = new DOMParser().parseFromString( options.request.responseText, 'text/html' );
+                const $body = $document.body;
 
                 // switch html attributes
                 ['lang', 'dir', 'class'].forEach( attribute => {
-                    let value = options.request.responseText.match( new RegExp( `<html.*${attribute}="([^"]*)"` ) );
-                    value = value ? value[1] : '';
+                    const value = $document.documentElement.getAttribute( attribute ) || '';
 
                     if ( value === '' ) {
                         return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
@@ -157,6 +156,19 @@
         } );
     }, { passive: true } );
 
+    // target of `location.hash` (`/page/#section`), if any
+    function getHashTarget() {
+        const hash = location.hash.slice( 1 );
+        if ( !hash ) return null;
+
+        try {
+            return document.getElementById( decodeURIComponent( hash ) );
+        } catch {
+            // malformed escape sequence
+            return document.getElementById( hash );
+        }
+    }
+
     // Pjax request succeeds
     document.addEventListener( 'pjax:success', e => {
         // Matomo : tracking a new page view
@@ -168,9 +180,25 @@
             _paq.push( ['trackPageView'] );
         })();
 
+        // move focus to new content, so screen readers announce it and next tab continues there
+        // (not on back/forward, where the scroll position is restored; `[autofocus]` wins)
+        if ( !e.backward && !e.forward && !document.activeElement?.hasAttribute( 'autofocus' ) ) {
+            const $primary = document.querySelector( '#primary' );
+            const $target = Alter.do( 'pjax-focus', getHashTarget() || $primary?.querySelector( 'h1' ) || $primary );
+
+            if ( $target ) {
+                if ( !$target.matches( 'a[href], button, input, select, textarea, [tabindex]' ) ) $target.setAttribute( 'tabindex', -1 );
+                $target.focus( { preventScroll: true } );
+            }
+        }
+
         // re-attach all behaviours
         window.requestAnimationFrame(
-            () => Alter.do( 'pjax-selectors', ['#masthead', '#primary', '#colophon'] ).forEach( ( id ) => Behaviours.attach( document.querySelector( id ) ) )
+            () => Alter.do( 'pjax-selectors', ['#masthead', '#primary', '#colophon'] ).forEach( ( selector ) => {
+                // missing element would attach all behaviours to `document` again
+                const $element = document.querySelector( selector );
+                if ( $element ) Behaviours.attach( $element );
+            } )
         );
     }, { passive: true } );
 

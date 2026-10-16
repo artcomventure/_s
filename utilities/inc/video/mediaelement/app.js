@@ -8,10 +8,10 @@ Behaviours.add( 'video:mediaelement', () => {
     Behaviours.add( 'video:mediaelement', () => wp.mediaelement.initialize() );
 } );
 
-// WP' medielement script only take ".wp-video-shortcode" into account.
+// WP' mediaelement script only take ".wp-video-shortcode" into account.
 // We duplicate `wp.mediaelement.initialize()` to cover `.wp-block-video`.
 Behaviours.add( 'video:wp-block-video', () => {
-    var selectors = [];
+    var selectors = [], settings = {};
 
     if ( typeof _wpmejsSettings !== 'undefined' ) {
         settings = jQuery.extend( true, {}, _wpmejsSettings );

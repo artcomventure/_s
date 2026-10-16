@@ -32,7 +32,7 @@ get_header();
 	    else: ?>
             <section class="error-404 not-found container-content">
                 <header class="page-header">
-                    <h1 class="page-title"><?php esc_html_e( '404 — The page was not found.', 'rebirth' ); ?></h1>
+                    <h1 class="page-title"><?php esc_html_e( '404 — The page was not found.', '_s' ); ?></h1>
                 </header><!-- .page-header -->
 
                 <div class="page-content">
@@ -43,10 +43,9 @@ get_header();
                             </a>
                         </div>
                     </div>
-
                 </div><!-- .page-content -->
-            <?php endif; ?>
-        </section>
+            </section><!-- .error-404 -->
+        <?php endif; ?>
     </main><!-- #main -->
 
 <?php

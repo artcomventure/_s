@@ -5,21 +5,21 @@
  */
 add_action( 'init', function() {
 	// automatically load dependencies and version
-	$asset_file = include( POSTS_LIST_DIRECTORY . '/inc/block/build/index.asset.php' );
+	$asset_file = include( UTLTS_POSTSLIST_DIRECTORY . '/inc/block/build/index.asset.php' );
 
 	wp_register_script(
 		'posts-list-block-js',
-		POSTS_LIST_DIRECTORY_URI . '/inc/block/build/index.js',
+		UTLTS_POSTSLIST_DIRECTORY_URI . '/inc/block/build/index.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
 	wp_register_style(
 		'posts-list-block-css',
-		POSTS_LIST_DIRECTORY_URI . '/inc/block/style.css'
+		UTLTS_POSTSLIST_DIRECTORY_URI . '/inc/block/style.css'
 	);
 
-	wp_set_script_translations( 'posts-list-block-js', 'posts-list', POSTS_LIST_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'posts-list-block-js', 'posts-list', UTLTS_POSTSLIST_DIRECTORY . '/languages' );
 
 	// make _same_ settings in `./index.js`
 	$blockAttributes = [
@@ -44,7 +44,7 @@ add_action( 'init', function() {
 		],
 		'posts_per_page' => [
 			'type' => 'string',
-			'default' => get_option( 'post_per_page' )
+			'default' => (string) get_option( 'posts_per_page' )
 		],
 		'theme' => [
 			'type' => 'string',

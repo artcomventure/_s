@@ -1,64 +1,19 @@
 {
   "scripts": {
-    "watch": "npm-run-all --parallel *:watch",
-    "build": "npm-run-all --parallel *:build",
+    "watch": "npm run watch:scss & npm run watch:js",
+    "watch:scss": "node-sass css -o css --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore='js/*/**/*.js,js/*.min.js' --presets=@babel/preset-env --watch",
+
+    "build": "npm run build:scss & npm run build:js",
+    "build:scss": "node-sass css -o css --output-style compressed",
+    "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore='js/*/**/*.js,js/*.min.js' --presets=@babel/preset-env,babel-preset-minify",
+
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
-    "i18n:pot": "npm-run-all --parallel *:i18n:pot",
-    "i18n:po": "npm-run-all --parallel *:i18n:po",
+    "i18n:pot": "wp i18n make-pot . languages/utilities.pot --domain=utilities --exclude=src,dotlottie-wc,video.js,node_modules,**/*.min.* --subtract=../languages/_s.pot --package-name=Utilities",
+    "i18n:po": "wp i18n update-po languages/utilities.pot languages",
     "i18n:create": "npm run i18n:mo & npm run i18n:json",
-    "i18n:mo": "npm-run-all --parallel *:i18n:mo",
-    "i18n:json": "npm-run-all --parallel *:i18n:json",
-
-    "utilities:watch": "npm run utilities:watch:scss & npm run utilities:watch:js",
-    "utilities:watch:scss": "node-sass css -o css --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "utilities:watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js,js/**/module/**/*.js --presets=@babel/preset-env --watch",
-    "utilities:build": "npm run utilities:build:scss & npm run utilities:build:js",
-    "utilities:build:scss": "node-sass css -o css --output-style compressed",
-    "utilities:build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=air-datepicker/**/*.js,dotlottie-wc/**/*.js,/**/*.js,js/**/*.min.js,js/**/module/**/*.js --presets=@babel/preset-env,babel-preset-minify",
-    "utilities:i18n:pot": "wp i18n make-pot . languages/utilities.pot --domain=utilities --exclude=src,dotlottie-wc,video.js,node_modules,**/*.min.* --subtract=../languages/_s.pot --package-name=Utilities",
-    "utilities:i18n:po": "wp i18n update-po languages/utilities.pot languages",
-    "utilities:i18n:mo": "wp i18n make-mo languages languages",
-    "utilities:i18n:json": "wp i18n make-json languages --no-purge",
-
-    "accessibility:watch": "cd inc/accessibility && npm run watch",
-    "accessibility:build": "cd inc/accessibility && npm run build",
-
-    "air-datepicker:watch": "cd js/libs/air-datepicker && npm run watch",
-    "air-datepicker:build": "cd js/libs/air-datepicker && npm run build",
-
-    "autosize:watch": "cd js/libs/autosize && npm run watch",
-    "autosize:build": "cd js/libs/autosize && npm run build",
-
-    "custom-select:watch": "cd js/libs/custom-select && npm run watch",
-    "custom-select:build": "cd js/libs/custom-select && npm run build",
-
-    "dotlottie-wc:watch": "cd js/libs/dotlottie-wc && npm run watch",
-    "dotlottie-wc:build": "cd js/libs/dotlottie-wc && npm run build",
-
-    "dev:watch": "cd inc/dev && npm run watch",
-    "dev:build": "cd inc/dev && npm run build",
-    "dev:i18n:pot": "cd inc/dev && npm run i18n:pot",
-    "dev:i18n:po": "cd inc/dev && npm run i18n:po",
-    "dev:i18n:mo": "cd inc/dev && npm run i18n:mo",
-    "dev:i18n:json": "cd inc/dev && npm run i18n:json",
-
-    "gutenberg:watch": "cd inc/gutenberg && npm run watch",
-    "gutenberg:build": "cd inc/gutenberg && npm run build",
-
-    "pjax:watch": "cd js/libs/spa/pjax && npm run watch",
-    "pjax:build": "cd js/libs/spa/pjax && npm run build",
-
-    "post-edit-link:watch": "cd inc/post-edit-link && npm run watch",
-    "post-edit-link:build": "cd inc/post-edit-link && npm run build",
-
-    "security:watch": "cd inc/security && npm run watch",
-    "security:build": "cd inc/security && npm run build",
-    "security:i18n:pot": "cd inc/security && npm run security:i18n:pot",
-    "security:i18n:po": "cd inc/security && npm run security:i18n:po",
-    "security:i18n:mo": "cd inc/security && npm run security:i18n:mo",
-
-    "video:watch": "cd inc/video && npm run watch",
-    "video:build": "cd inc/video && npm run build"
+    "i18n:mo": "wp i18n make-mo languages languages",
+    "i18n:json": "wp i18n make-json languages --no-purge"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-wc": "^0.6.4",

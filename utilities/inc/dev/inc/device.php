@@ -13,7 +13,7 @@ add_action( 'dev-info-panel', function() {
         'version' => '???'
     ];
 
-    $ua = $_SERVER['HTTP_USER_AGENT'];
+    $ua = (string) ( $_SERVER['HTTP_USER_AGENT'] ?? '' );
 
     // get platform
     if ( preg_match('/linux/i', $ua ) && preg_match('/x11/i', $ua ) ) $platform = 'Linux';
@@ -74,16 +74,16 @@ add_action( 'dev-info-panel', function() {
     <div id="device-info" class="hidden">
         <?php if ( $browser['name'] ) : ?>
             <span title="<?php _e( 'Browser', 'dev' ) ?>" data-copy="">
-                <?php printf( __( '%s v%s', 'dev' ), $browser['name'], $browser['version'] ) ?>
+                <?php echo esc_html( sprintf( __( '%s v%s', 'dev' ), $browser['name'], $browser['version'] ) ) ?>
             </span>
         <?php endif; ?>
         <?php if ( $platform ) : ?>
             <span title="<?php _e( 'OS', 'dev' ) ?>" data-copy="">
-                <?php echo $platform ?>
+                <?php echo esc_html( $platform ) ?>
             </span>
         <?php endif; ?>
         <span title="<?php _e( 'Device assumption', 'dev' ) ?>" data-copy="">
-            <?php echo $device ?>
+            <?php echo esc_html( $device ) ?>
         </span>
     </div>
 

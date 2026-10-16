@@ -1,8 +1,8 @@
 /**
  * File navigation.js.
  *
- * Handles toggling the navigation menu for small screens and enables TAB key
- * navigation support for dropdown menus.
+ * Handles toggling the navigation menu for small screens.
+ * Dropdown menus (keyboard/touch) are project-specific, e.g. via `:focus-within`.
  */
 (function() {
 
@@ -10,7 +10,7 @@
 
 	// remove the .toggled class and set aria-expanded to false
 	// when the user clicks outside the navigation
-	document.addEventListener( 'click', function( event ) {
+	document.addEventListener( 'click', function( e ) {
 		let isAnchor = e.target.closest( 'a' );
 		isAnchor = isAnchor && isAnchor.hash && isAnchor.pathname === window.location.pathname;
 
@@ -18,6 +18,14 @@
 			&& (!$siteNavigation.contains( e.target ) || isAnchor) ) {
 			$button.dispatchEvent( new Event( 'click' ) );
 		}
+	} );
+
+	// close the menu on escape and return focus to the toggle button
+	document.addEventListener( 'keydown', function( e ) {
+		if ( e.key !== 'Escape' || !$button || $button.getAttribute( 'aria-expanded' ) !== 'true' ) return;
+
+		$button.dispatchEvent( new Event( 'click' ) );
+		$button.focus();
 	} );
 
 	Behaviours.add( 'navigation', $context => {
@@ -49,52 +57,10 @@
 			document.documentElement.style.overflow = expand ? 'hidden' : '';
 		} );
 
-		// get all the link elements within the menu
-		const $links = $menu.getElementsByTagName( 'a' );
-
-		// get all the link elements with children within the menu
-		const $linksWithChildren = $menu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
-
-		for ( const $link of $links ) {
+		// menu links in button blocks get the button link class
+		for ( const $link of $menu.getElementsByTagName( 'a' ) ) {
 			if ( $link.closest( '.wp-block-button' ) )
 				$link.classList.add( 'wp-block-button__link' );
-
-			// toggle focus each time a menu link is focused or blurred.
-			$link.addEventListener( 'focus', toggleFocus, true );
-			$link.addEventListener( 'blur', toggleFocus, true );
-		}
-
-		// toggle focus each time a menu link with children receive a touch event
-		for ( const $link of $linksWithChildren ) {
-			$link.addEventListener( 'touchstart', toggleFocus, false );
-		}
-
-		/**
-		 * Sets or removes .focus class on an element.
-		 */
-		function toggleFocus( e ) {
-			if ( e.type === 'focus' || e.type === 'blur' ) {
-				let $self = this;
-				// Move up through the ancestors of the current link until we hit .nav-menu.
-				while ( ! $self.classList.contains( 'nav-menu' ) ) {
-					// On li elements toggle the class .focus.
-					if ( 'li' === $self.tagName.toLowerCase() ) {
-						$self.classList.toggle( 'focus' );
-					}
-					$self = $self.parentNode;
-				}
-			}
-
-			if ( e.type === 'touchstart' ) {
-				const $menuItem = this.parentNode;
-				e.preventDefault();
-				for ( const $link of $menuItem.parentNode.children ) {
-					if ( $menuItem !== $link ) {
-						$link.classList.remove( 'focus' );
-					}
-				}
-				$menuItem.classList.toggle( 'focus' );
-			}
 		}
 	} );
 

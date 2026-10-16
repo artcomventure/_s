@@ -5,17 +5,17 @@
  */
 add_action( 'init', function() {
 	// automatically load dependencies and version
-	$asset_file = include(DOTLOTTIE_DIRECTORY . '/inc/block/build/block.asset.php');
+	$asset_file = include(UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY . '/inc/block/build/block.asset.php');
 	$asset_file['dependencies'][] = 'dotlottie-wc';
 
 	wp_register_script(
 		'dotlottie-be-js',
-		DOTLOTTIE_DIRECTORY_URI . '/inc/block/build/block.js',
+		UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY_URI . '/inc/block/build/block.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'dotlottie-be-js', 'dotlottie', DOTLOTTIE_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'dotlottie-be-js', 'dotlottie', UTLTS_JS_LIBS_DOTLOTTIEWC_DIRECTORY . '/languages' );
 
 	register_block_type( 'dotlottie/wc', array(
 		'editor_script' => 'dotlottie-be-js'

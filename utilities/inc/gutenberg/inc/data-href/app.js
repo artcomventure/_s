@@ -19,7 +19,7 @@ Behaviours.add( 'links:data-href', $context => {
             // FYI: no need to get link's `href` attributes right away.
             // `toString()` function will handle that.
             if ( match[1] === 'first' ) dataHref = $a[0];
-            else if ( match[1] === 'last' ) dataHref = $a[a.length - 1];
+            else if ( match[1] === 'last' ) dataHref = $a[$a.length - 1];
             else if ( !isNaN( match[1] ) ) dataHref = $a[match[1] * 1 - 1];
             // no found
             else dataHref = '';
@@ -72,9 +72,11 @@ Behaviours.add( 'links:data-href', $context => {
                 return;
             }
 
-            if ( typeof pjax !== 'undefined' && isInternalUrl( dataHref ) ) {
+            if ( typeof pjax !== 'undefined' && utlts.isInternalUrl( dataHref ) ) {
                 const $tmp = document.createElement( 'div' );
-                $tmp.innerHTML = `<a href="${dataHref}"></a>`;
+                const $a = document.createElement( 'a' );
+                $a.href = dataHref; // no HTML parsing of attribute value
+                $tmp.appendChild( $a );
                 // _pjax-valid_ URL!?
                 if ( $tmp.querySelector( pjax.options.elements ) )
                     return pjax.loadUrl( dataHref );
@@ -84,7 +86,8 @@ Behaviours.add( 'links:data-href', $context => {
         }, false );
 
         $link.addEventListener( 'keydown', e => {
-            if ( e.key !== 'Enter' ) return;
+            // `$link` itself only (nested links handle their own Enter)
+            if ( e.key !== 'Enter' || e.target !== $link ) return;
             $link.dispatchEvent( new Event( 'click' ) );
         }, false );
     } )

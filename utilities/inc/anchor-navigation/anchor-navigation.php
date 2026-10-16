@@ -1,18 +1,18 @@
 <?php
 
-define( 'ANCHOR_NAVIGATION_DIRECTORY', dirname( __FILE__ ) );
-define( 'ANCHOR_NAVIGATION_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/anchor-navigation' );
+define( 'UTLTS_ANCHORNAVIGATION_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_ANCHORNAVIGATION_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/anchor-navigation' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-	load_theme_textdomain( 'anchor-navigation', ANCHOR_NAVIGATION_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'anchor-navigation', UTLTS_ANCHORNAVIGATION_DIRECTORY . '/languages' );
 } );
 
 /**
  * Register scripts and styles.
  */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_script( 'anchor-navigation', ANCHOR_NAVIGATION_DIRECTORY_URI . '/app.js', ['behaviours'], false, true );
+	wp_enqueue_script( 'anchor-navigation', UTLTS_ANCHORNAVIGATION_DIRECTORY_URI . '/app.js', ['behaviours'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 } );
 
 /**
@@ -31,7 +31,7 @@ function get_anchor_navigation( string $post_content ): string {
 		do_action( 'prepend_anchor_navigation', $anchors );
 
 		foreach ( $anchors as $slug => $label ) {
-			$output .= sprintf( '<a class="no-pjax" href="#%s">%s</a>',
+			$output .= sprintf( '<a href="#%s">%s</a>',
 				esc_attr( $slug ), esc_html( $label ) );
 		}
 
@@ -88,7 +88,7 @@ add_filter( 'render_block', function( string $block_content, array $block, WP_Bl
 		!str_contains( $block['attrs']['className'] ?? '', 'no-anchor' )
 		&& preg_match('/ id=["\']([^"\']+)["\']/', $block['innerHTML'], $matches )
 	) {
-		$block_content = str_replace( $matches[0], ' id="' . sanitize_title( $matches[1] )  . '" aria-label="' . esc_attr( $matches[1] ) . '"', $block_content );
+		$block_content = str_replace( $matches[0], ' id="' . sanitize_title( $matches[1] )  . '"', $block_content );
 	}
 
 	return $block_content;

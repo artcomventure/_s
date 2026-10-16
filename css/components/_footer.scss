@@ -1,6 +1,46 @@
 .site-footer {
+  display: flow-root;
+
   &--content {
     @extend %container-content;
+  }
+
+  // fixed footer
+  @at-root {
+    body {
+      margin-bottom: var(--colophon-height, 0px);
+      position: relative;
+      z-index: 1;
+
+      .site-main {
+        @each $name, $color in $colors {
+          &:has(> article.has-#{$name}-background-color) {
+            @extend %bgcolor-#{$name};
+          }
+        }
+      }
+
+      & {
+        .site-main, .site-main > article {
+          background-color: var(--color-white);
+        }
+
+        @each $name, $color in $colors {
+          &.has-#{$name}-background-color {
+            .site-main, .site-main > article {
+              @extend %bgcolor-#{$name};
+            }
+          }
+        }
+      }
+    }
+
+    .site-footer {
+      position: fixed;
+      z-index: -1;
+      bottom: 0;
+      width: 100%;
+    }
   }
 
   &:has(&--content:empty) {

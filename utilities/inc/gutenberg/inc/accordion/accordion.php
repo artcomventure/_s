@@ -1,11 +1,11 @@
 <?php
 
-define( 'ACCORDION_DIRECTORY', dirname( __FILE__ ) );
-define( 'ACCORDION_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/accordion' );
+define( 'UTLTS_GUTENBERG_ACCORDION_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI', UTLTS_GUTENBERG_DIRECTORY_URI . '/inc/accordion' );
 
 // t9n
 add_action( 'after_setup_theme', function() {
-	load_theme_textdomain( 'accordion', ACCORDION_DIRECTORY . '/languages' );
+	load_theme_textdomain( 'accordion', UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/languages' );
 } );
 
 // switch between WP' and our custom accordion block
@@ -37,8 +37,8 @@ else add_action( 'enqueue_block_editor_assets', function() {
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_style('accordion-style', ACCORDION_DIRECTORY_URI . '/css/style.css', [], false, 'async' );
-	wp_enqueue_script('accordion-app', ACCORDION_DIRECTORY_URI . '/js/app.js', [], false, true );
+	wp_enqueue_style('accordion-style', UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/css/style.css', [], false, 'async' );
+	wp_enqueue_script('accordion-app', UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/js/app.js', ['behaviours', 'helpers'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 }, 9 );
 
 /**
@@ -47,22 +47,22 @@ add_action( 'wp_enqueue_scripts', function() {
 add_action( 'init', 'register_accordion' );
 function register_accordion() {
 	// automatically load dependencies and version
-	$asset_file = include(ACCORDION_DIRECTORY . '/build/block.asset.php');
+	$asset_file = include(UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/build/block.asset.php');
 
 	wp_register_script(
 		'accordion-be-js',
-		ACCORDION_DIRECTORY_URI . '/build/block.js',
+		UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/build/block.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'accordion-be-js', 'accordion', ACCORDION_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'accordion-be-js', 'accordion', UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/languages' );
 
     wp_register_style(
         'accordion-be-css',
-        ACCORDION_DIRECTORY_URI . '/css/gutenberg.css',
+        UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/css/gutenberg.css',
         array(),
-        filemtime(ACCORDION_DIRECTORY . '/css/gutenberg.css')
+        filemtime(UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/css/gutenberg.css')
     );
 
 	register_block_type( 'accordion/block', array(

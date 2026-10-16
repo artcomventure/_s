@@ -10,8 +10,8 @@
 global $more;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( $args['post_class'] ?? '' ); ?>
-	<?php echo (!$more && is_post_publicly_viewable()) ? 'data-href="' . get_permalink() . '"' : '' ?>>
+<article <?php post_class( $args['post_class'] ?? '' ); ?>
+	<?php echo (!$more && is_post_publicly_viewable()) ? 'data-href="' . esc_url( get_permalink() ) . '"' : '' ?>>
 	<?php // don't include header if `<h1>` title block is already added to content
 	if ( !$more || !hasH1( parse_blocks( $post->post_content ) ) ) : ?>
         <header <?php header_class( 'entry-header' ) ?>>
@@ -63,4 +63,4 @@ global $more;
 	<footer class="entry-footer"><?php
         _s_entry_footer();
     ?></footer><!-- .entry-footer -->
-</article><!-- #post-<?php the_ID(); ?> -->
+</article><!-- .post-<?php the_ID(); ?> -->

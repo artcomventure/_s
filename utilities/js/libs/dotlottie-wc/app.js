@@ -1,28 +1,30 @@
-import { DotLottie } from '@lottiefiles/dotlottie-wc';
+import { DotLottie, setWasmUrl } from '@lottiefiles/dotlottie-wc';
+
+// load the WASM file locally instead of from the library's CDN (URL set in `dotlottie-wc.php`)
+if ( window.dotlottieWasmUrl ) setWasmUrl( window.dotlottieWasmUrl );
 
 (function() {
 
   const io = new IntersectionObserver( entries => {
     entries.forEach( entry => {
-      if ( entry.target.parentElement ) {
-        if ( !entry.isIntersecting ) return;
+      // check if element is connected to the `document`
+      if ( !entry.target.isConnected ) return io.unobserve( entry.target );
+      if ( !entry.isIntersecting || !entry.target.hasAttribute( 'data-src' ) ) return;
 
-        if ( entry.target.hasAttribute( 'data-src' ) ) {
-          // make sure dotlottie is ready before setting the src attribute
-          const src = entry.target.getAttribute( 'data-src' );
-          entry.target.removeAttribute( 'data-src' );
-          // constantly checking status
-          (function setSrc() {
-            if ( !entry.target.parentElement ) return;
+      // make sure dotlottie is ready before setting the src attribute
+      const src = entry.target.getAttribute( 'data-src' );
+      entry.target.removeAttribute( 'data-src' );
+      // lazy loading done
+      io.unobserve( entry.target );
 
-            if ( entry.target.dotLottie?.isReady )
-              entry.target.setAttribute( 'src', src );
-            else requestAnimationFrame( setSrc )
-          })()
-        }
-      }
+      // constantly checking status
+      (function setSrc() {
+        if ( !entry.target.isConnected ) return;
 
-      io.observe( entry.target )
+        if ( entry.target.dotLottie?.isReady )
+          entry.target.setAttribute( 'src', src );
+        else requestAnimationFrame( setSrc )
+      })()
     } )
   }, { threshold: [0,1] } )
 
@@ -32,7 +34,7 @@ import { DotLottie } from '@lottiefiles/dotlottie-wc';
       // 'load' event is not triggered :/ this is the workaround
       // set right animations dimensions to canvas
       (function setDimensions() {
-        if ( !$dotlottie.parentElement ) return;
+        if ( !$dotlottie.isConnected ) return;
 
         if ( $dotlottie.dotLottie?.isLoaded ) {
           const size = $dotlottie.dotLottie.animationSize()

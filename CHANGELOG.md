@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.21.0 - 2026-10-10
+Code review. See `THEME/UPGRADE-1.21.md` before updating existing projects.
+
+**Changed**
+
+* PHP directory constants renamed to `UTLTS_…_DIRECTORY(_URI)` (see upgrade guide).
+* Frontend scripts loaded with `defer`; missing script dependencies added (see upgrade guide).
+* Accordion icon always turns clockwise (keyframes instead of transition; in `THEME/utilities/inc/gutenberg/inc/accordion/`).
+
+**Added**
+
+* JS helpers namespace `utlts` (old global names kept as aliases).
+* Upgrade guide (in `THEME/UPGRADE-1.21.md`).
+* Dev info panel: repository name with link (remote `origin`), `.git` fallback to theme root (in `THEME/utilities/inc/dev/inc/git.php`).
+* Script to check project code for `defer` issues (in `THEME/utilities/bin/check-defer.php`).
+* Fallback site icon with initials of the site name, if no site icon is set (in `THEME/utilities/inc/site-icon.php`).
+
+**Fixed**
+
+* Security hardening (various).
+* Accessibility: focus management, screen reader output, accordion, navigation.
+* Performance: fewer remote requests, queries and file checks per request.
+* Various bugs in PHP and JS.
+
 ## 1.20.12 - 2026-10-05
 **Added**
 

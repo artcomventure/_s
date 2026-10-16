@@ -1,5 +1,5 @@
 /**
- * Alter v1.0.0
+ * Alter v1.1.0
  * https://gist.github.com/enoks/a336e8db4594737a98d8bd2c3783c2d6
  *
  * Let variables be altered.
@@ -14,6 +14,11 @@
  */
 
 // Changelog:
+//
+// 1.1.0 - 2026-10-10
+// Priorities sorted numerically (negative and float priorities).
+// Callbacks compared by reference (like `addEventListener()`), not by source code:
+// `add()` no longer removes other callbacks with the same code, `remove()` removes the given callback only.
 //
 // 1.0.0 - 2023-08-19
 // Init.
@@ -31,12 +36,12 @@
          */
         add: function ( hook, callback , priority = 10) {
             if ( typeof callback === 'function' ) {
-                this.remove( hook, callback );
-
                 if ( !callbacks[hook] ) callbacks[hook] = {};
                 if ( !callbacks[hook][priority] ) callbacks[hook][priority] = [];
 
-                callbacks[hook][priority].push( callback );
+                // like `addEventListener()`: the same callback is added once
+                if ( !callbacks[hook][priority].includes( callback ) )
+                    callbacks[hook][priority].push( callback );
             }
 
             return this;
@@ -47,12 +52,9 @@
          * @param {function} callback
          */
         remove: function( hook, callback ) {
+            // like `removeEventListener()`: the given callback (by reference) only
             if ( !!callbacks[hook] ) Object.keys( callbacks[hook] ).forEach( priority => {
-                callbacks[hook][priority].forEach( ( func, i ) => {
-                    if ( func.toString() === callback.toString() ) {
-                        delete callbacks[hook][priority][i];
-                    }
-                } )
+                callbacks[hook][priority] = callbacks[hook][priority].filter( func => func !== callback );
             } );
 
             return this;
@@ -67,9 +69,9 @@
             if ( !!callbacks[hook] ) {
                 const params = Object.values( arguments ).slice(2);
 
-                // sort by priority and loop through callbacks
-                Object.values( Object.fromEntries( Object.entries( callbacks[hook] ).sort() ) ).forEach( $callbacks => {
-                    $callbacks.forEach( $callback => {
+                // sort by priority (numerically) and loop through callbacks
+                Object.keys( callbacks[hook] ).sort( ( a, b ) => a - b ).forEach( priority => {
+                    callbacks[hook][priority].forEach( $callback => {
                         variable = $callback.apply( null, [...[variable], ...params] );
                     } )
                 } )

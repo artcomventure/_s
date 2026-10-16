@@ -1,7 +1,7 @@
 <?php
 
-define( 'TABLESORT_DIRECTORY', dirname( __FILE__ ) );
-define( 'TABLESORT_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/js/libs/tablesort' );
+define( 'UTLTS_JS_LIBS_TABLESORT_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_JS_LIBS_TABLESORT_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/js/libs/tablesort' );
 define( 'TABLESORT_VERSION', '5.6.0' );
 
 /**
@@ -9,7 +9,7 @@ define( 'TABLESORT_VERSION', '5.6.0' );
  * To enqueue sorts add "tablesort-{PLUGIN_NAME}" to _your_ dependencies.
  */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'tablesort', TABLESORT_DIRECTORY_URI . '/module/tablesort.js', [], TABLESORT_VERSION, true );
+	wp_register_script( 'tablesort', UTLTS_JS_LIBS_TABLESORT_DIRECTORY_URI . '/module/tablesort.js', [], TABLESORT_VERSION, ['in_footer' => true, 'strategy' => 'defer'] );
 
 	$sorts = [
 		'date',
@@ -20,7 +20,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	];
 
 	foreach ( $sorts as $sort ) {
-		wp_register_script( "tablesort-$sort", TABLESORT_DIRECTORY_URI . "/module/sorts/tablesort.$sort.js", ['tablesort'], TABLESORT_VERSION, true );
+		wp_register_script( "tablesort-$sort", UTLTS_JS_LIBS_TABLESORT_DIRECTORY_URI . "/module/sorts/tablesort.$sort.js", ['tablesort'], TABLESORT_VERSION, ['in_footer' => true, 'strategy' => 'defer'] );
 	}
 
 	wp_register_script( 'tablesort-all', false, array_map( function( $sort ) {

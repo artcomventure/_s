@@ -1,5 +1,7 @@
 <?php
 
+return;
+
 // disable responsive image sizes
 add_filter( 'intermediate_image_sizes_advanced', function( $sizes ) {
 	unset( $sizes['medium_large'] );

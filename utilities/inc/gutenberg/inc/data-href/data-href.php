@@ -1,10 +1,10 @@
 <?php
 
-define( 'DATAHREF_DIRECTORY', dirname( __FILE__ ) );
-define( 'DATAHREF_DIRECTORY_URI', GUTENBERG_DIRECTORY_URI . '/inc/data-href' );
+define( 'UTLTS_GUTENBERG_DATAHREF_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_GUTENBERG_DATAHREF_DIRECTORY_URI', UTLTS_GUTENBERG_DIRECTORY_URI . '/inc/data-href' );
 
 add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_script('data-href-app', DATAHREF_DIRECTORY_URI . '/app.js', [], false, true );
+	wp_enqueue_script('data-href-app', UTLTS_GUTENBERG_DATAHREF_DIRECTORY_URI . '/app.js', ['behaviours', 'external-links'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 } );
 
 /**
@@ -12,20 +12,20 @@ add_action( 'wp_enqueue_scripts', function() {
  */
 add_action( 'init', function() {
 	// automatically load dependencies and version
-	$asset_file = include( DATAHREF_DIRECTORY . '/build/attribute.asset.php' );
+	$asset_file = include( UTLTS_GUTENBERG_DATAHREF_DIRECTORY . '/build/attribute.asset.php' );
 
 	wp_register_script(
 		'data-href-attribute-be-js',
-		DATAHREF_DIRECTORY_URI . '/build/attribute.js',
+		UTLTS_GUTENBERG_DATAHREF_DIRECTORY_URI . '/build/attribute.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'data-href-attribute-be-js', 'data-href', DATAHREF_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'data-href-attribute-be-js', 'data-href', UTLTS_GUTENBERG_DATAHREF_DIRECTORY . '/languages' );
 
 	wp_register_style(
 		'data-href-attribute-be-css',
-		DATAHREF_DIRECTORY_URI . '/css/gutenberg.attribute.css'
+		UTLTS_GUTENBERG_DATAHREF_DIRECTORY_URI . '/css/gutenberg.attribute.css'
 	);
 
 	register_block_type( 'data-href/attribute', array(

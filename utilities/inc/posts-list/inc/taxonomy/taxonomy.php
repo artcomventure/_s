@@ -1,5 +1,10 @@
 <?php
 
+add_filter( 'register_list_taxonomy', function( $post_types ) {
+	$post_types[] = 'post';
+	return $post_types;
+} );
+
 /**
  * Register post type taxonomy for lists.
  */
@@ -24,12 +29,6 @@ add_action( 'init', function() {
 		] );
 } );
 
-// suppress event filters for event lists.
-add_filter( 'suppress_event_filter', function( $suppress, $query ) {
-	if ( $query->is_tax( 'event_list' ) ) return true;
-	return $suppress;
-}, 10, 2 );
-
 /**
  * Get ordered event posts of certain list.
  *
@@ -46,6 +45,8 @@ function get_list_posts( int|WP_Term $list, int $limit = -1 ): array {
 	return (new WP_Query( [
 		'post_type' => preg_replace( '/_list$/', '', $list->taxonomy ),
 		'posts_per_page' => $limit,
+		// triggers manual list order (see `inc/query.php`)
+		'orderby' => 'menu_order title',
 		'tax_query' => [[
 			'taxonomy' => $list->taxonomy,
 			'terms' => $list->term_id
@@ -54,4 +55,4 @@ function get_list_posts( int|WP_Term $list, int $limit = -1 ): array {
 }
 
 // auto include files
-auto_include_files( POSTS_LIST_DIRECTORY . '/inc/taxonomy/inc' );
+auto_include_files( UTLTS_POSTSLIST_DIRECTORY . '/inc/taxonomy/inc' );

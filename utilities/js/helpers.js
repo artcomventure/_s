@@ -1,3 +1,6 @@
+// namespace for utilities' helpers (load order of the files isn't guaranteed)
+window.utlts = window.utlts || {};
+
 /**
  * Make sure `global-styles` are removed.
  * See `THEME/inc/gutenberg/gutenberg.php` "remove _unneeded_ CSS"
@@ -17,10 +20,10 @@
   const resizeObserver = new ResizeObserver( ( entries ) =>
       entries.forEach( ( entry ) => {
         // element doesn't exist anymore
-        if ( !entry.target.parentElement ) return resizeObserver.unobserve( entry.target );
+        if ( !entry.target.isConnected ) return resizeObserver.unobserve( entry.target );
 
         // set scrollbar width
-        if ( entry.target === document.body && $scrollBarTester && $scrollBarTester.parentElement )
+        if ( entry.target === document.body && $scrollBarTester && $scrollBarTester.isConnected )
           return document.documentElement.style.setProperty(
               '--scrollbar-width',
               `${$scrollBarTester.offsetWidth - $scrollBarTester.clientWidth}px`
@@ -70,7 +73,7 @@
  * @param $element
  * @returns {string|undefined}
  */
-const getBackgroundColor = $element => {
+utlts.getBackgroundColor = $element => {
   let color;
 
   if ( !!$element && !!$element.classList ) $element.classList.forEach( ( className ) => {
@@ -88,7 +91,7 @@ const getBackgroundColor = $element => {
  */
 (function() {
   const isMobileDevice = document.body.classList.contains( 'mobile-device' );
-  window.isMobileDevice = () => isMobileDevice;
+  utlts.isMobileDevice = () => isMobileDevice;
 })();
 
 /**
@@ -97,7 +100,7 @@ const getBackgroundColor = $element => {
  *
  * @since 1.20.5
  */
-function isTouchDevice() {
+utlts.isTouchDevice = () => {
   return matchMedia( '(pointer: coarse)' ).matches
       && !matchMedia( '(hover: hover)' ).matches;
 }
@@ -108,7 +111,7 @@ function isTouchDevice() {
  *
  * @since 1.20.5
  */
-function isNotTouchDevice() {
+utlts.isNotTouchDevice = () => {
   return matchMedia( '(pointer: fine)' ).matches
       && matchMedia( '(hover: hover)' ).matches;
 }
@@ -126,10 +129,16 @@ function isNotTouchDevice() {
     else if (dir < 0) dir = 'up';
     else dir = '';
 
-    document.documentElement.classList.remove( 'scroll-dir--down', 'scroll-dir--up' );
-    if ( dir ) document.documentElement.classList.add( `scroll-dir--${dir}` );
-
     lastScrollY = window.scrollY;
+
+    // change classes on direction change only: each change recalculates the styles of the whole page
+    // (compare with the actual classes, pjax replaces them on navigation)
+    const $html = document.documentElement;
+    const current = ['down', 'up'].find( dir => $html.classList.contains( `scroll-dir--${dir}` ) ) || '';
+    if ( dir === current ) return;
+
+    $html.classList.remove( 'scroll-dir--down', 'scroll-dir--up' );
+    if ( dir ) $html.classList.add( `scroll-dir--${dir}` );
   } )
 
 })();
@@ -141,7 +150,7 @@ function isNotTouchDevice() {
  * @param {string} prefix
  * @returns {string}
  */
-const uuid = ( length, prefix ) => {
+utlts.uuid = ( length, prefix ) => {
   length = Math.abs(parseInt( length ) ) || 8
   if ( !(prefix = (prefix || '').toString().replace( /^[^a-zA-Z]*/, '' )) )
     prefix = 'id'
@@ -152,7 +161,12 @@ const uuid = ( length, prefix ) => {
   while ( id.length < length )
     id += chars.charAt( Math.floor(Math.random() * chars.length ) );
 
+  id = `${prefix}-${id}`;
+
   // make sure ID has not yet been assigned
-  if ( document.getElementById( id ) ) return uuid( length, prefix )
-  return `${prefix}-${id}`;
+  if ( document.getElementById( id ) ) return utlts.uuid( length, prefix )
+  return id;
 }
+
+// deprecated global names (as `window` properties, not `const`: no clash with other scripts) – use `utlts.*`
+['getBackgroundColor', 'isMobileDevice', 'isTouchDevice', 'isNotTouchDevice', 'uuid'].forEach( name => window[name] = utlts[name] );

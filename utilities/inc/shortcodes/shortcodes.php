@@ -1,7 +1,7 @@
 <?php
 
-define( 'UTILITIES_SHORTCODES_DIRECTORY', dirname( __FILE__ ) );
-const UTILITIES_SHORTCODES_DIRECTORY_URI = UTILITIES_DIRECTORY_URI . '/inc/shortcodes';
+define( 'UTLTS_SHORTCODES_DIRECTORY', dirname( __FILE__ ) );
+const UTLTS_SHORTCODES_DIRECTORY_URI = UTLTS_DIRECTORY_URI . '/inc/shortcodes';
 
 // enable shortcodes for titles
 add_filter( 'the_title', 'do_shortcode', 11 );
@@ -77,4 +77,4 @@ if ( !function_exists( 'strip_shortcode_tags' ) ) {
 }
 
 // auto include
-auto_include_files( UTILITIES_SHORTCODES_DIRECTORY );
+auto_include_files( UTLTS_SHORTCODES_DIRECTORY );

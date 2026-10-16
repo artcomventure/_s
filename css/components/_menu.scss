@@ -1,0 +1,40 @@
+.menu {
+  &-toggle {}
+
+  & { // icon links
+    li[class*="icont-"] {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      @include media-breakpoint-up(375px){ white-space: nowrap;}
+
+      &:before {
+        font-size: 1.5em;
+        width: 1em;
+        text-align: center;
+        margin-right: .5em;
+      }
+
+      > a:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+
+      &.icon-only {
+        &:before {
+          font-size: rem(32px);
+          margin-right: 0;
+        }
+
+        a {
+          font-size: 0;
+          position: absolute;
+          inset: 0;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

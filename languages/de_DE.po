@@ -204,6 +204,10 @@ msgctxt "Font size name"
 msgid "Heading 6"
 msgstr "Überschrift 6"
 
+#: 404.php:35
+msgid "404 — The page was not found."
+msgstr "404 — Die Seite wurde nicht gefunden."
+
 #: 404.php:42
 msgid "Back to home"
 msgstr "Zurück zur Startseite"

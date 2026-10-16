@@ -1,7 +1,7 @@
 <?php
 
-define( 'FEATURED_IMAGES_DIRECTORY', dirname( __FILE__ ) );
-define( 'FEATURED_IMAGES_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/featured-images' );
+define( 'UTLTS_FEATUREDIMAGES_DIRECTORY', dirname( __FILE__ ) );
+define( 'UTLTS_FEATUREDIMAGES_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/featured-images' );
 
 //add_action( 'customize_register', function( $wp_customize ) {
 //	$wp_customize->add_setting( 'multiple-featured-images', array(
@@ -23,16 +23,16 @@ define( 'FEATURED_IMAGES_DIRECTORY_URI', UTILITIES_DIRECTORY_URI . '/inc/feature
  */
 add_action( 'init', function() {
 	// automatically load dependencies and version
-	$asset_file = include(FEATURED_IMAGES_DIRECTORY . '/build/block.asset.php');
+	$asset_file = include(UTLTS_FEATUREDIMAGES_DIRECTORY . '/build/block.asset.php');
 
 	wp_register_script(
 		'featured-images-be-js',
-		FEATURED_IMAGES_DIRECTORY_URI . '/build/block.js',
+		UTLTS_FEATUREDIMAGES_DIRECTORY_URI . '/build/block.js',
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
 
-	wp_set_script_translations( 'featured-images-be-js', 'featured-images', FEATURED_IMAGES_DIRECTORY . '/languages' );
+	wp_set_script_translations( 'featured-images-be-js', 'featured-images', UTLTS_FEATUREDIMAGES_DIRECTORY . '/languages' );
 
 	register_block_type( 'featured-images/block', array(
 		'editor_script' => 'featured-images-be-js'

@@ -13,15 +13,7 @@ add_action( 'login_head', function() {
 
 	$ratio = ( $width && $height ) ? 'aspect-ratio: ' . (int) $width . ' / ' . (int) $height . '; height: auto;' : '';
 
-	echo '<style>' . minify_css( "
-		.login h1 a {
-			background-image: url(" . esc_url( $url ) . ");
-			background-size: contain;
-			width: auto;
-			max-width: 100%;
-			{$ratio}
-		}
-	" ) . '</style>';
+	echo '<style>.login h1 a { background-image: url(' . esc_url( $url ) . "); background-size: contain; width: auto; max-width: 100%; $ratio }</style>";
 } );
 
 add_filter( 'login_headerurl', function() { return home_url(); } );

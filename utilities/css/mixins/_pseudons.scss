@@ -32,6 +32,8 @@
 
   @extend %icon;
   content: $icon !important;
+  // empty alternative text: screen readers skip the icon (older browsers ignore this line and keep the one above)
+  content: $icon unquote('/ ""') !important;
   font-family: $font !important;
   @content;
 }

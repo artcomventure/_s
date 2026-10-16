@@ -71,8 +71,8 @@ add_action( 'admin_enqueue_scripts', function() {
 
 	if ( $pagenow != 'plugins.php' ) return;
 
-	wp_enqueue_script( 'utilities-updates', SECURITY_DIRECTORY_URI . '/inc/updates/app.js', [], false, true );
-	wp_enqueue_style( 'utilities-updates', SECURITY_DIRECTORY_URI . '/inc/updates/style.css' );
+	wp_enqueue_script( 'utilities-updates', UTLTS_SECURITY_DIRECTORY_URI . '/inc/updates/app.js', [], false, true );
+	wp_enqueue_style( 'utilities-updates', UTLTS_SECURITY_DIRECTORY_URI . '/inc/updates/style.css' );
 } );
 
 /**
