@@ -14,7 +14,7 @@ Code review. See `THEME/UPGRADE-1.21.md` before updating existing projects.
 * JS helpers namespace `utlts` (old global names kept as aliases).
 * Upgrade guide (in `THEME/UPGRADE-1.21.md`).
 * Dev info panel: repository name with link (remote `origin`), `.git` fallback to theme root (in `THEME/utilities/inc/dev/inc/git.php`).
-* Script to check project code for `defer` issues (in `THEME/utilities/bin/check-defer.php`).
+* Upgrade tools, run from the boilerplate, not copied into projects (in `THEME/bin/`): `check-defer.php` (project code vs. `defer`), `smoke-test.mjs` (browser: JS/PHP errors, failed requests, `defer`, pjax), `admin-cookies.php` (backend smoke test).
 * Fallback site icon with initials of the site name, if no site icon is set (in `THEME/utilities/inc/site-icon.php`).
 
 **Fixed**

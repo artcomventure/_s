@@ -3,8 +3,8 @@
 /**
  * Finds code that may break since utilities' scripts are loaded with `defer` (1.21).
  *
- * Usage (WordPress container, WP root):
- * `wp eval-file wp-content/themes/THEME/utilities/bin/check-defer.php --allow-root`
+ * Usage (in the project's `docker/`; script piped in from the boilerplate, needs utilities ≥ 1.21 in the project):
+ * `docker-compose exec -T wordpress wp eval-file - --path=/var/www/html --allow-root < ~/Develop/wordpress/wp-content/themes/_s/bin/check-defer.php`
  *
  * Heuristic: reports usages of utilities' globals, not whether they run immediately.
  * Usage inside `Behaviours.add()`/`DOMContentLoaded` callbacks is fine.
@@ -13,6 +13,7 @@
  */
 
 if ( !defined( 'WP_CLI' ) ) exit;
+if ( !function_exists( 'get_local_asset_path' ) ) WP_CLI::error( 'Project utilities are older than 1.21 – update them first.' );
 
 // global (regex) => handle providing it
 $globals = [

@@ -87,7 +87,7 @@ Alle Frontend-Scripts aus `utilities/` (inkl. registrierter Libs wie `gsap`, `ta
 
 - **Kann brechen:** Inline-`<script>` in Templates/Inhalten, die sofort auf `Behaviours`, `Alter`, `utlts`, `BREAKPOINTS`, `gsap` o. Ä. zugreifen → läuft jetzt vor der Library. Code in `document.addEventListener( 'DOMContentLoaded', … )` packen oder in eine Script-Datei mit Abhängigkeit verschieben.
 - **Wirkt sonst nicht:** Hängt ein Projekt-Script ohne Strategie von einem Utilities-Script ab (z. B. `functions.php` → `behaviours`), setzt WordPress die ganze Kette stillschweigend auf blockierend zurück. Projekt-Scripts ebenfalls mit `['in_footer' => true, 'strategy' => 'defer']` einbinden (Boilerplate `functions.php` ist angepasst) und fehlende Abhängigkeiten ergänzen (z. B. `css-breakpoints`, wenn `BREAKPOINTS` genutzt wird).
-- **Prüf-Script** (nach dem Kopieren von `utilities/`, im WordPress-Container): `wp eval-file wp-content/themes/THEME/utilities/bin/check-defer.php --allow-root`. Meldet fehlende Abhängigkeiten, blockierende Projekt-Scripts und Inline-Scripts (Theme-PHP, Beiträge), die Utilities-Globals nutzen. Heuristik: Nutzung in `Behaviours.add()`-/`DOMContentLoaded`-Callbacks ist unkritisch, wird aber mitgemeldet.
+- **Prüf-Script** (nach dem Kopieren von `utilities/`, im `docker/` des Projekts, Script aus dem Boilerplate): `docker-compose exec -T wordpress wp eval-file - --path=/var/www/html --allow-root < ~/Develop/wordpress/wp-content/themes/_s/bin/check-defer.php`. Meldet fehlende Abhängigkeiten, blockierende Projekt-Scripts und Inline-Scripts (Theme-PHP, Beiträge), die Utilities-Globals nutzen. Heuristik: Nutzung in `Behaviours.add()`-/`DOMContentLoaded`-Callbacks ist unkritisch, wird aber mitgemeldet.
 - **Prüfen:** Im Seitenquelltext ohne `defer` = zurückgestuft: `curl -s URL | grep -o '<script[^>]*src=[^>]*>' | grep -v ' defer '`. Danach wichtige Seiten mit offener Konsole durchklicken.
 
 ## 2. Außerhalb von `utilities/` mitziehen
@@ -137,10 +137,13 @@ Diese Dateien liegen auf der ersten Ebene und werden beim Kopieren von `utilitie
 
 ## 4. Abnahme nach dem Kopieren
 
+Mit Claude Code: Skill `utilities-upgrade` („Testen“) führt die Prüfbefehle aus Abschnitt 1 und die Scripts aus `bin/` des Boilerplates aus und berichtet (ändert nichts). Einzeln: `bin/check-defer.php` (per stdin in den Container, s. o.), `bin/smoke-test.mjs` (Host, Node + Chrome; Backend mit `--cookies` aus `bin/admin-cookies.php`). Die Scripts bleiben im Boilerplate und kommen nicht ins Projekt.
+
+- [ ] `check-defer.php` ohne offene Treffer (siehe „Scripts laden mit `defer`“).
 - [ ] Startseite, eine Inhaltsseite, ein Archiv, Suche und 404 laden ohne PHP-Warnungen (`wp-content/debug.log`) und ohne JS-Fehler (Konsole).
 - [ ] Optischer Vergleich vorher/nachher, besonders ohne pjax (Reihenfolge des Block-CSS) und Fokus-Rahmen an der `h1` nach pjax-Wechsel.
 - [ ] pjax-Navigation (falls aktiv): mehrere Wechsel, Zurück/Vorwärts, Hash-Link auf andere Seite.
-- [ ] Accordion: Auf-/Zuklappen per Klick, Enter und Leertaste; Darstellung (Pfeil, offener Zustand).
+- [ ] Accordion: Auf-/Zuklappen per Klick, Enter und Leertaste; Darstellung (Pfeil, offener Zustand); Pfeil dreht beim Öffnen und Schließen im Uhrzeigersinn, nicht beim Laden.
 - [ ] Contact Form 7: Formular mit URL als Erfolgsmeldung leitet weiter, eines ohne URL zeigt die Meldung.
 - [ ] Videos: YouTube/Vimeo mit Cookie-Wall, selbst gehostetes Video als Player.
 - [ ] dotlottie-Animationen laufen (Netzwerk-Tab: `.wasm` mit Status 200 und `application/wasm`).
