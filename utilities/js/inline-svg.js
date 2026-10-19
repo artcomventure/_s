@@ -42,12 +42,16 @@ Behaviours.add( 'media:inline-svg', function( $context ) {
                     // set classNames
                     else if ( attribute.name === 'class' )
                         $image.classList.forEach( ( className ) => $svg.classList.add( className ) );
-                    else if ( attribute.name === 'alt' ) {
+                    else if ( attribute.name === 'alt' && attribute.value ) {
                         $svg.setAttribute( 'aria-label', attribute.value );
                     }
                     // set all other attributes
                     else $svg.setAttribute( attribute.name, attribute.value );
                 } );
+
+                // no alt → no aria-label → decorative
+                if ( !$svg.hasAttribute( 'aria-label' ) )
+                    $svg.setAttribute( 'aria-hidden', 'true' );
 
                 $svg.setAttribute( 'role', 'img' );
                 $svg.setAttribute( 'preserveAspectRatio', 'xMidYMid' );
