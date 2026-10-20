@@ -6,7 +6,7 @@
  */
 (function() {
 
-	let $siteNavigation, $button;
+	let $header, $siteNavigation, $button;
 
 	// remove the .toggled class and set aria-expanded to false
 	// when the user clicks outside the navigation
@@ -34,6 +34,8 @@
 
 		$siteNavigation = $context.querySelector( '#site-navigation' );
 		if ( ! $siteNavigation ) return $button = undefined;
+
+		$header = $siteNavigation.closest( '#masthead' );
 
 		// toggle button
 		$button = $siteNavigation.getElementsByTagName( 'button' )[ 0 ];
