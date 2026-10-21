@@ -36,7 +36,7 @@ window.addEventListener( 'swiper:afterInit', e => {
             let slidesPerView = originalSlidesPerView;
             ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'].some( ( size, i) => {
                 if ( !BREAKPOINTS.down( size ) ) return;
-                slidesPerView = ++i;
+                slidesPerView = i + 1;
                 return true;
             } );
 

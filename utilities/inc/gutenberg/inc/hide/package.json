@@ -3,8 +3,8 @@
     "watch": "wp-scripts start & npm run watch:scss",
     "build": "wp-scripts build & npm run build:scss",
 
-    "watch:scss": "node-sass --include-path scss ./css/ -o ./css/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build:scss": "node-sass ./css/ -o ./css/ --output-style compressed",
+    "watch:scss": "node ../../../../bin/build-css.mjs css --watch",
+    "build:scss": "node ../../../../bin/build-css.mjs css",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/hide.pot --domain=hide --exclude=src,node_modules,**/*.min.* --package-name='Utilities Gutenberg hide blocks'",

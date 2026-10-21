@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls } from '@wordpress/block-editor';
-import { BaseControl, Button, CheckboxControl, ComboboxControl, Flex, FlexBlock, FlexItem, Icon, PanelBody, SelectControl, TextControl, ToggleControl,
+import { BaseControl, Button, ComboboxControl, Flex, FlexBlock, PanelBody, SelectControl, TextControl, ToggleControl,
   __experimentalNumberControl as NumberControl,
   __experimentalToggleGroupControl as ToggleGroupControl,
   __experimentalToggleGroupControlOption as ToggleGroupControlOption
@@ -194,12 +194,12 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
               } }
             />
 
-            { !!posts.length && <BaseControl label={ __( 'Show specific %s', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.name : __( 'Posts' ) ) }>
+            { !!posts.length && <BaseControl label={ __( 'Show specific %s', 'posts-list' ).replace( '%s', post_type_object.labels ? post_type_object.labels.name : __( 'Posts' ) ) }>
               { post__in.map( ( post_id, i ) => <Flex gap={ 0 }>
                 <FlexBlock><ComboboxControl
                   value={ post_id }
                   options={ posts }
-                  placeholder={ __( 'Search for %s to tease …', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
+                  placeholder={ __( 'Search for %s to tease …', 'posts-list' ).replace( '%s', post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
                   onChange={ post_id => {
                     if ( post_id === null ) post__in.splice( i, 1 )
                     else post__in[i] = post_id
@@ -245,7 +245,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                     setAttributes( { post__in: postIn } )
                   } }
               >
-                { __( 'add %s', 'posts-list' ).replace( '%s', !!post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
+                { __( 'add %s', 'posts-list' ).replace( '%s', post_type_object.labels ? post_type_object.labels.singular_name : __( 'Post' ) ) }
               </Button>
             </BaseControl> }
 
@@ -264,7 +264,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                     return (<ToggleGroupControl
                       label={ term.name }
                       isDeselectable
-                      value={ !!filter[taxonomy]
+                      value={ filter[taxonomy]
                         ? (!!filter[taxonomy]['IN'] && filter[taxonomy]['IN'].indexOf( term.id ) >= 0
                             ? 'IN' : (!!filter[taxonomy]['NOT IN'] && filter[taxonomy]['NOT IN'].indexOf( term.id ) >= 0
                                 ? 'NOT IN' : ''
@@ -272,7 +272,7 @@ const PostsListBlock = ( { post_types, posts, taxonomies, attributes, setAttribu
                         ) : '' }
                       onChange={ operator => {
                         // remove term from filter
-                        if ( !!filter[taxonomy] ) ['IN', 'NOT IN'].forEach( operator => {
+                        if ( filter[taxonomy] ) ['IN', 'NOT IN'].forEach( operator => {
                           if ( !filter[taxonomy][operator] ) return;
                           const index = filter[taxonomy][operator].indexOf( term.id )
                           if ( index >= 0 ) delete filter[taxonomy][operator][index]

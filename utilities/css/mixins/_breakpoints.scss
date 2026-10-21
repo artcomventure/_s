@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "sass:meta";
 /**
  * Get numeric breakpoints by key from `$breakpoints`.
  *
@@ -8,12 +10,12 @@
 
 @function breakpoint ( $breakpoint ) {
   // try to get breakpoint by key (`$breakpoint`) from `$breakpoints`
-  @if variable-exists( breakpoints ) and map-get( $breakpoints, $breakpoint ) {
-    $breakpoint: map-get($breakpoints, $breakpoint);
+  @if meta.variable-exists( breakpoints ) and map.get( $breakpoints, $breakpoint ) {
+    $breakpoint: map.get($breakpoints, $breakpoint);
   }
 
   // check if `$breakpoint` is numeric
-  @if type-of( $breakpoint ) == 'number' {
+  @if meta.type-of( $breakpoint ) == 'number' {
     @return $breakpoint;
   }
 

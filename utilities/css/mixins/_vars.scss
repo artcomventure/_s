@@ -1,3 +1,4 @@
+@use "sass:meta";
 @mixin vars {
   @each $name, $color in $colors {
     --color-#{$name}: #{$color};
@@ -12,7 +13,7 @@
     --wp--preset--spacing--#{$name}: #{$value};
   }
 
-  @if variable-exists( fontSizes ) {
+  @if meta.variable-exists( fontSizes ) {
     @each $name, $size in $fontSizes {
       &, .is-root-container {
         --wp--preset--font-size--#{$name}: #{$size};

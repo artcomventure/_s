@@ -1,5 +1,34 @@
 # Changelog
 
+## 2.0.0 - 2026-10-21
+Build switch (esbuild, Dart Sass, ESLint, Stylelint, TypeScript). See `THEME/UPGRADE-2.0.md` before updating existing projects.
+
+**Changed**
+
+* JS build: Babel → esbuild, `NAME.js`/`NAME.ts` → `NAME.min.js`, target es2017 instead of ES5 (in `THEME/utilities/bin/build-js.mjs`); all `package.json` files switched.
+* SCSS build: node-sass → Dart Sass (in `THEME/utilities/bin/build-css.mjs`); all `package.json` files switched. Built-in functions as modules (`map.get`, `math.div`, …), `@import` stays until the `@use` migration.
+* Buttons with style "Fill" and a background color: hover/active text in the button color (was black; `@extend` specificity under node-sass).
+* `npm run build` lints first (`prebuild`) and stops on errors (theme and `THEME/utilities/`).
+* Node 24 required (`THEME/.nvmrc`, `engines` in `THEME/package.json`).
+
+**Added**
+
+* ESLint (`@eslint/js` recommended; in `THEME/eslint.config.mjs` and `THEME/utilities/eslint.config.mjs`), Stylelint (`stylelint-config-recommended-scss`; in `THEME/stylelint.config.mjs` and `THEME/utilities/stylelint.config.mjs`) and TypeScript type checking (`THEME/tsconfig.json`, globals in `THEME/js/globals.d.ts`): `npm run lint`.
+* TypeScript example (in `THEME/js/example.ts`).
+* Autoprefixer in the SCSS build, targets in `THEME/.browserslistrc`.
+* Upgrade guide (in `THEME/UPGRADE-2.0.md`) and migration script, run from the boilerplate (in `THEME/bin/migrate-build.mjs`).
+
+**Removed**
+
+* Babel (`@babel/cli`, `@babel/core`, `@babel/preset-env`, `babel-preset-minify`), node-sass, `postcss-cli`.
+
+**Fixed**
+
+* Featured images editor script bundled CSSLint by a stray import (133 → 3.6 KB; in `THEME/utilities/inc/featured-images/`).
+* Missing `createElement` imports (featured images, hide), unused imports and variables, `hasOwnProperty` calls (lint findings in `THEME/utilities/`).
+* Icont icon codes under Dart Sass (`\f1` escape in `THEME/css/_variables.scss`).
+* Deprecated/unknown CSS properties (`word-wrap`, `grid-gap`, `clip`, unprefixed `font-smoothing`) and duplicate keyframe selectors (stylelint findings).
+
 ## 1.21.0 - 2026-10-10
 Code review. See `THEME/UPGRADE-1.21.md` before updating existing projects.
 

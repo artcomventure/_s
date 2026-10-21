@@ -1,3 +1,4 @@
+@use "sass:map";
 .site {
   &-main {
     min-height: calc(100svh - var(--masthead-height) - var(--colophon-height));
@@ -44,7 +45,7 @@
   }
 
   > .wp-block-cover__inner-container {
-    --width-max: #{map-get($breakpoints, content)};
+    --width-max: #{map.get($breakpoints, content)};
     margin-right: auto !important;
     margin-left: auto !important;
   }
@@ -53,7 +54,7 @@
 .entry-content,
 .alignfull {
   > * {
-    @if map-has-key($breakpoints, wide) {
+    @if map.has-key($breakpoints, wide) {
       &.alignwide {
         @extend %container-wide;
       }
@@ -129,7 +130,7 @@
 .gallery {
   margin-bottom: 1.5em;
   display: grid;
-  grid-gap: 1.5em;
+  gap: 1.5em;
 
   &-item {
     display: inline-block;
@@ -259,7 +260,7 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
     ~ .site-title,
     ~ .site-description {
       position: absolute;
-      clip: rect(1px, 1px, 1px, 1px);
+      clip-path: inset(50%);
     }
   }
 }
@@ -331,7 +332,7 @@ button, .wp-block-button__link, .wp-element-button, [type="submit"] {
   }
 }
 
-@if map-has-key($breakpoints, wide) {
+@if map.has-key($breakpoints, wide) {
   %alignwide {
     @extend %width-wide;
   }

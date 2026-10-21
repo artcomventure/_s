@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "../../../css/variables";
 @import "../../css/base";
 
@@ -57,7 +58,7 @@ button {
     > *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
       @extend %container-content;
 
-      @if map-has-key($breakpoints, wide) {
+      @if map.has-key($breakpoints, wide) {
         &.alignwide {
           @extend %container-wide;
         }

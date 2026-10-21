@@ -3,8 +3,8 @@
     "watch": "npm run security:watch & npm run updates:watch",
     "build": "npm run security:build & npm run updates:build",
 
-    "security:watch": "node-sass ./style.scss -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "security:build": "node-sass ./style.scss -o ./ --output-style compressed",
+    "security:watch": "node ../../bin/build-css.mjs style.scss --watch",
+    "security:build": "node ../../bin/build-css.mjs style.scss",
 
     "security:i18n:pot": "wp i18n make-pot ./ languages/security.pot --domain=security --exclude=src,node_modules,**/*.min.* --subtract=../../../languages/_s.pot --package-name=Security",
     "security:i18n:po": "wp i18n update-po languages/security.pot languages",

@@ -1,12 +1,12 @@
 {
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
-    "watch:scss": "node-sass . -o . --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "watch:js": "babel . -d . --out-file-extension .min.js --source-maps --ignore=./**/*.min.js --presets=@babel/preset-env --watch",
+    "watch:scss": "node ../../bin/build-css.mjs . --watch",
+    "watch:js": "node ../../bin/build-js.mjs . --watch",
 
     "build": "npm-run-all --parallel build:*",
-    "build:scss": "node-sass . -o . --output-style compressed",
-    "build:js": "babel . -d . --out-file-extension .min.js --no-comments --ignore=./**/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+    "build:scss": "node ../../bin/build-css.mjs .",
+    "build:js": "node ../../bin/build-js.mjs .",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot ./ languages/file-drop.pot --domain=file-drop --exclude=src,node_modules,js/**/*.min.* --package-name='File Drop'",

@@ -1,4 +1,4 @@
-import { DotLottie, setWasmUrl } from '@lottiefiles/dotlottie-wc';
+import { setWasmUrl } from '@lottiefiles/dotlottie-wc';
 
 // load the WASM file locally instead of from the library's CDN (URL set in `dotlottie-wc.php`)
 if ( window.dotlottieWasmUrl ) setWasmUrl( window.dotlottieWasmUrl );

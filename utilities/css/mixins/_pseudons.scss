@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
 /**
  * Pseudo element icons.
  *
@@ -18,22 +21,21 @@
   text-transform: none;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   text-rendering: auto;
   vertical-align: middle;
 }
 
 @mixin icon($icon: "", $font: '') {
-  @if $font == '' and variable_exists( 'Icont' ) and map-get($Icont, $icon) {
+  @if $font == '' and meta.variable_exists( 'Icont' ) and map.get($Icont, $icon) {
     $font: Icont;
-    $icon: map-get($Icont, $icon);
+    $icon: map.get($Icont, $icon);
   }
 
   @extend %icon;
   content: $icon !important;
   // empty alternative text: screen readers skip the icon (older browsers ignore this line and keep the one above)
-  content: $icon unquote('/ ""') !important;
+  content: $icon string.unquote('/ ""') !important;
   font-family: $font !important;
   @content;
 }

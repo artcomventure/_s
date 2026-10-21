@@ -64,7 +64,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
 
         const [aspectRatioX, aspectRatioY] = (aspectRatio || '/').split( '/' )
 
-        const [ _focalPoint, setFocalPoint ] = useState( focalPoint );
+        const [ , setFocalPoint ] = useState( focalPoint );
 
         const disabled = width && width !== 'auto' && height;
 
@@ -166,11 +166,8 @@ addFilter(
             } = attributes;
 
             if ( aspectRatio ) {
-                // custom `width` and `height` is set
-                // ... so `aspect-ratio` is overruled
-                if ( width && width !== 'auto' && height ) {}
-                // center is default
-                else if ( focalPoint.x !== .5 || focalPoint.y !== .5 ) {
+                // custom `width` and `height` overrule `aspect-ratio`; center is default
+                if ( !( width && width !== 'auto' && height ) && ( focalPoint.x !== .5 || focalPoint.y !== .5 ) ) {
                     extraProps = {
                         ...extraProps,
                         'data-object-position': `${ focalPoint.x * 100 }% ${ focalPoint.y * 100 }%`,

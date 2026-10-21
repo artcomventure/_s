@@ -1,6 +1,6 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
-import { Fragment } from '@wordpress/element';
+import { createElement, Fragment } from '@wordpress/element';
 import { InspectorAdvancedControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import { createHigherOrderComponent, compose, withState } from '@wordpress/compose';
@@ -103,7 +103,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
                         <PanelBody className="hide-settings">
                             <ToggleControl
                                 label={ __( 'Hide on mobile', 'hide' ) }
-                                help={ !!BREAKPOINTS.mobile
+                                help={ BREAKPOINTS.mobile
                                     ? sprintf( __( '%dpx width and narrower', 'hide' ), BREAKPOINTS.mobile ) : '' }
                                 checked={ hideOnMobile }
                                 onChange={ hideOnMobile => {
@@ -133,7 +133,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
                             />
                             <ToggleControl
                                 label={ __( 'Hide on desktop', 'hide' ) }
-                                help={ !!BREAKPOINTS.desktop
+                                help={ BREAKPOINTS.desktop
                                     ? sprintf( __( '%dpx width and wider', 'hide' ), BREAKPOINTS.desktop ) : '' }
                                 checked={ hideOnDesktop }
                                 onChange={ hideOnDesktop => {

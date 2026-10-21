@@ -1,8 +1,7 @@
-import { dispatch } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
 import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { __, _n } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { lineDashed } from '@wordpress/icons';
 
 // remove template panel

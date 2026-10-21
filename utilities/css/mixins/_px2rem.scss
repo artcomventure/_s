@@ -1,8 +1,11 @@
+@use "sass:math";
+@use "sass:meta";
+
 // Convert `px` value to type `rem`.
 
 @function rem( $size ) {
-  @if unit($size) == px {
-    $size: $size / if(variable_exists( 'rpx' ), $rpx, 16px) * 1rem;
+  @if math.unit($size) == px {
+    $size: math.div($size, if(sass(meta.variable_exists( 'rpx' )): $rpx; else: 16px)) * 1rem;
   }
 
   @return $size;

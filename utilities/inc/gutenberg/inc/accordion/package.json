@@ -3,11 +3,11 @@
     "watch": "wp-scripts start src/block.js & npm run watch:scss & npm run watch:js",
     "build": "wp-scripts build src/block.js & npm run build:scss & npm run build:js",
 
-    "watch:scss": "node-sass --include-path scss ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build:scss": "node-sass ./ -o ./ --output-style compressed",
+    "watch:scss": "node ../../../../bin/build-css.mjs . --watch",
+    "build:scss": "node ../../../../bin/build-css.mjs .",
 
-    "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore=js/**/*.min.js --presets=@babel/preset-env --watch",
-    "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore=js/*.min.js --presets=@babel/preset-env,babel-preset-minify",
+    "watch:js": "node ../../../../bin/build-js.mjs js --watch",
+    "build:js": "node ../../../../bin/build-js.mjs js",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/accordion.pot --domain=accordion --exclude=src,node_modules,**/*.min.* --subtract=../../../../../languages/rebirth.pot --package-name=Accordion",

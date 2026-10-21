@@ -50,15 +50,21 @@ _s/
 npm install
 npm run watch   # SCSS + JS (watch mode) + BrowserSync
 npm run build   # SCSS + JS für Produktion (minifiziert)
+npm run lint    # ESLint (js/) + Typprüfung (tsc --noEmit, js/**/*.ts) + Stylelint (css/)
 ```
+
+- JS/TS: `NAME.js` bzw. `NAME.ts` → `NAME.min.js` via esbuild (`utilities/bin/build-js.mjs`, Target es2017, kein Bundling).
+- SCSS: Dart Sass + Autoprefixer (Ziele in `.browserslistrc`) via `utilities/bin/build-css.mjs` (Build komprimiert, Watch mit Source Maps). `@import` bleibt bis zur `@use`-Umstellung (Warnung stummgeschaltet); neue Built-in-Aufrufe als Modul (`map.get`, `math.div`, `@use "sass:…"`). `sass` ist exakt gepinnt (1.106.0 stürzt bei `[attr=""]` ab).
+- Node **24** (`.nvmrc`, `engines`). `.npmrc` setzt `legacy-peer-deps` (wp-scripts 26 will ESLint 8).
 
 ### Utilities (eigener Build-Prozess)
 
 ```bash
 # in _s/utilities/
 npm install
-npm run watch   # Alle Utilities-Module im watch mode
-npm run build   # Alle Utilities-Module für Produktion
+npm run watch   # utilities/js + css (watch mode)
+npm run build   # utilities/js + css (vorher Lint aller Utilities)
+npm run lint    # ESLint + Stylelint für ganz utilities/ (eigene Configs, Vendor-Code ausgenommen)
 ```
 
 Der Utilities-Build umfasst u.a. eigene Sub-Module:

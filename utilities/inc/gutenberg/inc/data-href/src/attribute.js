@@ -5,7 +5,7 @@ import {
     InspectorAdvancedControls,
     __experimentalLinkControl as LinkControl
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import { PanelBody } from "@wordpress/components";
 import { createHigherOrderComponent } from '@wordpress/compose';
 
 // restrict to specific block names
@@ -54,8 +54,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         } = props;
 
         const {
-            link,
-            opensInNewTab
+            link
         } = attributes;
 
         return (
@@ -100,7 +99,7 @@ function applyAttribute( extraProps, blockType, attributes ) {
         extraProps['data-href'] = link.url;
         extraProps['role'] = 'link';
         extraProps['tabindex'] = 0;
-        if ( !!link.opensInNewTab ) extraProps['target'] = '_blank';
+        if ( link.opensInNewTab ) extraProps['target'] = '_blank';
     }
 
     return extraProps;

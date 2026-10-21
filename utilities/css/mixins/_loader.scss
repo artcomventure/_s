@@ -23,8 +23,8 @@
     content: "";
 
     position: absolute;
-    top: calc(50% - (#{$size} + #{$border} * 2) / 2);
-    left: calc(50% - (#{$size} + #{$border} * 2) / 2);
+    top: calc(50% - ($size + $border * 2) / 2);
+    left: calc(50% - ($size + $border * 2) / 2);
 
     display: block;
     width: $size;

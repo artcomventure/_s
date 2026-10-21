@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "sass:color";
+
 .post-edit-link {
   opacity: 0;
   animation-fill-mode: both;
@@ -22,7 +25,6 @@
     text-transform: none;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     text-rendering: auto;
 
@@ -36,36 +38,41 @@
     vertical-align: top;
   }
 
-  @if variable-exists(font-color-hyperlink-hover) {
+  @if meta.variable-exists(font-color-hyperlink-hover) {
     &:hover:after {
-      background-color: lighten(#000, 35%) !important;
+      background-color: color.adjust(#000, $lightness: 35%, $space: hsl) !important;
     }
   }
 
+  $bounce-timing: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+
   @keyframes bounce-appear {
-    from, 20%, 40%, 60%, 80%, to {
-      animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
     0% {
       opacity: 0;
       transform: scale3d(.3, .3, .3);
+      animation-timing-function: $bounce-timing;
     }
     20% {
       transform: scale3d(1.1, 1.1, 1.1);
+      animation-timing-function: $bounce-timing;
     }
     40% {
       transform: scale3d(.9, .9, .9);
+      animation-timing-function: $bounce-timing;
     }
     60% {
       opacity: 1;
       transform: scale3d(1.03, 1.03, 1.03);
+      animation-timing-function: $bounce-timing;
     }
     80% {
       transform: scale3d(.97, .97, .97);
+      animation-timing-function: $bounce-timing;
     }
     to {
       opacity: 1;
       transform: scale3d(1, 1, 1);
+      animation-timing-function: $bounce-timing;
     }
   }
 
@@ -82,7 +89,6 @@
 
   span {
     border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
     height: 1px;
     margin: -1px;
@@ -90,7 +96,7 @@
     padding: 0;
     position: absolute !important;
     width: 1px;
-    word-wrap: normal !important;
+    overflow-wrap: normal !important;
   }
 
   // unfortunately this doesn't work in pjax links :/

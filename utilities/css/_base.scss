@@ -1,3 +1,8 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:color";
+
 // ---
 // Functions.
 
@@ -31,7 +36,7 @@
 
 %container {
   box-sizing: border-box;
-  max-width: MIN(calc(100% - #{fluid($spacing-min * 2, $spacing-max * 2)}), var(--width-max, 100%));
+  max-width: MIN(calc(100% - (fluid($spacing-min * 2, $spacing-max * 2))), var(--width-max, 100%));
   margin-right: auto;
   margin-left: auto;
 }
@@ -49,28 +54,28 @@
 }
 
 @mixin bgcolor($name) {
-  $name: quote($name);
-  $color: map-get($colors, $name);
+  $name: string.quote($name);
+  $color: map.get($colors, $name);
 
-  background-color: var(--color-#{unquote($name)});
+  background-color: var(--color-#{string.unquote($name)});
 
   svg {
     fill: currentColor;
   }
 
   // auto light color on dark backgrounds
-  @if type-of($color) == color {
-    @if lightness($color) < $lightness-threshold {
+  @if meta.type-of($color) == color {
+    @if color.channel($color, 'lightness', $space: hsl) < $lightness-threshold {
       --color-copy: var(--color-light, #fff);
       --color-heading: var(--color-light, #fff);
       --color-hyperlink: var(--color-light, #fff);
       color: var(--color-light, #fff);
     }
     @else {
-      --color-copy: #{map-get($colors, copy)};
-      --color-heading: #{map-get($colors, copy)};
-      --color-hyperlink: #{map-get($colors, copy)};
-      color: #{map-get($colors, copy)};
+      --color-copy: #{map.get($colors, copy)};
+      --color-heading: #{map.get($colors, copy)};
+      --color-hyperlink: #{map.get($colors, copy)};
+      color: #{map.get($colors, copy)};
     }
   }
 }

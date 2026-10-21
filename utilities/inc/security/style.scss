@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../../css/mixins/pseudons";
 
 #security_widget {
@@ -35,8 +36,8 @@
       // randomize animation
       @for $i from 2 through 10 {
         &:nth-child(#{$i}) .postbox-header > h3:before {
-          animation-duration: random(1000)/1000 + 1 + s; // 1-2 seconds
-          animation-delay: random(2000)/1000 + s; // 0-2 seconds
+          animation-duration: math.random(1000) * 0.001 + 1 + s; // 1-2 seconds
+          animation-delay: math.random(2000) * 0.001 + s; // 0-2 seconds
         }
       }
     }

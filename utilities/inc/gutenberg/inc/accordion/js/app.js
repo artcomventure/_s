@@ -26,7 +26,6 @@
             // status
             // state on the header (button)
             const expanded = ( $item ) => $item.firstElementChild.getAttribute( 'aria-expanded' ) === 'true';
-            const collapsed = ( $item ) => !expanded( $item );
 
             const expand = ( $item ) => {
                 $item.firstElementChild.setAttribute( 'aria-expanded', 'true' );
@@ -61,7 +60,7 @@
                     $content.style.maxHeight = `${$content.scrollHeight}px`;
 
                 // nested accordions
-                while ( $item = $item.parentElement.closest( 'div.wp-block-accordion-item' ) )
+                while ( ( $item = $item.parentElement.closest( 'div.wp-block-accordion-item' ) ) )
                     setMaxHeight( $item )
             }
 

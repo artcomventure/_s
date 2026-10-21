@@ -1,12 +1,17 @@
 {
   "scripts": {
     "watch": "npm run watch:scss & npm run watch:js",
-    "watch:scss": "node-sass css -o css --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "watch:js": "babel js -d js --out-file-extension .min.js --source-maps --ignore='js/*/**/*.js,js/*.min.js' --presets=@babel/preset-env --watch",
+    "watch:scss": "node bin/build-css.mjs css --watch",
+    "watch:js": "node bin/build-js.mjs js --watch",
 
+    "prebuild": "npm run lint",
     "build": "npm run build:scss & npm run build:js",
-    "build:scss": "node-sass css -o css --output-style compressed",
-    "build:js": "babel js -d js --out-file-extension .min.js --no-comments --ignore='js/*/**/*.js,js/*.min.js' --presets=@babel/preset-env,babel-preset-minify",
+    "build:scss": "node bin/build-css.mjs css",
+    "build:js": "node bin/build-js.mjs js",
+
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"**/*.scss\"",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/utilities.pot --domain=utilities --exclude=src,dotlottie-wc,video.js,node_modules,**/*.min.* --subtract=../languages/_s.pot --package-name=Utilities",

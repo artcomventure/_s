@@ -3,11 +3,11 @@
     "watch": "wp-scripts start & npm-run-all --parallel watch:*",
     "build": "wp-scripts build & npm-run-all --parallel build:*",
 
-    "watch:scss": "node-sass --include-path scss ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build:scss": "node-sass ./ -o ./ --output-style compressed",
+    "watch:scss": "node ../../../../bin/build-css.mjs . --watch",
+    "build:scss": "node ../../../../bin/build-css.mjs .",
 
-    "watch:js": "babel app.js -o app.min.js --source-maps --presets=@babel/preset-env --watch",
-    "build:js": "babel app.js -o app.min.js --no-comments --presets=@babel/preset-env,babel-preset-minify",
+    "watch:js": "node ../../../../bin/build-js.mjs app.js --watch",
+    "build:js": "node ../../../../bin/build-js.mjs app.js",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/aspect-ratio.pot --domain=aspect-ratio --exclude=src,node_modules,**/*.min.* --package-name='Aspect ratio'",

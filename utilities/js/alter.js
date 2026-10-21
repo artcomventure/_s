@@ -53,7 +53,7 @@
          */
         remove: function( hook, callback ) {
             // like `removeEventListener()`: the given callback (by reference) only
-            if ( !!callbacks[hook] ) Object.keys( callbacks[hook] ).forEach( priority => {
+            if ( callbacks[hook] ) Object.keys( callbacks[hook] ).forEach( priority => {
                 callbacks[hook][priority] = callbacks[hook][priority].filter( func => func !== callback );
             } );
 
@@ -66,7 +66,7 @@
          * Add any number of parameters. They will be passed through.
          */
         do: function ( hook, variable ) {
-            if ( !!callbacks[hook] ) {
+            if ( callbacks[hook] ) {
                 const params = Object.values( arguments ).slice(2);
 
                 // sort by priority (numerically) and loop through callbacks

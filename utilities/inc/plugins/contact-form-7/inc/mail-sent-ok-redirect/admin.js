@@ -1,4 +1,4 @@
-(function( window, document, $, undefined ) {
+(function( window, document, $ ) {
 
     $( '#wpcf7-message-mail-sent-ok' )
         .suggest( mailSentOkRedirect.suggestUrl )

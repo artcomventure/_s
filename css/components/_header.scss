@@ -12,7 +12,7 @@
       transition-property: transform, opacity;
     }
     &.is-togglable {
-      transform: translateY(calc(-100% + #{fluid($spacing-min, 24px)}));
+      transform: translateY(calc(-100% + fluid($spacing-min, 24px)));
       opacity: 0;
 
       &.is-visible {

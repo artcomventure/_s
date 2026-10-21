@@ -3,7 +3,7 @@
     "watch": "wp-scripts start index.js & npm-run-all --parallel watch:*",
     "build": "wp-scripts build index.js & npm-run-all --parallel build:*",
 
-    "watch:scss": "node-sass --include-path scss ./ -o ./ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
-    "build:scss": "node-sass ./ -o ./ --output-style compressed"
+    "watch:scss": "node ../../../../bin/build-css.mjs . --watch",
+    "build:scss": "node ../../../../bin/build-css.mjs ."
   }
 }

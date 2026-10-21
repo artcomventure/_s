@@ -1,3 +1,4 @@
+@use "sass:math";
 /**
  * Calculate `clamp()` values to adjust _size_ (limited to `$min`/`$max`) between `$lower` and `$upper` screen widths.
  *
@@ -28,19 +29,19 @@
 @import "../mixins/breakpoints";
 
 @function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
-  @if unit($min) != unit($max) {
+  @if math.unit($min) != math.unit($max) {
     @warn '$min and $max values must have the same unit.';
     @return $max;
   }
 
   $lower: breakpoint($lower);
-  @if unit($lower) != px {
+  @if math.unit($lower) != px {
     @warn 'Unit of lower screen boundary must be of type px or rem.';
     @return $max;
   }
 
   $upper: breakpoint($upper);
-  @if unit($upper) != px {
+  @if math.unit($upper) != px {
     @warn 'Unit of upper screen boundary must be of type px or rem.';
     @return $max;
   }
@@ -53,5 +54,5 @@
   $lower: strip-unit($lower);
   $upper: strip-unit($upper);
 
-  @return clamp(min($min, $max), calc(#{$min} + #{$max - $min} * (var(--root-width) - #{$lower}) / #{$upper - $lower}), max($min, $max));
+  @return clamp(min($min, $max), calc($min + ($max - $min) * (var(--root-width) - $lower) / ($upper - $lower)), max($min, $max));
 }

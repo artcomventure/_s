@@ -79,7 +79,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
         if ( props.attributes.className ) {
             const match = props.attributes.className.match( new RegExp( `(?:^| )width-([^ $]*)(?: |$)` ) );
             if ( match && match[1] !== breakpoint ) {
-                setAttributes( { breakpoint: !!BREAKPOINTS[match[1]] ? match[1] : '' } )
+                setAttributes( { breakpoint: BREAKPOINTS[match[1]] ? match[1] : '' } )
             }
         }
 

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, MediaUpload, MediaUploadCheck  } from '@wordpress/block-editor';
-import { Button, PanelBody, ToggleControl, SelectControl, __experimentalNumberControl as NumberControl } from "@wordpress/components";
+import { Button, PanelBody, ToggleControl, SelectControl } from "@wordpress/components";
 import { compose, withState } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
@@ -91,7 +91,7 @@ const DotLottieControl = compose( [
   } )
 ] )( DotLottieEdit )
 
-const DotLottieBlock = registerBlockType( 'dotlottie/wc', {
+registerBlockType( 'dotlottie/wc', {
   title: __( 'DotLottie', 'dotlottie' ),
   description: __( 'Web component that allows you to easily embed Lottie animations.', 'dotlottie' ),
   icon: { src: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78.04 78.22">

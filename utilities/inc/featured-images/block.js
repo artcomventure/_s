@@ -1,11 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
-import { Fragment } from '@wordpress/element';
+import { createElement } from '@wordpress/element';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, ResponsiveWrapper, Flex, Spinner } from "@wordpress/components";
-import { createHigherOrderComponent, compose, withState } from '@wordpress/compose';
+import { Button, Flex, Spinner } from "@wordpress/components";
+import { compose, withState } from '@wordpress/compose';
 import { select, useSelect, withSelect, withDispatch } from '@wordpress/data';
-import {position} from "../../../../../../../../wp-includes/js/codemirror/csslint";
 
 window.addEventListener( 'DOMContentLoaded', () => {
     const labels = {

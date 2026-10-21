@@ -39,7 +39,7 @@
                         return console.error( 'No storage name!? This can not work.' );
 
                     // storage with this name already exists!?
-                    if ( !!storages[ arguments[ 1 ] ] )
+                    if ( storages[ arguments[ 1 ] ] )
                         return console.error( 'Storage "' + arguments[ 1 ] + '" already exists.' );
 
                     storages[ arguments[ 1 ] ] = arguments[ 2 ] || {};
@@ -147,7 +147,7 @@
         },
 
         has: function( key ) {
-            return ( localStorage.hasOwnProperty( key ) && !this.is( key, null ) ) || sessionStorage.hasOwnProperty( key );
+            return ( Object.prototype.hasOwnProperty.call( localStorage, key ) && !this.is( key, null ) ) || Object.prototype.hasOwnProperty.call( sessionStorage, key );
         }
     } );
 
@@ -179,7 +179,7 @@
             }
 
             for ( var attribute in attributes ) {
-                if ( !attributes.hasOwnProperty( attribute ) ) continue;
+                if ( !Object.prototype.hasOwnProperty.call( attributes, attribute ) ) continue;
                 cookie.push( attribute + '=' + attributes[ attribute ] );
             }
 

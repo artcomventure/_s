@@ -3,7 +3,7 @@ Behaviours.add( 'video:js', $context => {
     $video.id = $video.id || uuid( 8, 'video' );
     $video.classList.add( 'video-js' )
 
-    const player = videojs( $video, Alter.do( 'videojs:options', {
+    videojs( $video, Alter.do( 'videojs:options', {
       fluid: true,
       responsive: true,
       userActions: {
