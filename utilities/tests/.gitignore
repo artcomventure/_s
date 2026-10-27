@@ -1,0 +1,4 @@
+# generated (see playwright.config.mjs)
+test-results/
+playwright-report/
+visual-snapshots/

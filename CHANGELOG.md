@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.1.0 - 2026-10-27
+**Added**
+
+* Playwright tests (in `THEME/utilities/tests/`).
+  * JS and PHP errors, requests failures, defer, pjax (`smoke.spec.mjs`)
+  * no external requests or cookies before consent (`privacy.spec.mjs`)
+  * title, description, canonical, h1, hreflang, real 404 state, indexability (`seo.spec.mjs`)
+  * broken internal links, redirects (`links.spec.mjs`)
+  * accessibility according to WCAG 2.2 (`a11y.spec.mjs`)
+  * send forms (`mail.spec.mjs`)
+  * screenshot comparison: DEV vs. LIVE/STAGE (`visual.spec.mjs`)
+
+**Changed**
+
+* MailHog to Mailpit.
+* Cache media from `live` (in `THEME/docker/nginx.conf`).
+* Mount `docker/` folder rto `/var/tmp/docker` (in `THEME/docker/docker-compose.yaml`).
+
+**Fixed**
+
+* PHP `mail()` via busybox `sendmail` instead of `mhsendmail` (in `THEME/docker/php.ini`, `THEME/docker/wordpress.dockerfile`).
+* xDebug profiler.
+
 ## 2.0.0 - 2026-10-21
 Build switch (esbuild, Dart Sass, ESLint, Stylelint, TypeScript). See `THEME/UPGRADE-2.0.md` before updating existing projects.
 

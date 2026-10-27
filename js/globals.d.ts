@@ -18,5 +18,6 @@ declare const BREAKPOINTS: {
 	mobile: number;
 	desktop: number;
 };
+declare const wp: { i18n: typeof import( '@wordpress/i18n' ) };
 declare const CCM: { closeWidget(): void };
 declare const doSliders: BehaviourCallback | undefined;

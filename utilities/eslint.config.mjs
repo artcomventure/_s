@@ -1,6 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import js from '@eslint/js';
-import globals from 'globals';
+import base from './eslint.base.mjs';
 
 // wp-scripts sources (ESM + JSX)
 const modules = [
@@ -14,9 +13,8 @@ const modules = [
 ];
 
 export default defineConfig( [
+	base,
 	globalIgnores( [
-		'**/*.min.js',
-		'**/node_modules/',
 		'**/build/',
 		// vendor
 		'**/module/',
@@ -27,19 +25,12 @@ export default defineConfig( [
 	] ),
 	{
 		files: [ '**/*.js' ],
-		extends: [ js.configs.recommended ],
 		languageOptions: {
-			sourceType: 'script',
 			globals: {
-				...globals.browser,
 				// utilities/js
-				Alter: 'readonly',
-				Behaviours: 'readonly',
-				BREAKPOINTS: 'readonly',
 				utlts: 'readonly',
 				uuid: 'readonly',
 				// WordPress
-				wp: 'readonly',
 				jQuery: 'readonly',
 				ajaxurl: 'readonly',
 				mejs: 'readonly',
@@ -61,11 +52,6 @@ export default defineConfig( [
 				videojs: 'readonly',
 			},
 		},
-		// unused params document callback signatures; silent catches are intended
-		rules: {
-			'no-unused-vars': [ 'error', { args: 'none', caughtErrors: 'none' } ],
-			'no-empty': [ 'error', { allowEmptyCatch: true } ],
-		},
 	},
 	{
 		// UMD wrapper
@@ -78,10 +64,5 @@ export default defineConfig( [
 			sourceType: 'module',
 			parserOptions: { ecmaFeatures: { jsx: true } },
 		},
-	},
-	{
-		files: [ '**/*.mjs' ],
-		extends: [ js.configs.recommended ],
-		languageOptions: { globals: globals.node },
 	},
 ] );

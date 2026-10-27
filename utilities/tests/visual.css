@@ -1,0 +1,6 @@
+/* hidden in visual screenshots (see `visual.spec.mjs`) */
+
+/* dev only (see `../inc/dev`) */
+#dev-info-panel {
+	display: none !important;
+}

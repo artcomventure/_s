@@ -21,7 +21,7 @@ services:
       - ${WORDPRESS_ROOT}:/var/www/html
       - db:/var/lib/mysql
       - ./.bashrc:/root/.bashrc
-      - ./:/var/www/html/docker
+      - ./:/var/tmp/docker
     networks:
       - wordpress
 
@@ -70,6 +70,7 @@ services:
       - ${WORDPRESS_ROOT}:/var/www/html
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./profiler:/var/tmp/docker/profiler
       - ./.bashrc:/root/.bashrc
       - ../.git:/var/www/.git:ro
     extra_hosts:
@@ -77,9 +78,9 @@ services:
     networks:
       - wordpress
 
-  mailhog:
-    container_name: ${PROJECT}-mailhog
-    image: mailhog/mailhog
+  mailpit:
+    container_name: ${PROJECT}-mailpit
+    image: axllent/mailpit
     ports:
       - "1025:1025"
       - "8025:8025"

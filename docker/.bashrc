@@ -1,5 +1,5 @@
 # mysql container
-alias importDB="mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /var/www/html/docker/db.sql"
+alias importDB="mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /var/tmp/docker/db.sql"
 
 # wordpress container
 alias ip2dev="wp search-replace 'http://${LOCAL_IP}' '${DEV_URL}' --allow-root"

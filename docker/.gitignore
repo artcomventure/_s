@@ -2,3 +2,4 @@
 .env.local
 docker-compose.*.yaml
 profiler/cachegrind.out.*
+cookies.json

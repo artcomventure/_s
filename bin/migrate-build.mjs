@@ -29,8 +29,16 @@ const boilerplate = resolve( option( 'boilerplate' ) || join( dirname( fileURLTo
 const write = flag( 'write' );
 const theme = args[0] && resolve( args[0] );
 
-if ( !theme || !existsSync( join( theme, 'package.json' ) ) ) {
+if ( !theme ) {
 	console.error( 'Usage: migrate-build.mjs <theme> [--boilerplate <dir>] [--write]' );
+	process.exit( 1 );
+}
+if ( !existsSync( join( theme, 'package.json' ) ) ) {
+	// suggest theme folders below a project root
+	const themes = join( theme, 'wp-content/themes' );
+	const found = existsSync( themes ) ? readdirSync( themes ).filter( dir => existsSync( join( themes, dir, 'utilities' ) ) ) : [];
+	console.error( `No package.json in ${theme} – run it in the theme folder (the one containing utilities/).` );
+	if ( found.length ) console.error( `Found: ${found.map( dir => join( themes, dir ) ).join( ', ' )}` );
 	process.exit( 1 );
 }
 

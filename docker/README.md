@@ -29,7 +29,7 @@ Config see `.env`.
 
 _For manual import see commands in `.bashrc`._
 
-## MailHog
+## Mailpit
 
 - http://localhost:8025
 

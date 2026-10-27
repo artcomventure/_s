@@ -17,7 +17,9 @@
     "node": ">=24"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@wordpress/icons": "^9.37.0",
     "@wordpress/scripts": "^26.17.0",
     "autoprefixer": "^10.6.1",
@@ -52,6 +54,12 @@
     "lint:js": "eslint js",
     "lint:ts": "tsc --noEmit",
     "lint:css": "stylelint \"css/**/*.scss\"",
+
+    "test": "playwright test -c utilities/tests",
+    "test:visual": "TEST_VISUAL=1 playwright test -c utilities/tests",
+    "test:visual:reference": "TEST_ENV=live npm run test:visual -- --update-snapshots=all",
+    "test:visual:reference:stage": "TEST_ENV=stage npm run test:visual -- --update-snapshots=all",
+    "test:report": "playwright show-report utilities/tests/playwright-report",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",
     "i18n:pot": "wp i18n make-pot . languages/_s.pot --merge=languages/_s+.pot --exclude=src,node_modules,**/*.min.*,utilities",

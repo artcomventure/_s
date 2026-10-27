@@ -7,9 +7,9 @@
 
 if ( !isLocal() ) return;
 
-// send all mails to the MailHog service
+// send all mails to the Mailpit service
 add_action( 'phpmailer_init', function ( $phpmailer ) {
-	$phpmailer->Host = 'mailhog';
+	$phpmailer->Host = 'mailpit';
 	$phpmailer->Port = 1025;
 	$phpmailer->From = 'wordpress@localhost.dev';
 	$phpmailer->FromName = 'localhost';

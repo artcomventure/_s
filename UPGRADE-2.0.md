@@ -9,6 +9,34 @@ Major-Version, weil `utilities/` allein nicht reicht: Die Module bauen per `util
 - **SCSS:** node-sass → Dart Sass (`sass`) mit Autoprefixer, Stylelint. `@import` bleibt vorerst (Umstieg auf `@use` ist ein eigenes, späteres Major), alle anderen Deprecations sind behoben.
 - **Node 24** statt 20 (node-sass war der einzige Grund für Node 20).
 
+## Ablauf (Kurzfassung)
+
+| # | Schritt | Wie |
+|---|---|---|
+| 0 | Vorbedingungen | Projekt < 1.21 → erst `UPGRADE-1.21.md`. Node 24 installiert (`nvm install 24`). |
+| 1 | Prüfen | Skill `utilities-upgrade` bzw. Abschnitt 1 – read-only. |
+| 2 | **Kopieren** | `utilities/` komplett aus dem Boilerplate. |
+| 3 | Migrations-Script | `migrate-build.mjs .` (Dry Run), dann `--write` – Abschnitt 2, Schritt 1. |
+| 4 | Installieren | `npm install` **ohne** Paketnamen, mit Node 24. |
+| 5 | Projekt-SCSS | `sass-migrator`-Schleife (Abschnitt 2, Schritt 3), danach `math.div(var(` → `/`, `@use "sass:…"` nach oben. |
+| 6 | Lint | `npm run lint` in Theme und `utilities/`; Globals ergänzen, Code korrigieren. |
+| 7 | Bauen | `npm run build` in Theme, `utilities/` und Projekt-Modulen; ungewollte `build/`-Änderungen zurücksetzen. |
+| 8 | Abnahme | Abschnitt 4. |
+| 9 | **Kopieren** | `CHANGELOG.md` – erst ganz am Ende, sonst gilt das Projekt schon als 2.0 und die Prüfungen werden übersprungen. |
+
+**Macht das Migrations-Script:** fehlende Configs anlegen (`eslint.config.mjs`, `stylelint.config.mjs`, `tsconfig.json`, `js/globals.d.ts`, `.npmrc`, `.nvmrc`, `.browserslistrc`, Configs in `utilities/`), alle `package.json` umstellen (Build-Aufrufe, `lint`/`prebuild`, devDependencies, `engines`) – auch `media/fonts/Icont/package.json`.
+
+**Von Hand ändern:**
+
+| Was | Warum |
+|---|---|
+| `css/_variables.scss`: Icont-Zeile → `"\"\\f1#{dec2hex(…)}\""` | **Sonst sind alle Icons kaputt** (Check `#{\` in Abschnitt 1). |
+| Lint-Funde in Projekt-JS/-SCSS | z. B. `word-wrap` → `overflow-wrap`, ungenutzte Variablen. |
+| Projekt-`.ts`-Dateien | `NAME.min.js` direkt enqueuen (Beispiel `js/example.ts`). |
+| Eigene `.babelrc*`, `babel.config.*`, `postcss.config.*` | löschen, wirken nicht mehr. |
+| `eslint.config.mjs`, `js/globals.d.ts` | Projekt-Globals ergänzen, ungenutzte (`CCM`, `doSliders`) entfernen. |
+| `AGENTS.md` des Projekts | Build-Abschnitt aus dem Boilerplate übernehmen. |
+
 ## 1. Projektcode prüfen (kann brechen)
 
 ### Node 24
