@@ -1,6 +1,6 @@
 # Upgrade auf 2.0: Build-Umstellung (esbuild, Dart Sass, ESLint, Stylelint, TypeScript)
 
-Von 1.21.x auf 2.0.0. **Projekte älter als 1.21:** zuerst [`UPGRADE-1.21.md`](UPGRADE-1.21.md) abarbeiten.
+Von 1.21.x auf 2.0.0. **Projekte älter als 1.21:** zuerst [`UPGRADE-1.21.md`](UPGRADE-1.21.md) abarbeiten oder direkt den Kurzweg [`UPGRADE-FROM-1.20.md`](UPGRADE-FROM-1.20.md).
 Alle Befehle im Projekt-Theme-Ordner (eine Ebene über `utilities/`) ausführen, **vor** dem Kopieren.
 
 Major-Version, weil `utilities/` allein nicht reicht: Die Module bauen per `utilities/bin/build-js.mjs` und `utilities/bin/build-css.mjs` und brauchen esbuild und Dart Sass in den `node_modules` des Themes; das Projekt braucht Node 24, neue Config-Dateien und angepasstes SCSS.

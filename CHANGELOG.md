@@ -14,9 +14,10 @@
 
 **Changed**
 
+* ESLint: shared base for theme and utilities (in `THEME/utilities/eslint.base.mjs`).
 * MailHog to Mailpit.
 * Cache media from `live` (in `THEME/docker/nginx.conf`).
-* Mount `docker/` folder rto `/var/tmp/docker` (in `THEME/docker/docker-compose.yaml`).
+* Mount `docker/` folder to `/var/tmp/docker` (in `THEME/docker/docker-compose.yaml`).
 
 **Fixed**
 
