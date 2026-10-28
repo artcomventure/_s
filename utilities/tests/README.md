@@ -13,17 +13,18 @@ Playwright browser tests: utilities tests (`THEME/utilities/tests/`) and optiona
 
 ```sh
 npm test                                 # against DEV_URL
-TEST_ENV=stage npm test                  # against STAGE_URL (or `live`)
+npm run test:stage                       # against STAGE_URL (no mail tests)
+npm run test:live                        # against LIVE_URL (no mail tests)
 BASE_URL=http://localhost npm test       # explicit URL
 npm test -- smoke.spec.mjs               # single file (any Playwright CLI option after `--`)
 npm run test:report                      # open HTML report
 ```
 
-URLs and test options (e.g. `TEST_PATHS`) come from the nearest `docker/.env` above the theme (`DEV_URL`, `STAGE_URL`, `LIVE_URL`), overridden by `docker/.env.local` and the shell.
+URLs come from the nearest `docker/.env` above the theme (`DEV_URL`, `STAGE_URL`, `LIVE_URL`), test options (e.g. `TEST_PATHS`) from `docker/.env.tests`, both overridden by `docker/.env.local` and the shell.
 
 Tests tagged `@write` change the database and only run against `DEV_URL`.
 
-Options for all page tests (shell or `docker/.env`):
+Options for all page tests (shell or `docker/.env.tests`):
 
 - `TEST_PATHS="/ /blog/ /?s=test /404-check/"` – pages to test (default `/`).
 - `STAGE_AUTH=user:password` – HTTP auth (also `LIVE_AUTH`, `DEV_AUTH`); put it in `docker/.env.local`, not in `.env`.
@@ -100,7 +101,7 @@ Reference screenshots are stored in `visual-snapshots/` next to this README (not
 
 Only meaningful with the same content: import a current `live` DB dump into `dev` first (`importDB`).
 
-Options (shell or `docker/.env`):
+Options (shell or `docker/.env.tests`):
 
 - `VISUAL_PATHS="/ /about/"` – pages to compare (default `TEST_PATHS`).
 - `VISUAL_MASK="video, iframe"` – dynamic elements to cover (default `video, iframe`).

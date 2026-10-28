@@ -3,11 +3,11 @@
  *
  * Usage (in the theme folder, on the host, Google Chrome installed):
  * `npm test` – against `DEV_URL`
- * `TEST_ENV=stage npm test` – against `STAGE_URL` (or `live`)
+ * `npm run test:stage` / `test:live` – against `STAGE_URL` / `LIVE_URL` (`TEST_ENV=stage`)
  * `BASE_URL=http://localhost npm test` – explicit URL
  * `npm run test:visual` – only tests tagged `@visual` (see `visual.spec.mjs`)
  *
- * URLs and test options from `PROJECT/docker/.env`, overridden by `.env.local` and the shell (like docker-compose).
+ * URLs from `PROJECT/docker/.env`, test options from `.env.tests`, overridden by `.env.local` and the shell.
  * Tests tagged `@write` (change the DB) only run against `DEV_URL`.
  * HTTP auth (e.g. stage): `STAGE_AUTH=user:password` in `docker/.env.local`.
  */
@@ -27,7 +27,7 @@ const projectTests = join( theme, 'tests' );
 
 // docker env files incl. `${VAR}` interpolation
 const env = {};
-for ( const file of [ '.env', '.env.local' ] ) {
+for ( const file of [ '.env', '.env.tests', '.env.local' ] ) {
 	if ( !docker || !existsSync( join( docker, file ) ) ) continue;
 	for ( const line of readFileSync( join( docker, file ), 'utf8' ).split( '\n' ) ) {
 		// `KEY="value" # comment` or `KEY=value # comment`

@@ -56,6 +56,8 @@
     "lint:css": "stylelint \"css/**/*.scss\"",
 
     "test": "playwright test -c utilities/tests",
+    "test:live": "TEST_ENV=live npm test",
+    "test:stage": "TEST_ENV=stage npm test",
     "test:visual": "TEST_VISUAL=1 playwright test -c utilities/tests",
     "test:visual:reference": "TEST_ENV=live npm run test:visual -- --update-snapshots=all",
     "test:visual:reference:stage": "TEST_ENV=stage npm run test:visual -- --update-snapshots=all",
