@@ -1,5 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import base from './eslint.base.mjs';
+import base, { localizedGlobals, wordpressGlobals } from './eslint.base.mjs';
 
 // wp-scripts sources (ESM + JSX)
 const modules = [
@@ -27,29 +27,10 @@ export default defineConfig( [
 		files: [ '**/*.js' ],
 		languageOptions: {
 			globals: {
-				// utilities/js
-				utlts: 'readonly',
-				uuid: 'readonly',
-				// WordPress
-				jQuery: 'readonly',
-				ajaxurl: 'readonly',
-				mejs: 'readonly',
-				mejsL10n: 'readonly',
-				_wpmejsSettings: 'readonly',
-				wpcf7: 'readonly',
-				// localized data
-				customSelectVars: 'readonly',
-				gmaps: 'readonly',
-				mailSentOkRedirect: 'readonly',
-				pjax: 'readonly',
+				...wordpressGlobals,
+				...localizedGlobals,
 				// third party
-				autosize: 'readonly',
-				customSelect: 'readonly',
 				google: 'readonly',
-				Odometer: 'readonly',
-				Pjax: 'readonly',
-				ScrollTrigger: 'readonly',
-				videojs: 'readonly',
 			},
 		},
 	},

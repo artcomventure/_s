@@ -1,6 +1,6 @@
 # _s – WordPress Theme Boilerplate
 
-Underscores-Fork von **artcom venture GmbH** als Basis für Kundenprojekte.
+Underscores-Fork von **SMITH** als Basis für Kundenprojekte.
 
 ## Struktur
 
