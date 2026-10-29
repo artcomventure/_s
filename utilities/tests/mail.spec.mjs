@@ -6,7 +6,7 @@
  * `MAIL_DELAY=5` – seconds before submit, spam protection rejects faster forms (default `5`, CF7 honeypot time check: 4).
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const forms = ( process.env.MAIL_FORMS || '' ).split( /\s+/ ).filter( Boolean );
 const mailpit = ( process.env.MAILPIT_URL || 'http://localhost:8025' ).replace( /\/$/, '' );

@@ -11,7 +11,7 @@
  */
 
 import { join } from 'node:path';
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const paths = ( process.env.VISUAL_PATHS || process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );
 const mask = process.env.VISUAL_MASK || 'video, iframe';

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.1.1 - 2026-10-29
+**Added**
+
+* Tests: placeholder `sitemap` in `TEST_PATHS`/`VISUAL_PATHS` – all pages plus one URL per post type from the sitemap (in `THEME/utilities/tests/playwright.config.mjs`).
+* Tests: tracking requests (Matomo, Google Analytics, …) blocked in all tests (in `THEME/utilities/tests/fixtures.mjs`).
+
+**Fixed**
+
+* Posts list: invalid or non-public post types render nothing instead of falling back to posts (in `THEME/utilities/inc/posts-list/inc/shortcode.php`).
+* Slider: `swiper:afterInit` adjustments (responsive `slidesPerView`) also for sliders initialized before the deferred `app.js` ran (in `THEME/js/app.js`).
+* `.vcf` files fetched from `live` (in `THEME/docker/nginx.conf`).
+
 ## 2.1.0 - 2026-10-27
 **Added**
 

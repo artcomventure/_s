@@ -6,7 +6,7 @@
  * `LINKS_EXCLUDE="/wp-admin/ /feed/"` – URL parts to skip (default: `wp-admin`, `wp-login`, `logout`).
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const paths = ( process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );
 const exclude = [ '/wp-admin', '/wp-login', 'logout', ...( process.env.LINKS_EXCLUDE || '' ).split( /\s+/ ).filter( Boolean ) ];

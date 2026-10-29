@@ -37,7 +37,9 @@ function get_posts_list( $attr = [] ) {
 		array_map( 'trim', is_array( $atts['post_type'] ) ? $atts['post_type'] : explode( ',', (string) $atts['post_type'] ) ),
 		get_post_types( ['public' => true] )
 	);
-	$atts['post_type'] = count( $post_types ) > 1 ? array_values( $post_types ) : ( reset( $post_types ) ?: 'post' );
+	// no valid post type: nothing to list
+	if ( !$post_types ) return '';
+	$atts['post_type'] = array_values( $post_types );
 
 	// like WP_Query: -1 = all, invalid/0 = default
 	$atts['posts_per_page'] = (int) $atts['posts_per_page'];

@@ -5,7 +5,8 @@
  * `TEST_PATHS="/ /about/ /404-check/"` – pages to test (default `/`).
  */
 
-import { test, expect, request } from '@playwright/test';
+import { request } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const paths = ( process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );
 const target = process.env.TEST_ENV || 'dev';

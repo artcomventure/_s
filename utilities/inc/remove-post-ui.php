@@ -60,7 +60,7 @@ add_action( 'admin_init', function() {
 			$forbidden = true;
 		}
 		// forbid post's edit.php
-		elseif ( $pagenow == 'post.php' && get_post_type($_GET['post'] ) == 'post' ) {
+		elseif ( $pagenow == 'post.php' && get_post_type($_GET['post'] ?? '' ) == 'post' ) {
 			$forbidden = true;
 		}
 		// forbid post taxonomies

@@ -48,6 +48,66 @@ if ( !/^https?:\/\//.test( baseURL ) ) {
 }
 const [ username, ...password ] = get( `${target.toUpperCase()}_AUTH` ).split( ':' );
 
+// placeholder `sitemap` in `TEST_PATHS`/`VISUAL_PATHS`: all pages + first URL of every other sub-sitemap
+// (resolved once here; workers inherit the expanded env)
+const fetchXml = async url => {
+	const headers = username ? { Authorization: `Basic ${Buffer.from( `${username}:${password.join( ':' )}` ).toString( 'base64' )}` } : {};
+	const response = await fetch( url, { headers } );
+	if ( !response.ok ) throw new Error( `Sitemap ${url}: HTTP ${response.status}` );
+	return response.text();
+};
+const locs = xml => [ ...xml.matchAll( /<loc>\s*(?:<!\[CDATA\[)?\s*(.*?)\s*(?:\]\]>)?\s*<\/loc>/g ) ].map( match => match[1] );
+const toPath = url => { const { pathname, search } = new URL( url ); return pathname + search; };
+
+let sitemapCache;
+const sitemapPaths = () => sitemapCache ??= loadSitemap();
+const loadSitemap = async () => {
+	// core sitemap; SEO plugins (AIOSEO, Yoast) redirect it to theirs
+	const index = await fetchXml( `${baseURL}/wp-sitemap.xml` );
+	const sitemaps = index.includes( '<sitemapindex' ) ? locs( index ) : [];
+	if ( !sitemaps.length ) return { all: locs( index ).map( toPath ), reduced: locs( index ).slice( 0, 1 ).map( toPath ) };
+
+	// group paginated sub-sitemaps by type (`wp-sitemap-posts-page-2.xml`, `page-sitemap2.xml` → `page`)
+	const types = new Map();
+	for ( const sitemap of sitemaps ) {
+		const type = new URL( sitemap ).pathname.split( '/' ).pop()
+			.replace( /^wp-sitemap-(posts|taxonomies)-/, '' )
+			.replace( /(-sitemap)?-?\d*\.xml$/, '' );
+		types.set( type, [ ...( types.get( type ) ?? [] ), ...locs( await fetchXml( sitemap ) ).map( toPath ) ] );
+	}
+
+	const all = [], reduced = [];
+	for ( const [ type, paths ] of types ) {
+		all.push( ...( type === 'page' ? paths : paths.slice( 0, 1 ) ) );
+		reduced.push( ...paths.slice( 0, 1 ) );
+	}
+	return { all, reduced };
+};
+
+const confirm = async question => {
+	if ( !process.stdin.isTTY ) return false;
+	const { createInterface } = await import( 'node:readline/promises' );
+	const rl = createInterface( { input: process.stdin, output: process.stdout } );
+	const answer = await rl.question( question );
+	rl.close();
+	return /^(y|yes|j|ja)$/i.test( answer.trim() );
+};
+
+for ( const name of [ 'TEST_PATHS', 'VISUAL_PATHS' ] ) {
+	const paths = ( process.env[name] ?? '' ).split( /\s+/ ).filter( Boolean );
+	if ( !paths.includes( 'sitemap' ) ) continue;
+
+	const { all, reduced } = await sitemapPaths();
+	const max = parseInt( process.env.TEST_PATHS_MAX ?? '', 10 ) || 30;
+	let sitemap = all;
+	if ( all.length > max && !await confirm( `${name}: sitemap has ${all.length} paths (TEST_PATHS_MAX=${max}). Test all? [y/N] ` ) ) {
+		sitemap = reduced;
+		console.warn( `${name}: testing ${reduced.length} of ${all.length} sitemap paths (one per type).` );
+	}
+
+	process.env[name] = [ ...new Set( paths.flatMap( path => path === 'sitemap' ? sitemap : [ path ] ) ) ].join( ' ' );
+}
+
 // `@visual` only on demand (`TEST_VISUAL=1`, see `npm run test:visual`)
 const visual = !!process.env.TEST_VISUAL;
 const exclude = [

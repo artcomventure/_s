@@ -7,7 +7,7 @@
  * `A11Y_EXCLUDE=".ccm-root"` – elements to skip, selectors (e.g. third-party widgets); dev info panel always skipped.
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 import { AxeBuilder } from '@axe-core/playwright';
 
 const paths = ( process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );

@@ -19,6 +19,54 @@ Behaviours.add( 'gdpr:privacy-policy', $context => {
 
 } );
 
+(function() {
+
+    // Called once a slider is initialized.
+    // Do any slider adjustment here!
+    const sliderAfterInit = swiper => {
+        // responsive `slidesPerView`
+        // @since 1.20.5
+        (function() {
+            const updateSlidesPerView = () => {
+                if ( swiper.el.classList.contains( 'static-slidesPerView' ) ) return;
+
+                let originalSlidesPerView = swiper.originalParams.slidesPerView === 'auto'
+                    ? swiper.slides.length : swiper.originalParams.slidesPerView;
+
+                let slidesPerView = originalSlidesPerView;
+                ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'].some( ( size, i) => {
+                    if ( !BREAKPOINTS.down( size ) ) return;
+                    slidesPerView = i + 1;
+                    return true;
+                } );
+
+                if ( swiper.params.slidesPerView !== 'auto' ) {
+                    slidesPerView = Math.min( originalSlidesPerView, slidesPerView );
+                    if ( swiper.originalParams.slidesPerView > 1 && slidesPerView !== swiper.params.slidesPerView ) {
+                        swiper.params.slidesPerView = slidesPerView;
+                        swiper.params.slidesPerGroup = swiper.params.slidesPerView;
+                    }
+                }
+
+                swiper.update();
+            }
+
+            // setting `swiper.params.breakpoints` doesn't work properly
+            // ... so we use our custom calculation on swiper's resize event
+            swiper.on( 'resize', updateSlidesPerView );
+            updateSlidesPerView();
+        })();
+    };
+
+    window.addEventListener( 'swiper:afterInit', e =>
+        sliderAfterInit( e.detail ), { passive: true } );
+
+    // sliders initialized before this (deferred) script ran
+    document.querySelectorAll( '.swiper' ).forEach( $swiper =>
+        $swiper.swiper?.initialized && sliderAfterInit( $swiper.swiper ) );
+
+})();
+
 // This event is triggered once a slider is initialized.
 // Do any slider adjustment here!
 window.addEventListener( 'swiper:afterInit', e => {

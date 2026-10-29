@@ -6,7 +6,7 @@
  * `PRIVACY_COOKIES="pll_language"` – cookies allowed before consent, names (technically necessary only).
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const paths = ( process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );
 const allow = ( process.env.PRIVACY_ALLOW || '' ).split( /\s+/ ).filter( Boolean );

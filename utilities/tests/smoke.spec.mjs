@@ -7,7 +7,7 @@
  */
 
 import { readFileSync } from 'node:fs';
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 
 const paths = ( process.env.TEST_PATHS || '/' ).split( /\s+/ ).filter( Boolean );
 const cookiesFile = process.env.SMOKE_COOKIES;

@@ -26,8 +26,14 @@ Tests tagged `@write` change the database and only run against `DEV_URL`.
 
 Options for all page tests (shell or `docker/.env.tests`):
 
-- `TEST_PATHS="/ /blog/ /?s=test /404-check/"` – pages to test (default `/`).
+- `TEST_PATHS="/ /blog/ /?s=test /404-check/"` – pages to test (default `/`). Placeholder `sitemap` (also in `VISUAL_PATHS`): all pages plus one URL of every other sitemap type (post types, taxonomies if listed), read from `/wp-sitemap.xml` of the tested environment (SEO plugin sitemaps via redirect), e.g. `TEST_PATHS="sitemap /?s=test /404-check/"`.
+- `TEST_PATHS_MAX=30` – with more sitemap paths, asks before testing all; declined or without terminal (CI): one page per type.
 - `STAGE_AUTH=user:password` – HTTP auth (also `LIVE_AUTH`, `DEV_AUTH`); put it in `docker/.env.local`, not in `.env`.
+- `TEST_BLOCK="stats.example.com /track.php"` – additional tracking URL parts to block (see below).
+
+### Tracking
+
+Test runs don't count as visits: tracking requests (Matomo, Google Analytics/Tag Manager, Jetpack stats, Plausible, Hotjar, Clarity, Meta pixel) get an empty response in all tests (`fixtures.mjs`). Without it the visual test would track on `live`, since blocking the consent tool (`VISUAL_BLOCK`) also lifts its script blocking. The privacy test still sees these requests. Server-side counting (log file analysis, PHP tracking) is not affected.
 
 ## Smoke test
 
@@ -112,4 +118,4 @@ Elements hidden in screenshots (e.g. dev info panel): `visual.css`.
 
 ## Project tests
 
-Put `*.spec.mjs` files in `THEME/tests/`; they run as Playwright project `project` next to `utilities`.
+Put `*.spec.mjs` files in `THEME/tests/`; they run as Playwright project `project` next to `utilities`. Import `test` and `expect` from `../utilities/tests/fixtures.mjs` (not `@playwright/test`), so tracking is blocked there too.
