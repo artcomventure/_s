@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:map";
 @use "sass:meta";
 @use "sass:string";
@@ -65,7 +66,7 @@
 
   // auto light color on dark backgrounds
   @if meta.type-of($color) == color {
-    @if color.channel($color, 'lightness', $space: hsl) < $lightness-threshold {
+    @if color.channel($color, 'lightness', $space: hsl) < $lightness-threshold or list.index($dark-colors, $name) {
       --color-copy: var(--color-light, #fff);
       --color-heading: var(--color-light, #fff);
       --color-hyperlink: var(--color-light, #fff);

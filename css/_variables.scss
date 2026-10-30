@@ -27,8 +27,11 @@ $colors: (
     'error': $error,
 );
 
-// from this value (0-100) onwards, colours are considered as _light_
+// from this value (0-100) onwards, colours are considered as light
 $lightness-threshold: 60;
+// in case the lightness threshold is off for a particular color
+// and you want to force dark color behaviour
+$dark-colors: ();
 
 // ---
 // Spacing
