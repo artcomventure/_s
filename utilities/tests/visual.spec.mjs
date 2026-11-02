@@ -8,6 +8,7 @@
  * `VISUAL_MASK="video, iframe"` – dynamic elements to cover (default `video, iframe`).
  * `VISUAL_THRESHOLD=0.01` – allowed ratio of different pixels (default `0.01`).
  * `VISUAL_BLOCK="ccm.jivo.group"` – requests to block, URL parts (e.g. consent banners, tracking).
+ * `VISUAL_WAIT=".intro"` – elements still animating; waits until none matches (fails after 20s).
  */
 
 import { join } from 'node:path';
@@ -17,6 +18,7 @@ const paths = ( process.env.VISUAL_PATHS || process.env.TEST_PATHS || '/' ).spli
 const mask = process.env.VISUAL_MASK || 'video, iframe';
 const maxDiffPixelRatio = Number( process.env.VISUAL_THRESHOLD || 0.01 );
 const block = ( process.env.VISUAL_BLOCK || '' ).split( /\s+/ ).filter( Boolean );
+const busy = process.env.VISUAL_WAIT || '';
 
 const VIEWPORTS = {
 	mobile: { width: 390, height: 844 },
@@ -47,13 +49,21 @@ const settle = async page => {
 	// no `networkidle`: looping videos never get idle
 };
 
+// JS animations (e.g. gsap) ignore `animations: 'disabled'`: wait for their end state
+const waitForAnimations = async page => {
+	if ( busy ) await expect( page.locator( busy ), `VISUAL_WAIT "${busy}" still matches` ).toHaveCount( 0, { timeout: 20000 } );
+};
+
 for ( const [ viewport, size ] of Object.entries( VIEWPORTS ) ) {
 	for ( const path of paths ) {
 		test( `visual ${viewport} ${path} @visual`, async ( { page } ) => {
 			await page.setViewportSize( size );
 			if ( block.length ) await page.route( url => block.some( part => url.href.includes( part ) ), route => route.abort() );
 			await page.goto( path );
+			// before scrolling (intros may lock it) and after (scroll-triggered animations)
+			await waitForAnimations( page );
 			await settle( page );
+			await waitForAnimations( page );
 
 			await expect( page ).toHaveScreenshot( `${slug( path )}-${viewport}.png`, {
 				fullPage: true,

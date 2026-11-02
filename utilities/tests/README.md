@@ -113,6 +113,7 @@ Options (shell or `docker/.env.tests`):
 - `VISUAL_MASK="video, iframe"` – dynamic elements to cover (default `video, iframe`).
 - `VISUAL_BLOCK="ccm.jivo.group"` – requests to block, URL parts (e.g. consent banners).
 - `VISUAL_THRESHOLD=0.01` – allowed ratio of different pixels (default `0.01`).
+- `VISUAL_WAIT=".intro"` – elements still animating; waits until none matches, fails after 20s. JS animations (e.g. gsap) ignore Playwright's `animations: 'disabled'`. Describe the unfinished state, so pages without the animation pass at once: `.intro` (removed at the end), `.hero:not(.is-animated)` (class set at the end), `[data-animating]`. Leaves the animation no trace, set one at its end (e.g. `tl.then( () => $el.classList.add( 'is-animated' ) )`). Endless animations: `VISUAL_MASK`.
 
 Elements hidden in screenshots (e.g. dev info panel): `visual.css`.
 

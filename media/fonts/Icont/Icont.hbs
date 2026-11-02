@@ -1,0 +1,37 @@
+@use "sass:string";
+
+${{ name }}-font: "{{ name }}";
+
+@font-face {
+    font-display: swap;
+    font-family: ${{ name }}-font;
+    src: {{{ fontSrc }}};
+}
+
+[class^="{{ prefix }}-"]:before, [class*=" {{ prefix }}-"]:before {
+    font-family: {{ name }} !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+${{ name }}-map: (
+{{# each codepoints }}
+    "{{ @key }}": "{{ codepoint this }}",
+{{/ each }}
+);
+
+@each $name, $codepoint in (${{ name }}-map) {
+    // escaped, not the raw character: ASCII output without BOM (`add_editor_style()` inlines the file)
+    $content: string.unquote('"\\#{$codepoint}"');
+
+    .{{ prefix }}-#{$name}:before {
+        // empty alternative text: screen readers skip icons; older browsers ignore it and keep the first `content`
+        content: $content;
+        content: #{$content} / "";
+    }
+}

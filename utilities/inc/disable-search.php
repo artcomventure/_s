@@ -18,7 +18,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 // No search … redirect to home
 add_action( 'template_redirect', function () {
 	if ( get_option('disable_search' ) && is_search() ) {
-		wp_redirect( home_url() );
+		wp_redirect( home_url(), 301 );
 		exit();
 	}
 } );

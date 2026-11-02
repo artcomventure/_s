@@ -39,7 +39,8 @@
                         </a>
                     </p>
 
-                    <?php if ( is_customize_preview() || $description = get_bloginfo( 'description', 'display' ) ) : ?>
+                    <?php $description = get_bloginfo( 'description', 'display' );
+                    if ( $description || is_customize_preview() ) : ?>
                         <p class="site-description"><?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
                     <?php endif;
                 } ?>

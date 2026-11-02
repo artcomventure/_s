@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.2 - 2026-11-02
+**Added**
+
+* Tests: `VISUAL_WAIT` – wait for JS animations (e.g. gsap) to finish before screenshots (in `THEME/utilities/tests/visual.spec.mjs`).
+
+**Changed**
+
+* Icon font: fantasticon 2 to 4 (in `THEME/media/fonts/Icont/`).
+
 ## 2.1.1 - 2026-10-29
 **Added**
 
