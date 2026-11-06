@@ -1,5 +1,5 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import base, { localizedGlobals, wordpressGlobals } from './eslint.base.mjs';
+import base, { googleMapsGlobals, localizedGlobals, wordpressGlobals } from './eslint.base.mjs';
 
 // wp-scripts sources (ESM + JSX)
 const modules = [
@@ -29,8 +29,7 @@ export default defineConfig( [
 			globals: {
 				...wordpressGlobals,
 				...localizedGlobals,
-				// third party
-				google: 'readonly',
+				...googleMapsGlobals,
 			},
 		},
 	},

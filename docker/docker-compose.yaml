@@ -37,6 +37,8 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
+    depends_on:
+      - wordpress
     volumes:
       - ./nginx.conf:/etc/nginx/templates/default.conf.template
       - ${WORDPRESS_ROOT}:/var/www/html

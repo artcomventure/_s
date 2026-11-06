@@ -35,3 +35,12 @@ add_action( 'customize_register', function( $wp_customize ) {
 		'type' => 'checkbox'
 	) );
 }, 9 );
+
+// make sure `core-block-supports-inline-css.css` is enqueued (pjax switches it)
+add_action( 'wp_footer', function() {
+	if ( get_option( 'pjax' ) && !isset( wp_styles()->registered['core-block-supports'] ) ) {
+		wp_register_style( 'core-block-supports', false );
+		wp_add_inline_style( 'core-block-supports', "/* make sure core-block-supports-inline-css is enqueued */" );
+		wp_enqueue_style( 'core-block-supports' );
+	}
+} );

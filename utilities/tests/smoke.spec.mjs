@@ -85,7 +85,8 @@ test( 'pjax navigation', async ( { page } ) => {
 
 	const from = page.url();
 	const link = await page.evaluate( () => {
-		const a = [ ...document.querySelectorAll( 'main a[href], nav a[href], header a[href]' ) ].find( a => a.origin === location.origin && !a.hash && a.pathname !== location.pathname && !/wp-(admin|login)|\.(pdf|jpe?g|png|zip)$/i.test( a.href ) && !a.target );
+		// skip language switcher links (full reload is intended)
+		const a = [ ...document.querySelectorAll( 'main a[href], nav a[href], header a[href]' ) ].find( a => a.origin === location.origin && !a.hash && a.pathname !== location.pathname && !/wp-(admin|login)|\.(pdf|jpe?g|png|zip)$/i.test( a.href ) && !a.target && !a.hreflang );
 		if ( !a ) return null;
 		window.__smokeTest = true;
 		a.click();

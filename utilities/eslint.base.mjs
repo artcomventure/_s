@@ -25,6 +25,11 @@ export const localizedGlobals = {
 	pjax: 'readonly',
 };
 
+// Google Maps API, loaded by inc/gmaps
+export const googleMapsGlobals = {
+	google: 'readonly',
+};
+
 export default defineConfig( [
 	globalIgnores( [ '**/*.min.js', '**/node_modules/' ] ),
 	{

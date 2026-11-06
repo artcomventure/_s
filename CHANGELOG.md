@@ -4,10 +4,16 @@
 **Added**
 
 * Tests: `VISUAL_WAIT` – wait for JS animations (e.g. gsap) to finish before screenshots (in `THEME/utilities/tests/visual.spec.mjs`).
+* ESLint: opt-in set `googleMapsGlobals` for themes using the Google Maps API (in `THEME/utilities/eslint.base.mjs`).
 
 **Changed**
 
 * Icon font: fantasticon 2 to 4 (in `THEME/media/fonts/Icont/`).
+* Tests: `npm test` and `npm run test:visual` open the HTML report on failure (interactive terminal only, not in CI) via `PLAYWRIGHT_HTML_OPEN` (in `THEME/package.json`).
+
+**Fixed**
+
+* Tests: pjax navigation skips language switcher links (`hreflang`), where a full reload is intended (in `THEME/utilities/tests/smoke.spec.mjs`).
 
 ## 2.1.1 - 2026-10-29
 **Added**

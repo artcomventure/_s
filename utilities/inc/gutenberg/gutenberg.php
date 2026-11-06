@@ -45,10 +45,16 @@ add_filter( 'tiny_mce_before_init', function( $mce_init ) {
 } );
 
 // remove _unneeded_ CSS
+// TODO: check if it's really unneeded anymore
 add_action( 'wp_enqueue_scripts', function() {
 	wp_dequeue_style( 'global-styles' );
-	// for some reason _sometimes_ this doesn't work with `global-styles-inline-css
-	// it's removed in `THEME/utilities/js/helpers.js`
+
+	wp_register_script( 'remove-global-styles-inline-css', '', [], '', true );
+	wp_enqueue_script( 'remove-global-styles-inline-css'  );
+	wp_add_inline_script( 'remove-global-styles-inline-css', "(function() {
+		const \$globalStyles = document.getElementById( 'global-styles-inline-css' );
+        if ( \$globalStyles ) \$globalStyles.remove();
+    })();" );
 } );
 
 // remove all core patterns

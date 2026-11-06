@@ -71,10 +71,10 @@ Ein Override oder ein SMTP-Plugin kann Mails an Mailpit vorbei schicken – dann
      "@playwright/test": "^1.64.1",
    ```
    ```json
-   "test": "playwright test -c utilities/tests",
+   "test": "PLAYWRIGHT_HTML_OPEN=on-failure playwright test -c utilities/tests",
    "test:live": "TEST_ENV=live npm test",
    "test:stage": "TEST_ENV=stage npm test",
-   "test:visual": "TEST_VISUAL=1 playwright test -c utilities/tests",
+   "test:visual": "PLAYWRIGHT_HTML_OPEN=on-failure TEST_VISUAL=1 playwright test -c utilities/tests",
    "test:visual:reference": "TEST_ENV=live npm run test:visual -- --update-snapshots=all",
    "test:visual:reference:stage": "TEST_ENV=stage npm run test:visual -- --update-snapshots=all",
    "test:report": "playwright show-report utilities/tests/playwright-report",

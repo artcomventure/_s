@@ -12,12 +12,12 @@ Playwright browser tests: utilities tests (`THEME/utilities/tests/`) and optiona
 ## Usage
 
 ```sh
-npm test                                 # against DEV_URL
+npm test                                 # against DEV_URL (HTML report opens on failure)
 npm run test:stage                       # against STAGE_URL (no mail tests)
 npm run test:live                        # against LIVE_URL (no mail tests)
 BASE_URL=http://localhost npm test       # explicit URL
 npm test -- smoke.spec.mjs               # single file (any Playwright CLI option after `--`)
-npm run test:report                      # open HTML report
+npm run test:report                      # open HTML report of the last run
 ```
 
 URLs come from the nearest `docker/.env` above the theme (`DEV_URL`, `STAGE_URL`, `LIVE_URL`), test options (e.g. `TEST_PATHS`) from `docker/.env.tests`, both overridden by `docker/.env.local` and the shell.
@@ -97,8 +97,8 @@ Values are set by script, not typed (consent dialogs trap the focus). On failure
 
 ```sh
 npm run test:visual:reference   # 1. create reference from live (overwrites it, compares nothing)
-npm run test:visual             # 2. compare dev with reference
-npm run test:report             # 3. differences: expected / actual / diff
+npm run test:visual             # 2. compare dev with reference (report opens on differences)
+npm run test:report             # 3. reopen later: expected / actual / diff
 ```
 
 Reference from `stage` instead (e.g. before a deployment, needs `STAGE_AUTH`): `npm run test:visual:reference:stage`.
