@@ -16,6 +16,7 @@
   @extend %copy-font-size;
   //line-height: fluid(rem(26px), rem(28px));
   //letter-spacing: fluid(0px, -.2px);
+  text-wrap: pretty;
 }
 
 // ---

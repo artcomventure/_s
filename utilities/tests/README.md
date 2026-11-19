@@ -96,7 +96,7 @@ Values are set by script, not typed (consent dialogs trap the focus). On failure
 `visual.spec.mjs` (tag `@visual`, not part of `npm test`) compares full-page screenshots (mobile 390px, desktop 1440px) with reference screenshots, usually from `live`:
 
 ```sh
-npm run test:visual:reference   # 1. create reference from live (overwrites it, compares nothing)
+npm run test:visual:reference   # 1. create reference from live (deletes the old one, compares nothing)
 npm run test:visual             # 2. compare dev with reference (report opens on differences)
 npm run test:report             # 3. reopen later: expected / actual / diff
 ```

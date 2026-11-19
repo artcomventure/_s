@@ -10,12 +10,10 @@ add_action( 'after_setup_theme', function() {
 
 add_action( 'wp_head', function() {
 	// set CSS properties, _first_ in `<head>` to immediately set value
-	// `--root-width` ... for CSS' fluid calculation
 	// `--scrollbar-width` ... to calculate vw right ?>
 <script>(() => {
 	const $root = document.documentElement;
 	const setProperties = () => {
-		$root.style.setProperty( '--root-width', `${$root.clientWidth}` );
 		$root.style.setProperty( '--scrollbar-width', `${window.innerWidth - $root.clientWidth}px` );
 	};
 	setProperties();

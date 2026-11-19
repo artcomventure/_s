@@ -1,11 +1,6 @@
 {
   "scripts": {
-    "watch": "npm run watch:scss & npm run watch:js",
-    "watch:scss": "node ../../../../bin/build-css.mjs . --watch",
-    "watch:js": "node ../../../../bin/build-js.mjs . --watch",
-
-    "build": "npm run build:scss & npm run build:js",
-    "build:scss": "node ../../../../bin/build-css.mjs .",
-    "build:js": "node ../../../../bin/build-js.mjs ."
+    "watch": "node ../../../../bin/build-js.mjs . --watch",
+    "build": "node ../../../../bin/build-js.mjs ."
   }
 }

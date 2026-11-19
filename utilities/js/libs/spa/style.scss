@@ -1,12 +1,12 @@
-@import "../../../../css/mixins/loader";
+@import "../../../css/mixins/loader";
 
-#pjax-transition {
+#spa-transition {
     position: fixed;
     z-index: 9;
     inset: 0 0 0 0;
     background-color: #fff;
     opacity: 0;
-    transition: opacity var(--pjax-transition-duration, 400ms);
+    transition: opacity var(--spa-transition-duration, var(--pjax-transition-duration, 400ms)); // `--pjax-…`: deprecated
     display: grid;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
         left: initial;
     }
 
-    body[data-pjax-transition] & {
+    body[data-spa-transition] & {
         opacity: 1;
     }
 }

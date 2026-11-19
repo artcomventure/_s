@@ -1,77 +1,37 @@
-// mediaelementjs is initialized by WP.
-// But due to Pjax we need to attach the _script_ after every "page load".
-Behaviours.add( 'video:mediaelement', () => {
-    Behaviours.remove( 'video:mediaelement' );
+// mediaelementjs: WP initializes `.wp-video-shortcode`/`.wp-audio-shortcode` on DOM ready only and ignores
+// the video block, so initialize all of them per `$context` (also after AJAX navigation).
+// Based on `wp.mediaelement.initialize()` (`wp-includes/js/mediaelement/wp-mediaelement.js`).
+Behaviours.add( 'video:mediaelement', $context => {
+    if ( typeof jQuery === 'undefined' || !jQuery.fn.mediaelementplayer ) return;
 
-    // make sure mediaelement is loaded
-    if ( !wp?.mediaelement ) return;
-    Behaviours.add( 'video:mediaelement', () => wp.mediaelement.initialize() );
-} );
-
-// WP' mediaelement script only take ".wp-video-shortcode" into account.
-// We duplicate `wp.mediaelement.initialize()` to cover `.wp-block-video`.
-Behaviours.add( 'video:wp-block-video', () => {
-    var selectors = [], settings = {};
-
-    if ( typeof _wpmejsSettings !== 'undefined' ) {
-        settings = jQuery.extend( true, {}, _wpmejsSettings );
-    }
+    const settings = typeof _wpmejsSettings !== 'undefined' ? jQuery.extend( true, {}, _wpmejsSettings ) : {};
     settings.classPrefix = 'mejs-';
-    settings.success = settings.success || function ( mejs ) {
-        var autoplay, loop;
+    settings.success = settings.success || function( mejs ) {
+        if ( !mejs.rendererName || mejs.rendererName.indexOf( 'flash' ) === -1 ) return;
 
-        if ( mejs.rendererName && -1 !== mejs.rendererName.indexOf( 'flash' ) ) {
-            autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
-            loop = mejs.attributes.loop && 'false' !== mejs.attributes.loop;
-
-            if ( autoplay ) {
-                mejs.addEventListener( 'canplay', function() {
-                    mejs.play();
-                }, false );
-            }
-
-            if ( loop ) {
-                mejs.addEventListener( 'ended', function() {
-                    mejs.play();
-                }, false );
-            }
-        }
+        if ( mejs.attributes.autoplay && mejs.attributes.autoplay !== 'false' ) mejs.addEventListener( 'canplay', () => mejs.play(), false );
+        if ( mejs.attributes.loop && mejs.attributes.loop !== 'false' ) mejs.addEventListener( 'ended', () => mejs.play(), false );
     };
 
-    /**
-     * Custom error handler.
-     *
-     * Sets up a custom error handler in case a video render fails, and provides a download
-     * link as the fallback.
-     *
-     * @since 4.9.3
-     *
-     * @param {object} media The wrapper that mimics all the native events/properties/methods for all renderers.
-     * @param {object} node  The original HTML video, audio, or iframe tag where the media was loaded.
-     * @return {string}
-     */
-    settings.customError = function ( media, node ) {
-        // Make sure we only fall back to a download link for flash files.
-        if ( -1 !== media.rendererName.indexOf( 'flash' ) || -1 !== media.rendererName.indexOf( 'flv' ) ) {
+    // download link as fallback for flash files
+    settings.customError = function( media, node ) {
+        if ( media.rendererName.indexOf( 'flash' ) !== -1 || media.rendererName.indexOf( 'flv' ) !== -1 ) {
             return '<a href="' + node.src + '">' + mejsL10n.strings['mejs.download-file'] + '</a>';
         }
     };
 
-    if ( 'undefined' === typeof settings.videoShortcodeLibrary || 'mediaelement' === settings.videoShortcodeLibrary ) {
-        selectors.push( '.wp-block-video video' );
-    }
-    if ( ! selectors.length ) {
-        return;
-    }
+    const selectors = [];
+    if ( settings.audioShortcodeLibrary === undefined || settings.audioShortcodeLibrary === 'mediaelement' ) selectors.push( '.wp-audio-shortcode' );
+    if ( settings.videoShortcodeLibrary === undefined || settings.videoShortcodeLibrary === 'mediaelement' ) selectors.push( '.wp-video-shortcode', '.wp-block-video video' );
+    if ( !selectors.length ) return;
 
-    // Only initialize new media elements.
-    jQuery( selectors.join( ', ' ) )
-    .not( '.mejs-container' )
-    .filter(function () {
-        return ! jQuery( this ).parent().hasClass( 'mejs-mediaelement' );
-    })
-    .each(function (){
-        jQuery( this ).attr( 'preload', jQuery( this ).attr( 'preload' ) || 'metadata' );
-    })
-    .mediaelementplayer( settings );
+    jQuery( $context ).find( selectors.join( ', ' ) )
+        // not initialized yet (mejs 4 moves the media into `.mejs-container`)
+        .filter( function() {
+            return !this.closest( '.mejs-container' );
+        } )
+        .each( function() {
+            this.setAttribute( 'preload', this.getAttribute( 'preload' ) || 'metadata' );
+        } )
+        .mediaelementplayer( settings );
 } );

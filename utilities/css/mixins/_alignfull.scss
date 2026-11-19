@@ -2,10 +2,10 @@
     padding-right: 0 !important;
     padding-left: 0 !important;
 
-    max-width: calc(100vw - var(--scrollbar-width)) !important;
-    width: calc(100vw - var(--scrollbar-width)) !important;
-    margin-right: calc(50% - 50vw + var(--scrollbar-width) / 2) !important;
-    margin-left: calc(50% - 50vw + var(--scrollbar-width) / 2) !important;
+    max-width: calc(100vw - var(--scrollbar-width, 0px)) !important;
+    width: calc(100vw - var(--scrollbar-width, 0px)) !important;
+    margin-right: calc(50% - 50vw + var(--scrollbar-width, 0px) / 2) !important;
+    margin-left: calc(50% - 50vw + var(--scrollbar-width, 0px) / 2) !important;
 
     @each $name, $breakpoint in $breakpoints {
         &.width-#{$name} {

@@ -4,6 +4,7 @@
 add_filter( 'wpcf7_messages', function( $messages ) {
 	if ( !function_exists( 'defaultMessage' ) ) {
 		function defaultMessage( string $errmsg = '' ): string {
+			/* translators: %s: error message */
 			return sprintf( __( 'The email address is invalid: %s', 'cf7' ), $errmsg );
 		}
 	}

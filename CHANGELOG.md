@@ -1,5 +1,51 @@
 # Changelog
 
+## 2.2.0 - 2026-11-19
+**Added**
+
+* Customizer: „Theme Options“ is a panel with sections General (`utilities`), UI/UX (`utilities-ui`), Editor & Content (`utilities-editor`), Security (`utilities-security`); filter `utilities_customizer_sections`. Controls with `'section' => 'utilities'` (e.g. in projects) show up under General (in `THEME/utilities/inc/customizer.php`).
+* htmx 2.0.11 AJAX navigation, successor of pjax (include `htmx` in `THEME/utilities/js/libs/spa/spa.php`, wins over pjax): boosts internal links, swaps `#masthead`, `#primary`, `#colophon`, `#wpadminbar` out of band (`Alter` hook `htmx-selectors`), syncs `<html>`/`<body>` attributes and styles, restores history without re-running footer scripts, Matomo tracking, optional GA4 page view (`htmx-gtag`), page transition; no history cache for logged-in users (in `THEME/utilities/js/libs/spa/htmx/`).
+* htmx preload extension 2.1.2, off by default: `Alter.add( 'htmx-preload', () => true )` preloads boosted links on `mousedown` (`'mouseover'` on hover); logged-out only, preload responses get `Cache-Control: private, max-age=60` (filter `utilities_htmx_preload_max_age`) and `Vary: HX-Request` (in `THEME/utilities/js/libs/spa/htmx/`).
+* Matomo: referrer for page views after pjax navigation (in `THEME/utilities/js/libs/spa/pjax/app.js`).
+* Customizer UI/UX „Video player“ (option `utlts_video_player`): Browser (native, default as before), MediaElement.js (now also for the video block), Video.js; players add themselves via filter `utilities_video_players`. Enqueuing `videojs` in the project still works; with AJAX navigation the selected player is loaded on every page (in `THEME/utilities/inc/video/`).
+* Contact Form 7: zip attachments are sent unchanged instead of `_.txt` (in `THEME/utilities/inc/plugins/contact-form-7/inc/safelist.php`).
+* Videos (native, MediaElement.js, Video.js) play only while rendered (no `display: none` on video or ancestors) and in viewport: leaving pauses, entering resumes the state they had (autoplay taken over, manual pause respected, picture-in-picture kept playing). Opt-out: class `ignore-visibility` / attribute `data-ignore-visibility` on video or ancestor, or `Alter` hook `video-visibility:ignore`. Handle `utilities-video`, enqueued by the module (in `THEME/utilities/inc/video/app.js`).
+* Block layout also for `.site-main > .teaser-view` (in `THEME/utilities/css/_misc.scss`).
+* ESLint: globals `htmx` and `Masonry` (in `THEME/utilities/eslint.base.mjs`).
+* Theme: `$spacings` key `default` (40px) for the block spacing, `.wp-block-video` gets the block spacing (in `THEME/css/_variables.scss`, `THEME/css/components/_blocks.scss`).
+* Theme: `text-wrap: pretty` for copy text (in `THEME/css/_typography.scss`).
+* Theme: no header transition while the SPA page transition is running (in `THEME/css/components/_header.scss`).
+
+**Changed**
+
+* `fluid()` works without JS: `px`/`rem` as `calc()` with `100vw`, other units and unitless values (e.g. `aspect-ratio: fluid(1, 1.5)`) via `tan(atan2())` (in `THEME/utilities/css/functions/_fluid.scss`).
+* Mixins `touch-device-only` / `non-touch-device` query `(hover: none)` / `(hover: hover)` instead of `(pointer: coarse)` / `(pointer: fine)` (in `THEME/utilities/css/mixins/_touch-device.scss`).
+* Page transition shared by pjax and htmx: `#pjax-transition` → `#spa-transition`, `body[data-pjax-transition]` → `body[data-spa-transition]`, `--pjax-transition-duration` → `--spa-transition-duration` (old property still works as deprecated fallback); element printed in `wp_footer`, styles moved to `THEME/utilities/js/libs/spa/style.scss` (handle `spa`). Project CSS using the old selectors must be renamed.
+* WordPress' speculative loading (speculation rules) disabled while pjax or htmx is active – pages would be loaded twice (in `THEME/utilities/js/libs/spa/`).
+* Option `pjax` → `utlts_spa` (customizer „Enable AJAX navigation“, for pjax and htmx); migrated automatically on `init` (`utlts_spa` set if `pjax` was set, `pjax` deleted). Project code using `get_option( 'pjax' )` must switch to `get_option( 'utlts_spa' )` (in `THEME/utilities/js/libs/spa/spa.php`).
+* `npm run test:visual:reference(:stage)` deletes `utilities/tests/visual-snapshots/` first – no stale screenshots of removed paths (in `THEME/package.json`).
+* JS build target es2017 → es2020 (oldest in `.browserslistrc`: Chrome 109, Safari 18): below, esbuild emits object spread etc. as global helper `var`s, which overwrite each other between scripts (JS errors depending on load order); rebuild all `*.min.js` (in `THEME/utilities/bin/build-js.mjs`, `THEME/tsconfig.json`).
+* Customizer controls moved to sections: custom-select.js → UI/UX, empty caption and custom accordion block → Editor & Content, loosen security → Security (in `THEME/utilities/`).
+* `--scrollbar-width` measured via `innerWidth - clientWidth` of the root element (no tester element in `helpers.js`); in the editor of the (iframe's) document; `alignfull` falls back to `0px` (in `THEME/utilities/utilities.php`, `THEME/utilities/inc/gutenberg/src/index.js`, `THEME/utilities/css/mixins/_alignfull.scss`).
+* Posts list: single post type passed as string to the query (in `THEME/utilities/inc/posts-list/inc/shortcode.php`).
+* SPA build: SCSS built in `spa/`, pjax builds JS only (in `THEME/utilities/js/libs/spa/package.json`).
+* Docker: Xdebug without `develop` mode – faster requests; no formatted `var_dump()`, stack traces in error output or recursion protection (`max_nesting_level`) (in `THEME/docker/xdebug.ini`).
+
+**Fixed**
+
+* mediaelementjs: players initialized only once per element and per context (mejs 4 markup), also for the video block (in `THEME/utilities/inc/video/mediaelement/app.js`).
+* htmx: media players of the left page are removed also on history cache hits (audio kept playing), removed players stop loading (JS error), video.js players are disposed; cached pages store the original `<video>`/`<audio>` instead of dead player markup (in `THEME/utilities/js/libs/spa/htmx/app.js`).
+* video.js: already initialized videos are skipped (nested players after history restore) (in `THEME/utilities/inc/video/videojs/app.js`).
+* pjax: removed MediaElement players stop loading (JS error), video.js players are disposed (in `THEME/utilities/js/libs/spa/pjax/app.js`).
+* pjax: instantiated on `DOMContentLoaded`, so `Alter.add( 'pjax-…' )` of later deferred scripts applies (in `THEME/utilities/js/libs/spa/pjax/app.js`).
+* video.js: `utlts.uuid()` instead of undefined `uuid()` for videos without `id` (in `THEME/utilities/inc/video/videojs/app.js`).
+* Tests: Chrome 157+ HTTPS-First blocked `http://` dev URLs (`ERR_BLOCKED_BY_CLIENT`) (in `THEME/utilities/tests/playwright.config.mjs`).
+* video.js: hint to hide controls via `videojs:options` (`controlBar: { …: false }`) instead of `removeChild()` – removed components aren't disposed with the player, e.g. the progress bar's interval throws endlessly after a page switch (in `THEME/utilities/inc/video/videojs/app.js`).
+
+**Removed**
+
+* CSS property `--root-width` and the scripts setting it (in `THEME/utilities/utilities.php`, `THEME/utilities/inc/gutenberg/src/index.js`). Project CSS using `var(--root-width)` directly must switch to `100vw`.
+
 ## 2.1.2 - 2026-11-02
 **Added**
 

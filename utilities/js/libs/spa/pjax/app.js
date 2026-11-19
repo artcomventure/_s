@@ -29,62 +29,11 @@
         )
     }
 
-    // elements to be updated
-    window.pjax = new Pjax( {
-        // elements: 'a[href], form[action]',
-        selectors: Alter.do( 'pjax-selectors', [
-            'head title',
-            '#core-block-supports-inline-css',
-            '#masthead',
-            '#primary',
-            '#colophon',
-            '#wpadminbar'
-        ] ),
-        switches: Alter.do( 'pjax-switches', {
-            '#primary': function( oldEl, newEl, options ) {
-                // inert document: no image loading or inline handlers (unlike innerHTML in the live document)
-                const $document = new DOMParser().parseFromString( options.request.responseText, 'text/html' );
-                const $body = $document.body;
-
-                // switch html attributes
-                ['lang', 'dir', 'class'].forEach( attribute => {
-                    const value = $document.documentElement.getAttribute( attribute ) || '';
-
-                    if ( value === '' ) {
-                        return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
-                    }
-
-                    switch ( attribute ) {
-                        default:
-                            document.getElementsByTagName( 'html' )[0].setAttribute( attribute, value );
-                            break;
-
-                        case 'class':
-                            document.getElementsByTagName( 'html' )[0].className = value;
-                            break;
-                    }
-                } );
-
-                // switch body classes
-                document.body.className = $body.className;
-
-                oldEl.replaceWith( newEl );
-                this.onSwitch();
-            }
-        } ),
-        cacheBust: Alter.do( 'pjax-cacheBust', false ),
-        currentUrlFullReload: Alter.do( 'pjax-currentUrlFullReload', false ),
-        debug: Alter.do( 'pjax-debug', false ),
-        history: Alter.do( 'pjax-history', true ),
-        scrollRestoration: Alter.do( 'pjax-scrollRestoration', true ),
-        scrollTo: Alter.do( 'pjax-scrollTo', false ),
-    } );
-
-    // get/create overlay for transition effect
-    let $overlay = document.getElementById( 'pjax-transition' );
+    // overlay for transition effect (printed in `../spa.php`, fallback: create)
+    let $overlay = document.getElementById( 'spa-transition' );
     if ( !$overlay ) {
         $overlay = document.createElement( 'div' );
-        $overlay.id = 'pjax-transition';
+        $overlay.id = 'spa-transition';
         $overlay.style.display = 'none';
         document.body.appendChild( $overlay );
     }
@@ -94,12 +43,70 @@
     // ... to extract `transition-duration` for `setTimeout` functions
     const pjaxTransitionDuration= parseFloat( CSS.getPropertyValue( 'transition-duration' ) ) * 1000;
 
-    // delay for transition
-    pjax._handleResponse = pjax.handleResponse;
-    pjax.handleResponse = function( responseText, request, href, options ) {
-        setTimeout( () => {
-            pjax._handleResponse( responseText, request, href, options )
-        }, pjaxTransitionDuration );
+    // instantiate after all deferred scripts ran: their `Alter.add( 'pjax-…' )` calls are registered
+    // (deferred scripts run while `readyState` is already `interactive`, before `DOMContentLoaded`)
+    if ( document.readyState === 'complete' ) init();
+    else document.addEventListener( 'DOMContentLoaded', init );
+
+    function init() {
+        // elements to be updated
+        window.pjax = new Pjax( {
+            // elements: 'a[href], form[action]',
+            selectors: Alter.do( 'pjax-selectors', [
+                'head title',
+                '#core-block-supports-inline-css',
+                '#masthead',
+                '#primary',
+                '#colophon',
+                '#wpadminbar'
+            ] ),
+            switches: Alter.do( 'pjax-switches', {
+                '#primary': function( oldEl, newEl, options ) {
+                    // inert document: no image loading or inline handlers (unlike innerHTML in the live document)
+                    const $document = new DOMParser().parseFromString( options.request.responseText, 'text/html' );
+                    const $body = $document.body;
+
+                    // switch html attributes
+                    ['lang', 'dir', 'class'].forEach( attribute => {
+                        const value = $document.documentElement.getAttribute( attribute ) || '';
+
+                        if ( value === '' ) {
+                            return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
+                        }
+
+                        switch ( attribute ) {
+                            default:
+                                document.getElementsByTagName( 'html' )[0].setAttribute( attribute, value );
+                                break;
+
+                            case 'class':
+                                document.getElementsByTagName( 'html' )[0].className = value;
+                                break;
+                        }
+                    } );
+
+                    // switch body classes
+                    document.body.className = $body.className;
+
+                    oldEl.replaceWith( newEl );
+                    this.onSwitch();
+                }
+            } ),
+            cacheBust: Alter.do( 'pjax-cacheBust', false ),
+            currentUrlFullReload: Alter.do( 'pjax-currentUrlFullReload', false ),
+            debug: Alter.do( 'pjax-debug', false ),
+            history: Alter.do( 'pjax-history', true ),
+            scrollRestoration: Alter.do( 'pjax-scrollRestoration', true ),
+            scrollTo: Alter.do( 'pjax-scrollTo', false ),
+        } );
+
+        // delay for transition
+        pjax._handleResponse = pjax.handleResponse;
+        pjax.handleResponse = function( responseText, request, href, options ) {
+            setTimeout( () => {
+                pjax._handleResponse( responseText, request, href, options )
+            }, pjaxTransitionDuration );
+        }
     }
 
     // Pjax request begins
@@ -110,7 +117,7 @@
         // before start fading
         window.requestAnimationFrame( () => {
             window.requestAnimationFrame(
-                () => document.body.setAttribute( 'data-pjax-transition', '' )
+                () => document.body.setAttribute( 'data-spa-transition', '' )
             );
         } );
 
@@ -118,9 +125,23 @@
             // remove MediaElements aka video/audio
             if ( typeof mejs !== 'undefined' ) Object.keys( mejs.players || {} ).forEach( ( id ) => {
                 const player = mejs.players[id];
+                // `container` may be a jQuery object
+                const $container = player.container?.jquery ? player.container[0] : player.container;
+                const $media = $container ? [...$container.querySelectorAll( 'video, audio' )] : [];
+
                 if ( !player.paused ) player.pause();
                 player.remove();
+
+                // stop loading, otherwise later media events hit the removed player
+                $media.forEach( $element => {
+                    $element.removeAttribute( 'src' );
+                    $element.querySelectorAll( 'source' ).forEach( $source => $source.remove() );
+                    $element.load();
+                } );
             } );
+
+            // video.js (stops loading and removes the element)
+            if ( typeof videojs !== 'undefined' ) Object.values( videojs.getPlayers() ).forEach( player => player && !player.isDisposed() && player.dispose() );
 
             // destroy all gsap ScrollTrigger
             if ( typeof ScrollTrigger !== 'undefined' )
@@ -142,11 +163,11 @@
         // fade in page (hide overlay)
         window.requestAnimationFrame( () => {
             $overlay.style.pointerEvents = 'none';
-            document.body.removeAttribute( 'data-pjax-transition' );
+            document.body.removeAttribute( 'data-spa-transition' );
 
             setTimeout( () => {
                 // next redirect is already in action
-                if ( document.body.hasAttribute( 'data-pjax-transition' ) ) return;
+                if ( document.body.hasAttribute( 'data-spa-transition' ) ) return;
 
                 // prevent overlay to be rendered when it's not visible
                 $overlay.style.display = 'none';
@@ -169,15 +190,20 @@
         }
     }
 
+    // referrer for tracking
+    let previousUrl = location.href;
+
     // Pjax request succeeds
     document.addEventListener( 'pjax:success', e => {
         // Matomo : tracking a new page view
         // https://developer.matomo.org/guides/spa-tracking#tracking-a-new-page-view
         (function() {
             var _paq = window._paq = window._paq || [];
+            _paq.push( ['setReferrerUrl', previousUrl] );
             _paq.push( ['setCustomUrl', location.href.replace( location.origin, '' )] );
             _paq.push( ['setDocumentTitle', document.title]);
             _paq.push( ['trackPageView'] );
+            previousUrl = location.href;
         })();
 
         // move focus to new content, so screen readers announce it and next tab continues there

@@ -20,7 +20,6 @@ export default defineConfig( [
 		'**/module/',
 		'inc/video/videojs/video.js',
 		'inc/video/videojs/lang/',
-		'js/libs/spa/htmx/',
 		'js/polyfills/',
 	] ),
 	{

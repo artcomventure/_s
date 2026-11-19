@@ -4,6 +4,17 @@ define( 'UTLTS_VIDEO_DIRECTORY', dirname( __FILE__ ) );
 define( 'UTLTS_VIDEO_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/video' );
 
 /**
+ * Videos play only while rendered and in viewport (native, video.js, MediaElement.js).
+ * Needs `alter` loaded first: filter `videojs:options` must exist before video.js init.
+ *
+ * @since 2.2.0
+ */
+add_action( 'wp_enqueue_scripts', function() {
+	// enqueued here, not as dependency: disabled module (`_video/`) would drop the dependent script
+	wp_enqueue_script( 'utilities-video', UTLTS_VIDEO_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+} );
+
+/**
  * Video provider (`youtube`/`vimeo`) of an oEmbed URL, without HTTP request.
  *
  * @since 1.21.0
@@ -78,6 +89,43 @@ add_filter( 'shortcode_atts_video', function( $out, $pairs, $atts ) {
 
 	return $out;
 }, 10, 3 );
+
+/**
+ * Video players, added by the player files (`mediaelement/`, `videojs/`).
+ *
+ * @since 2.2.0
+ */
+function utilities_video_players(): array {
+	return apply_filters( 'utilities_video_players', ['' => __( 'Browser (native)', 'utilities' )] );
+}
+
+/**
+ * Selected video player (customizer), `''`: browser's native player.
+ *
+ * @since 2.2.0
+ */
+function utilities_video_player(): string {
+	$player = (string) get_option( 'utlts_video_player', '' );
+
+	return array_key_exists( $player, utilities_video_players() ) ? $player : '';
+}
+
+add_action( 'customize_register', function( $wp_customize ) {
+	$wp_customize->add_setting( 'utlts_video_player', [
+		'type' => 'option',
+		'capability' => 'manage_options',
+		'default' => '',
+		'sanitize_callback' => fn( $player ) => array_key_exists( $player, utilities_video_players() ) ? $player : '',
+	] );
+
+	$wp_customize->add_control( 'utlts_video_player', [
+		'label' => __( 'Video player', 'utilities' ),
+		'description' => __( 'Player for videos (video block and shortcode), embeds (YouTube, Vimeo) are not affected.', 'utilities' ),
+		'section' => 'utilities-ui',
+		'type' => 'select',
+		'choices' => utilities_video_players(),
+	] );
+} );
 
 // auto include files
 auto_include_files( dirname( __FILE__ ) );

@@ -1,22 +1,15 @@
 /**
- * Media query especially for (non) touch devices.
+ * Media query for devices whose primary input can't (or can) hover.
  */
 
 @mixin touch-device-only {
-  @media (pointer: coarse) {
+  @media (hover: none) {
     @content;
   }
 }
 
 @mixin non-touch-device {
-  @media (pointer: fine) {
+  @media (hover: hover) {
     @content;
   }
-
-  // Query for screens without touch.
-  // FYI : A monitor with a touchscreen is usually classified as `pointer: coarse` by modern browsers.
-
-  //@media not all and (pointer: coarse) {
-  //  @content;
-  //}
 }

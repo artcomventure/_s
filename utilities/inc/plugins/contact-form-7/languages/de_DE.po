@@ -13,58 +13,76 @@ msgstr ""
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: cf7\n"
 
-#: inc/validate-email.php:13
+#: inc/validate-email.php:14
 msgid "the @ sign is missing."
 msgstr "das @-Zeichen fehlt."
 
-#: inc/validate-email.php:12
+#: inc/validate-email.php:13
 msgid "The email address entered by the sender is missing an @ sign"
 msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt ein @-Zeichen"
 
-#: inc/validate-email.php:17
+#: inc/validate-email.php:18
 msgid "The email address entered by the sender contains multiple @ signs"
 msgstr "Die eingegebenen E-Mail-Adresse des Absenders enthält mehrere @-Zeichen"
 
-#: inc/validate-email.php:18
+#: inc/validate-email.php:19
 msgid "multiple @ signs are used."
 msgstr "mehrere @-Zeichen werden verwendet."
 
-#: inc/validate-email.php:22
+#: inc/validate-email.php:23
 msgid "The email address entered by the sender is missing an username"
 msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt der Benutzername"
 
-#: inc/validate-email.php:23
+#: inc/validate-email.php:24
 msgid "the username is missing."
 msgstr "der Benutzername fehlt."
 
-#: inc/validate-email.php:27
+#: inc/validate-email.php:28
 msgid "The email address entered by the sender is missing the domain"
 msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt die Domain"
 
-#: inc/validate-email.php:28
+#: inc/validate-email.php:29
 msgid "the domain is missing."
 msgstr "die Domain fehlt."
 
-#: inc/validate-email.php:32
+#: inc/validate-email.php:33
 msgid "The email address entered by the sender is missing the top-level domain"
 msgstr "In der eingegebenen E-Mail-Adresse des Absenders fehlt die Top-Level-Domain"
 
-#: inc/validate-email.php:33
+#: inc/validate-email.php:34
 msgid "the top-level domain is missing."
 msgstr "die Top-Level-Domain fehlt."
 
-#: inc/validate-email.php:37
+#: inc/validate-email.php:38
 msgid "The email address entered by the sender contains whitespace characters"
 msgstr "Die eingegebenen E-Mail-Adresse des Absenders enthält Leerzeichen"
 
-#: inc/validate-email.php:38
+#: inc/validate-email.php:39
 msgid "whitespace characters are used."
 msgstr "es werden Leerzeichen verwendet."
 
-#: inc/validate-email.php:7
+#. translators: %s: error message
+#: inc/validate-email.php:8
 msgid "The email address is invalid: %s"
 msgstr "Die E-Mail-Adresse ist ungültig: %s"
 
 #: inc/mail-sent-ok-redirect/admin.js:5
 msgid "If you enter a URL, the user will be redirected to it."
 msgstr "Wenn Du eine URL eingibst, wird der Benutzer dorthin weitergeleitet."
+
+#: inc/brevo.php:43
+msgid "Brevo"
+msgstr ""
+
+#: inc/brevo.php:45
+msgid "Connect your contact form to a Brevo newsletter list"
+msgstr "Verknüpfe Dein Kontaktformular mit einer Brevo-Newsletter-Liste"
+
+#: inc/brevo.php:51
+msgid "URL to Brevo form"
+msgstr "URL zum Brevo-Formular"
+
+#. translators: 1: attribute, 2: example tag
+#: inc/brevo.php:54
+msgid "For an OPT IN use an acceptance tag with %1$s attribute, e.g. %2$s"
+msgstr "Verwende für ein OPT-IN ein Akzeptanz-Tag mit dem Attribut %1$s, z. B. %2$s"

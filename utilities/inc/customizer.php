@@ -1,11 +1,28 @@
 <?php
 
-// register utilities section in customizer
+// register utilities panel with sections in customizer (empty sections are hidden)
+// `utilities` is the general section, so controls of existing projects (`'section' => 'utilities'`) stay visible
 add_action( 'customize_register', function( $wp_customize ) {
-	$wp_customize->add_section( 'utilities', [
+	$wp_customize->add_panel( 'utilities-panel', [
 		'title' => __( 'Theme Options', 'utilities' ),
 		'priority' => -1
 	] );
+
+	$sections = apply_filters( 'utilities_customizer_sections', [
+		'utilities' => __( 'General', 'utilities' ),
+		'utilities-ui' => __( 'UI/UX', 'utilities' ),
+		'utilities-editor' => __( 'Editor & Content', 'utilities' ),
+		'utilities-security' => __( 'Security', 'utilities' ),
+	] );
+
+	$priority = 0;
+	foreach ( $sections as $id => $title ) {
+		$wp_customize->add_section( $id, [
+			'title' => $title,
+			'panel' => 'utilities-panel',
+			'priority' => $priority += 10,
+		] );
+	}
 } );
 
 // available 'stuff' @see ROOT/wp-includes/class-wp-customize-manager.php:register_controls()

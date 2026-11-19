@@ -69,7 +69,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_control( 'force_figcaption', array(
 		'label' => __( 'Empty caption', 'utilities' ),
 		'description' => __( "Force <code>&lt;figcaption&gt;</code> to be added, even if it's empty. Mostly for styling reasons.", 'utilities' ),
-		'section' => 'utilities',
+		'section' => 'utilities-editor',
 		'type' => 'checkbox'
 	) );
 } );

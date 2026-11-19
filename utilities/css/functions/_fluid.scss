@@ -1,8 +1,15 @@
 @use "sass:math";
+
 /**
- * Calculate `clamp()` values to adjust _size_ (limited to `$min`/`$max`) between `$lower` and `$upper` screen widths.
+ * Calculate `clamp()` values (limited to `$min`/`$max`) between `$lower` and `$upper` screen widths.
  *
- * !!! Same unit for $min and $max only !!!
+ * @since 2.2.0 no JS needed.
+ *
+ * `$min` value for `$lower` and narrower screen width.
+ * `$max` value for `$upper` and wider screen width.
+ * All values in between are calculated from the viewport width (`100vw`).
+ *
+ * Any unit or unitless … but same for $min and $max only !!!
  *
  * ```
  * // use default lower and upper screen widths
@@ -13,11 +20,9 @@
  *
  * // use specific upper screen width
  * padding-left: fluid(30px, 60px, $upper: 900px)
- * ```
  *
- * `$min` value for `$lower` and narrower screen width.
- * `$max` value for `$upper` and wider screen width.
- * All values in between are _calculated_.
+ * `px`/`rem`: linear `calc()` with `vw`.
+ * Other units/unitless: interpolated as length, cast back to a number via `tan(atan2())`.
  *
  * @param {numeric} $min
  * @param {numeric} $max
@@ -27,6 +32,7 @@
 
 @import "./strip-unit";
 @import "../mixins/breakpoints";
+@import "../mixins/px2rem";
 
 @function fluid ($min, $max, $lower: breakpoint(mobile), $upper: breakpoint(desktop)) {
   @if math.unit($min) != math.unit($max) {
@@ -36,13 +42,13 @@
 
   $lower: breakpoint($lower);
   @if math.unit($lower) != px {
-    @warn 'Unit of lower screen boundary must be of type px or rem.';
+    @warn 'Unit of lower screen boundary must be of type px.';
     @return $max;
   }
 
   $upper: breakpoint($upper);
   @if math.unit($upper) != px {
-    @warn 'Unit of upper screen boundary must be of type px or rem.';
+    @warn 'Unit of upper screen boundary must be of type px.';
     @return $max;
   }
 
@@ -51,8 +57,27 @@
     @return $min;
   }
 
-  $lower: strip-unit($lower);
-  $upper: strip-unit($upper);
+  $unit: math.unit($min);
 
-  @return clamp(min($min, $max), calc($min + ($max - $min) * (var(--root-width) - $lower) / ($upper - $lower)), max($min, $max));
+  // lengths: `intercept + slope * 100vw`
+  @if $unit == px or $unit == rem {
+    @if $unit == rem {
+      $lower: rem($lower);
+      $upper: rem($upper);
+    }
+
+    $slope: math.div($max - $min, $upper - $lower);
+
+    @return clamp(min($min, $max), calc($min - $slope * $lower + $slope * 100vw), max($min, $max));
+  }
+
+  // other units/unitless: normalize to [-1, 1] (keeps `tan()` precise), interpolate as px, cast back to number
+  // large base: Firefox rounds lengths to 1/60px
+  $scale: math.max(math.abs($min), math.abs($max));
+  $a: math.div($min, $scale) * 10000;
+  $b: math.div($max, $scale) * 10000;
+  $slope: math.div($b - $a, strip-unit($upper - $lower));
+  $length: clamp(math.min($a, $b) * 1px, calc($a * 1px - $slope * $lower + $slope * 100vw), math.max($a, $b) * 1px);
+
+  @return calc(tan(atan2($length, 10000px)) * $scale);
 }

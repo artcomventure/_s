@@ -40,7 +40,7 @@ add_action( 'customize_register', function( $wp_customize ) {
     $wp_customize->add_control( 'custom-select', array(
         'label' => __( 'Enable custom-select.js', 'utilities' ),
         'description' => __( "Replacing and enhancing the native <code>select</code> (dropdown) element.", 'utilities' ),
-        'section' => 'utilities',
+        'section' => 'utilities-ui',
         'type' => 'checkbox'
     ) );
 
@@ -52,7 +52,7 @@ add_action( 'customize_register', function( $wp_customize ) {
     $wp_customize->add_control( 'custom-select-css-selectors', array(
 //        'label'       => __( 'CSS Selectors', 'utilities' ),
         'description' => __( "CSS selectors for <code>select</code> fields to apply custom-select.js to. Leave blank to apply to all. Each selector in a new line.", 'utilities' ),
-        'section'     => 'utilities',
+        'section'     => 'utilities-ui',
         'type'        => 'textarea'
     ) );
 

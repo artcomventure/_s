@@ -135,7 +135,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_control( 'loose_security', array(
 		'label' => __( 'Loosen security', 'utilities' ),
 		'description' => __( "This features should be disabled at all times! But there are cases to enable it temporarily. Use this with caution!", 'utilities' ),
-		'section' => 'utilities',
+		'section' => 'utilities-security',
 		'type' => 'checkbox'
 	) );
 }, 8 );

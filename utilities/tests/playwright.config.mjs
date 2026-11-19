@@ -125,6 +125,8 @@ export default defineConfig( {
 	use: {
 		baseURL,
 		channel: 'chrome',
+		// Chrome 157+ auto-enables HTTPS-First: `http://` dev URLs fail with ERR_BLOCKED_BY_CLIENT
+		launchOptions: { args: [ '--disable-features=HttpsFirstBalancedModeAutoEnable' ] },
 		ignoreHTTPSErrors: true,
 		httpCredentials: username ? { username, password: password.join( ':' ) } : undefined,
 	},

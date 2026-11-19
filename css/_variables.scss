@@ -59,7 +59,9 @@ $spacing-max: 130px;
 
 @import "../utilities/css/mixins/px2rem";
 @import "../utilities/css/functions/fluid";
-$spacings: ();
+$spacings: (
+  default: 40px
+);
 
 // ---
 // Typography.

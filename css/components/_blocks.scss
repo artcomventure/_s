@@ -1,10 +1,13 @@
+@use "sass:map";
+
 @mixin blocks( $combinator: '' ) {
-  #{$combinator} .wp-block-group,
+  #{$combinator} .wp-block-accordion-widget,
   #{$combinator} .wp-block-columns,
   #{$combinator} .wp-block-cover,
-  #{$combinator} .wp-block-quote,
+  #{$combinator} .wp-block-group,
   #{$combinator} .wp-block-media-text,
-  #{$combinator} .wp-block-accordion-widget,
+  #{$combinator} .wp-block-quote,
+  #{$combinator} .wp-block-video,
   #{$combinator} .swiper {
     @content
   }
@@ -15,15 +18,13 @@
 .is-root-container {
   // default spacing
   @include blocks {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-block: map.get($spacings, default);
   }
 
   &, .alignfull {
     // spacing of root blocks
     @include blocks( '>' ) {
-      margin-top: 40px;
-      margin-bottom: 40px;
+      margin-block: map.get($spacings, default);
 
       &.alignfull {
         &:first-child,

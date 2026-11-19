@@ -40,6 +40,8 @@ function get_posts_list( $attr = [] ) {
 	// no valid post type: nothing to list
 	if ( !$post_types ) return '';
 	$atts['post_type'] = array_values( $post_types );
+	// single post type as string like WP' $query->post_type
+	if ( count( $post_types ) === 1 ) $atts['post_type'] = current( $post_types );
 
 	// like WP_Query: -1 = all, invalid/0 = default
 	$atts['posts_per_page'] = (int) $atts['posts_per_page'];

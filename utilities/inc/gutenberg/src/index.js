@@ -41,39 +41,19 @@ apiFetch( { path: 'gutenberg/v1/getBackgroundColor' } ).then( ( color ) => {
     })();
 } );
 
-// set client width property to get fluid to work properly
-(function setClientWidthProperty() {
-    const $editorStylesWrapper = getEditorStylesWrapper();
-    if ( !$editorStylesWrapper ) return requestAnimationFrame( setClientWidthProperty );
-
-    const { ResizeObserver } = $editorStylesWrapper.ownerDocument.defaultView;
-    new ResizeObserver( () => {
-        $editorStylesWrapper.style.setProperty( '--root-width', `${$editorStylesWrapper.clientWidth}` );
-    } ).observe( $editorStylesWrapper );
-})();
-
 // set scrollbar width property
 (function setScrollbarWidthProperty() {
     const $editorStylesWrapper = getEditorStylesWrapper();
     if ( !$editorStylesWrapper ) return requestAnimationFrame( setScrollbarWidthProperty );
 
+    // actual scrollbar of the (iframe's) document, like the frontend (`utilities.php`)
     const doc = $editorStylesWrapper.ownerDocument;
-    const { ResizeObserver } = doc.defaultView;
+    const win = doc.defaultView;
+    const $root = doc.documentElement;
 
-    // element for calculating the scroll bar width
-    // !!! same js in `helper.js` !!!
-    const $scrollBarTester = doc.createElement( 'div' );
-    $scrollBarTester.style.cssText = "overflow:scroll; visibility:hidden; position:absolute; pointer-events:none; height:0;"
-    $scrollBarTester.innerText = 'This element is for calculating the `--scrollbar-width` property.';
-    $scrollBarTester.setAttribute( 'aria-hidden', 'true' );
-    $editorStylesWrapper.appendChild( $scrollBarTester );
-
-    new ResizeObserver( () => {
-        $editorStylesWrapper.style.setProperty(
-            '--scrollbar-width',
-            `${$scrollBarTester.offsetWidth - $scrollBarTester.clientWidth}px`
-        );
-    } ).observe( $editorStylesWrapper );
+    const setProperty = () => $editorStylesWrapper.style.setProperty( '--scrollbar-width', `${win.innerWidth - $root.clientWidth}px` );
+    setProperty();
+    new win.ResizeObserver( setProperty ).observe( $root );
 })();
 
 // `style="white-space: nowrap"`

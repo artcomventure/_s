@@ -49,7 +49,7 @@ const options = {
 	outdir: '/',
 	bundle: false,
 	// no `format`: keep script semantics (top-level globals, no renaming)
-	target: 'es2017',
+	target: 'es2020', // oldest in `.browserslistrc`: Chrome 109, Safari 18 (newer syntax would need global helpers)
 	charset: 'utf8',
 	minify: !watch,
 	legalComments: watch ? 'inline' : 'none',

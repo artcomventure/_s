@@ -1,6 +1,6 @@
 {
   "name": "_s",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "I'm the next, most awesome, WordPress theme out there.",
   "author": "SMITH",
   "license": "GPL-2.0-or-later",
@@ -59,8 +59,8 @@
     "test:live": "TEST_ENV=live npm test",
     "test:stage": "TEST_ENV=stage npm test",
     "test:visual": "PLAYWRIGHT_HTML_OPEN=on-failure TEST_VISUAL=1 playwright test -c utilities/tests",
-    "test:visual:reference": "TEST_ENV=live npm run test:visual -- --update-snapshots=all",
-    "test:visual:reference:stage": "TEST_ENV=stage npm run test:visual -- --update-snapshots=all",
+    "test:visual:reference": "rm -rf utilities/tests/visual-snapshots && TEST_ENV=live npm run test:visual -- --update-snapshots=all",
+    "test:visual:reference:stage": "rm -rf utilities/tests/visual-snapshots && TEST_ENV=stage npm run test:visual -- --update-snapshots=all",
     "test:report": "playwright show-report utilities/tests/playwright-report",
 
     "i18n:scan": "npm run i18n:pot && npm run i18n:po",

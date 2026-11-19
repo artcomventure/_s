@@ -53,7 +53,7 @@ npm run build   # SCSS + JS für Produktion (minifiziert)
 npm run lint    # ESLint (js/) + Typprüfung (tsc --noEmit, js/**/*.ts) + Stylelint (css/)
 ```
 
-- JS/TS: `NAME.js` bzw. `NAME.ts` → `NAME.min.js` via esbuild (`utilities/bin/build-js.mjs`, Target es2017, kein Bundling).
+- JS/TS: `NAME.js` bzw. `NAME.ts` → `NAME.min.js` via esbuild (`utilities/bin/build-js.mjs`, Target es2020 – darunter erzeugt esbuild globale Helper, die sich zwischen Scripts überschreiben –, kein Bundling).
 - SCSS: Dart Sass + Autoprefixer (Ziele in `.browserslistrc`) via `utilities/bin/build-css.mjs` (Build komprimiert, Watch mit Source Maps). `@import` bleibt bis zur `@use`-Umstellung (Warnung stummgeschaltet); neue Built-in-Aufrufe als Modul (`map.get`, `math.div`, `@use "sass:…"`). `sass` ist exakt gepinnt (1.106.0 stürzt bei `[attr=""]` ab).
 - Node **24** (`.nvmrc`, `engines`). `.npmrc` setzt `legacy-peer-deps` (wp-scripts 26 will ESLint 8).
 

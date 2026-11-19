@@ -11,6 +11,7 @@
       transition: .3s ease-in-out;
       transition-property: transform, opacity;
     }
+
     &.is-togglable {
       transform: translateY(calc(-100% + fluid($spacing-min, 24px)));
       opacity: 0;
@@ -19,6 +20,11 @@
         transform: translateY(0);
         opacity: 1;
       }
+    }
+
+    // no transition duration on spa redirect
+    body:has(#spa-transition:not([style*=display])) & {
+      transition-duration: 0s;
     }
   }
 

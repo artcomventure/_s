@@ -51,7 +51,7 @@ add_filter( 'wpcf7_editor_panels', function( $panels ) {
 							<?php esc_html_e( 'URL to Brevo form', 'cf7' ); ?>
 							<input type="text" id="wpcf7-brevo-form_url" name="wpcf7-brevo[form_url]" value="<?php echo esc_attr( $prop['form_url'] ) ?>"
 							       class="large-text" />
-							<span><?php printf( esc_html__( 'For an OPT IN use the an acceptance tag with %s attribute, e.g. %s', 'cf7' ), '<code>consent_for:brevo</code>', '<code>[acceptance newsletter optional consent_for:brevo]</code>' ); ?></span>
+							<span><?php /* translators: 1: attribute, 2: example tag */ printf( esc_html__( 'For an OPT IN use an acceptance tag with %1$s attribute, e.g. %2$s', 'cf7' ), '<code>consent_for:brevo</code>', '<code>[acceptance newsletter optional consent_for:brevo]</code>' ); ?></span>
 						</label>
 					</p>
 				</fieldset>

@@ -11,6 +11,7 @@ import globals from 'globals';
 export const wordpressGlobals = {
 	jQuery: 'readonly',
 	ajaxurl: 'readonly',
+	Masonry: 'readonly',
 	mejs: 'readonly',
 	mejsL10n: 'readonly',
 	_wpmejsSettings: 'readonly',
@@ -66,6 +67,7 @@ export default defineConfig( [
 				SlowMo: 'readonly',
 				TextPlugin: 'readonly',
 				// other libs
+				htmx: 'readonly',
 				Odometer: 'readonly',
 				Pjax: 'readonly',
 				videojs: 'readonly',

@@ -21,7 +21,7 @@ add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_control( 'use-custom-accordion-block', array(
 		'label' => __( 'Use custom accordion block', 'accordion' ),
 		'description' => sprintf( __( 'Since “Gene” (6.9) WordPress got its own <a href="%s" target="_blank">accordion block</a>. Our custom block is therefore deprecated.', 'accordion' ), 'https://wordpress.org/download/releases/6-9/' ),
-		'section' => 'utilities',
+		'section' => 'utilities-editor',
 		'type' => 'checkbox'
 	) );
 } );
@@ -58,12 +58,7 @@ function register_accordion() {
 
 	wp_set_script_translations( 'accordion-be-js', 'accordion', UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/languages' );
 
-    wp_register_style(
-        'accordion-be-css',
-        UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/css/gutenberg.css',
-        array(),
-        filemtime(UTLTS_GUTENBERG_ACCORDION_DIRECTORY . '/css/gutenberg.css')
-    );
+	wp_register_style( 'accordion-be-css', UTLTS_GUTENBERG_ACCORDION_DIRECTORY_URI . '/css/gutenberg.css' );
 
 	register_block_type( 'accordion/block', array(
 		'editor_script' => 'accordion-be-js',
