@@ -44,18 +44,10 @@ add_filter( 'tiny_mce_before_init', function( $mce_init ) {
 	return $mce_init;
 } );
 
-// remove _unneeded_ CSS
-// TODO: check if it's really unneeded anymore
-add_action( 'wp_enqueue_scripts', function() {
-	wp_dequeue_style( 'global-styles' );
-
-	wp_register_script( 'remove-global-styles-inline-css', '', [], '', true );
-	wp_enqueue_script( 'remove-global-styles-inline-css'  );
-	wp_add_inline_script( 'remove-global-styles-inline-css', "(function() {
-		const \$globalStyles = document.getElementById( 'global-styles-inline-css' );
-        if ( \$globalStyles ) \$globalStyles.remove();
-    })();" );
-} );
+// no global styles in frontend: presets and `has-*` classes come from `THEME/utilities/css/`
+// classic themes with on-demand block assets (default since WP 6.9) get them in `wp_footer` (hoisted into `<head>`)
+remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
 
 // remove all core patterns
 add_action( 'after_setup_theme', function() {

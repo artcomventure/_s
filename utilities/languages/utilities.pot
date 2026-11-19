@@ -148,7 +148,7 @@ msgid "Disable Search"
 msgstr ""
 
 #: inc/disable-search.php:12
-msgid "All search requests will be redirected to home page."
+msgid "All search requests will show the 404 page."
 msgstr ""
 
 #: inc/media.php:70

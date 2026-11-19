@@ -7,6 +7,11 @@
 define( 'UTLTS_JS_LIBS_SPA_DIRECTORY', dirname( __FILE__ ) );
 const UTLTS_JS_LIBS_SPA_DIRECTORY_URI = UTLTS_DIRECTORY_URI . '/js/libs/spa';
 
+// AJAX navigation switched on (customizer), not in the customizer preview
+function utilities_spa_option_enabled(): bool {
+	return (bool) get_option( 'utlts_spa' ) && !is_customize_preview();
+}
+
 // SPA libs (pjax will be replaced by htmx, htmx wins if both are included)
 auto_include_files( UTLTS_JS_LIBS_SPA_DIRECTORY . '/pjax' );
 //auto_include_files( UTLTS_JS_LIBS_SPA_DIRECTORY . '/htmx' );
@@ -26,19 +31,19 @@ add_action( 'init', function() {
 	foreach ( array_keys( $legacy ) as $name ) delete_option( $name );
 }, 0 );
 
-// with pjax all core block styles are needed (switched pages don't load their own styles),
-// otherwise only styles of blocks used on the page (default for classic themes is `false`), htmx adds missing ones
-add_filter( 'should_load_separate_core_block_assets', fn() => !( get_option( 'utlts_spa' ) && utilities_spa_library() === 'pjax' ) );
+// only styles of blocks used on the page (default for classic themes is `false`), pjax/htmx add missing ones of switched pages
+add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 //add_filter( 'should_load_block_assets_on_demand', '__return_false' );
 
 // no speculative loading: pages are fetched by the SPA lib, prefetched/prerendered pages would be loaded twice
-add_filter( 'wp_speculation_rules_configuration', fn( $config ) => get_option( 'utlts_spa' ) ? null : $config );
+add_filter( 'wp_speculation_rules_configuration', fn( $config ) => utilities_spa_option_enabled() ? null : $config );
 
 // enable/disable AJAX navigation customizer setting
 add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_setting( 'utlts_spa', [
 		'type' => 'option',
 		'capability' => 'manage_options',
+		'sanitize_callback' => 'rest_sanitize_boolean',
 	] );
 
 	$wp_customize->add_control( 'utlts_spa', [

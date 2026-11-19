@@ -7,10 +7,6 @@
 define( 'UTLTS_JS_LIBS_SPA_HTMX_DIRECTORY', dirname( __FILE__ ) );
 const UTLTS_JS_LIBS_SPA_HTMX_DIRECTORY_URI = UTLTS_DIRECTORY_URI . '/js/libs/spa/htmx';
 
-function utilities_htmx_enabled(): bool {
-	return (bool) get_option( 'utlts_spa' ) && !is_customize_preview();
-}
-
 // register htmx lib
 add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'htmx-module', UTLTS_JS_LIBS_SPA_HTMX_DIRECTORY_URI . '/module/htmx.min.js', [], '2.0.11', ['in_footer' => true, 'strategy' => 'defer'] );
@@ -18,7 +14,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'htmx-ext-preload', UTLTS_JS_LIBS_SPA_HTMX_DIRECTORY_URI . '/module/ext-preload.min.js', ['htmx-module'], '2.1.2', ['in_footer' => true, 'strategy' => 'defer'] );
 	wp_register_script( 'htmx', UTLTS_JS_LIBS_SPA_HTMX_DIRECTORY_URI . '/app.js', ['htmx-module', 'htmx-ext-preload', 'behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 
-	if ( utilities_htmx_enabled() )
+	if ( utilities_spa_option_enabled() )
 		wp_enqueue_script( 'htmx' );
 }, 9 );
 
@@ -42,7 +38,7 @@ add_filter( 'wp_headers', function( $headers ) {
 } );
 
 add_action( 'wp_head', function() {
-	if ( !utilities_htmx_enabled() ) return;
+	if ( !utilities_spa_option_enabled() ) return;
 
 	// no history cache for logged-in users: cached pages (whole `<body>`) stay in `sessionStorage` after logout
 	if ( is_user_logged_in() ) {

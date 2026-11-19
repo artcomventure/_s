@@ -43,6 +43,39 @@
     // ... to extract `transition-duration` for `setTimeout` functions
     const pjaxTransitionDuration= parseFloat( CSS.getPropertyValue( 'transition-duration' ) ) * 1000;
 
+    // latest `#primary` switch (a newer page load cancels a pending one)
+    let switchId = 0;
+
+    // add missing styles of the new page (`id` mandatory, block styles are loaded per page), existing ones stay;
+    // update changed inline styles; head styles before the theme's stylesheet, footer styles at the end of `<body>`.
+    // Resolves when new stylesheets are loaded (max. 3 s).
+    function syncStyles( $document, selectors ) {
+        const $themeStyle = document.getElementById( Alter.do( 'pjax-theme-style', '_s-style-css' ) );
+        const loads = [];
+
+        $document.querySelectorAll( 'link[rel="stylesheet"][id], style[id]' ).forEach( $style => {
+            // switched anyway
+            if ( $style.closest( selectors.join( ',' ) ) ) return;
+
+            const $current = document.getElementById( $style.id );
+
+            if ( !$current ) {
+                const $new = document.importNode( $style, true );
+                if ( $new.tagName === 'LINK' ) loads.push( new Promise( resolve => {
+                    $new.addEventListener( 'load', resolve, { once: true } );
+                    $new.addEventListener( 'error', resolve, { once: true } );
+                } ) );
+
+                if ( $style.closest( 'head' ) ) document.head.insertBefore( $new, $themeStyle?.parentNode === document.head ? $themeStyle : null );
+                else document.body.appendChild( $new );
+            } else if ( $style.tagName === 'STYLE' && $current.textContent !== $style.textContent ) {
+                $current.textContent = $style.textContent;
+            }
+        } );
+
+        return Promise.race( [Promise.all( loads ), new Promise( resolve => setTimeout( resolve, 3000 ) )] );
+    }
+
     // instantiate after all deferred scripts ran: their `Alter.add( 'pjax-…' )` calls are registered
     // (deferred scripts run while `readyState` is already `interactive`, before `DOMContentLoaded`)
     if ( document.readyState === 'complete' ) init();
@@ -65,31 +98,38 @@
                     // inert document: no image loading or inline handlers (unlike innerHTML in the live document)
                     const $document = new DOMParser().parseFromString( options.request.responseText, 'text/html' );
                     const $body = $document.body;
+                    const id = ++switchId;
 
-                    // switch html attributes
-                    ['lang', 'dir', 'class'].forEach( attribute => {
-                        const value = $document.documentElement.getAttribute( attribute ) || '';
+                    // switch once new stylesheets are loaded (behind the overlay)
+                    syncStyles( $document, this.options.selectors ).then( () => {
+                        // a newer page is loading: its switches take over
+                        if ( id !== switchId ) return;
 
-                        if ( value === '' ) {
-                            return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
-                        }
+                        // switch html attributes
+                        ['lang', 'dir', 'class'].forEach( attribute => {
+                            const value = $document.documentElement.getAttribute( attribute ) || '';
 
-                        switch ( attribute ) {
-                            default:
-                                document.getElementsByTagName( 'html' )[0].setAttribute( attribute, value );
-                                break;
+                            if ( value === '' ) {
+                                return document.getElementsByTagName( 'html' )[0].removeAttribute( attribute );
+                            }
 
-                            case 'class':
-                                document.getElementsByTagName( 'html' )[0].className = value;
-                                break;
-                        }
+                            switch ( attribute ) {
+                                default:
+                                    document.getElementsByTagName( 'html' )[0].setAttribute( attribute, value );
+                                    break;
+
+                                case 'class':
+                                    document.getElementsByTagName( 'html' )[0].className = value;
+                                    break;
+                            }
+                        } );
+
+                        // switch body classes
+                        document.body.className = $body.className;
+
+                        oldEl.replaceWith( newEl );
+                        this.onSwitch();
                     } );
-
-                    // switch body classes
-                    document.body.className = $body.className;
-
-                    oldEl.replaceWith( newEl );
-                    this.onSwitch();
                 }
             } ),
             cacheBust: Alter.do( 'pjax-cacheBust', false ),

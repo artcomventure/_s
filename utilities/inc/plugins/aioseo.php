@@ -57,7 +57,7 @@ add_action( 'wp_enqueue_scripts', function() {
  * @since 1.20.5
  */
 add_filter( 'post_type_link', function( $url ) {
-	if ( get_option( 'utlts_spa' ) && isset( aioseo()->redirects ) ) {
+	if ( function_exists( 'utilities_spa_option_enabled' ) && utilities_spa_option_enabled() && isset( aioseo()->redirects ) ) {
 		$path = wp_make_link_relative( $url );
 
 		if ( $redirect = aioseo()->redirects->redirect->getRedirects( $path ) ) {

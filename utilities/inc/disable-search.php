@@ -5,20 +5,23 @@ add_action( 'customize_register', function( $wp_customize ) {
 	$wp_customize->add_setting( 'disable_search', array(
 		'type' => 'option',
 		'capability' => 'manage_options',
+		'sanitize_callback' => 'rest_sanitize_boolean',
 	) );
 
 	$wp_customize->add_control( 'disable_search', array(
 		'label' => __( 'Disable Search', 'utilities' ),
-		'description' => __( 'All search requests will be redirected to home page.', 'utilities' ),
+		'description' => __( 'All search requests will show the 404 page.', 'utilities' ),
 		'section' => 'utilities',
 		'type' => 'checkbox'
 	) );
 } );
 
-// No search … redirect to home
+// No search … 404
 add_action( 'template_redirect', function () {
-	if ( get_option('disable_search' ) && is_search() ) {
-		wp_redirect( home_url(), 301 );
-		exit();
+	if ( get_option( 'disable_search' ) && is_search() ) {
+		global $wp_query;
+		$wp_query->set_404();
+		status_header( 404 );
+		nocache_headers();
 	}
 } );

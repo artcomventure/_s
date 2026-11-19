@@ -82,9 +82,11 @@
     const getAttributes = ( $element, names ) => Object.fromEntries( names.map( name => [name, $element.getAttribute( name )] ) );
 
     // add missing styles (`id` mandatory) and update changed inline styles (e.g. `#core-block-supports-inline-css`),
-    // existing ones stay; head styles before the theme's stylesheet, footer styles at the end of `<body>`
+    // existing ones stay; head styles before the theme's stylesheet, footer styles at the end of `<body>`.
+    // Resolves when new stylesheets are loaded (max. 3 s).
     function syncStyles( $document ) {
         const $themeStyle = document.getElementById( Alter.do( 'htmx-theme-style', '_s-style-css' ) );
+        const loads = [];
 
         $document.querySelectorAll( 'link[rel="stylesheet"][id], style[id]' ).forEach( $style => {
             // swapped anyway
@@ -94,12 +96,19 @@
 
             if ( !$current ) {
                 const $new = document.importNode( $style, true );
+                if ( $new.tagName === 'LINK' ) loads.push( new Promise( resolve => {
+                    $new.addEventListener( 'load', resolve, { once: true } );
+                    $new.addEventListener( 'error', resolve, { once: true } );
+                } ) );
+
                 if ( $style.closest( 'head' ) ) document.head.insertBefore( $new, $themeStyle?.parentNode === document.head ? $themeStyle : null );
                 else document.body.appendChild( $new );
             } else if ( $style.tagName === 'STYLE' && $current.textContent !== $style.textContent ) {
                 $current.textContent = $style.textContent;
             }
         } );
+
+        return Promise.race( [Promise.all( loads ), new Promise( resolve => setTimeout( resolve, 3000 ) )] );
     }
 
     // remove MediaElements aka video/audio
@@ -160,8 +169,11 @@
         } );
     }
 
+    // new stylesheets of the swapped page loaded
+    let stylesLoaded = Promise.resolve();
+
     function beforePageSwap( $document ) {
-        syncStyles( $document );
+        stylesLoaded = syncStyles( $document );
         removeMediaPlayers();
 
         // destroy all gsap ScrollTrigger
@@ -236,10 +248,13 @@
     const getTransitionDuration = () => ( parseFloat( getComputedStyle( $overlay ).transitionDuration ) || 0 ) * 1000;
 
     let transitionActive = false;
+    // current transition (an older page mustn't end a newer one)
+    let transitionId = 0;
     let fadeStart = null;
 
     function startTransition() {
         transitionActive = true;
+        transitionId++;
         fadeStart = null;
 
         // fade out page (show overlay)
@@ -337,8 +352,13 @@
         pageSwap = null;
     } );
 
-    // fade in new page after htmx scrolled to top (`show:top`)
-    document.addEventListener( 'htmx:afterSettle', e => e.target === document.body && endTransition() );
+    // fade in new page after htmx scrolled to top (`show:top`) and its new stylesheets are loaded
+    document.addEventListener( 'htmx:afterSettle', e => {
+        if ( e.target !== document.body ) return;
+
+        const id = transitionId;
+        stylesLoaded.then( () => id === transitionId && endTransition() );
+    } );
 
     // ---
     // History: htmx caches and restores the whole `<body>` (incl. scripts), so restore the swapped elements only.

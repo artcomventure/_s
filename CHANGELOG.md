@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.2.1 - 2026-11-19
+**Changed**
+
+* Visibility script `utilities-video` only on pages with a video (video block, video shortcode) or with AJAX navigation, plus as dependency of the selected player (Video.js: every page as before). Videos in project templates: call `utilities_video_enqueue()`; action `utilities_video_enqueue` (selected player as argument) loads the player (in `THEME/utilities/inc/video/`).
+* pjax loads only the block styles used on the page (like htmx, before: whole block library ~128 KB): styles of switched pages are added (`id` mandatory, before the theme's stylesheet: `Alter` hook `pjax-theme-style`), changed inline styles updated; content is switched once new stylesheets are loaded (max. 3 s). htmx: page fades in once new stylesheets are loaded (max. 3 s), before: unstyled flash possible (in `THEME/utilities/js/libs/spa/`).
+* AJAX navigation: one check `utilities_spa_option_enabled()` for pjax, htmx, speculation rules and AIOSEO; pjax is no longer loaded in the customizer preview (like htmx); `utilities_htmx_enabled()` removed (in `THEME/utilities/js/libs/spa/`).
+* Disabled search shows the 404 page instead of a 301 redirect to the home page – a cached 301 would outlast re-enabling the search (in `THEME/utilities/inc/disable-search.php`).
+* Customizer options `utlts_spa` and `disable_search` sanitized as boolean.
+
+**Fixed**
+
+* Global styles removed in PHP instead of JS: since WP 6.9 classic themes get them in `wp_footer` (hoisted into `<head>`), `wp_dequeue_style()` on `wp_enqueue_scripts` missed them (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+
 ## 2.2.0 - 2026-11-19
 **Added**
 

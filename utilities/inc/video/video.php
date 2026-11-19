@@ -10,9 +10,35 @@ define( 'UTLTS_VIDEO_DIRECTORY_URI', UTLTS_DIRECTORY_URI . '/inc/video' );
  * @since 2.2.0
  */
 add_action( 'wp_enqueue_scripts', function() {
-	// enqueued here, not as dependency: disabled module (`_video/`) would drop the dependent script
-	wp_enqueue_script( 'utilities-video', UTLTS_VIDEO_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+	wp_register_script( 'utilities-video', UTLTS_VIDEO_DIRECTORY_URI . '/app.js', ['behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
+}, 0 );
+
+/**
+ * Visibility script and selected player (`utlts_video_player`, action `utilities_video_enqueue`).
+ * Called for video block and shortcode; project templates with `<video>` call it themselves.
+ *
+ * @since 2.2.1
+ */
+function utilities_video_enqueue(): void {
+	wp_enqueue_script( 'utilities-video' );
+	do_action( 'utilities_video_enqueue', utilities_video_player() );
+}
+
+add_filter( 'render_block_core/video', function( $content ) {
+	utilities_video_enqueue();
+	return $content;
 } );
+
+// oEmbed videos (see below) are iframes
+add_filter( 'wp_video_shortcode', function( $output ) {
+	if ( str_contains( $output, '<video' ) ) utilities_video_enqueue();
+	return $output;
+}, 20 );
+
+// with AJAX navigation on every page: videos may come with a page loaded via AJAX (after the SPA libs enqueued at 9–11)
+add_action( 'wp_enqueue_scripts', function() {
+	if ( function_exists( 'utilities_spa_enabled' ) && utilities_spa_enabled() ) utilities_video_enqueue();
+}, 20 );
 
 /**
  * Video provider (`youtube`/`vimeo`) of an oEmbed URL, without HTTP request.

@@ -8,7 +8,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'pjax-module', UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/module/pjax.min.js', [], '0.2.8', ['in_footer' => true, 'strategy' => 'defer'] );
 	wp_register_script( 'pjax', UTLTS_JS_LIBS_SPA_PJAX_DIRECTORY_URI . '/app.js', ['pjax-module', 'behaviours', 'alter'], false, ['in_footer' => true, 'strategy' => 'defer'] );
 
-	if ( get_option( 'utlts_spa' ) )
+	if ( utilities_spa_option_enabled() )
 		wp_enqueue_script( 'pjax' );
 }, 9 );
 

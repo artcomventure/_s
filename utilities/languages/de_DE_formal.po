@@ -49,8 +49,8 @@ msgid "Disable Search"
 msgstr "Suche deaktivieren"
 
 #: inc/disable-search.php:12
-msgid "All search requests will be redirected to home page."
-msgstr "Alle Suchanfragen werden zur Startseite weitergeleitet."
+msgid "All search requests will show the 404 page."
+msgstr "Alle Suchanfragen zeigen die 404-Seite."
 
 #: js/libs/spa/spa.php:46
 msgid "Load page content using AJAX without reloading your page's layout."
