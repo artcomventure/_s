@@ -2,6 +2,7 @@
   display: flow-root;
   position: sticky;
   top: 0;
+  z-index: 10; // above positioned content (teasers, covers)
 
   background-color: hexa(#fff, .2);
   backdrop-filter: blur(20px);

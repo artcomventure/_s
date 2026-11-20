@@ -44,10 +44,24 @@ add_filter( 'tiny_mce_before_init', function( $mce_init ) {
 	return $mce_init;
 } );
 
-// no global styles in frontend: presets and `has-*` classes come from `THEME/utilities/css/`
+// frontend global styles: only CSS variables from `theme.json` (no `has-*` classes, layout or element styles)
 // classic themes with on-demand block assets (default since WP 6.9) get them in `wp_footer` (hoisted into `<head>`)
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+
+// keep the `global-styles` handle (core styles depend on it)
+// printed before above-the-fold CSS (`wp_head` 0), so theme CSS overrides the variables
+function utlts_print_global_styles_variables() {
+	wp_register_style( 'global-styles', false );
+	wp_add_inline_style( 'global-styles', wp_get_global_stylesheet( array( 'variables' ) ) );
+	wp_print_styles( 'global-styles' );
+}
+add_action( 'wp_head', 'utlts_print_global_styles_variables', -1 );
+
+// no core block style variation styles (e.g. button `outline`), the theme styles them itself
+remove_filter( 'render_block_data', 'wp_render_block_style_variation_support_styles', 10 );
+remove_filter( 'render_block', 'wp_render_block_style_variation_class_name', 10 );
+remove_action( 'wp_enqueue_scripts', 'wp_enqueue_block_style_variation_styles', 1 );
 
 // remove all core patterns
 add_action( 'after_setup_theme', function() {
@@ -71,12 +85,10 @@ add_action( 'init', function() {
 	// enqueue
 	register_block_type( 'gutenberg/stuff', array(
 		'editor_script' => 'gutenberg-be-js',
-		array(
-			'attributes' => array(
-				'background-color' => array(
-					'type' => 'string',
-					'default' => get_background_color(),
-				)
+		'attributes' => array(
+			'background-color' => array(
+				'type' => 'string',
+				'default' => get_background_color(),
 			)
 		)
 	) );

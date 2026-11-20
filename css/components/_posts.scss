@@ -1,6 +1,6 @@
 // make whole teaser view a link
 // without `[data-href]` so the contextual menu can be used
-article.teaser-view {
+.teaser-view {
   position: relative;
 
   a {

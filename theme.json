@@ -1,7 +1,11 @@
 {
-  "version": 2,
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
   "settings": {
     "color" : {
+      "customDuotone": false,
+      "defaultDuotone": false,
+      "duotone": [],
       "defaultGradients": false,
       "defaultPalette": false,
       "palette": [{
@@ -35,6 +39,7 @@
       "margin": true,
       "blockGap": false,
       "customSpacingSize": false,
+      "defaultSpacingSizes": false,
       "spacingSizes": [
         {
           "size": "auto",
@@ -49,7 +54,8 @@
       "fontSizes": [
         {
           "name": "Inherit",
-          "slug": "inherit"
+          "slug": "inherit",
+          "size": "inherit"
         },
         {
           "name": "Heading 1",
@@ -97,6 +103,9 @@
       "fontStyle": false,
       "letterSpacing": false,
       "lineHeight": false
+    },
+    "shadow": {
+      "defaultPresets": false
     },
     "dimensions": {
       "defaultAspectRatios": false

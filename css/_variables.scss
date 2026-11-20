@@ -25,6 +25,9 @@ $colors: (
 
     'success': $success,
     'error': $error,
+
+    // string: no auto text color in `bgcolor()`
+    'transparent': string.unquote('transparent'),
 );
 
 // from this value (0-100) onwards, colours are considered as light

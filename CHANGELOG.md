@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.2.2 - 2026-11-20
+**Changed**
+
+* Frontend global styles: instead of removing them completely, the `global-styles` handle is registered and outputs only the CSS variables from `theme.json` (`wp_get_global_stylesheet( array( 'variables' ) )`, no `has-*` classes, layout or element styles). Printed in `wp_head` at priority -1, before the above-the-fold CSS, so theme CSS overrides the variables (`utlts_print_global_styles_variables()` in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+* Theme: default block spacing via `.entry-content :where(…)` (specificity 0,1,0 instead of 0,2,0), easy to override in project CSS; duplicate spacing rule for root blocks removed (in `THEME/css/components/_blocks.scss`).
+* Theme: link underline via `:where(.site, .is-root-container) a` (specificity of `a`); `!important` on `a[href^="#"]`, `a[href^="tel:"]` and buttons removed (in `THEME/css/_typography.scss`).
+* Theme: `.teaser-view` instead of `article.teaser-view` (in `THEME/css/components/_posts.scss`).
+* Theme: 404 page selector `.error404 .site-main` instead of `#primary` (`.error-404` kept for backwards compatibility) (in `THEME/css/components/_content.scss`).
+* Theme: `theme.json` schema version 3 with `$schema`; `defaultSpacingSizes: false` (keeps core spacing sizes out); font size preset „Inherit“ gets `"size": "inherit"`. Projects: adjust `theme.json` by hand (in `THEME/theme.json`).
+* Theme: duotone (`defaultDuotone`, `customDuotone`, `duotone: []`) and core shadow presets disabled – their presets need the core global styles (in `THEME/theme.json`).
+
+**Fixed**
+
+* Content justification and cover content position mirrored: `left` → `start`, `right` → `end` (before: inverted). Content aligned left/right in existing pages appears on the other side now (in `THEME/utilities/css/_misc.scss`).
+* `.site-main` `min-height` with `0px` fallbacks – before JS set `--masthead-height`/`--colophon-height` the `calc()` was invalid (in `THEME/utilities/css/_misc.scss`).
+* Cover in `.alignfull`: hard-coded `--width-max` (content breakpoint) removed, width comes from `%container-content` (in `THEME/utilities/css/_misc.scss`).
+* Notice „block-style-variation-styles … unregistered dependencies: global-styles“ (WP 6.9.1+) on pages with block style variations from core's `theme.json` (e.g. button `outline`): their styles are no longer output in the frontend, the theme styles them itself (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+* Block attribute `background-color` of `gutenberg/stuff` was never registered (nested in an extra array) (in `THEME/utilities/inc/gutenberg/gutenberg.php`).
+* Theme: article with background color class showed white background with light text (white-on-white); default background of `.site-main`/`article` via `:where()`, body background color via `--site-background-color` (in `THEME/css/components/_footer.scss`).
+* Theme: sticky header gets `z-index: 10` – positioned content (teaser links, covers) scrolled over it (in `THEME/css/components/_header.scss`).
+* Theme: nested spacing blocks have no outer margin as first/last child of group, column, cover or media & text (before: extra space inside containers) (in `THEME/css/components/_blocks.scss`).
+* Theme: 404 page `min-height` also subtracts `--colophon-height` (before: always scrolled by the footer height) (in `THEME/css/components/_content.scss`).
+* Theme: palette color „Transparent“ had no `has-transparent-(background-)color` class in the frontend; added to `$colors` as string (no automatic light text color). Buttons with transparent background use the surrounding text color and don't invert on hover (before: invisible text) (in `THEME/css/_variables.scss`, `THEME/css/_typography.scss`).
+
 ## 2.2.1 - 2026-11-19
 **Changed**
 

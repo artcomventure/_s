@@ -1,19 +1,24 @@
 @use "sass:map";
 
+// blocks with default vertical spacing
+$spaced-blocks: (
+  '.wp-block-accordion-widget',
+  '.wp-block-columns',
+  '.wp-block-cover',
+  '.wp-block-group',
+  '.wp-block-media-text',
+  '.wp-block-quote',
+  '.wp-block-video',
+  '.swiper'
+);
+
+// `:where()` keeps specificity low, so spacing is easy to override
 @mixin blocks( $combinator: '' ) {
-  #{$combinator} .wp-block-accordion-widget,
-  #{$combinator} .wp-block-columns,
-  #{$combinator} .wp-block-cover,
-  #{$combinator} .wp-block-group,
-  #{$combinator} .wp-block-media-text,
-  #{$combinator} .wp-block-quote,
-  #{$combinator} .wp-block-video,
-  #{$combinator} .swiper {
+  #{$combinator} :where(#{$spaced-blocks}) {
     @content
   }
 }
 
-// default spacing between blocks
 .entry-content,
 .is-root-container {
   // default spacing
@@ -21,11 +26,17 @@
     margin-block: map.get($spacings, default);
   }
 
-  &, .alignfull {
-    // spacing of root blocks
+  // no outer spacing inside containers
+  :where(.wp-block-group, .wp-block-column, .wp-block-cover__inner-container, .wp-block-media-text__content) {
     @include blocks( '>' ) {
-      margin-block: map.get($spacings, default);
+      &:first-child { margin-top: 0; }
+      &:last-child { margin-bottom: 0; }
+    }
+  }
 
+  // adjacent full width root blocks
+  &, .alignfull {
+    @include blocks( '>' ) {
       &.alignfull {
         &:first-child,
         + .alignfull {

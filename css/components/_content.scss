@@ -13,12 +13,12 @@
 // ---
 // Error 404 page
 
-.error-404,
+.error-404, // backwards compatibility
 .error404 {
-  #primary {
+  .site-main {
     display: grid;
     align-items: center;
-    min-height: calc(100svh - var(--masthead-height, 0px));
+    min-height: calc(100svh - var(--masthead-height, 0px) - var(--colophon-height, 0px));
   }
 }
 

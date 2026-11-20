@@ -1,7 +1,7 @@
 @use "sass:map";
 .site {
   &-main {
-    min-height: calc(100svh - var(--masthead-height) - var(--colophon-height));
+    min-height: calc(100svh - var(--masthead-height, 0px) - var(--colophon-height, 0px));
   }
 }
 
@@ -46,7 +46,6 @@
   }
 
   > .wp-block-cover__inner-container {
-    --width-max: #{map.get($breakpoints, content)};
     margin-right: auto !important;
     margin-left: auto !important;
   }
@@ -83,9 +82,9 @@
   }
 }
 
-.is-content-justification-right { justify-content: start; }
+.is-content-justification-left { justify-content: start; }
 .is-content-justification-center { justify-content: center; }
-.is-content-justification-left { justify-content: end; }
+.is-content-justification-right { justify-content: end; }
 
 // ---
 // Video shortcode: fluid (WP sets a fixed `width` inline, MediaElement CSS is not loaded).
@@ -116,7 +115,7 @@
 
   // content alignment
   @each $vposition, $valignment in (top: start, center: center, bottom: end) {
-    @each $hposition, $halignment in (right: start, center: center, left: end) {
+    @each $hposition, $halignment in (left: start, center: center, right: end) {
       &.is-position-#{$vposition}-#{$hposition} .wp-block-cover__inner-container {
         justify-content: $halignment;
         align-self: $valignment;

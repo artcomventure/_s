@@ -5,33 +5,27 @@
     @extend %container-content;
   }
 
-  // fixed footer
+  // fixed footer: content covers `.site-footer` and reveals it at the end
   @at-root {
     body {
       margin-bottom: var(--colophon-height, 0px);
       position: relative;
       z-index: 1;
+    }
 
-      .site-main {
-        @each $name, $color in $colors {
-          &:has(> article.has-#{$name}-background-color) {
-            @extend %bgcolor-#{$name};
-          }
-        }
+    // default background (no specificity, color classes win)
+    :where(.site-main, .site-main > article) {
+      background-color: var(--site-background-color, var(--color-white));
+    }
+
+    @each $name, $color in $colors {
+      // text colors are inherited from `body`
+      body.has-#{$name}-background-color {
+        --site-background-color: var(--color-#{$name});
       }
 
-      & {
-        .site-main, .site-main > article {
-          background-color: var(--color-white);
-        }
-
-        @each $name, $color in $colors {
-          &.has-#{$name}-background-color {
-            .site-main, .site-main > article {
-              @extend %bgcolor-#{$name};
-            }
-          }
-        }
+      .site-main:has(> article.has-#{$name}-background-color) {
+        @extend %bgcolor-#{$name};
       }
     }
 
