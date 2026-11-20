@@ -50,7 +50,7 @@
     // update changed inline styles; head styles before the theme's stylesheet, footer styles at the end of `<body>`.
     // Resolves when new stylesheets are loaded (max. 3 s).
     function syncStyles( $document, selectors ) {
-        const $themeStyle = document.getElementById( Alter.do( 'pjax-theme-style', '_s-style-css' ) );
+        const $themeStyle = document.getElementById( Alter.do( 'pjax-theme-style', 'theme-style-css' ) );
         const loads = [];
 
         $document.querySelectorAll( 'link[rel="stylesheet"][id], style[id]' ).forEach( $style => {

@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.3.0 - 2026-11-20
+**Added**
+
+* `bin/rename-theme.sh`: renames `_s` to the project theme (name, slug, function prefix, text domain) and fills the placeholders in `docker/.env` (`PROJECT`, `ABBR`, URLs, `WORDPRESS_ROOT`). See README „Theme“. Versioned (exception in `THEME/bin/.gitignore`), the other `bin/` tools stay local.
+
+**Changed**
+
+* Neutral theme names instead of `_s` – they are no longer renamed per project: stylesheet handle `theme-style` (Pjax/htmx default `theme-style-css` instead of `_s-style-css`), script handles `theme-app`, `theme-navigation`, translation template `languages/theme.pot`/`theme+.pot` (utilities `i18n:pot` subtracts `languages/theme.pot`) (in `THEME/functions.php`, `THEME/package.json`, `THEME/utilities/js/libs/spa/`, `THEME/utilities/**/package.json`). Projects: set the stylesheet handle to `theme-style` (or `Alter.add( 'pjax-theme-style' / 'htmx-theme-style', … )`), rename `languages/<slug>.pot`/`<slug>+.pot` to `theme.pot`/`theme+.pot` and adjust `i18n:pot`/`i18n:po` in `package.json`. See [`UPGRADE-2.3.md`](UPGRADE-2.3.md).
+
 ## 2.2.2 - 2026-11-20
 **Changed**
 

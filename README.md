@@ -27,16 +27,24 @@ For further Docker installation see docker/README.md
 
 ### Theme
 
-Change the theme's name "_s" to something else (like, say, `next-awesome-theme`), and then you'll need to do a six-step find and replace on the name in all the templates.
+Rename the theme with the script – without options it asks for every value (also fills `PROJECT`, `ABBR`, URLs and `WORDPRESS_ROOT` in `docker/.env`, if found):
+
+```sh
+$ bin/rename-theme.sh --project project-name --theme "Next Awesome Theme" [--slug next-awesome-theme] [--abbr nat] \
+    [--dev-url dev.project.de] [--stage-url https://stage.project.de] [--live-url https://www.project.de] [--dry-run]
+```
+
+Or by hand – change the theme's name "_s" to something else (like, say, `next-awesome-theme`) with a find and replace on the name in all the templates (not in `utilities/`):
 
 1. Search for `'_s'` (inside single quotations) to capture the text domain and replace with: `'next-awesome-theme'`.
-2. Search for `_s_` to capture all the functions names and replace with: `megatherium_is_awesome_`.
+2. Search for `_s_` to capture all the functions names and replace with: `next_awesome_theme_`.
 3. Search for `Theme Name: _s` in `css/style.scss` and replace with: `Theme Name: Next Awesome Theme`.
-3. Search for `Text Domain: _s` in `css/style.scss` and replace with: `Text Domain: next-awesome-theme`.
-4. Search for `_s.pot`/`_s+.pot` and replace with: `next-awesome-theme.pot`/`next-awesome-theme+.pot`. Change file names in `package.json` too.
-5. Search for `_s-` to capture prefixed handles and replace with: `next-awesome-theme-`.
+4. Search for `Text Domain: _s` in `css/style.scss` and replace with: `Text Domain: next-awesome-theme`.
 
 Last but not least: Search for `_s` in all theme files and replace selectively with `next-awesome-theme`.
+
+> [!NOTE]
+> Handles (`theme-style`, `theme-app`, …) and `languages/theme.pot`/`theme+.pot` are neutral and stay as they are – `utilities/` relies on them.
 
 ## Setup
 

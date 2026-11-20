@@ -85,7 +85,7 @@
     // existing ones stay; head styles before the theme's stylesheet, footer styles at the end of `<body>`.
     // Resolves when new stylesheets are loaded (max. 3 s).
     function syncStyles( $document ) {
-        const $themeStyle = document.getElementById( Alter.do( 'htmx-theme-style', '_s-style-css' ) );
+        const $themeStyle = document.getElementById( Alter.do( 'htmx-theme-style', 'theme-style-css' ) );
         const loads = [];
 
         $document.querySelectorAll( 'link[rel="stylesheet"][id], style[id]' ).forEach( $style => {
