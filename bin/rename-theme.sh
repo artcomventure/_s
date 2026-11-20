@@ -5,18 +5,23 @@
 #   bin/rename-theme.sh             interactive: asks for every value
 #   bin/rename-theme.sh --project project-name --theme "Theme Name" [--slug theme-name] [--abbr abc]
 #                       [--dev-url dev.example.de] [--stage-url https://stage.example.de]
-#                       [--live-url https://www.example.de] [--dry-run]
+#                       [--live-url https://www.example.de] [--root /path/to/project] [--dry-run]
 #
 #   --project  Docker project (container + DB name), required
 #   --theme    theme name, required
 #   --slug     text domain, default: derived from --theme
 #   --abbr     DB table prefix, default: wp
+#   --dev-url  dev host without http(s):// (stripped if given), default: <project>.localhost
+#              (no /etc/hosts entry needed); stage/live URL: https:// added if missing;
+#              trailing slashes are stripped
+#   --root     project root to move THEME/docker/ to (only if no docker/ above yet),
+#              default: parent of WordPress if that is public/, htdocs/, web/, …, else WordPress root
 #
 # Handles (`theme-style`, …) and languages/theme(+).pot are neutral – utilities/ relies on them.
 
 set -euo pipefail
 
-usage() { sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; exit "${1:-1}"; }
+usage() { sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit "${1:-1}"; }
 die() { echo "Error: $*" >&2; exit 1; }
 
 RE_PROJECT='^[a-z0-9][a-z0-9_-]*$'
@@ -41,11 +46,11 @@ ask() {
 	done
 }
 
-PROJECT="" NAME="" SLUG="" ABBR="" DEV_URL="" STAGE_URL="" LIVE_URL="" DRY_RUN=0 INTERACTIVE=1
+PROJECT="" NAME="" SLUG="" ABBR="" DEV_URL="" STAGE_URL="" LIVE_URL="" ROOT="" DRY_RUN=0 INTERACTIVE=1
 
 while [ $# -gt 0 ]; do
 	case "$1" in
-		--project|--theme|--slug|--abbr|--dev-url|--stage-url|--live-url)
+		--project|--theme|--slug|--abbr|--dev-url|--stage-url|--live-url|--root)
 			[ $# -ge 2 ] || die "$1 needs a value"
 			case "$1" in
 				--project) PROJECT="$2" ;;
@@ -55,6 +60,7 @@ while [ $# -gt 0 ]; do
 				--dev-url) DEV_URL="$2" ;;
 				--stage-url) STAGE_URL="$2" ;;
 				--live-url) LIVE_URL="$2" ;;
+				--root) ROOT="$2" ;;
 			esac
 			INTERACTIVE=0
 			shift 2 ;;
@@ -70,22 +76,67 @@ cd "$THEME_DIR"
 [ -f css/style.scss ] || die "css/style.scss not found – not an _s theme?"
 grep -q '^Text Domain: _s$' css/style.scss || die "theme already renamed (no 'Text Domain: _s' in css/style.scss)"
 
+# Docker: existing docker/ above WordPress, otherwise move THEME/docker/ to the project root
+WP_ROOT="$(cd ../../.. && pwd -P)"
+DOCKER_DIR=""
+for d in "$WP_ROOT" "$WP_ROOT/.." "$WP_ROOT/../.."; do
+	if [ -f "$d/docker/.env" ] && [ -f "$d/docker/docker-compose.yaml" ]; then
+		DOCKER_DIR="$(cd "$d/docker" && pwd -P)"
+		break
+	fi
+done
+MOVE_DOCKER=0
+if [ -z "$DOCKER_DIR" ] && [ -f "$THEME_DIR/docker/.env" ]; then
+	MOVE_DOCKER=1
+	case "$(basename "$WP_ROOT")" in
+		public|htdocs|httpdocs|web|www|html) ROOT_DEFAULT="$(dirname "$WP_ROOT")" ;;
+		*) ROOT_DEFAULT="$WP_ROOT" ;;
+	esac
+fi
+
+# root_error PATH – prints why PATH can't take docker/ (empty = ok)
+root_error() {
+	local r="${1/#\~/$HOME}"
+	[ -d "$r" ] || { echo "not a directory"; return; }
+	r="$(cd "$r" && pwd -P)"
+	case "$WP_ROOT" in "$r"|"$r"/*) ;; *) echo "WordPress ($WP_ROOT) is not inside it"; return ;; esac
+	[ ! -e "$r/docker" ] || echo "$r/docker already exists"
+}
+
 if [ "$INTERACTIVE" = 1 ]; then
 	[ -t 0 ] || die "no TTY – pass the values as options (see --help)"
 	ask PROJECT "Project name (Docker, a-z 0-9 - _)" "" "$RE_PROJECT" "a-z, 0-9, '-', '_'"
 	ask NAME "Theme name" "" '[^[:space:]]' "required"
 	ask SLUG "Slug / text domain" "$(slugify "$NAME")" "$RE_SLUG" "a-z, 0-9, '-', must start with a letter"
 	ask ABBR "DB table prefix (abbr)" "wp" "$RE_ABBR" "a-z, 0-9, '_', must start with a letter"
-	ask DEV_URL "Dev URL (optional, e.g. dev.example.de)" "" "" ""
+	ask DEV_URL "Dev host (e.g. dev.example.de – http(s):// is stripped)" "${PROJECT//_/-}.localhost" "" ""
 	ask STAGE_URL "Stage URL (optional)" "" "" ""
 	ask LIVE_URL "Live URL (optional)" "" "" ""
+	if [ "$MOVE_DOCKER" = 1 ]; then
+		while :; do
+			ask ROOT "Project root for docker/" "$ROOT_DEFAULT" "" ""
+			err="$(root_error "$ROOT")"
+			[ -n "$err" ] || break
+			echo "  invalid – $err" >&2
+		done
+	fi
 	echo
 else
 	[ -n "$PROJECT" ] || { echo "Error: --project missing" >&2; usage; }
 	[ -n "$NAME" ] || { echo "Error: --theme missing" >&2; usage; }
 fi
 
+if [ "$MOVE_DOCKER" = 1 ]; then
+	ROOT="${ROOT:-$ROOT_DEFAULT}"
+	err="$(root_error "$ROOT")"
+	[ -z "$err" ] || die "--root '$ROOT': $err"
+	ROOT="$(cd "${ROOT/#\~/$HOME}" && pwd -P)"
+elif [ -n "$ROOT" ]; then
+	echo "Note: --root ignored (${DOCKER_DIR:-no THEME/docker/})" >&2
+fi
+
 [[ "$PROJECT" =~ $RE_PROJECT ]] || die "invalid project '$PROJECT' (a-z, 0-9, '-', '_')"
+DEV_URL="${DEV_URL:-${PROJECT//_/-}.localhost}"
 
 # Derive slug/prefix/package from name.
 [ -n "$SLUG" ] || SLUG="$(slugify "$NAME")"
@@ -99,13 +150,22 @@ ABBR="${ABBR:-wp}"
 
 export NAME SLUG PREFIX PACKAGE
 
+# Theme folder → slug
+OLD_DIR="$(basename "$THEME_DIR")"
+NEW_DIR="$(dirname "$THEME_DIR")/$SLUG"
+[ "$OLD_DIR" = "$SLUG" ] || [ ! -e "$NEW_DIR" ] || die "folder '$NEW_DIR' already exists"
+
 echo "Project: $PROJECT   (Docker)"
+if [ "$OLD_DIR" = "$SLUG" ]; then echo "Folder:  $OLD_DIR   (unchanged)"; else echo "Folder:  $OLD_DIR → $SLUG"; fi
 echo "Name:    $NAME"
 echo "Slug:    $SLUG   (text domain)"
 echo "Prefix:  ${PREFIX}_   (functions)"
 echo "Package: $PACKAGE   (@package)"
 echo "Abbr:    $ABBR   (DB table prefix)"
 [ -z "$DEV_URL$STAGE_URL$LIVE_URL" ] || echo "URLs:    ${DEV_URL:--} | ${STAGE_URL:--} | ${LIVE_URL:--}"
+if [ "$MOVE_DOCKER" = 1 ]; then echo "Docker:  move docker/ → $ROOT/docker"
+elif [ -n "$DOCKER_DIR" ]; then echo "Docker:  $DOCKER_DIR"
+else echo "Docker:  none found – skipped"; fi
 [ "$DRY_RUN" = 1 ] && echo "(dry run – nothing is written)"
 echo
 
@@ -137,7 +197,7 @@ FILES=()
 while IFS= read -r -d '' f; do
 	grep -Iq '_s' "$f" 2>/dev/null && FILES+=("$f")
 done < <(find . \
-	\( -path ./utilities -o -path ./node_modules -o -path ./.git -o -path ./bin \) -prune -o \
+	\( -path ./utilities -o -path ./node_modules -o -path ./.git -o -path ./bin -o -path ./docker \) -prune -o \
 	-type f \
 	! -name 'package-lock.json' ! -name '*.md' ! -name 'LICENSE' ! -name '*.min.js' ! -name '*.map' ! -name '*.mo' \
 	-print0)
@@ -156,21 +216,24 @@ echo "Theme: $changed files changed."
 
 # --- Docker .env -----------------------------------------------------------
 
-WP_ROOT="$(cd ../../.. && pwd -P)"
-DOCKER_DIR=""
-for d in "$WP_ROOT" "$WP_ROOT/.." "$WP_ROOT/../.."; do
-	if [ -f "$d/docker/.env" ] && [ -f "$d/docker/docker-compose.yaml" ]; then
-		DOCKER_DIR="$(cd "$d/docker" && pwd -P)"
-		break
-	fi
-done
-
 echo
+PROJECT_ROOT=""
+if [ "$MOVE_DOCKER" = 1 ]; then
+	PROJECT_ROOT="$ROOT"
+	if [ "$DRY_RUN" = 1 ]; then
+		echo "Docker: would move docker/ → $ROOT/docker"
+		DOCKER_DIR="$THEME_DIR/docker"
+	else
+		mv "$THEME_DIR/docker" "$ROOT/docker"
+		echo "Docker: moved docker/ → $ROOT/docker"
+		DOCKER_DIR="$ROOT/docker"
+	fi
+fi
+
 if [ -z "$DOCKER_DIR" ]; then
 	echo "Docker: no docker/.env found above $WP_ROOT – skipped."
-	[ -d "$THEME_DIR/docker" ] && echo "        Move $THEME_DIR/docker to the project root and run again."
 else
-	PROJECT_ROOT="$(dirname "$DOCKER_DIR")"
+	PROJECT_ROOT="${PROJECT_ROOT:-$(dirname "$DOCKER_DIR")}"
 	case "$WP_ROOT" in
 		"$PROJECT_ROOT") WP_REL="../" ;;
 		"$PROJECT_ROOT"/*) WP_REL="../${WP_ROOT#"$PROJECT_ROOT"/}/" ;;
@@ -178,7 +241,7 @@ else
 	esac
 
 	strip_schema() { printf '%s' "$1" | sed -E 's#^https?://##; s#/+$##'; }
-	with_schema() { case "$1" in http://*|https://*) printf '%s' "${1%/}" ;; *) printf 'https://%s' "${1%/}" ;; esac; }
+	with_schema() { local u; u="$(printf '%s' "$1" | sed -E 's#/+$##')"; case "$u" in http://*|https://*) printf '%s' "$u" ;; *) printf 'https://%s' "$u" ;; esac; }
 
 	export E_PROJECT="$PROJECT" E_ABBR="$ABBR" E_WP_ROOT="$WP_REL"
 	export E_HOST="" E_STAGE="" E_LIVE=""
@@ -209,7 +272,7 @@ fi
 
 echo
 if [ "$DRY_RUN" = 0 ]; then
-	left="$(grep -rnIE --exclude-dir=utilities --exclude-dir=node_modules --exclude-dir=bin \
+	left="$(grep -rnIE --exclude-dir=utilities --exclude-dir=node_modules --exclude-dir=bin --exclude-dir=docker \
 		--exclude=package-lock.json --exclude='*.md' --exclude='*.min.js' --exclude='*.map' \
 		'(^|[^A-Za-z0-9_$-])_s([^A-Za-z0-9_]|$)|_s_|_s-' . || true)"
 	if [ -n "$left" ]; then
@@ -219,10 +282,32 @@ if [ "$DRY_RUN" = 0 ]; then
 	fi
 fi
 
-[ "$(basename "$THEME_DIR")" = "$SLUG" ] || echo "Note: theme folder is '$(basename "$THEME_DIR")', slug is '$SLUG'."
-cat <<EOF
-Next steps:
-  - npm run build                 (style.css header already patched, rebuild anyway)
-  - npm run i18n:scan && npm run i18n:create   (wp-cli → in Docker, regenerates .mo)
-  - Docker: check docker/.env, add '127.0.0.1 ${E_HOST:-<HOST>}' to /etc/hosts
-EOF
+HINTS=()
+
+# Theme folder
+if [ "$OLD_DIR" != "$SLUG" ]; then
+	if [ "$DRY_RUN" = 1 ]; then
+		echo "Folder: would rename '$OLD_DIR' → '$SLUG'"
+	else
+		mv "$THEME_DIR" "$NEW_DIR"
+		echo "Folder: renamed '$OLD_DIR' → '$SLUG'"
+		HINTS+=("cd ../$SLUG   (your shell is still in the old path)")
+	fi
+fi
+
+if [ -n "$DOCKER_DIR" ]; then
+	# /etc/hosts stays manual – hint only if the entry is missing (*.localhost resolves by itself)
+	HOST_NAME="$(perl -pe "$PERL_ENV" "$DOCKER_DIR/.env" | sed -n 's/^HOST=//p' | head -1)"
+	case "$HOST_NAME" in
+		""|DEV_URL_WITHOUT_SCHEMA) HINTS+=("set HOST in docker/.env") ;;
+		localhost|*.localhost) ;;
+		*) awk -v h="$HOST_NAME" '!/^[[:space:]]*#/ { for ( i = 2; i <= NF; i++ ) if ( $i == h ) f = 1 } END { exit !f }' /etc/hosts \
+			|| HINTS+=("add '127.0.0.1 $HOST_NAME' to /etc/hosts") ;;
+	esac
+fi
+
+if [ ${#HINTS[@]} -gt 0 ]; then
+	echo
+	echo "Next steps:"
+	printf '  - %s\n' "${HINTS[@]}"
+fi

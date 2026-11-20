@@ -8,7 +8,7 @@ Config see `.env`.
 ## Getting started
 
 - [Install Docker](https://www.docker.com/get-started/)
-- Add IP and host name `127.0.0.1 {HOST from .env}` to your hosts file
+- Add IP and host name `127.0.0.1 {HOST from .env}` to your hosts file (not needed for `*.localhost`)
   - macOS: `/etc/hosts`
   - Microsoft: `WINDOWS/system32/drivers/hosts`
 

@@ -13,11 +13,11 @@ Hi. I'm a fork of the starter theme called _s. I'm a template theme meant to be 
 
 ### Docker DEV Environment (optional)
 
-Move the `/docker` folder to the root of the project's installation and set parameters in the `.env` file.
+`bin/rename-theme.sh` (see [Theme](#theme)) does all of this. By hand: move the `/docker` folder to the root of the project's installation and set parameters in the `.env` file.
 
 1. Replace `PROJECT_NAME` with the current project name.
 2. Replace `PROJECT_ABBR` with the project's abbreviation. This is used as DB table prefix. Default is `wp`.
-3. Replace `DEV_URL_WITHOUT_SCHEMA` with the project's dev URL without `http://`. This should be the live URL with `dev.` instead of `www.`: dev.project.de
+3. Replace `DEV_URL_WITHOUT_SCHEMA` with the project's dev URL without `http://`. This should be the live URL with `dev.` instead of `www.`: dev.project.de – or `<project>.localhost` (script default, needs no hosts entry).
 4. Replace `STAGE_URL_WITH_SCHEMA` with the project's stage URL.
 5. Replace `LIVE_URL_WITH_SCHEMA` with the project's live URL.
 
@@ -27,11 +27,11 @@ For further Docker installation see docker/README.md
 
 ### Theme
 
-Rename the theme with the script – without options it asks for every value (also fills `PROJECT`, `ABBR`, URLs and `WORDPRESS_ROOT` in `docker/.env`, if found):
+Rename the theme with the script – without options it asks for every value (also renames the theme folder to the slug, moves `docker/` to the project root, fills `PROJECT`, `ABBR`, URLs and `WORDPRESS_ROOT` in `docker/.env`):
 
 ```sh
 $ bin/rename-theme.sh --project project-name --theme "Next Awesome Theme" [--slug next-awesome-theme] [--abbr nat] \
-    [--dev-url dev.project.de] [--stage-url https://stage.project.de] [--live-url https://www.project.de] [--dry-run]
+    [--dev-url dev.project.de] [--stage-url https://stage.project.de] [--live-url https://www.project.de] [--root /path/to/project] [--dry-run]
 ```
 
 Or by hand – change the theme's name "_s" to something else (like, say, `next-awesome-theme`) with a find and replace on the name in all the templates (not in `utilities/`):

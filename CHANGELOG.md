@@ -3,7 +3,7 @@
 ## 2.3.0 - 2026-11-20
 **Added**
 
-* `bin/rename-theme.sh`: renames `_s` to the project theme (name, slug, function prefix, text domain) and fills the placeholders in `docker/.env` (`PROJECT`, `ABBR`, URLs, `WORDPRESS_ROOT`). See README „Theme“. Versioned (exception in `THEME/bin/.gitignore`), the other `bin/` tools stay local.
+* `bin/rename-theme.sh`: renames `_s` to the project theme – theme name, text domain (slug), function prefix, `@package`, `.pot`/`.po` headers, `package.json` name and the theme folder (→ slug); `utilities/`, `docker/` and `*.md` stay untouched. Moves `THEME/docker/` to the project root if there is no `docker/` above WordPress yet (default: parent of `public/`, `htdocs/`, `web/`, … else WordPress root; `--root` or asked interactively). Fills the placeholders in `docker/.env` (`PROJECT`, `ABBR`, URLs, `WORDPRESS_ROOT` computed from the folder layout; manual values are kept) (dev host default `<project>.localhost` – resolves without hosts entry and keeps loopback requests from the container working, unlike plain `localhost`; `/etc/hosts` stays manual, the script only hints at a missing entry). Without options it asks for every value (validated, slug suggested from the theme name with German transliteration, confirmation before writing); with options (`--project`, `--theme` required; `--slug`, `--abbr` default `wp`, `--dev-url`, `--stage-url`, `--live-url`, `--root`, `--dry-run`) it runs without questions. Refuses an already renamed theme or an existing target folder. See README „Theme“. Versioned (exception in `THEME/bin/.gitignore`), the other `bin/` tools stay local.
 
 **Changed**
 
